@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 17:13:20 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/01 19:13:01 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
  */
 void	mlx_argb_to_float(int32_t color, float out[4])
 {
-	out[0] = (float)(1.0f / UINT8_MAX) *(color >> 24);
-	out[1] = (float)(1.0f / UINT8_MAX) *(color >> 16);
-	out[2] = (float)(1.0f / UINT8_MAX) *(color >> 8);
-	out[3] = (float)(1.0f / UINT8_MAX) *(color & 0xFF);
+	out[3] = (float)(1.0f / UINT8_MAX) *(color >> 24);
+	out[0] = (float)(1.0f / UINT8_MAX) *(color >> 16);
+	out[1] = (float)(1.0f / UINT8_MAX) *(color >> 8);
+	out[2] = (float)(1.0f / UINT8_MAX) *(color & 0xFF);
 }
 
 /**

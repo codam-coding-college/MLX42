@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 17:40:17 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/01 22:12:02 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include "MLX_Keys.h"
+# include "MLX_Vec.h"
 
 /**
  * Main MLX handle, carries important data in regard to the program.
@@ -41,12 +42,6 @@ typedef struct s_MLX
 	uint32_t	shaderprogram;
 	uint32_t	vao;
 }	t_MLX;
-
-typedef struct s_IVec2
-{
-	int32_t	x;
-	int32_t	y;
-}	t_IVec2;
 
 typedef struct s_Pixel
 {
@@ -70,6 +65,8 @@ bool	mlx_loop_hook(t_MLX *mlx, void (*f)(void *), void *param);
 void	mlx_terminate(t_MLX *mlx);
 
 void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color);
+
+bool	mlx_is_key_down(t_MLX *mlx, int32_t key);
 
 /**
  * Main program loop, call this last.
