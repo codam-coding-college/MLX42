@@ -53,4 +53,4 @@ dkms.conf
 
 # Misc
 main.c
-mlx42
+.vscode/
