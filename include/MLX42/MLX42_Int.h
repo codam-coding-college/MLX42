@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 16:35:32 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/01 23:35:20 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ bool		mlx_error(const char *error);
 
 bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
 bool		mlx_init_shaders(t_MLX *mlx, uint32_t *shaders);
-void		mlx_argb_to_float(int32_t color, float out[4]);
+void		mlx_argb_to_float(int32_t color, t_FVec4 *RGBA_Out);
+
 #endif

@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mlx_put_pixel.c                                    :+:    :+:            */
+/*   mlx_get_mouse_pos.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 23:39:02 by W2Wizard      ########   odam.nl         */
+/*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/01/01 23:36:44 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-// TODO: Introduce shader func utilites to easily change params...
-void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color)
+void	mlx_get_mouse_pos(t_MLX *mlx, t_IVec2 *pos_out)
 {
-	t_FVec4	output;
+	double	pos[2];
 
-	mlx_argb_to_float(Color, &output);
-	glUniform4f(glGetUniformLocation(MLX->shaderprogram, "inColor"), \
-	output.x, output.y, output.z, output.w);
-	glEnable(GL_SCISSOR_TEST);
-	glScissor(X, Y, 100, 100);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glDisable(GL_SCISSOR_TEST);
+	glfwGetCursorPos(mlx->window, &pos[0], &pos[0]);
+	pos_out->x = (int32_t)pos[0];
+	pos_out->y = (int32_t)pos[1];
 }

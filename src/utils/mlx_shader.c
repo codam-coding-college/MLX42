@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 19:13:01 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/01 23:45:18 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@
  * Converts an ARGB value to a float component/vector.
  * 
  * @note Because norminette is so good! We need to do * without spaces :)
- * @param color The input ARGB value.
+ * @param color The input RGBA value.
  * @param out Float buffer to apply the converted color values to.
- * TODO: Check wether OpenGL uses ARGB or RGBA.
  */
-void	mlx_argb_to_float(int32_t color, float out[4])
+void	mlx_argb_to_float(int32_t color, t_FVec4 *RGBA_Out)
 {
-	out[3] = (float)(1.0f / UINT8_MAX) *(color >> 24);
-	out[0] = (float)(1.0f / UINT8_MAX) *(color >> 16);
-	out[1] = (float)(1.0f / UINT8_MAX) *(color >> 8);
-	out[2] = (float)(1.0f / UINT8_MAX) *(color & 0xFF);
+	RGBA_Out->x = (float)(1.0f / UINT8_MAX) *((color >> 24) & 0xFF);
+	RGBA_Out->y = (float)(1.0f / UINT8_MAX) *((color >> 16) & 0xFF);
+	RGBA_Out->z = (float)(1.0f / UINT8_MAX) *((color >> 8) & 0xFF);
+	RGBA_Out->w = (float)(1.0f / UINT8_MAX) *((color >> 0) & 0xFF);
 }
 
 /**

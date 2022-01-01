@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mlx_put_pixel.c                                    :+:    :+:            */
+/*   mlx_quit.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 23:39:02 by W2Wizard      ########   odam.nl         */
+/*   Created: 2022/01/01 23:17:43 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/01/01 23:19:12 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-// TODO: Introduce shader func utilites to easily change params...
-void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color)
+void	mlx_quit(t_MLX *mlx)
 {
-	t_FVec4	output;
-
-	mlx_argb_to_float(Color, &output);
-	glUniform4f(glGetUniformLocation(MLX->shaderprogram, "inColor"), \
-	output.x, output.y, output.z, output.w);
-	glEnable(GL_SCISSOR_TEST);
-	glScissor(X, Y, 100, 100);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glDisable(GL_SCISSOR_TEST);
+	glfwSetWindowShouldClose(mlx->window, true);
 }

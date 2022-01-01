@@ -6,12 +6,12 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/12/28 01:01:14 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/01/01 17:11:37 by W2Wizard      ########   odam.nl          #
+#    Updated: 2022/01/01 23:40:48 by W2Wizard      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= mlx42
-CFLAGS	= -Wextra -Werror -Wall -Wunreachable-code -O3
+CFLAGS	= -Wextra -Werror -Wall -Wunreachable-code -O3 -g
 
 # //= Colors =// #
 BOLD	= \e[1m
