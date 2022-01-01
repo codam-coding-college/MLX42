@@ -2,7 +2,7 @@
 
 Project still WIP!
 
-My own recreation of the MiniLibX library used by 42, using OpenGL &amp; GLAD.
+My own recreation of the MiniLibX library used by 42, using glfw &amp; glad, running on OpenGL 3.3.
 
 ## Installation
 
