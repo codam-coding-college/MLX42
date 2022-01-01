@@ -6,12 +6,12 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2021/12/28 02:38:21 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/01 22:15:23 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_KEYS_H
-# define MLX_KEYS_H
+#ifndef MLX42_KEYS_H
+# define MLX42_KEYS_H
 
 // All sorts of keyboard keycodes used by OpenGL.
 typedef enum e_keys

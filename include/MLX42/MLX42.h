@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 22:12:02 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/01 22:15:36 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define MLX42_H
 # include <stdint.h>
 # include <stdbool.h>
-# include "MLX_Keys.h"
-# include "MLX_Vec.h"
+# include "MLX42_Keys.h"
+# include "MLX42_Vec.h"
 
 /**
  * Main MLX handle, carries important data in regard to the program.
