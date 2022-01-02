@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 17:43:50 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/02 01:07:15 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,38 @@ static void	framebuffer_callback(GLFWwindow *window, int width, int height)
 
 static bool	mlx_init_frame(t_MLX *mlx)
 {
-	float	vertices[] = {
-		// positions         // colors
-		1.0f, -1.0f, 0.0f,  1.0f, 0.0f, 0.0f,  // bottom right
-		-1.0f, -1.0f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
-		0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
-
+	const float		vertices[] = {
+		// Positions          	// Colors           // Texture coords
+		1.0f,	1.0f,	0.0f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f, // top right
+		1.0f,	-1.0f,	0.0f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f, // bottom right
+		-1.0f,	-1.0f,	0.0f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f, // bottom left
+		-1.0f,	1.0f,	0.0f,	1.0f, 1.0f, 0.0f,	0.0f, 1.0f, // top left 
+	};
+	const uint32_t	indices[] = {
+		0, 1, 3, // first triangle
+		1, 2, 3, // second triangle
 	};
 
-	unsigned int VBO, VAO;
+	uint32_t VBO, VAO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
 	glBindVertexArray(VAO);
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	//glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 	mlx->vao = VAO;
 	return (true);
 }

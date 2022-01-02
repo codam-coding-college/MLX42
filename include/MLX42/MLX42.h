@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/02 00:01:39 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/02 01:10:29 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color);
 bool	mlx_is_key_down(t_MLX *mlx, t_keys key);
 
 /**
- * Returns the current mouse cursor position on the window, starting
+ * Returns the current, relative, mouse cursor position on the window, starting
  * from the top left corner.
+ * 
+ * Negative values or values greater than window width or height 
+ * indicate that it is outside the window.
  * 
  * @param mlx The MLX instance handle. 
  * @param pos_out The position.

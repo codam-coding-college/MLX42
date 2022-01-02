@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 23:45:18 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/02 00:28:52 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param color The input RGBA value.
  * @param out Float buffer to apply the converted color values to.
  */
-void	mlx_argb_to_float(int32_t color, t_FVec4 *RGBA_Out)
+void	mlx_rgba_to_float(int32_t color, t_FVec4 *RGBA_Out)
 {
 	RGBA_Out->x = (float)(1.0f / UINT8_MAX) *((color >> 24) & 0xFF);
 	RGBA_Out->y = (float)(1.0f / UINT8_MAX) *((color >> 16) & 0xFF);

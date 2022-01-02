@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 23:39:02 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/02 00:39:29 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color)
 {
 	t_FVec4	output;
 
-	mlx_argb_to_float(Color, &output);
+	mlx_rgba_to_float(Color, &output);
 	glUniform4f(glGetUniformLocation(MLX->shaderprogram, "inColor"), \
 	output.x, output.y, output.z, output.w);
 	glEnable(GL_SCISSOR_TEST);
