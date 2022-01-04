@@ -6,16 +6,24 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/02 01:10:29 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/03 16:23:00 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-//http://www.opengl-tutorial.org/beginners-tutorials/tutorial-2-the-first-triangle/
 /**
- * New OpenGL graphics library based on the idea on what MiniLibX
+ * OpenGL graphics library based on the idea on what MiniLibX
  * provides. Just quite a bit better, in terms of norme and code quality.
  * 
- * @note Useful stuff for later __attribute__ ((deprecated));
+ * Additionally with glfw its cross-platform, unlike before.
+ * 
+ * As for the few void* present in some structs and why MLX is split into
+ * two different headers, so to speak, is mainly for abstraction. Most users
+ * won't have a need for the inner workings of MLX (shaders, ...) and it also
+ * helps keep MLX nice and tidy.
+ * 
+ * @note Useful stuff for later:
+ * https://bit.ly/3qQof6q
+ * __attribute__ ((deprecated));
  * 
  * Written in accordance with norminette 3.3.51.
  */
@@ -29,6 +37,7 @@
 
 /**
  * Main MLX handle, carries important data in regard to the program.
+ * TODO: Abstract VAO and Shaderprogram.
  * @param window The window itself.
  * @param hooks List of all the current hooks.
  * @param title The title of the window.
@@ -45,11 +54,20 @@ typedef struct s_MLX
 	uint32_t	vao;
 }	t_MLX;
 
-typedef struct s_Pixel
+/**
+ * Main MLX handle, carries important data in regard to the program.
+ * @param width The width of the canvas.
+ * @param height The height of the canvas.
+ * @param pixels The literal pixel data.
+ * @param context Additional internal image context used by MLX.
+ */
+typedef struct s_mlx_canvas
 {
-	t_IVec2	postion;
-	int32_t	color;
-}	t_Pixel;
+	int32_t	width;
+	int32_t	height;
+	int32_t	*pixels;
+	void	*context;
+}	t_mlx_canvas;
 
 /**
  * Initilizes a new MLX42 Instance.

@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/12/28 01:01:14 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/01/01 23:40:48 by W2Wizard      ########   odam.nl          #
+#    Updated: 2022/01/02 12:10:02 by W2Wizard      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ LIBS	= /usr/local/lib/libglfw.dylib
 # //= Files =// #
 
 # TODO: Add files, remove shell command.
+# TODO: Exclude glad.c from norme.
 SRCS	=	$(shell find ./src -iname "*.c") main.c
-			
 OBJS	= ${SRCS:.c=.o}
 
 # //= Rules =// #
@@ -35,12 +35,12 @@ OBJS	= ${SRCS:.c=.o}
 all: $(NAME)
 	
 %.o: %.c
-	@printf	"$(GREEN)$(BOLD)\rCompiling: $(notdir $<) 🔨 $(RESET)"
+	@printf	"$(GREEN)$(BOLD)\rCompiling: $(notdir $<) 🔨 \n$(RESET)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) 
 
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(HEADERS) $(LIBS) -o $(NAME)
-	@echo "$(GREEN)Done ✅$(RESET)"
+	@printf "$(GREEN)$(BOLD)Done ✅\n$(RESET)"
 
 ## //= Commands =// #
 

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:41:55 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 17:11:16 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/03 16:26:16 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,23 +115,41 @@ void	mlx_put_image_to_window(t_MLX *mlx, t_mlx_canvas *img, int x, int y)
 	return ;
 }
 
-void	mlx_delete_image(void *Img)
+/*
+static void	mlx_init_image()
+{
+	glGenTextures(1, &(imgctx->texture));
+	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, img->width, img->height, 0, \
+	GL_BGRA, GL_INT, img->buffer);
+	glGenBuffers(1, &(imgctx->vbuffer));
+	glBindBuffer(GL_ARRAY_BUFFER, imgctx->vbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(img->vertexes), img->vertexes, \
+	GL_DYNAMIC_DRAW);
+}
+*/
+void	mlx_delete_canvas(void *Img)
 {
 	(void) Img;
 	return ;
 }
 
-void	*mlx_new_image(t_IVec2 Size)
+void	*mlx_new_canvas(t_IVec2 Size)
 {
-	t_mlx_canvas	*canvas;
+	t_mlx_canvas	*canvas = NULL;
+	(void)Size;
+	/*
 	const int32_t	pixel_count = (Size.x * Size.y) * sizeof(int32_t);
 	const GLfloat	rectangle_vertices[8] = {
-		-1.0,	-1.0,	// Bottom Left
-		+1.0,	-1.0,	// Bottom Right
 		+1.0,	+1.0,	// Top Right
+		+1.0,	-1.0,	// Bottom Right
+		-1.0,	-1.0,	// Bottom Left
 		-1.0,	+1.0,	// Top Left
 	};
-
 	canvas = malloc(sizeof(t_mlx_canvas));
 	if (!canvas)
 		return (NULL);
@@ -144,5 +162,7 @@ void	*mlx_new_image(t_IVec2 Size)
 		free(canvas);
 		return (NULL);
 	}
-	return (memset(canvas->pixels, '\0', pixel_count));
+	bzero(canvas->pixels, pixel_count);
+	*/
+	return (canvas);
 }

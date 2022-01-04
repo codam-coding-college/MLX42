@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/02 00:39:51 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/04 19:15:49 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,11 @@
 
 //= Types =//
 
-// Same as MLX images, renamed to canvas to be more appropriate.
-typedef struct s_mlx_canvas
+typedef struct s_mlx_canvas_ctx
 {
-	int32_t	width;
-	int32_t	height;
-	int32_t	*pixels;
-	GLfloat	vertices[6];
-}	t_mlx_canvas;
-
-typedef struct s_mlx_img_ctx
-{
-	GLuint			texture;
-	GLuint			vbuffer;
-	t_mlx_canvas	*img;
-}	t_mlx_img_ctx;
+	GLfloat	vertices[8];
+	GLuint	texture;
+}	t_mlx_canvas_ctx;
 
 // Struct witholding a simple hook function with a param.
 typedef struct s_mlx_hook
@@ -84,5 +74,6 @@ bool		mlx_error(const char *error);
 bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
 bool		mlx_init_shaders(t_MLX *mlx, uint32_t *shaders);
 void		mlx_rgba_to_float(int32_t color, t_FVec4 *RGBA_Out);
+char		*mlx_readfile(const char *FilePath);
 
 #endif
