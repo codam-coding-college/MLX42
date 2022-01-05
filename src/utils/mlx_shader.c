@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/03 20:13:05 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 02:30:39 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@ bool	mlx_init_shaders(t_MLX *mlx, uint32_t *shaders)
 	uint32_t	i;
 	int			success;
 	char		infolog[512];
+	t_mlx_ctx	*context;
 
 	i = 0;
-	mlx->shaderprogram = glCreateProgram();
-	if (!mlx->shaderprogram)
+	context = mlx->context;
+	context->shaderprogram = glCreateProgram();
+	if (!context->shaderprogram)
 		return (false);
 	while (shaders[i])
-		glAttachShader(mlx->shaderprogram, shaders[i++]);
-	glLinkProgram(mlx->shaderprogram);
-	glGetProgramiv(mlx->shaderprogram, GL_LINK_STATUS, &success);
+		glAttachShader(context->shaderprogram, shaders[i++]);
+	glLinkProgram(context->shaderprogram);
+	glGetProgramiv(context->shaderprogram, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetProgramInfoLog(mlx->shaderprogram, sizeof(infolog), NULL, infolog);
+		glGetProgramInfoLog(context->shaderprogram, sizeof(infolog), \
+		NULL, infolog);
 		fprintf(stderr, "%s", infolog);
 		return (false);
 	}

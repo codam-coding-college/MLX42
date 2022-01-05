@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/02 00:39:29 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 02:25:06 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 // TODO: Introduce shader func utilites to easily change params...
 void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color)
 {
+	(void)MLX;
+	(void)X;
+	(void)Y;
+	(void)Color;
+	/*
 	t_FVec4	output;
 
 	mlx_rgba_to_float(Color, &output);
@@ -24,4 +29,5 @@ void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color)
 	glScissor(X, Y, 100, 100);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glDisable(GL_SCISSOR_TEST);
+	*/
 }

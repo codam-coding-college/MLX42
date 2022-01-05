@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/04 19:15:49 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 02:21:49 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,15 @@
 
 //= Types =//
 
-typedef struct s_mlx_canvas_ctx
+// OpenGL variables.
+typedef struct s_mlx_ctx
 {
-	GLfloat	vertices[8];
-	GLuint	texture;
-}	t_mlx_canvas_ctx;
+	uint32_t	shaderprogram;
+	uint32_t	texture;
+	uint32_t	vao;
+	uint32_t	vbo;
+	uint32_t	ebo;
+}	t_mlx_ctx;
 
 // Struct witholding a simple hook function with a param.
 typedef struct s_mlx_hook

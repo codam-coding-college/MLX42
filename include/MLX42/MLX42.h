@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 00:53:18 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 02:17:00 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ typedef struct s_MLX
 	int32_t		width;
 	int32_t		height;
 	uint8_t		*pixels;
-	uint32_t	shaderprogram;
-	uint32_t	texture;
-	uint32_t	vao;
+	void		*context;
 }	t_MLX;
 
 /**
