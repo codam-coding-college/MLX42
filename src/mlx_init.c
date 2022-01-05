@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/04 15:57:52 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 01:27:23 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,30 @@ static void	framebuffer_callback(GLFWwindow *window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
+static void	mlx_draw_frame(t_MLX *mlx)
+{
+	glGenTextures(1, &(mlx->texture));
+	glBindTexture(GL_TEXTURE_2D, mlx->texture); 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	mlx->pixels = malloc((mlx->width * mlx->height) * sizeof(int32_t));
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, mlx->pixels);
+	glUniform1i(glGetUniformLocation(mlx->shaderprogram, "texture"), 0);
+	glEnable(GL_BLEND);
+	glBlendEquation(GL_FUNC_ADD);
+}
+
 static bool	mlx_init_frame(t_MLX *mlx)
 {
-	float vertices[] = {
-        // positions          // colors           // texture coords
-         1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-         1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-        -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
-    };
-	
+	const float	vertices[] = {
+		// positions          // colors       // texture coords
+		-1.0f, +1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, // top left 
+		-1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // bottom left
+		+1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // bottom right
+		+1.0f, +1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top right
+	};
     unsigned int indices[] = {
         0, 1, 3, // first triangle
         1, 2, 3  // second triangle
@@ -57,21 +71,7 @@ static bool	mlx_init_frame(t_MLX *mlx)
     glEnableVertexAttribArray(2);
 
 	//// Texture
-
-	uint32_t	texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	
-	uint8_t *data = malloc((64 * 64) * sizeof(int32_t));
-	int32_t i = 0;
-	while (i < (64 * 64 * 4))
-		data[i++] = rand() % 255;
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 64, 64, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
-	glUniform1i(glGetUniformLocation(mlx->shaderprogram, "texture"), 0);
+	mlx_draw_frame(mlx);
 	mlx->vao = VAO;
 	return (true);
 }

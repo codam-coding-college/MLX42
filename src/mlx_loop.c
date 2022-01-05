@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/04 16:10:02 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 01:31:16 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	mlx_loop(t_MLX *mlx)
 		mlx_exec_loop_hooks(mlx);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glActiveTexture(GL_TEXTURE0);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 64, 64, 0, GL_BGRA, GL_UNSIGNED_BYTE, mlx->pixels);
 		glBindVertexArray(mlx->vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glfwGetFramebufferSize(mlx->window, &(mlx->width), &(mlx->height));
