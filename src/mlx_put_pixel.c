@@ -6,13 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 13:02:22 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 16:06:46 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color)
+void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color)
 {
 	uint8_t	*pixelstart;
 

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 13:06:11 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 16:10:34 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@
 
 /**
  * Main MLX handle, carries important data in regard to the program.
- * TODO: Abstract VAO and Shaderprogram.
  * @param window The window itself.
  * @param hooks List of all the current hooks.
- * @param title The title of the window.
  * @param width The width.
  * @param height The height.
+ * @param pixels The literal pixel data.
+ * @param context Abstracted opengl data.
  */
-typedef struct s_MLX
+typedef struct s_mlx
 {
 	void		*window;
 	void		*hooks;
@@ -52,22 +52,7 @@ typedef struct s_MLX
 	int32_t		height;
 	uint8_t		*pixels;
 	void		*context;
-}	t_MLX;
-
-/**
- * Main MLX handle, carries important data in regard to the program.
- * @param width The width of the canvas.
- * @param height The height of the canvas.
- * @param pixels The literal pixel data.
- * @param context Additional internal image context used by MLX.
- */
-typedef struct s_mlx_canvas
-{
-	int32_t	width;
-	int32_t	height;
-	int32_t	*pixels;
-	void	*context;
-}	t_mlx_canvas;
+}	t_mlx;
 
 /**
  * Initilizes a new MLX42 Instance.
@@ -77,7 +62,7 @@ typedef struct s_mlx_canvas
  * @param Title The title of the window.
  * @return Ptr to the MLX handle.
  */
-t_MLX	*mlx_init(int32_t Width, int32_t Height, const char *Title, \
+t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, \
 bool Resize);
 
 /**
@@ -88,14 +73,14 @@ bool Resize);
  * @param param The parameter to pass onto the function.
  * @return Wether the hook was added successfuly. 
  */
-bool	mlx_loop_hook(t_MLX *mlx, void (*f)(void *), void *param);
+bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
 
 /**
  * Terminates MLX and cleans up any of its used resources.
  * 
  * @param mlx The MLX instance handle.
  */
-void	mlx_terminate(t_MLX *mlx);
+void	mlx_terminate(t_mlx *mlx);
 
 /**
  * Sets / puts a pixel onto the screen using 
@@ -105,7 +90,7 @@ void	mlx_terminate(t_MLX *mlx);
  * @param Y The Y coordinate position.
  * @param Color The RGBA8 Color value.
  */
-void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color);
+void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color);
 
 /**
  * Returns true or false if the key is down or not.
@@ -114,7 +99,7 @@ void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color);
  * @param key The keycode to check, use MLX_KEY_... to specify!
  * @return True or false if the key is down or not.
  */
-bool	mlx_is_key_down(t_MLX *mlx, t_keys key);
+bool	mlx_is_key_down(t_mlx *mlx, t_keys key);
 
 /**
  * Returns the current, relative, mouse cursor position on the window, starting
@@ -126,7 +111,7 @@ bool	mlx_is_key_down(t_MLX *mlx, t_keys key);
  * @param mlx The MLX instance handle. 
  * @param pos_out The position.
  */
-void	mlx_get_mouse_pos(t_MLX *mlx, t_IVec2 *pos_out);
+void	mlx_get_mouse_pos(t_mlx *mlx, t_IVec2 *pos_out);
 
 /**
  * Tells MLX that it should stop rendering and quit the main loop.
@@ -134,7 +119,7 @@ void	mlx_get_mouse_pos(t_MLX *mlx, t_IVec2 *pos_out);
  * 
  * @param mlx The MLX instance handle.
  */
-void	mlx_quit(t_MLX *mlx);
+void	mlx_quit(t_mlx *mlx);
 
 /**
  * The program loop, this will cause MLX to continously render
@@ -142,6 +127,6 @@ void	mlx_quit(t_MLX *mlx);
  * 
  * @param mlx The MLX instance handle.
  */
-void	mlx_loop(t_MLX *mlx);
+void	mlx_loop(t_mlx *mlx);
 
 #endif

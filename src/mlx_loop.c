@@ -6,13 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 13:04:59 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 16:06:46 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-static void	mlx_exec_loop_hooks(t_MLX *mlx)
+static void	mlx_exec_loop_hooks(t_mlx *mlx)
 {
 	t_mlx_list	*lstcpy;
 	t_mlx_hook	*hook;
@@ -26,7 +26,7 @@ static void	mlx_exec_loop_hooks(t_MLX *mlx)
 	}
 }
 
-bool	mlx_loop_hook(t_MLX *mlx, void (*f)(void *), void *param)
+bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 {
 	t_mlx_list	*lst;
 	t_mlx_hook	*hook;
@@ -48,7 +48,7 @@ bool	mlx_loop_hook(t_MLX *mlx, void (*f)(void *), void *param)
 
 // Essentially just loops forever and executes the hooks and window size.
 // glfwGetFramebufferSize(mlx->window, &(mlx->width), &(mlx->height));
-void	mlx_loop(t_MLX *mlx)
+void	mlx_loop(t_mlx *mlx)
 {
 	t_mlx_ctx	*context;
 

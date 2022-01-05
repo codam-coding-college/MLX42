@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 12:18:13 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 16:06:46 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	framebuffer_callback(GLFWwindow *window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-static void	mlx_draw_frame(t_MLX *mlx)
+static bool	mlx_draw_frame(t_mlx *mlx)
 {
 	t_mlx_ctx		*context;
 
@@ -31,31 +31,34 @@ static void	mlx_draw_frame(t_MLX *mlx)
 	glEnableVertexAttribArray(2);
 	glGenTextures(1, &(context->texture));
 	glBindTexture(GL_TEXTURE_2D, context->texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	mlx->pixels = calloc((mlx->width * mlx->height), sizeof(int32_t));
+	if (!mlx->pixels)
+		return (false);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, \
 	0, GL_RGBA, GL_UNSIGNED_BYTE, mlx->pixels);
 	glUniform1i(glGetUniformLocation(context->shaderprogram, "texture"), 0);
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
+	return (true);
 }
 
-static bool	mlx_init_frame(t_MLX *mlx)
+static bool	mlx_init_frame(t_mlx *mlx)
 {
 	t_mlx_ctx		*context;
 	const float		vertices[] = {
-		// positions            // colors           // texture coords
-		-1.0f, +1.0f, 0.0f,		1.0f, 1.0f, 0.0f,	0.0f, 0.0f, // top left 
-		-1.0f, -1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f, 1.0f, // bottom left
-		+1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f, // bottom right
-		+1.0f, +1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f, // top right
+		// Positions            // Colors           // Texture coords
+		-1.0f, +1.0f, 0.0f,		1.0f, 1.0f, 0.0f,	0.0f, 0.0f, // Top left 
+		-1.0f, -1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f, 1.0f, // Bottom left
+		+1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f, // Bottom right
+		+1.0f, +1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f, // Top right
 	};
 	const uint32_t	index[] = {
-		0, 1, 3, // first triangle
-		1, 2, 3 // second triangle
+		0, 1, 3, // First triangle
+		1, 2, 3, // Second triangle
 	};
 
 	context = mlx->context;
@@ -67,11 +70,10 @@ static bool	mlx_init_frame(t_MLX *mlx)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, context->ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index), index, GL_STATIC_DRAW);
-	mlx_draw_frame(mlx);
-	return (true);
+	return (mlx_draw_frame(mlx));
 }
 
-static bool	mlx_init_render(t_MLX *mlx)
+static bool	mlx_init_render(t_mlx *mlx)
 {
 	uint32_t	s[3];
 
@@ -96,12 +98,12 @@ static bool	mlx_init_render(t_MLX *mlx)
 	return (mlx_init_frame(mlx));
 }
 
-t_MLX	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
+t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 {
-	t_MLX		*mlx;
+	t_mlx		*mlx;
 	const bool	init = glfwInit();
 
-	mlx = calloc(1, sizeof(t_MLX));
+	mlx = calloc(1, sizeof(t_mlx));
 	if (!mlx || !init)
 	{
 		free(mlx);
