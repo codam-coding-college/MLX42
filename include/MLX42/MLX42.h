@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 02:17:00 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 13:06:11 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,14 @@ bool	mlx_loop_hook(t_MLX *mlx, void (*f)(void *), void *param);
  */
 void	mlx_terminate(t_MLX *mlx);
 
-// TODO: Remove and replace with putpixel_canvas instead...
+/**
+ * Sets / puts a pixel onto the screen using 
+ * 
+ * @param MLX The MLX instance handle.
+ * @param X The X coordinate position.
+ * @param Y The Y coordinate position.
+ * @param Color The RGBA8 Color value.
+ */
 void	mlx_putpixel(t_MLX *MLX, int32_t X, int32_t Y, int32_t Color);
 
 /**

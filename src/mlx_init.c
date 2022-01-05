@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 02:28:33 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/05 12:18:13 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static void	mlx_draw_frame(t_MLX *mlx)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	mlx->pixels = malloc((mlx->width * mlx->height) * sizeof(int32_t));
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, 0, \
-	GL_BGRA, GL_UNSIGNED_BYTE, mlx->pixels);
+	mlx->pixels = calloc((mlx->width * mlx->height), sizeof(int32_t));
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, \
+	0, GL_RGBA, GL_UNSIGNED_BYTE, mlx->pixels);
 	glUniform1i(glGetUniformLocation(context->shaderprogram, "texture"), 0);
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
