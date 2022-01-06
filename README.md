@@ -3,6 +3,7 @@
 Project still WIP!
 
 My own recreation of the MiniLibX library used by 42, using glfw &amp; glad, running on OpenGL 3.3.
+The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 ## Installation
 
