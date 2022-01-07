@@ -53,4 +53,6 @@ dkms.conf
 
 # Misc
 main.c
+*.xpm
+*.xpm42
 .vscode/

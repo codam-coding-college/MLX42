@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 16:06:46 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/07 15:25:34 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,23 @@
 # include <stdlib.h>
 # include <memory.h>
 # include <stdio.h>
+# include <limits.h>
+# include <ctype.h>
 # ifndef VERTEX_PATH
 #  define VERTEX_PATH "shaders/default.vert"
 # endif
 # ifndef FRAGMENT_PATH
 #  define FRAGMENT_PATH "shaders/default.frag"
 # endif
-# define MLX_ERROR "MLX42 Error: "
-# define MLX_SHADER_FAILURE "Shader failure!\n"
-# define MLX_RENDER_FAILURE "Failed to initialize Renderer\n"
-# define GLFW_INIT_FAILURE "Failed to initialize GLFW\n"
-# define GLFW_WIN_FAILURE "Failed to create GLFW Window\n"
-# define GLFW_GLAD_FAILURE "Failed to initialize GLAD\n"
+# define MLX_ERROR "MLX42 Error:"
+# define MLX_INVALID_FILE_EXT "Invalid file extension!"
+# define MLX_INVALID_FILE "Failed to read file!"
+# define MLX_SHADER_FAILURE "Shader failure!"
+# define MLX_RENDER_FAILURE "Failed to initialize Renderer!"
+# define MLX_MEMORY_FAIL "Failed to allocate enough memory!"
+# define GLFW_INIT_FAILURE "Failed to initialize GLFW!"
+# define GLFW_WIN_FAILURE "Failed to create GLFW Window!"
+# define GLFW_GLAD_FAILURE "Failed to initialize GLAD!"
 
 //= Types =//
 
@@ -65,6 +70,12 @@ typedef struct s_mlx_list
 	struct s_mlx_list	*next;
 }	t_mlx_list;
 
+typedef struct s_mlx_line
+{
+	char	*buff;
+	size_t	len;
+}	t_mlx_line;
+
 //= Functions =//
 
 int32_t		mlx_lstsize(t_mlx_list *lst);
@@ -77,7 +88,7 @@ bool		mlx_error(const char *error);
 
 bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
 bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
-void		mlx_rgba_to_float(int32_t color, t_FVec4 *RGBA_Out);
 char		*mlx_readfile(const char *FilePath);
-
+int32_t		mlx_rgba_to_mono(int32_t color);
+int32_t		mlx_atoi_base(const char *str, int32_t base);
 #endif

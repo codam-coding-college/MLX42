@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 16:10:34 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/07 15:28:17 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,24 @@
 # include <stdbool.h>
 # include "MLX42_Keys.h"
 # include "MLX42_Vec.h"
+
+/**
+ * Struct containing data regarding an XPM image.
+ * 
+ * @param width The width.
+ * @param height The height.
+ * @param pixels The literal pixel data.
+ * @param color_count The amount of colors available.
+ * @param mode The color mode, either (c)olor or (m)onochrome.
+ */
+typedef struct s_xpm
+{
+	int32_t		width;
+	int32_t		height;
+	uint8_t		*pixels;
+	int32_t		color_count;
+	char		mode;
+}	t_xpm;
 
 /**
  * Main MLX handle, carries important data in regard to the program.
