@@ -74,7 +74,7 @@ NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11`
 ➜  ~ make
 ```
 5. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with:
- - ```-ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi```
+ - ```-ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi```, make sure to also do ```-I <include_path>```
 6. Run.
 
 The systems below have not been tested yet.
