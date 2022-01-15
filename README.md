@@ -75,10 +75,65 @@ NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11`
 ➜  ~ make
 ```
 5. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with:
- - ```-ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi```, make sure to also do ```-I <include_path>```
+ - ```-ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi```, make sure to also do ```-I <include_path>```. At the very least ```-ldl -lglfw``` are required.
 6. Run.
 
 The systems below have not been tested yet.
 
 ### For Windows:
 - Switch to MacOS or Linux, as there is no CMake or way to compile for it yet.
+
+## Example
+
+```c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: w2wizard <w2wizard@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/01/15 15:42:00 by w2wizard      #+#    #+#                 */
+/*   Updated: 2022/01/16 00:05:27 by w2wizard      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "MLX42/MLX42.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdint.h>
+#define WIDTH 800
+#define HEIGHT 600
+
+int32_t    create_rgba(int32_t r, int32_t g, int32_t b, int32_t a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
+void    hook(void *param)
+{
+    if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
+        mlx_quit(param);
+
+    for (int32_t x = 0; x < WIDTH; x++)
+        for (int32_t y = 0; y < HEIGHT; y++)
+            mlx_putpixel(param, x, y, create_rgba(\
+            rand() % 255, rand() % 255, rand() % 255, rand() % 255));
+}
+
+int32_t    main(int32_t argc, char const *argv[])
+{
+    t_mlx    *mlx;
+
+    (void) argc;
+    (void) argv;
+    mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+    if (!mlx)
+        exit(EXIT_FAILURE);
+    mlx_loop_hook(mlx, &hook, mlx);
+    mlx_loop(mlx);
+    mlx_terminate(mlx);
+    return (EXIT_SUCCESS);
+}
+```
