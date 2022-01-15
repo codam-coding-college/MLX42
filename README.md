@@ -59,6 +59,8 @@ There will be a popup at the bottom telling you that an application tried to run
 ➜  ~ sudo apt install cmake
 ➜  ~ sudo apt install xorg-dev
 ```
+NOTE: In some cases you might also have to do ```sudo apt-get install glfw-x11``` if available.
+
 3. Naviagte to the extracted GLFW directory and run:
 ```bash 
 ➜  ~ cmake -G "Unix Makefiles"
