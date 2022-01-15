@@ -23,6 +23,8 @@ very useful to be able to work remotley on different machines. With MiniLibX thi
  
 ## Installation
 
+In the very end a library is generated, compile your program with this library!
+
 ### For MacOS:
 1. Download MLX42 & Build
 ```bash 
@@ -42,24 +44,23 @@ The systems below have not been tested yet.
 ➜  ~ sudo apt update
 ➜  ~ sudo apt install build-essential
 ➜  ~ sudo apt install cmake
-
-# NOTE: Navigate to the directory where you extracted GLFW!
-
 ➜  ~ sudo apt install xorg-dev
+```
+3. Naviagte to the extracted GLFW directory and run:
+```bash 
 ➜  ~ cmake -G "Unix Makefiles"
 ➜  ~ make
 ➜  ~ sudo make install
 ➜  ~ sudo apt-get install libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3
 ```
-
-3. Download MLX42 & Build
+4. Download MLX42 & Build
 ```bash 
 ➜  ~ git clone https://github.com/W2Codam/MLX42.git
 ➜  ~ make
 ```
-4. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with:
+5. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with:
  - ```-ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi```
-5. Run.
+6. Run.
 
 ### For Windows:
 - Switch to MacOS or Linux, as there is no CMake or way to compile for it yet.
