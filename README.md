@@ -26,15 +26,28 @@ very useful to be able to work remotley on different machines. With MiniLibX thi
 In the very end a library is generated, compile your program with this library!
 
 ### For MacOS:
-1. Download MLX42 & Build
+1. Install GLFW
+
+You can either install via ```Homebrew```:
+```bash
+➜  ~ brew update
+➜  ~ brew tap homebrew/versions
+➜  ~ brew install glfw3
+```
+Or download the binaries directly [here.](https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.zip)
+
+Make sure the binary is located (usually at) ```/usr/local/lib``` & the header is at ```/usr/local/include/GLFW```
+
+2. Download MLX42 & Build
 ```bash 
 ➜  ~ git clone https://github.com/W2Codam/MLX42.git
 ➜  ~ make
 ```
-2. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-lglfw```.
-3. Run.
+3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-lglfw```.
+4. Run.
 
-The systems below have not been tested yet.
+Incase of any security warnings or MacOS telling you it can't verify the author/developer. ```Go to Settings > Security & Privacy```
+There will be a popup at the bottom telling you that an application tried to run, click the option to let it run.
 
 ### For Linux:
 
@@ -61,6 +74,8 @@ The systems below have not been tested yet.
 5. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with:
  - ```-ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi```
 6. Run.
+
+The systems below have not been tested yet.
 
 ### For Windows:
 - Switch to MacOS or Linux, as there is no CMake or way to compile for it yet.
