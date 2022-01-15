@@ -51,6 +51,8 @@ There will be a popup at the bottom telling you that an application tried to run
 
 ### For Linux:
 
+NOTE: This will not run with Windows Subsystem for Linux (WSL)!!!
+
 1. Download GLFW: [Click Me!](https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.zip)
 2. Extract GLFW, and to install, run the following commands:
 ```bash 
