@@ -10,8 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= mlx42
-ARCHIVE	= -lglfw
+NAME 	= mlx42.a
 CFLAGS	= -Wextra -Wall -Wunreachable-code -O3 -g
 HEADERS = -I include
 
@@ -19,7 +18,7 @@ HEADERS = -I include
 BOLD	= \e[1m
 GREEN	= \x1b[32m
 RESET	= \033[0m
-RED		= \x1b[31m
+RED	= \x1b[31m
 
 # //= Files =// #
 
