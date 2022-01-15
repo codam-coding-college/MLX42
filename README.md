@@ -46,7 +46,7 @@ Make sure the binary is located (usually at) ```/usr/local/lib``` & the header i
 3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-lglfw```.
 4. Run.
 
-Incase of any security warnings or MacOS telling you it can't verify the author/developer. ```Go to Settings > Security & Privacy```
+Incase of any security warnings or MacOS telling you it can't verify the author/developer. Go to ```Settings > Security & Privacy```
 There will be a popup at the bottom telling you that an application tried to run, click the option to let it run.
 
 ### For Linux:
