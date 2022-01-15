@@ -6,11 +6,12 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/07 15:17:51 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/15 16:02:25 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+#include <string.h>
 
 /**
  * XPM is an obscure image format which can't seem to make up its mind
@@ -88,13 +89,15 @@ void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y)
 	return ;
 }
 */
+
+// TODO: Add custom strnstr, seems like Linux doesn't have it ?
 t_xpm	*mlx_load_xpm42(const char *path)
 {
 	t_xpm	*xpm;
 	FILE	*file;
 
 	xpm = NULL;
-	if (!strnstr(path, ".xpm42", PATH_MAX))
+	if (!strstr(path, ".xpm42"))
 		return ((void *)mlx_error(MLX_INVALID_FILE_EXT));
 	file = fopen(path, "r");
 	if (!file)
