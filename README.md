@@ -31,8 +31,7 @@ In the very end a library is generated, compile your program with this library!
 You can either install via ```Homebrew```:
 ```bash
 ➜  ~ brew update
-➜  ~ brew tap homebrew/versions
-➜  ~ brew install glfw3
+➜  ~ brew install glfw
 ```
 Or download the binaries directly [here.](https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.zip)
 
