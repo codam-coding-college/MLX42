@@ -36,6 +36,9 @@ You can either install via ```Homebrew```:
 Or download the binaries directly [here.](https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.zip)
 
 Make sure the binary is located (usually at) ```/usr/local/lib``` & the header is at ```/usr/local/include/GLFW```
+if those directories do not exist, create them and move the installed dylib and header to their respective locations.
+
+In case of installation via ```Homebrew``` glfw will be located at ```/opt/homebrew/Cellar/glfw/3.3.6```
 
 2. Download MLX42 & Build
 ```bash 
