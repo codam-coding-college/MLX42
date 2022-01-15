@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 16:06:46 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/15 20:07:38 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static bool	mlx_init_frame(t_mlx *mlx)
 	return (mlx_draw_frame(mlx));
 }
 
+// TODO: Fix relative to absolute, in some cases fopen just fails on some distros.
 static bool	mlx_init_render(t_mlx *mlx)
 {
 	uint32_t	s[3];

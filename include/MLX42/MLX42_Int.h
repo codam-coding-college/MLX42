@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/07 15:25:34 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/15 17:42:41 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 # if defined(__APPLE__)
 #  define GL_SILENCE_DEPRECATION
 #  define IS_APPLE 1
-#  include <GLFW/glfw3.h>
 # else
 #  define IS_APPLE 0
-#  include "GLFW/glfw3.h"
 # endif
+# include <GLFW/glfw3.h>
 # include <stdlib.h>
 # include <memory.h>
 # include <stdio.h>
