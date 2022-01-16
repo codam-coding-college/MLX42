@@ -65,7 +65,7 @@ NOTE: This will not run with Windows Subsystem for Linux (WSL)!!!
 ```
 NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11``` if available.
 
-3. Naviagte to the extracted GLFW directory and run:
+3. Navigate to the extracted GLFW directory and run:
 ```bash 
 ➜  ~ cmake -G "Unix Makefiles"
 ➜  ~ make
@@ -125,12 +125,10 @@ void    hook(void *param)
             rand() % 255, rand() % 255, rand() % 255, rand() % 255));
 }
 
-int32_t    main(int32_t argc, char const *argv[])
+int32_t    main(void)
 {
     t_mlx    *mlx;
 
-    (void) argc;
-    (void) argv;
     mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
     if (!mlx)
         exit(EXIT_FAILURE);
