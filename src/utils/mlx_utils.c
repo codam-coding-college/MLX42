@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/15 15:51:30 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/01/16 14:09:23 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int32_t	mlx_atoi_base(const char *str, int32_t base)
 	sign = 1;
 	if (!str || (base < 2 || base > 16))
 		return (0);
-	while (isspace(str[i]))
+	while (isspace(str[i]) || str[i] == '#')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 		if (str[i++] == '-')
@@ -75,12 +75,12 @@ int32_t	mlx_rgba_to_mono(int32_t color)
  * @param color The input RGBA value.
  * @param out Float buffer to apply the converted color values to.
  */
-void	mlx_rgba_to_float(int32_t color, t_FVec4 *RGBA_Out)
+void	mlx_rgba_to_float(int32_t color, float RGBA_Out[4])
 {
-	RGBA_Out->x = (float)(1.0f / UINT8_MAX) *((color >> 24) & 0xFF);
-	RGBA_Out->y = (float)(1.0f / UINT8_MAX) *((color >> 16) & 0xFF);
-	RGBA_Out->z = (float)(1.0f / UINT8_MAX) *((color >> 8) & 0xFF);
-	RGBA_Out->w = (float)(1.0f / UINT8_MAX) *(color & 0xFF);
+	RGBA_Out[0] = (float)(1.0f / UINT8_MAX) *((color >> 24) & 0xFF);
+	RGBA_Out[1] = (float)(1.0f / UINT8_MAX) *((color >> 16) & 0xFF);
+	RGBA_Out[2] = (float)(1.0f / UINT8_MAX) *((color >> 8) & 0xFF);
+	RGBA_Out[3] = (float)(1.0f / UINT8_MAX) *(color & 0xFF);
 }
 
 //0.299(70) + 0.587(130) + 0.114(180)

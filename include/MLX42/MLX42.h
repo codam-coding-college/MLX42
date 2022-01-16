@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/07 15:28:17 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/16 14:08:44 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include "MLX42_Keys.h"
-# include "MLX42_Vec.h"
 
 /**
  * Struct containing data regarding an XPM image.
@@ -54,7 +53,7 @@ typedef struct s_xpm
 }	t_xpm;
 
 /**
- * Main MLX handle, carries important data in regard to the program.
+ * Main MLX handle, carries important data in regards to the program.
  * @param window The window itself.
  * @param hooks List of all the current hooks.
  * @param width The width.
@@ -82,6 +81,14 @@ typedef struct s_mlx
  */
 t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, \
 bool Resize);
+
+/**
+ * The program loop, this will cause MLX to continously render
+ * and output its content. Can be halted with mlx_quit.
+ * 
+ * @param mlx The MLX instance handle.
+ */
+void	mlx_loop(t_mlx *mlx);
 
 /**
  * Adds a function hook to the main loop. Aka, executes a function per frame.
@@ -120,6 +127,26 @@ void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color);
 bool	mlx_is_key_down(t_mlx *mlx, t_keys key);
 
 /**
+ * Defines the state for the cursor, which can be:
+ * - Normal
+ * - Hidden
+ * - Disabled
+ * 
+ * @param mlx The MLX instance handle. 
+ * @param mode A specified mouse mode.
+ */
+void	mlx_set_cursor_mode(t_mlx *mlx, t_mouse_mode mode);
+
+/**
+ * Checks whether a mouse button is pressed or not.
+ * 
+ * @param mlx The MLX instance handle. 
+ * @param key A specific mouse key.
+ * @return True or false if the mouse key is down or not.
+ */
+bool	mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
+
+/**
  * Returns the current, relative, mouse cursor position on the window, starting
  * from the top left corner.
  * 
@@ -129,7 +156,16 @@ bool	mlx_is_key_down(t_mlx *mlx, t_keys key);
  * @param mlx The MLX instance handle. 
  * @param pos_out The position.
  */
-void	mlx_get_mouse_pos(t_mlx *mlx, t_IVec2 *pos_out);
+void	mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out);
+
+/**
+ * Sets the mouse position.
+ * 
+ * @param mlx The MLX instance handle. 
+ * @param pos The position.
+ */
+void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
+
 
 /**
  * Tells MLX that it should stop rendering and quit the main loop.
@@ -138,13 +174,5 @@ void	mlx_get_mouse_pos(t_mlx *mlx, t_IVec2 *pos_out);
  * @param mlx The MLX instance handle.
  */
 void	mlx_quit(t_mlx *mlx);
-
-/**
- * The program loop, this will cause MLX to continously render
- * and output its content. Can be halted with mlx_quit.
- * 
- * @param mlx The MLX instance handle.
- */
-void	mlx_loop(t_mlx *mlx);
 
 #endif

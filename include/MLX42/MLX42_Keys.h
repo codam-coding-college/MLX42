@@ -1,17 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX_Keys.h                                         :+:    :+:            */
+/*   MLX42_Keys.h                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 22:15:23 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/16 13:45:32 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * These are copied from glfw3.h due to the abstraction layer.
+ * 
+ * Any new entries should have the exact same values as defined
+ * over there.
+ */
+
 #ifndef MLX42_KEYS_H
 # define MLX42_KEYS_H
+
+// The mouse button IDs.
+typedef enum e_mouse_key
+{
+	MLX_MOUSE_BUTTON_LEFT	= 0,
+	MLX_MOUSE_BUTTON_RIGHT	= 1,
+	MLX_MOUSE_BUTTON_MIDDLE	= 2,
+}	t_mouse_key;
+
+/**
+ * Various mouse/cursor states.
+ * @param NORMAL Simple visibile default cursor.
+ * @param HIDDEN The cursor is not rendered, still functions however.
+ * @param DISABLED The cursor is not rendered, nor is it functional.
+ */
+typedef enum e_mouse_mode
+{
+	MLX_MOUSE_NORMAL		= 0x00034001,
+	MLX_MOUSE_HIDDEN		= 0x00034002,
+	MLX_MOUSE_DISABLED		= 0x00034003,
+}	t_mouse_mode;
 
 // All sorts of keyboard keycodes used by OpenGL.
 typedef enum e_keys
