@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/16 14:08:44 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/01/16 15:13:00 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_mlx
  * @param Width The width of the window.
  * @param Height The height of the window.
  * @param Title The title of the window.
+ * @param Resize EXPERIMENTAL Enable window resizing.
  * @return Ptr to the MLX handle.
  */
 t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, \
