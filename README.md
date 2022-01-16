@@ -65,7 +65,7 @@ NOTE: This will not run with Windows Subsystem for Linux (WSL)!!!
 ```
 NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11``` if available.
 
-3. Naviagte to the extracted GLFW directory and run:
+3. Navigate to the extracted GLFW directory and run:
 ```bash 
 ➜  ~ cmake -G "Unix Makefiles"
 ➜  ~ make
