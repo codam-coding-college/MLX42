@@ -125,12 +125,10 @@ void    hook(void *param)
             rand() % 255, rand() % 255, rand() % 255, rand() % 255));
 }
 
-int32_t    main(int32_t argc, char const *argv[])
+int32_t    main(void)
 {
     t_mlx    *mlx;
 
-    (void) argc;
-    (void) argv;
     mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
     if (!mlx)
         exit(EXIT_FAILURE);
