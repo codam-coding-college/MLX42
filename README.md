@@ -40,7 +40,7 @@ In most cases all you need to do now is compile your program like this:
 gcc main.c mlx42.a -lglfw ...
 ```
 
-If the lib and/or includes are not located in ```/usr/local/``` or its not possible to move them there. Move the lib file to the root directory of
+If the lib and/or includes are not located in ```/usr/local/lib``` and ```/usr/local/include``` respectively or its not possible to move them there. Move the lib file to the root directory of
 MLX42 and move the GLFW directory inside include to the include directory of MLX42.
 
 When compiling with the static library you should compile your program like this:
