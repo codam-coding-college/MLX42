@@ -6,13 +6,17 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/12/28 01:01:14 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/01/16 00:41:04 by w2wizard      ########   odam.nl          #
+#    Updated: 2022/01/17 17:25:58 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= mlx42.a
 CFLAGS	= -Wextra -Wall -Werror -Wunreachable-code -O3 -g
+DYLIB_EXISTS = test -e /usr/local/lib/libglfw.3.dylib || echo "false"
 HEADERS = -I include
+ifneq ($(DYLIB_EXISTS), false)
+	HEADERS += -I /Users/$(USER)/.brew/opt/glfw/include
+endif
 
 # //= Colors =// #
 BOLD	= \e[1m
