@@ -11,11 +11,15 @@
 # **************************************************************************** #
 
 NAME 	= mlx42.a
+HEADERS = -I include
 CFLAGS	= -Wextra -Wall -Werror -Wunreachable-code -O3 -g
 DYLIB_EXISTS = test -e /usr/local/lib/libglfw.3.dylib || echo "false"
-HEADERS = -I include
+
 ifneq ($(DYLIB_EXISTS), false)
-	HEADERS += -I /Users/$(USER)/.brew/opt/glfw/include
+	DYLIB_EXISTS = test -e /Users/$(USER)/.brew/opt/glfw/lib/libglfw.3.dylib || echo "false"
+	ifneq ($(DYLIB_EXISTS), false)
+		HEADERS += -I /Users/$(USER)/.brew/opt/glfw/include
+	endif
 endif
 
 # //= Colors =// #
