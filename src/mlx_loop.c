@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/17 10:36:12 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/17 10:41:18 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	mlx_loop(t_mlx *mlx)
 		{
 			mlx_quit(mlx);
 			mlx_error(MLX_MEMORY_FAIL);
+			break ;
 		}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
