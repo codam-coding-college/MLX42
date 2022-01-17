@@ -84,7 +84,55 @@ NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11`
 The systems below have not been tested yet.
 
 ### For Windows:
-- Switch to MacOS or Linux, as there is no CMake or way to compile for it yet.
+
+1. Download & Install MinGW: [Here!](https://sourceforge.net/projects/mingw/)
+
+2. Simply click continue, select whatever your choice is. 
+   Once reaching the MinGW Installation Manager select:
+	- mingw32-base
+	- mingw32-gcc-g++ 
+
+3. Apply by going to `Installation > Apply Changes`, after its done, you may close the window.
+
+4. Download & Install CMake: [Here!](https://cmake.org/download/), use the installer. Simply select all default options.
+
+5. Downlad & Install GnuWin: [Here!](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download?use_mirror=altushost-swe&download=)
+
+6. If you used all default options, add these paths to your SYSTEM Environment variables:
+  - C:\MinGW\bin
+  - C:\Program Files\CMake\bin
+  - C:\Program Files (x86)\GnuWin32\bin
+
+7. Download GLFW: https://www.glfw.org/download.html
+
+8. Open the terminal and type cmake-gui, select the downloaded/extracted
+   source folder, select any place you want the build output to be.
+
+9. Click on configure once and select the `MinGW Makefiles`, then finish.
+
+10. Set the CMAKE_INSTALL_PREFIX to `C:/GLFW`
+
+11. Click on configure again, and then generate.
+
+12. Go to the build directory and do:
+	- `make`
+	- `make install`
+
+13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to the MLX include folder & copy the .a file in the lib folder to `C:\MinGW\lib`.
+
+#### NOTE: As of now the build script for windows does not exist, compile by adding every c file manually.
+
+14. Compile your program with these flags:
+ - `-lglfw3`
+ - `-lopengl32`
+ - `-lgdi32`
+ 
+ In the end you should have something like:
+```bash
+➜  ~ gcc main.c <Additional .c Files> mlx42.a -lglfw3 -lopengl32 -lgdi32
+```
+
+15. Run.
 
 ## Example
 
