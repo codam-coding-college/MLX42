@@ -35,21 +35,27 @@ You can either install via ```Homebrew```:
 ```
 Or download the binaries directly [here.](https://www.glfw.org/download.html)
 
-Make sure the binary is located (usually at) ```/usr/local/lib``` & the header is at ```/usr/local/include/GLFW```
-if those directories do not exist, create them and move the installed dylib and header to their respective locations.
+In most cases all you need to do now is compile your program like this:
+```bash
+gcc main.c mlx42.a -lglfw ...
+```
 
-If not possible, simply move the includes to MLX's include folder and move the either the dylib or static library
-to the MLX42 Directory, if using the static library compile with `-lglfw -framework Cocoa -framework OpenGL -framework IOKit`
+If the lib and/or includes are not located in ```/usr/local/``` or its not possible to move them there. Move the lib file to the root directory of
+MLX42 and move the GLFW directory inside include to the include directory of MLX42.
 
-In case of installation via ```Homebrew``` glfw will be located at ```/opt/homebrew/Cellar/glfw/3.3.6```
+When compiling with the static library you should compile your program like this:
+```bash
+gcc main.c mlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
+```
 
 2. Download MLX42 & Build
 ```bash 
 ➜  ~ git clone https://github.com/W2Codam/MLX42.git
 ➜  ~ make
 ```
-3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-lglfw```.
-4. Run.
+3. Create a ```main.c``` file, include ```MLX42/MLX42.h``` and compile.
+
+4. Run
 
 Incase of any security warnings or MacOS telling you it can't verify the author/developer. Go to ```Settings > Security & Privacy```
 There will be a popup at the bottom telling you that an application tried to run, click the option to let it run.
