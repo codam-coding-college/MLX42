@@ -31,34 +31,59 @@ very useful to be able to work remotley on different machines. With MiniLibX thi
 In the very end a library is generated, compile your program with this library!
 
 ### For MacOS:
-1. Install GLFW
 
-You can either install via ```Homebrew```:
+1. Download MLX42
+```bash 
+➜  ~ git clone https://github.com/W2Codam/MLX42.git
+```
+
+### Via Homebrew / Homebrew42 by building from source.
+
+2. Install GLFW
 ```bash
 ➜  ~ brew update
 ➜  ~ brew install glfw
 ```
-Or download the binaries directly [here.](https://www.glfw.org/download.html)
 
-In most cases all you need to do now is compile your program like this:
-```bash
-gcc main.c mlx42.a -lglfw ...
-```
-
-If the lib and/or includes are not located in ```/usr/local/lib``` and ```/usr/local/include``` respectively or its not possible to move them there. Move the lib file to the root directory of
-MLX42 and move the GLFW directory inside include to the include directory of MLX42.
-
-When compiling with the static library you should compile your program like this:
-```bash
-gcc main.c mlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
-```
-
-2. Download MLX42 & Build
+3. Compile MLX42
 ```bash 
-➜  ~ git clone https://github.com/W2Codam/MLX42.git
+➜  ~ cd MLX42
 ➜  ~ make
 ```
-3. Create a ```main.c``` file, include ```MLX42/MLX42.h``` and compile.
+
+4. Compile Program
+With normal brew you can now simply compile the program with:
+```bash
+➜  ~ gcc main.c mlx42.a -lglfw ...
+```
+
+However with 42Homebrew you have additionally specify the location of the library like here:
+```bash
+➜  ~ gcc main.c mlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
+```
+
+### Pre-compiled libraries
+
+1. Download the binaries directly [here.](https://www.glfw.org/download.html)
+
+2. If possible move the contents of `lib` and `include` of GLFW to `/usr/local/lib` and `/usr/local/include` respectively.
+If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
+NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your architecture.
+
+3. Compile MLX42
+```bash 
+➜  ~ cd MLX42
+➜  ~ make
+```
+
+When compiling with the static library directly you should compile your program like this:
+```bash
+➜  ~ gcc main.c mlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
+```
+else simply compile like this:
+```bash
+➜  ~ gcc main.c mlx42.a -lglfw ...
+```
 
 4. Run
 
@@ -89,6 +114,7 @@ NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11`
 4. Download MLX42 & Build
 ```bash 
 ➜  ~ git clone https://github.com/W2Codam/MLX42.git
+➜  ~ cd MLX42
 ➜  ~ make
 ```
 5. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with:
