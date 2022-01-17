@@ -38,6 +38,9 @@ Or download the binaries directly [here.](https://www.glfw.org/download.html)
 Make sure the binary is located (usually at) ```/usr/local/lib``` & the header is at ```/usr/local/include/GLFW```
 if those directories do not exist, create them and move the installed dylib and header to their respective locations.
 
+If not possible, simply move the includes to MLX's include folder and move the either the dylib or static library
+to the MLX42 Directory, if using the static library compile with `-lglfw -framework Cocoa -framework OpenGL -framework IOKit`
+
 In case of installation via ```Homebrew``` glfw will be located at ```/opt/homebrew/Cellar/glfw/3.3.6```
 
 2. Download MLX42 & Build
