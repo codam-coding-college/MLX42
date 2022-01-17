@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 21:03:01 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/17 15:04:09 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	mlx_init_shaders(t_mlx *mlx, uint32_t *shaders)
  * 
  * @param Path File path to the shader.
  * @param Type GL_VERTEX_SHADER or GL_FRAGMENT_SHADER or ...
- * @return uint32_t 
+ * @return Whether it managed to compile the shader or not.
  */
 bool	mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out)
 {

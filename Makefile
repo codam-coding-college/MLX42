@@ -6,20 +6,26 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/01/15 20:47:44 by w2wizard      ########   odam.nl          #
+#    Updated: 2022/01/17 19:08:59 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 OS_NAME	=	$(shell uname -s | tr A-Z a-z)
 
-ifeq ($(OS_NAME), linux)
-CC = gcc
-include Makefile_Linux.mk
-else ifeq ($(OS_NAME), darwin)
-CC = clang
-include Makefile_Darwin.mk
+ifeq ($(OS), Windows_NT)
+    CC = gcc
+    $(error No Build script availble. Compile manually!)
 else
-$(error OS: $(OS_NAME) - Is not supported!)
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S), Linux)
+        CC = gcc
+        include Makefile_Linux.mk
+	else ifeq ($(UNAME_S), Darwin)
+        CC = clang
+        include Makefile_Darwin.mk
+    else
+        $(error OS: $(OS_NAME) - Is not supported!)
+    endif
 endif
 
 # //= Files =// #

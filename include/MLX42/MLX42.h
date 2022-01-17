@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/16 15:13:00 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/01/17 13:27:35 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ void	mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out);
  * @param pos The position.
  */
 void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
-
 
 /**
  * Tells MLX that it should stop rendering and quit the main loop.
