@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/17 10:41:18 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/17 12:08:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static bool	mlx_handle_resize(t_mlx *mlx)
 		(mlx->width * mlx->height) * sizeof(int32_t));
 		if (mlx->pixels == NULL)
 			return (false);
+		memset(mlx->pixels, 0, (mlx->width * mlx->height) * sizeof(int32_t));
 	}
 	return (true);
 }
