@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mlx_mouse.c                                        :+:    :+:            */
+/*   mlx_cursor.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/18 20:10:34 by W2Wizard      ########   odam.nl         */
+/*   Created: 2022/01/18 20:10:54 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/01/18 20:26:24 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-bool	mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key)
+void	*mlx_create_cursor(t_mlx *mlx, t_xpm *image)
 {
-	return (glfwGetMouseButton(mlx->window, key) == GLFW_PRESS);
+	GLFWcursor	*cursor;
+
+	cursor = glfwCreateCursor((GLFWimage *)image, 0, 0);
+	if (cursor)
+		glfwSetCursor(mlx->window, cursor);
+	else
+		return ((void *)mlx_error(MLX_MEMORY_FAIL));
+	return (cursor);
 }
 
-void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y)
+void	mlx_set_cursor(t_mlx *mlx, void *cursor)
 {
-	glfwSetCursorPos(mlx->window, (double)x, (double)y);
+	glfwSetCursor(mlx->window, cursor);
 }
 
-void	mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out)
+void	mlx_set_cursor_mode(t_mlx *mlx, t_mouse_mode mode)
 {
-	double	pos[2];
-
-	glfwGetCursorPos(mlx->window, &pos[0], &pos[1]);
-	*x_out = (int32_t)pos[0];
-	*y_out = (int32_t)pos[1];
+	glfwSetInputMode(mlx->window, GLFW_CURSOR, mode);
 }

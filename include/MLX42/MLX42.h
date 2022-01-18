@@ -6,20 +6,20 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/17 13:27:35 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/18 20:25:07 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * OpenGL graphics library based on the idea on what MiniLibX
+ * An OpenGL graphics library based on the idea on what MiniLibX
  * provides. Just quite a bit better, in terms of norme and code quality.
  * 
- * Additionally with glfw its cross-platform, unlike before.
+ * Additionally with glfw its cross-platform, unlike MiniLibX.
  * 
- * As for the few void* present in some structs and why MLX is split into
- * two different headers, so to speak, is mainly for abstraction. Most users
- * won't have a need for the inner workings of MLX (shaders, ...) and it also
- * helps keep MLX nice and tidy.
+ * As for the few void* present in some structs and functions and 
+ * why MLX is split into two different headers, so to speak, 
+ * is mainly for abstraction. Most users won't have a need for the inner 
+ * workings of MLX (shaders, ...) and it also helps keep MLX nice and tidy.
  * 
  * @note Useful stuff for later:
  * https://bit.ly/3qQof6q
@@ -71,6 +71,8 @@ typedef struct s_mlx
 	void		*context;
 }	t_mlx;
 
+//= Generic Functions =//
+
 /**
  * Initilizes a new MLX42 Instance.
  * 
@@ -82,6 +84,14 @@ typedef struct s_mlx
  */
 t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, \
 bool Resize);
+
+/**
+ * Tells MLX that it should stop rendering and quit the main loop.
+ * Make sure to call terminate after calling this function.
+ * 
+ * @param mlx The MLX instance handle.
+ */
+void	mlx_quit(t_mlx *mlx);
 
 /**
  * The program loop, this will cause MLX to continously render
@@ -108,6 +118,8 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
  */
 void	mlx_terminate(t_mlx *mlx);
 
+//= Pixel Functions =//
+
 /**
  * Sets / puts a pixel onto the screen using 
  * 
@@ -117,6 +129,8 @@ void	mlx_terminate(t_mlx *mlx);
  * @param Color The RGBA8 Color value.
  */
 void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color);
+
+//= Input Functions =//
 
 /**
  * Returns true or false if the key is down or not.
@@ -128,21 +142,10 @@ void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color);
 bool	mlx_is_key_down(t_mlx *mlx, t_keys key);
 
 /**
- * Defines the state for the cursor, which can be:
- * - Normal
- * - Hidden
- * - Disabled
- * 
- * @param mlx The MLX instance handle. 
- * @param mode A specified mouse mode.
- */
-void	mlx_set_cursor_mode(t_mlx *mlx, t_mouse_mode mode);
-
-/**
  * Checks whether a mouse button is pressed or not.
  * 
  * @param mlx The MLX instance handle. 
- * @param key A specific mouse key.
+ * @param key A specific mouse key. e.g MLX_MOUSE_BUTTON_0
  * @return True or false if the mouse key is down or not.
  */
 bool	mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
@@ -167,12 +170,38 @@ void	mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out);
  */
 void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
 
+//= Cursor Functions =//
+
 /**
- * Tells MLX that it should stop rendering and quit the main loop.
- * Make sure to call terminate after calling this function.
+ * Defines the state for the cursor, which can be:
+ * - Normal
+ * - Hidden
+ * - Disabled
+ * 
+ * @param mlx The MLX instance handle. 
+ * @param mode A specified mouse mode.
+ */
+void	mlx_set_cursor_mode(t_mlx *mlx, t_mouse_mode mode);
+
+/**
+ * Allows for the creation of custom cursors with a given
+ * XPM image.
+ * 
+ * Use mlx_set_cursor to select the specific cursor.
+ * Cursors are destroyed at mlx_terminate().
  * 
  * @param mlx The MLX instance handle.
+ * @param image The XPM image to use as cursor.
+ * @return The cursor pointer.
  */
-void	mlx_quit(t_mlx *mlx);
+void	*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
+
+/**
+ * Sets the current cursor to the given custom cursor.
+ * 
+ * @param mlx The MLX instance handle.
+ * @param cursor The cursor to display.
+ */
+void	mlx_set_cursor(t_mlx *mlx, void *cursor);
 
 #endif
