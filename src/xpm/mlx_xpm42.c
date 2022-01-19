@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 00:34:10 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/19 09:37:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,28 +116,12 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	return (mlx_read_xpm_data(xpm, file, table));
 }
 
+/*
 void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y)
 {
-	int	i;
-	int	j;
-	uint8_t	*pixelstart;
-
-	i = 0;
-	while (i < xpm->height)
-	{
-		j = 0;
-		while (j < xpm->width)
-		{
-			pixelstart = &mlx->pixels[(Y + j) * mlx->width + (X + i) * sizeof(int32_t)];
-			*(pixelstart + 0) = xpm->pixels[i * xpm->width + j];
-			*(pixelstart + 1) = xpm->pixels[i * xpm->width + j + 1];
-			*(pixelstart + 2) = xpm->pixels[i * xpm->width + j + 2];
-			*(pixelstart + 3) = xpm->pixels[i * xpm->width + j + 3];
-			j++;
-		}
-		i++;
-	}
+	
 }
+*/
 
 // TODO: Add custom strnstr, seems like Linux doesn't have it ?
 t_xpm	*mlx_load_xpm42(const char *path)

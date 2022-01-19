@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 09:29:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 10:14:14 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_mlx
 	int32_t		height;
 	uint8_t		*pixels;
 	void		*context;
+	double		delta_time;
 }	t_mlx;
 
 //= Generic Functions =//
