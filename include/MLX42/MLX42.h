@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/18 20:25:07 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/19 00:32:50 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,5 +203,17 @@ void	*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
  * @param cursor The cursor to display.
  */
 void	mlx_set_cursor(t_mlx *mlx, void *cursor);
+
+/**
+ * TODO: NOT WORKING!
+ * 
+ * Loads an XPM42 image from the given file path.
+ * 
+ * @param path The file path to the XPM image.
+ * @return The XPM image struct containing its information.
+ */
+t_xpm	*mlx_load_xpm42(const char *path);
+
+//void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y);
 
 #endif

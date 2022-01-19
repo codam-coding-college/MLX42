@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/15 16:02:25 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/01/19 00:34:10 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,46 @@
  * straight forward to this format however.
  */
 
+/*
+static bool	mlx_add_pixel(t_xpm *xpm, t_xpm_42_entry *table, size_t *offset, \
+char c)
+{
+	return (false);
+}
+*/
+
+static bool	mlx_read_xpm_data(t_xpm *xpm, FILE *file, t_xpm42_entry *table)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	int64_t	output;
+	char	*buffer;
+
+	j = 0;
+	output = 0;
+	buffer = NULL;
+	(void) table;
+	xpm->pixels = calloc(xpm->width * xpm->height, sizeof(int32_t));
+	if (!(xpm->pixels))
+		return ((void *)mlx_error(MLX_MEMORY_FAIL));
+	while (output != -1)
+	{
+		i = 0;
+		output = getline(&buffer, &len, file);
+		while (output != -1 && (buffer[i] != '\0' && buffer[i] != '\n'))
+		{
+			/*
+			if (!mlx_add_pixel(xpm, table, &j, buffer[i++]))
+				return (mlx_free_va(false, 2, buffer, xpm->pixels));
+			*/
+			i++;
+		}
+	}
+	free(buffer);
+	return (true);
+}
+
 /**
  * Reads the XPM42 file header which usually consists of a
  * file type declaration of "!XPM42" followed by the next line
@@ -51,44 +91,53 @@
  */
 static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 {
-	ssize_t		output;
-	int32_t		flagc;
-	t_mlx_line	line;
+	int32_t			i;
+	int32_t			flagc;
+	t_xpm42_entry	*table;
+	char			buffer[128];
 
-	bzero(&line, sizeof(line));
-	output = getline(&line.buff, &line.len, file);
-	if (output == -1 || !strncmp(line.buff, "!XMP42", 7))
+	i = 0;
+	memset(buffer, '\0', sizeof(buffer));
+	flagc = fscanf(file, "%s\n", buffer);
+	if (flagc < 1 || !strstr(buffer, "!XPM42"))
 		return (false);
-	output = getline(&line.buff, &line.len, file);
-	if (output == -1)
-	{
-		free(line.buff);
-		return (false);
-	}
-	flagc = sscanf(line.buff, "%d %d %d %c", &xpm->width, &xpm->height, \
+	flagc = fscanf(file, "%i %i %i %c\n", &xpm->width, &xpm->height, \
 	&xpm->color_count, &xpm->mode);
-	free(line.buff);
-	return (flagc == 4);
-}
-
-static bool	mlx_read_xpm_colors(t_xpm *xpm, FILE *file)
-{
-	(void)xpm;
-	(void)file;
-	return (false);
-}
-/*
-
-static bool	mlx_read_xpm_data(t_xpm *xpm, FILE *file)
-{
-	return (false);
+	if (flagc < 4)
+		return (false);
+	table = alloca(xpm->color_count * sizeof(t_xpm42_entry));
+	while (i != xpm->color_count)
+	{
+		flagc = fscanf(file, "%c %s\n", &table[i].character, buffer);
+		if (flagc < 2)
+			return (false);
+		table[i++].color = mlx_atoi_base(buffer, 16);
+	}
+	return (mlx_read_xpm_data(xpm, file, table));
 }
 
 void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y)
 {
-	return ;
+	int	i;
+	int	j;
+	uint8_t	*pixelstart;
+
+	i = 0;
+	while (i < xpm->height)
+	{
+		j = 0;
+		while (j < xpm->width)
+		{
+			pixelstart = &mlx->pixels[(Y + j) * mlx->width + (X + i) * sizeof(int32_t)];
+			*(pixelstart + 0) = xpm->pixels[i * xpm->width + j];
+			*(pixelstart + 1) = xpm->pixels[i * xpm->width + j + 1];
+			*(pixelstart + 2) = xpm->pixels[i * xpm->width + j + 2];
+			*(pixelstart + 3) = xpm->pixels[i * xpm->width + j + 3];
+			j++;
+		}
+		i++;
+	}
 }
-*/
 
 // TODO: Add custom strnstr, seems like Linux doesn't have it ?
 t_xpm	*mlx_load_xpm42(const char *path)
@@ -103,10 +152,13 @@ t_xpm	*mlx_load_xpm42(const char *path)
 	if (!file)
 		return ((void *)mlx_error(MLX_INVALID_FILE));
 	xpm = malloc(sizeof(xpm));
-	if (xpm)
-		if (!mlx_read_xpm_header(xpm, file) || \
-			!mlx_read_xpm_colors(xpm, file))
-			free (xpm);
+	if (!xpm)
+		return ((void *)mlx_error(MLX_MEMORY_FAIL));
+	if (!mlx_read_xpm_header(xpm, file))
+	{
+		free(xpm);
+		xpm = NULL;
+	}
 	fclose(file);
 	return (xpm);
 }

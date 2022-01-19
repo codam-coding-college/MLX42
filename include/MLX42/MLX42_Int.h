@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/15 17:42:41 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/01/19 00:30:01 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ typedef struct s_mlx_list
 	struct s_mlx_list	*next;
 }	t_mlx_list;
 
-typedef struct s_mlx_line
+typedef struct xpm42_entry
 {
-	char	*buff;
-	size_t	len;
-}	t_mlx_line;
+	char		character;
+	uint32_t	color;
+}	t_xpm42_entry;
 
 //= Functions =//
 
@@ -84,6 +84,7 @@ t_mlx_list	*mlx_lstlast(t_mlx_list *lst);
 void		mlx_lstadd_back(t_mlx_list **lst, t_mlx_list *new);
 
 bool		mlx_error(const char *error);
+bool		mlx_free_va(bool output, int32_t count, ...);
 
 bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
 bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);

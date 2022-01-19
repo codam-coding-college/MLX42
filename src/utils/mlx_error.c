@@ -6,11 +6,36 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/05 17:03:08 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/19 00:03:19 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+#include <stdarg.h>
+
+/**
+ * This is what a 25 line limit does to people...
+ * Utility function that lets you free x amount of pointers.
+ * 
+ * @param count The amount of args provided.
+ * @param ... Any form of pointer.
+ * @return Output, this is simply for convinience when necessary.
+ */
+bool	mlx_free_va(bool output, int32_t count, ...)
+{
+	int32_t	i;
+	va_list	args;
+
+	i = 0;
+	va_start(args, count);
+	while (i < count)
+	{
+		free(va_arg(args, void *));
+		i++;
+	}
+	va_end(args);
+	return (output);
+}
 
 /**
  * Simple error handling function.
