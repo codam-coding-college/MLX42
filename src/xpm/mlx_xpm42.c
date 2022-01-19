@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 09:37:43 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 10:31:36 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,28 @@
  * straight forward to this format however.
  */
 
-/*
-static bool	mlx_add_pixel(t_xpm *xpm, t_xpm_42_entry *table, size_t *offset, \
+static bool	mlx_add_pixel(t_xpm *xpm, t_xpm42_entry *table, size_t *offset, \
 char c)
 {
+	int32_t			i;
+	t_xpm42_entry	ent;
+
+	i = 0;
+	while (i < xpm->color_count)
+	{
+		ent = table[i];
+		if (ent.character == c)
+		{
+			*(xpm->pixels + *offset + 0) = (uint8_t)((ent.color >> 24) & 0xFF);
+			*(xpm->pixels + *offset + 1) = (uint8_t)((ent.color >> 16) & 0xFF);
+			*(xpm->pixels + *offset + 2) = (uint8_t)((ent.color >> 8) & 0xFF);
+			*(xpm->pixels + *offset + 3) = (uint8_t)((ent.color >> 0) & 0xFF);
+			return (true);
+		}
+		i++;
+	}
 	return (false);
 }
-*/
 
 static bool	mlx_read_xpm_data(t_xpm *xpm, FILE *file, t_xpm42_entry *table)
 {
@@ -67,11 +82,8 @@ static bool	mlx_read_xpm_data(t_xpm *xpm, FILE *file, t_xpm42_entry *table)
 		output = getline(&buffer, &len, file);
 		while (output != -1 && (buffer[i] != '\0' && buffer[i] != '\n'))
 		{
-			/*
 			if (!mlx_add_pixel(xpm, table, &j, buffer[i++]))
 				return (mlx_free_va(false, 2, buffer, xpm->pixels));
-			*/
-			i++;
 		}
 	}
 	free(buffer);
