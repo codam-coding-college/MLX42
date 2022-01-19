@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 00:32:50 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/19 09:29:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ typedef struct s_mlx
 /**
  * Initilizes a new MLX42 Instance.
  * 
- * @param Width The width of the window.
- * @param Height The height of the window.
- * @param Title The title of the window.
- * @param Resize EXPERIMENTAL Enable window resizing.
- * @return Ptr to the MLX handle.
+ * @param[in] Width The width of the window.
+ * @param[in] Height The height of the window.
+ * @param[in] Title The title of the window.
+ * @param[in] Resize Enable window resizing.
+ * @returns Ptr to the MLX handle.
  */
 t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, \
 bool Resize);
@@ -89,7 +89,7 @@ bool Resize);
  * Tells MLX that it should stop rendering and quit the main loop.
  * Make sure to call terminate after calling this function.
  * 
- * @param mlx The MLX instance handle.
+ * @param[in] mlx The MLX instance handle.
  */
 void	mlx_quit(t_mlx *mlx);
 
@@ -97,24 +97,24 @@ void	mlx_quit(t_mlx *mlx);
  * The program loop, this will cause MLX to continously render
  * and output its content. Can be halted with mlx_quit.
  * 
- * @param mlx The MLX instance handle.
+ * @param[in] mlx The MLX instance handle.
  */
 void	mlx_loop(t_mlx *mlx);
 
 /**
  * Adds a function hook to the main loop. Aka, executes a function per frame.
  * 
- * @param mlx The MLX instance handle.
- * @param f The function.
- * @param param The parameter to pass onto the function.
- * @return Wether the hook was added successfuly. 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] f The function.
+ * @param[in] param The parameter to pass onto the function.
+ * @returns Wether the hook was added successfuly. 
  */
 bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
 
 /**
  * Terminates MLX and cleans up any of its used resources.
  * 
- * @param mlx The MLX instance handle.
+ * @param[in] mlx The MLX instance handle.
  */
 void	mlx_terminate(t_mlx *mlx);
 
@@ -123,10 +123,10 @@ void	mlx_terminate(t_mlx *mlx);
 /**
  * Sets / puts a pixel onto the screen using 
  * 
- * @param MLX The MLX instance handle.
- * @param X The X coordinate position.
- * @param Y The Y coordinate position.
- * @param Color The RGBA8 Color value.
+ * @param[in] MLX The MLX instance handle.
+ * @param[in] X The X coordinate position.
+ * @param[in] Y The Y coordinate position.
+ * @param[in] Color The RGBA8 Color value.
  */
 void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color);
 
@@ -135,18 +135,18 @@ void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color);
 /**
  * Returns true or false if the key is down or not.
  * 
- * @param mlx The MLX instance handle.
- * @param key The keycode to check, use MLX_KEY_... to specify!
- * @return True or false if the key is down or not.
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] key The keycode to check, use MLX_KEY_... to specify!
+ * @returns True or false if the key is down or not.
  */
 bool	mlx_is_key_down(t_mlx *mlx, t_keys key);
 
 /**
  * Checks whether a mouse button is pressed or not.
  * 
- * @param mlx The MLX instance handle. 
- * @param key A specific mouse key. e.g MLX_MOUSE_BUTTON_0
- * @return True or false if the mouse key is down or not.
+ * @param[in] mlx The MLX instance handle. 
+ * @param[in] key A specific mouse key. e.g MLX_MOUSE_BUTTON_0
+ * @returns True or false if the mouse key is down or not.
  */
 bool	mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
 
@@ -157,16 +157,16 @@ bool	mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
  * Negative values or values greater than window width or height 
  * indicate that it is outside the window.
  * 
- * @param mlx The MLX instance handle. 
- * @param pos_out The position.
+ * @param[in] mlx The MLX instance handle. 
+ * @param[in] pos_out The position.
  */
 void	mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out);
 
 /**
  * Sets the mouse position.
  * 
- * @param mlx The MLX instance handle. 
- * @param pos The position.
+ * @param[in] mlx The MLX instance handle. 
+ * @param[in] pos The position.
  */
 void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
 
@@ -178,8 +178,8 @@ void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
  * - Hidden
  * - Disabled
  * 
- * @param mlx The MLX instance handle. 
- * @param mode A specified mouse mode.
+ * @param[in] mlx The MLX instance handle. 
+ * @param[in] mode A specified mouse mode.
  */
 void	mlx_set_cursor_mode(t_mlx *mlx, t_mouse_mode mode);
 
@@ -190,17 +190,17 @@ void	mlx_set_cursor_mode(t_mlx *mlx, t_mouse_mode mode);
  * Use mlx_set_cursor to select the specific cursor.
  * Cursors are destroyed at mlx_terminate().
  * 
- * @param mlx The MLX instance handle.
- * @param image The XPM image to use as cursor.
- * @return The cursor pointer.
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] image The XPM image to use as cursor.
+ * @returns The cursor pointer.
  */
 void	*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
 
 /**
  * Sets the current cursor to the given custom cursor.
  * 
- * @param mlx The MLX instance handle.
- * @param cursor The cursor to display.
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] cursor The cursor to display.
  */
 void	mlx_set_cursor(t_mlx *mlx, void *cursor);
 
@@ -209,8 +209,8 @@ void	mlx_set_cursor(t_mlx *mlx, void *cursor);
  * 
  * Loads an XPM42 image from the given file path.
  * 
- * @param path The file path to the XPM image.
- * @return The XPM image struct containing its information.
+ * @param[in] path The file path to the XPM image.
+ * @returns The XPM image struct containing its information.
  */
 t_xpm	*mlx_load_xpm42(const char *path);
 
