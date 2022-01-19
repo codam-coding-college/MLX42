@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 17:18:59 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/01/19 17:53:15 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 19:05:17 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	mlx_get_window_pos(t_mlx *mlx, int32_t *xpos, int32_t *ypos)
 
 void	mlx_get_monitor_size(int32_t index, int32_t *width, int32_t *height)
 {
-	GLFWvidmode	*vidmode;
-	GLFWmonitor	**monitors;
-	int32_t		monitor_count;
+	const GLFWvidmode	*vidmode;
+	GLFWmonitor			**monitors;
+	int32_t				monitor_count;
 
 	monitors = glfwGetMonitors(&monitor_count);
 	if (index > monitor_count || !monitors)
