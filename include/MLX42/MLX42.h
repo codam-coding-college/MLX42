@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 16:55:39 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 18:00:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
  */
 void	mlx_terminate(t_mlx *mlx);
 
+//= Window/Monitor Functions
+
 /**
  * This function brings the specified window to front and sets input focus.
  * 
@@ -139,6 +141,36 @@ void	mlx_terminate(t_mlx *mlx);
  * @param[in] request Request focus instead of forcing it.
  */
 void	mlx_focus(t_mlx *mlx, bool request);
+
+/**
+ * Gets the size of the specified monitor.
+ * 
+ * @param[in] index Normally 0, incase of multiple windows, can be specified
+ * @param[in] width The width of the window.
+ * @param[in] height The height of the window.
+ */
+void	mlx_get_monitor_size(int32_t index, int32_t *width, int32_t *height);
+
+/**
+ * Sets the windows position.
+ * 
+ *  Do not use this function to move an already visible window unless you
+ *  have very good reasons for doing so, as it will confuse and annoy the user.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] xpos The x position.
+ * @param[in] ypos The y position.
+ */
+void	mlx_set_window_pos(t_mlx *mlx, int32_t xpos, int32_t ypos);
+
+/**
+ * Gets the windows position.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] xpos The x position.
+ * @param[in] ypos The y position.
+ */
+void	mlx_get_window_pos(t_mlx *mlx, int32_t *xpos, int32_t *ypos);
 
 //= Pixel Functions =//
 
@@ -192,6 +224,15 @@ void	mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out);
  */
 void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
 
+/**
+ * This function sets the scroll callback, which is called when a scrolling 
+ * device is used, such as a mouse wheel.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The scroll wheel callback.
+ */
+void	mlx_scroll_hook(t_mlx *mlx, t_MLXscrollfun func, void *param);
+
 //= Cursor Functions =//
 
 /**
@@ -235,15 +276,6 @@ void	mlx_set_cursor(t_mlx *mlx, void *cursor);
  * @returns The XPM image struct containing its information.
  */
 t_xpm	*mlx_load_xpm42(const char *path);
-
-/**
- * This function sets the scroll callback, which is called when a scrolling 
- * device is used, such as a mouse wheel.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] func The scroll wheel callback.
- */
-void	mlx_scroll_hook(t_mlx *mlx, t_MLXscrollfun func, void *param);
 
 //void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y);
 
