@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 10:31:36 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 10:36:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char c)
 			*(xpm->pixels + *offset + 1) = (uint8_t)((ent.color >> 16) & 0xFF);
 			*(xpm->pixels + *offset + 2) = (uint8_t)((ent.color >> 8) & 0xFF);
 			*(xpm->pixels + *offset + 3) = (uint8_t)((ent.color >> 0) & 0xFF);
+			*offset += 4;
 			return (true);
 		}
 		i++;
