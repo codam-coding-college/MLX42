@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 10:14:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 15:23:47 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,15 @@ typedef struct s_mlx
 	void		*context;
 	double		delta_time;
 }	t_mlx;
+
+/**
+ * Callback function used to handle scrolling.
+ * 
+ * @param[in] x The mouse x delta.
+ * @param[in] y The mouse y delta.
+ * @param[in] param The parameter to pass onto the function.
+ */
+typedef void (*	t_MLXscrollfun)(double xdelta, double ydelta, void *param);
 
 //= Generic Functions =//
 
@@ -214,6 +223,15 @@ void	mlx_set_cursor(t_mlx *mlx, void *cursor);
  * @returns The XPM image struct containing its information.
  */
 t_xpm	*mlx_load_xpm42(const char *path);
+
+/**
+ * This function sets the scroll callback, which is called when a scrolling 
+ * device is used, such as a mouse wheel.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The scroll wheel callback.
+ */
+void	mlx_scroll_hook(t_mlx *mlx, t_MLXscrollfun func, void *param);
 
 //void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y);
 
