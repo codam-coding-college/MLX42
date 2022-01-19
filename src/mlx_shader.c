@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/17 15:04:09 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 17:12:33 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ bool	mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out)
 	{
 		glGetShaderInfoLog(*out, sizeof(infolog), NULL, infolog);
 		fprintf(stderr, "%s", infolog);
+		free((void *)shader_source);
 		return (false);
 	}
+	free((void *)shader_source);
 	return (true);
 }

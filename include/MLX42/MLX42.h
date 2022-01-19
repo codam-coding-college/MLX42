@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 15:23:47 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/19 16:55:39 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,18 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
  * @param[in] mlx The MLX instance handle.
  */
 void	mlx_terminate(t_mlx *mlx);
+
+/**
+ * This function brings the specified window to front and sets input focus.
+ * 
+ * Do not use this function to steal focus from other applications unless
+ * you are certain that is what the user wants.  Focus stealing can be
+ * extremely disruptive.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] request Request focus instead of forcing it.
+ */
+void	mlx_focus(t_mlx *mlx, bool request);
 
 //= Pixel Functions =//
 
