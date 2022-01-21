@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 18:12:49 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/21 18:28:51 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,11 +298,12 @@ t_xpm	*mlx_load_xpm42(const char *path);
 /**
  * Creates and allocates a new image buffer.
  * 
+ * @param[in] mlx The MLX instance handle.
  * @param[in] width The desired width of the image.
  * @param[in] height The desired height of the image.
  * @return Pointer to the image buffer, if it failed to allocate then NULL.
  */
-t_mlx_image	*mlx_new_image(uint16_t width, uint16_t height);
+t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
 
 void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y);
 

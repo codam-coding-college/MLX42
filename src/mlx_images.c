@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 18:15:59 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/21 18:29:42 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y)
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-t_mlx_image	*mlx_new_image(uint16_t width, uint16_t height)
+t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 {
 	t_mlx_image		*newimg;
 	t_mlx_image_ctx	*newctx;
@@ -67,5 +67,8 @@ t_mlx_image	*mlx_new_image(uint16_t width, uint16_t height)
 	GL_UNSIGNED_BYTE, newimg->pixels);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	mlx_lstadd_back((t_mlx_list **)(&mlx->images), mlx_lstnew(newimg));
 	return (newimg);
 }
