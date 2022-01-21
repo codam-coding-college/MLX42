@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 10:12:18 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/21 18:10:47 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,28 @@ static bool	mlx_handle_resize(t_mlx *mlx)
 	return (true);
 }
 
+static void	mlx_render_images(t_mlx *mlx)
+{
+	t_mlx_ctx		*mlxctx;
+	t_mlx_list		*images;
+	t_mlx_image		*img;
+	t_mlx_image_ctx	*imgctx;
+
+	images = mlx->images;
+	mlxctx = mlx->context;
+	while (images)
+	{
+		img = images->content;
+		imgctx = img->context;
+		glActiveTexture(imgctx->texture);
+		glBindTexture(GL_TEXTURE_2D, imgctx->texture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, \
+		0, GL_RGBA, GL_UNSIGNED_BYTE, mlx->pixels);
+		glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "texture"), 0);
+		images = images->next;
+	}
+}
+
 // Essentially just loops forever and executes the hooks and window size.
 void	mlx_loop(t_mlx *mlx)
 {
@@ -70,6 +92,7 @@ void	mlx_loop(t_mlx *mlx)
 	double		oldstart;
 
 	oldstart = 0;
+	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		if (!mlx_handle_resize(mlx))
@@ -81,12 +104,9 @@ void	mlx_loop(t_mlx *mlx)
 		start = glfwGetTime();
 		mlx->delta_time = start - oldstart;
 		oldstart = start;
-		glClear(GL_COLOR_BUFFER_BIT);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, \
-		0, GL_RGBA, GL_UNSIGNED_BYTE, mlx->pixels);
-		glBindVertexArray(((t_mlx_ctx *)mlx->context)->shaderprogram);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		mlx_exec_loop_hooks(mlx);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		mlx_render_images(mlx);
 		glfwSwapBuffers(mlx->window);
 		glfwPollEvents();
 	}
