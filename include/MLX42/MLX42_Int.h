@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 16:53:01 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/21 19:29:48 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_mlx_ctx
 // Context for image.
 typedef struct s_mlx_image_ctx
 {
-	t_vert	vertices[8];
+	t_vert	vertices[6];
 	GLuint	texture;
 }	t_mlx_image_ctx;
 

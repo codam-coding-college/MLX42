@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 18:28:51 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/21 20:22:22 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ t_xpm	*mlx_load_xpm42(const char *path);
  */
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
 
-void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y);
+void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y, int32_t ZOffset);
 
 //void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y);
 

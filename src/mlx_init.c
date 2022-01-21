@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 18:21:28 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/21 20:28:09 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ static bool	mlx_init_frame(t_mlx *mlx)
 	context = mlx->context;
 	glGenVertexArrays(1, &(context->vao));
 	glGenBuffers(1, &(context->vbo));
-	glGenBuffers(1, &(context->ebo));
 	glBindVertexArray(context->vao);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 32, NULL);
+	glBindBuffer(GL_ARRAY_BUFFER, context->vbo);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(t_vert), NULL);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 32, (void *)12);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(t_vert), \
+	(void *)(sizeof(float) * 3));
 	glEnableVertexAttribArray(1);
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
@@ -48,7 +49,7 @@ static bool	mlx_init_render(t_mlx *mlx)
 		return (mlx_error(GLFW_WIN_FAILURE));
 	glfwMakeContextCurrent(mlx->window);
 	glfwSetFramebufferSizeCallback(mlx->window, framebuffer_callback);
-	glfwSwapInterval(true);
+	glfwSwapInterval(1);
 	{
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 			return (mlx_error(GLFW_GLAD_FAILURE));

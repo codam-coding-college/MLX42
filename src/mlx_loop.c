@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 18:10:47 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/21 20:20:19 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,20 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 	return (true);
 }
 
-static bool	mlx_handle_resize(t_mlx *mlx)
+static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 {
-	const int32_t	old_width = mlx->width;
-	const int32_t	old_height = mlx->height;
+	const int32_t	old_width = img->width;
+	const int32_t	old_height = img->height;
 
 	glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
-	if (mlx->width != old_width || mlx->height != old_height)
+	if (img->width != old_width || img->height != old_height)
 	{
-		mlx->pixels = realloc(mlx->pixels, \
-		(mlx->width * mlx->height) * sizeof(int32_t));
-		if (mlx->pixels == NULL)
+		printf("SETWEGWIEGJIWEG\n");
+		img->pixels = realloc(img->pixels, \
+		(img->width * img->height) * sizeof(int32_t));
+		if (img->pixels == NULL)
 			return (false);
-		memset(mlx->pixels, 0, (mlx->width * mlx->height) * sizeof(int32_t));
+		memset(img->pixels, 0, (img->width * img->height) * sizeof(int32_t));
 	}
 	return (true);
 }
@@ -76,11 +77,8 @@ static void	mlx_render_images(t_mlx *mlx)
 	{
 		img = images->content;
 		imgctx = img->context;
-		glActiveTexture(imgctx->texture);
-		glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, \
-		0, GL_RGBA, GL_UNSIGNED_BYTE, mlx->pixels);
-		glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "texture"), 0);
+		mlx_handle_resize(mlx, img);
+		mlx_draw_image(mlx, img, 0, 0, 0);
 		images = images->next;
 	}
 }
@@ -95,15 +93,10 @@ void	mlx_loop(t_mlx *mlx)
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(mlx->window))
 	{
-		if (!mlx_handle_resize(mlx))
-		{
-			mlx_quit(mlx);
-			mlx_error(MLX_MEMORY_FAIL);
-			break ;
-		}
 		start = glfwGetTime();
 		mlx->delta_time = start - oldstart;
 		oldstart = start;
+		glClearColor(1.0f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		mlx_exec_loop_hooks(mlx);
 		mlx_render_images(mlx);
