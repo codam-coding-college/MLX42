@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 20:20:19 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 14:04:27 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	mlx_render_images(t_mlx *mlx)
 		img = images->content;
 		imgctx = img->context;
 		mlx_handle_resize(mlx, img);
-		mlx_draw_image(mlx, img, 0, 0, 0);
+		mlx_draw_image(mlx, img, img->x, img->y);
 		images = images->next;
 	}
 }
@@ -91,6 +91,7 @@ void	mlx_loop(t_mlx *mlx)
 
 	oldstart = 0;
 	glEnable(GL_DEPTH_TEST);
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		start = glfwGetTime();

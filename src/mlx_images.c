@@ -6,17 +6,15 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 20:33:39 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 13:54:59 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-// TODO: Allow Z depth
-void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y, int32_t ZOffset)
+void	mlx_draw_texture(t_mlx_image *img, t_mlx_ctx *mlxctx, \
+t_mlx_image_ctx *imgctx, t_mlx *mlx)
 {
-	t_mlx_ctx		*mlxctx;
-	t_mlx_image_ctx	*imgctx;
 	const int32_t	w = img->width;
 	const int32_t	h = img->height;
 	const float		matrix[16] = {
@@ -27,18 +25,6 @@ void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y, int32_
 		-((1000. + -1000.) / (1000. - -1000.)), 1
 	};
 
-	x = y = 64;
-
-	mlxctx = mlx->context;
-	imgctx = img->context;
-	imgctx->vertices[0] = (t_vert){x, y, ZOffset, 0.f, 0.f};
-	imgctx->vertices[1] = (t_vert){x + w, y + h, ZOffset, 1.f, 1.f};
-	imgctx->vertices[2] = (t_vert){x + w, y, ZOffset, 1.f, 0.f};
-	imgctx->vertices[3] = (t_vert){x, y, ZOffset, 0.f, 0.f};
-	imgctx->vertices[4] = (t_vert){x, y + h, ZOffset, 0.f, 1.f};
-	imgctx->vertices[5] = (t_vert){x + w, y + h, ZOffset, 1.f, 1.f};
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
 	glUseProgram(mlxctx->shaderprogram);
 	glUniformMatrix4fv(glGetUniformLocation(mlxctx->shaderprogram, \
 	"proj_matrix"), 1, GL_FALSE, matrix);
@@ -50,6 +36,28 @@ void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y, int32_
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, \
 	GL_UNSIGNED_BYTE, img->pixels);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y)
+{
+	t_mlx_ctx		*mlxctx;
+	t_mlx_image_ctx	*imgctx;
+	const int32_t	w = img->width;
+	const int32_t	h = img->height;
+
+	img->x = x;
+	img->y = y;
+	mlxctx = mlx->context;
+	imgctx = img->context;
+	imgctx->vertices[0] = (t_vert){x, y, 1.0f, 0.f, 0.f};
+	imgctx->vertices[1] = (t_vert){x + w, y + h, 1.0f, 1.f, 1.f};
+	imgctx->vertices[2] = (t_vert){x + w, y, 1.0f, 1.f, 0.f};
+	imgctx->vertices[3] = (t_vert){x, y, 1.0f, 0.f, 0.f};
+	imgctx->vertices[4] = (t_vert){x, y + h, 1.0f, 0.f, 1.f};
+	imgctx->vertices[5] = (t_vert){x + w, y + h, 1.0f, 1.f, 1.f};
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
+	mlx_draw_texture(img, mlxctx, imgctx, mlx);
 }
 
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)

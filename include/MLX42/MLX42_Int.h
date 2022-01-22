@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/21 19:29:48 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 13:59:43 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include "KHR/khrplatform.h"
 # if defined(__APPLE__)
 #  define GL_SILENCE_DEPRECATION
-#  define IS_APPLE 1
-# else
-#  define IS_APPLE 0
 # endif
 # include <GLFW/glfw3.h>
 # include <stdlib.h>
@@ -27,6 +24,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <ctype.h>
+# include <string.h>
 # ifndef VERTEX_PATH
 #  define VERTEX_PATH "shaders/default.vert"
 # endif
