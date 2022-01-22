@@ -182,47 +182,54 @@ The systems below have not been tested yet.
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: w2wizard <w2wizard@student.codam.nl>         +#+                     */
+/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/15 15:42:00 by w2wizard      #+#    #+#                 */
-/*   Updated: 2022/01/16 00:05:27 by w2wizard      ########   odam.nl         */
+/*   Created: 2022/01/01 14:26:23 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/01/22 17:14:14 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/MLX42.h"
+#include "include/MLX42/MLX42.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-#define WIDTH 800
-#define HEIGHT 600
+#include <unistd.h>
+#include <memory.h>
+#define WIDTH 256
+#define HEIGHT 256
 
-int32_t    create_rgba(int32_t r, int32_t g, int32_t b, int32_t a)
+t_mlx_image	*g_img;
+
+void	hook(void *param)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
+	t_mlx	*mlx;
+
+	mlx = param;
+	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
+		mlx_quit(param);
+	if (mlx_is_key_down(param, MLX_KEY_UP))
+		g_img->y -= 5;
+	if (mlx_is_key_down(param, MLX_KEY_DOWN))
+		g_img->y += 5;
+	if (mlx_is_key_down(param, MLX_KEY_LEFT))
+		g_img->x -= 5;
+	if (mlx_is_key_down(param, MLX_KEY_RIGHT))
+		g_img->x += 5;
+	mlx_draw_image(param, g_img, g_img->x, g_img->y);
 }
 
-void    hook(void *param)
+int32_t	main(void)
 {
-    if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
-        mlx_quit(param);
+	t_mlx	*mlx;
 
-    for (int32_t x = 0; x < WIDTH; x++)
-        for (int32_t y = 0; y < HEIGHT; y++)
-            mlx_putpixel(param, x, y, create_rgba(\
-            rand() % 255, rand() % 255, rand() % 255, rand() % 255));
+	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	g_img = mlx_new_image(mlx, 128, 128);
+	memset(g_img->pixels, 255, g_img->width * g_img->width * sizeof(int));
+	mlx_loop_hook(mlx, &hook, mlx);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
 }
 
-int32_t    main(void)
-{
-    t_mlx    *mlx;
-
-    mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-    if (!mlx)
-        exit(EXIT_FAILURE);
-    mlx_loop_hook(mlx, &hook, mlx);
-    mlx_loop(mlx);
-    mlx_terminate(mlx);
-    return (EXIT_SUCCESS);
-}
 ```
