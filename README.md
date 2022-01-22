@@ -7,24 +7,24 @@ Project still WIP!
 [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
 [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
 
-My own recreation of the MiniLibX library used by 42, using glfw &amp; glad, running on OpenGL 3.3.
+My own recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL 3.3.
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 ## Differences to MiniLibX
 #### No Images
-Instead of having separate "Images" (textures) theres only a single buffer used to draw the pixels.
+Instead of having separate "Images" (textures) there's only a single buffer used to draw the pixels.
 
 #### Custom XPM (XPM42) format
-A custom simple to use XPM-like format which is has some minor differences to the XPM3 format.
+A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
 
 #### Cross-Platform
-The main idea of MLX42 is to be a cross-platform graphics interface, in 42 everything runs (currently) on MacOS but its
-very useful to be able to work remotley on different machines. With MiniLibX this is not possible.
+The main idea of MLX42 is to be a cross-platform graphics interface. In 42 everything runs (currently) on MacOS, but it's
+very useful to be able to work remotely on different machines. With MiniLibX this is not possible.
 
 #### Misc
  - Yes, MLX42 adheres 99.98% to the latest norme. 
- - 100% Documented, making it very beginner friendly and easy to use.
- - Running with OpenGL 3.3
+ - 100% Documented, making it very beginner-friendly and easy to use.
+ - Running with OpenGL 3.3.
  
 ## Installation
 
@@ -57,7 +57,7 @@ With normal brew you can now simply compile the program with:
 ➜  ~ gcc main.c mlx42.a -lglfw ...
 ```
 
-However with 42Homebrew you have additionally specify the location of the library like here:
+However, with 42Homebrew you have additionally specify the location of the library like here:
 ```bash
 ➜  ~ gcc main.c mlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
 ```
@@ -67,8 +67,8 @@ However with 42Homebrew you have additionally specify the location of the librar
 1. Download the binaries directly [here.](https://www.glfw.org/download.html)
 
 2. If possible move the contents of `lib` and `include` of GLFW to `/usr/local/lib` and `/usr/local/include` respectively.
-If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
-NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your architecture.
+   If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
+   NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your architecture.
 
 3. Compile MLX42
 ```bash 
@@ -76,19 +76,19 @@ NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your 
 ➜  ~ make
 ```
 
-When compiling with the static library directly you should compile your program like this:
+When compiling with the static library, directly you should compile your program like this:
 ```bash
 ➜  ~ gcc main.c mlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
 ```
-else simply compile like this:
+Else, simply compile like this:
 ```bash
 ➜  ~ gcc main.c mlx42.a -lglfw ...
 ```
 
 4. Run
 
-Incase of any security warnings or MacOS telling you it can't verify the author/developer. Go to ```Settings > Security & Privacy```
-There will be a popup at the bottom telling you that an application tried to run, click the option to let it run.
+In case of any security warnings or MacOS telling you it can't verify the author/developer, go to ```Settings > Security & Privacy```.
+There will be a pop-up at the bottom telling you that an application tried to run, click the option to let it run.
 
 ### For Linux:
 
@@ -129,14 +129,14 @@ The systems below have not been tested yet.
 
 2. Simply click continue, select whatever your choice is. 
    Once reaching the MinGW Installation Manager select:
-	- mingw32-base
-	- mingw32-gcc-g++ 
+    - mingw32-base
+    - mingw32-gcc-g++ 
 
-3. Apply by going to `Installation > Apply Changes`, after its done, you may close the window.
+3. Apply by going to `Installation > Apply Changes`, after it's done, you may close the window.
 
 4. Download & Install CMake: [Here!](https://cmake.org/download/), use the installer. Simply select all default options.
 
-5. Downlad & Install GnuWin: [Here!](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download?use_mirror=altushost-swe&download=)
+5. Download & Install GnuWin: [Here!](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download?use_mirror=altushost-swe&download=)
 
 6. If you used all default options, add these paths to your SYSTEM Environment variables:
   - C:\MinGW\bin
@@ -145,7 +145,7 @@ The systems below have not been tested yet.
 
 7. Download GLFW: https://www.glfw.org/download.html
 
-8. Open the terminal and type cmake-gui, select the downloaded/extracted
+8. Open the terminal and type `cmake-gui`, select the downloaded/extracted
    source folder, select any place you want the build output to be.
 
 9. Click on configure once and select the `MinGW Makefiles`, then finish.
@@ -155,8 +155,8 @@ The systems below have not been tested yet.
 11. Click on configure again, and then generate.
 
 12. Go to the build directory and do:
-	- `make`
-	- `make install`
+ - `make`
+ - `make install`
 
 13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to the MLX include folder & copy the .a file in the lib folder to `C:\MinGW\lib`.
 
