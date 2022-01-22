@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 14:31:56 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 16:21:30 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,24 @@ t_mlx_image_ctx *imgctx, t_mlx *mlx)
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, uint16_t x, uint16_t y)
+void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 {
 	t_mlx_ctx		*mlxctx;
 	t_mlx_image_ctx	*imgctx;
 	const int32_t	w = img->width;
 	const int32_t	h = img->height;
+	const int32_t	z = img->depth;
 
 	img->x = x;
 	img->y = y;
 	mlxctx = mlx->context;
 	imgctx = img->context;
-	imgctx->vertices[0] = (t_vert){x, y, 1.0f, 0.f, 0.f};
-	imgctx->vertices[1] = (t_vert){x + w, y + h, 1.0f, 1.f, 1.f};
-	imgctx->vertices[2] = (t_vert){x + w, y, 1.0f, 1.f, 0.f};
-	imgctx->vertices[3] = (t_vert){x, y, 1.0f, 0.f, 0.f};
-	imgctx->vertices[4] = (t_vert){x, y + h, 1.0f, 0.f, 1.f};
-	imgctx->vertices[5] = (t_vert){x + w, y + h, 1.0f, 1.f, 1.f};
+	imgctx->vertices[0] = (t_vert){x, y, z, 0.f, 0.f};
+	imgctx->vertices[1] = (t_vert){x + w, y + h, z, 1.f, 1.f};
+	imgctx->vertices[2] = (t_vert){x + w, y, z, 1.f, 0.f};
+	imgctx->vertices[3] = (t_vert){x, y, z, 0.f, 0.f};
+	imgctx->vertices[4] = (t_vert){x, y + h, z, 0.f, 1.f};
+	imgctx->vertices[5] = (t_vert){x + w, y + h, z, 1.f, 1.f};
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
 	mlx_draw_texture(img, mlxctx, imgctx, mlx);
