@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 21:35:10 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 21:36:53 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,8 @@ void	mlx_terminate(t_mlx *mlx);
  * extremely disruptive.
  * 
  * @param[in] mlx The MLX instance handle.
- * @param[in] request Request focus instead of forcing it.
  */
-void	mlx_focus(t_mlx *mlx, bool request);
+void	mlx_focus(t_mlx *mlx);
 
 /**
  * Gets the size of the specified monitor.

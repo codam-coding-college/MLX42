@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 13:58:09 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 18:29:13 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	framebuffer_callback(GLFWwindow *window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-static bool	mlx_init_frame(t_mlx *mlx)
+static bool	mlx_create_buffers(t_mlx *mlx)
 {
 	t_mlx_ctx		*context;
 
@@ -63,7 +63,7 @@ static bool	mlx_init_render(t_mlx *mlx)
 	glDeleteShader(s[0]);
 	glDeleteShader(s[1]);
 	glUseProgram(((t_mlx_ctx *)mlx->context)->shaderprogram);
-	return (mlx_init_frame(mlx));
+	return (mlx_create_buffers(mlx));
 }
 
 t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
@@ -80,7 +80,7 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	if (__APPLE__)
+	if (IS_APPLE)
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, Resize);
 	mlx->width = Width;
