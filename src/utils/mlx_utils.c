@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 16:54:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/22 18:12:24 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,9 @@ int32_t	mlx_atoi_base(const char *str, int32_t base)
 	return (nbr * sign);
 }
 
-void	mlx_focus(t_mlx *mlx, bool request)
+void	mlx_focus(t_mlx *mlx)
 {
-	if (request)
-		glfwFocusWindow(mlx->window);
-	else
-		glfwRequestWindowAttention(mlx->window);
+	glfwFocusWindow(mlx->window);
 }
 
 /**
