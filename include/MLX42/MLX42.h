@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 16:27:45 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 21:35:10 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,14 @@ void	mlx_loop(t_mlx *mlx);
  * @returns Wether the hook was added successfuly. 
  */
 bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
+
+/**
+ * Lets you set a custom image as the program icon.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] image The image to use as icon.
+ */
+void	mlx_set_icon(t_mlx *mlx, t_xpm *image);
 
 /**
  * Terminates MLX and cleans up any of its used resources.
@@ -320,7 +328,5 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
  * @param[in] y The Y poistion.
  */
 void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
-
-//void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y);
 
 #endif

@@ -6,16 +6,17 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 16:21:30 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 21:24:52 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
 // Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
-static void	mlx_draw_texture(t_mlx_image *img, t_mlx_ctx *mlxctx, \
-t_mlx_image_ctx *imgctx, t_mlx *mlx)
+static void	mlx_draw_texture(t_mlx_image *img, t_mlx_image_ctx *imgctx, \
+t_mlx *mlx)
 {
+	t_mlx_ctx		*mlxctx;
 	const int32_t	w = img->width;
 	const int32_t	h = img->height;
 	const float		matrix[16] = {
@@ -26,6 +27,7 @@ t_mlx_image_ctx *imgctx, t_mlx *mlx)
 		-((1000. + -1000.) / (1000. - -1000.)), 1
 	};
 
+	mlxctx = mlx->context;
 	glUseProgram(mlxctx->shaderprogram);
 	glUniformMatrix4fv(glGetUniformLocation(mlxctx->shaderprogram, \
 	"proj_matrix"), 1, GL_FALSE, matrix);
@@ -59,7 +61,7 @@ void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	imgctx->vertices[5] = (t_vert){x + w, y + h, z, 1.f, 1.f};
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-	mlx_draw_texture(img, mlxctx, imgctx, mlx);
+	mlx_draw_texture(img, imgctx, mlx);
 }
 
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
