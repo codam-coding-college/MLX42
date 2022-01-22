@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 14:04:27 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 14:52:08 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,14 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 	return (true);
 }
 
+/*
 static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 {
 	const int32_t	old_width = img->width;
 	const int32_t	old_height = img->height;
 
-	glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
 	if (img->width != old_width || img->height != old_height)
 	{
-		printf("SETWEGWIEGJIWEG\n");
 		img->pixels = realloc(img->pixels, \
 		(img->width * img->height) * sizeof(int32_t));
 		if (img->pixels == NULL)
@@ -63,6 +62,7 @@ static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 	}
 	return (true);
 }
+*/
 
 static void	mlx_render_images(t_mlx *mlx)
 {
@@ -76,8 +76,7 @@ static void	mlx_render_images(t_mlx *mlx)
 	while (images)
 	{
 		img = images->content;
-		imgctx = img->context;
-		mlx_handle_resize(mlx, img);
+		imgctx = img->context;\
 		mlx_draw_image(mlx, img, img->x, img->y);
 		images = images->next;
 	}
@@ -101,6 +100,7 @@ void	mlx_loop(t_mlx *mlx)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		mlx_exec_loop_hooks(mlx);
 		mlx_render_images(mlx);
+		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
 		glfwSwapBuffers(mlx->window);
 		glfwPollEvents();
 	}

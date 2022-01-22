@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 14:28:34 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 14:53:15 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
 
 /**
  * Draws the image onto the specified screen coordinates.
+ * NOTE: You can modify the images x & y coordinate directly to move it.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] img The image to draw onto the screen.

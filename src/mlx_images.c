@@ -6,13 +6,14 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 13:54:59 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 14:31:56 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-void	mlx_draw_texture(t_mlx_image *img, t_mlx_ctx *mlxctx, \
+// Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
+static void	mlx_draw_texture(t_mlx_image *img, t_mlx_ctx *mlxctx, \
 t_mlx_image_ctx *imgctx, t_mlx *mlx)
 {
 	const int32_t	w = img->width;
