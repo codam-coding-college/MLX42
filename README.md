@@ -11,8 +11,6 @@ My own recreation of the MiniLibX library used by 42, using GLFW &amp; glad, run
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 ## Differences to MiniLibX
-#### No Images
-Instead of having separate "Images" (textures) there's only a single buffer used to draw the pixels.
 
 #### Custom XPM (XPM42) format
 A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
@@ -25,6 +23,7 @@ very useful to be able to work remotely on different machines. With MiniLibX thi
  - Yes, MLX42 adheres 99.98% to the latest norme. 
  - 100% Documented, making it very beginner-friendly and easy to use.
  - Running with OpenGL 3.3.
+ - Proper struct types, no longer are images and the mlx handle just `void*`
  
 ## Installation
 
