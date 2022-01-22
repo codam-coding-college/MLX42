@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 15:21:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/22 13:58:09 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,59 +18,23 @@ static void	framebuffer_callback(GLFWwindow *window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-static bool	mlx_draw_frame(t_mlx *mlx)
-{
-	t_mlx_ctx		*context;
-
-	context = mlx->context;
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 32, NULL);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 32, (void *)12);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 32, (void *)24);
-	glEnableVertexAttribArray(2);
-	glGenTextures(1, &(context->texture));
-	glBindTexture(GL_TEXTURE_2D, context->texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	mlx->pixels = calloc((mlx->width * mlx->height), sizeof(int32_t));
-	if (!mlx->pixels)
-		return (false);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, mlx->width, mlx->height, \
-	0, GL_RGBA, GL_UNSIGNED_BYTE, mlx->pixels);
-	glUniform1i(glGetUniformLocation(context->shaderprogram, "texture"), 0);
-	glEnable(GL_BLEND);
-	glBlendEquation(GL_FUNC_ADD);
-	return (true);
-}
-
 static bool	mlx_init_frame(t_mlx *mlx)
 {
 	t_mlx_ctx		*context;
-	const float		vertices[] = {
-		// Positions            // Colors           // Texture coords
-		-1.0f, +1.0f, 0.0f,		1.0f, 1.0f, 0.0f,	0.0f, 0.0f, // Top left 
-		-1.0f, -1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f, 1.0f, // Bottom left
-		+1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f, // Bottom right
-		+1.0f, +1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f, // Top right
-	};
-	const uint32_t	index[] = {
-		0, 1, 3, // First triangle
-		1, 2, 3, // Second triangle
-	};
 
 	context = mlx->context;
 	glGenVertexArrays(1, &(context->vao));
 	glGenBuffers(1, &(context->vbo));
-	glGenBuffers(1, &(context->ebo));
 	glBindVertexArray(context->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, context->vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, context->ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index), index, GL_STATIC_DRAW);
-	return (mlx_draw_frame(mlx));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(t_vert), NULL);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(t_vert), \
+	(void *)(sizeof(float) * 3));
+	glEnableVertexAttribArray(1);
+	glEnable(GL_BLEND);
+	glBlendEquation(GL_FUNC_ADD);
+	return (true);
 }
 
 /**
@@ -85,7 +49,7 @@ static bool	mlx_init_render(t_mlx *mlx)
 		return (mlx_error(GLFW_WIN_FAILURE));
 	glfwMakeContextCurrent(mlx->window);
 	glfwSetFramebufferSizeCallback(mlx->window, framebuffer_callback);
-	glfwSwapInterval(true);
+	glfwSwapInterval(1);
 	{
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 			return (mlx_error(GLFW_GLAD_FAILURE));
@@ -116,7 +80,7 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	if (IS_APPLE)
+	if (__APPLE__)
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, Resize);
 	mlx->width = Width;

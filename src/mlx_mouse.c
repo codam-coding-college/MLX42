@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 15:05:47 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/21 16:35:52 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /**
  * HACK: Questionable way of intercepting and adding additional custom params 
  * to the glfw mouse scroll callback function.
+ * 
+ * TODO: Use glfwSetWindowPointer!
  */
 
 static void				*g_param_cb = NULL;

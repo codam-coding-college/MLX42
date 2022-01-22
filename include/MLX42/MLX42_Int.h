@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 00:30:01 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/22 13:59:43 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include "KHR/khrplatform.h"
 # if defined(__APPLE__)
 #  define GL_SILENCE_DEPRECATION
-#  define IS_APPLE 1
-# else
-#  define IS_APPLE 0
 # endif
 # include <GLFW/glfw3.h>
 # include <stdlib.h>
@@ -27,6 +24,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <ctype.h>
+# include <string.h>
 # ifndef VERTEX_PATH
 #  define VERTEX_PATH "shaders/default.vert"
 # endif
@@ -45,17 +43,34 @@
 
 //= Types =//
 
+// A single vertex.
+typedef struct s_vert
+{
+	float	x;
+	float	y;
+	float	z;
+	float	u;
+	float	v;
+}	t_vert;
+
 // OpenGL variables.
 typedef struct s_mlx_ctx
 {
-	uint32_t	shaderprogram;
-	uint32_t	texture;
-	uint32_t	vao;
-	uint32_t	vbo;
-	uint32_t	ebo;
+	GLuint	vao;
+	GLuint	vbo;
+	GLuint	ebo;
+	GLuint	shaderprogram;
 }	t_mlx_ctx;
 
-// Struct witholding a simple hook function with a param.
+// Context for image.
+typedef struct s_mlx_image_ctx
+{
+	t_vert	vertices[6];
+	GLuint	texture;
+}	t_mlx_image_ctx;
+
+// Struct witholding a hook function with a param.
+// TODO: Rename to functor;
 typedef struct s_mlx_hook
 {
 	void	*param;
@@ -86,6 +101,7 @@ void		mlx_lstadd_back(t_mlx_list **lst, t_mlx_list *new);
 bool		mlx_error(const char *error);
 bool		mlx_free_va(bool output, int32_t count, ...);
 
+void		mlx_set_image_shader(t_mlx *mlx);
 bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
 bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
 char		*mlx_readfile(const char *FilePath);

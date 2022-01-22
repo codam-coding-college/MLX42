@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 18:00:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/22 16:27:45 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,45 @@ typedef struct s_xpm
 }	t_xpm;
 
 /**
+ * An image with an individual buffer that can be rendered.
+ * Any value can be modified except the width/height and context.
+ * 
+ * @param x The x location of the image.
+ * @param y The y location of the image.
+ * @param depth The depth controls in Z layer it is drawn in.
+ * @param pixels The literal pixel data.
+ * @param width The width of the image.
+ * @param height The height of the image.
+ * @param context Abstracted data.
+ */
+typedef struct s_mlx_image
+{
+	int32_t	x;
+	int32_t	y;
+	int32_t	depth;
+	uint8_t	*pixels;
+	int32_t	height;
+	int32_t	width;
+	void	*context;
+}	t_mlx_image;
+
+/**
  * Main MLX handle, carries important data in regards to the program.
  * @param window The window itself.
  * @param hooks List of all the current hooks.
+ * @param images List of all the current images.
+ * @param context Abstracted opengl data.
  * @param width The width.
  * @param height The height.
- * @param pixels The literal pixel data.
- * @param context Abstracted opengl data.
  */
 typedef struct s_mlx
 {
 	void		*window;
 	void		*hooks;
+	void		*images;
+	void		*context;
 	int32_t		width;
 	int32_t		height;
-	uint8_t		*pixels;
-	void		*context;
 	double		delta_time;
 }	t_mlx;
 
@@ -172,18 +195,6 @@ void	mlx_set_window_pos(t_mlx *mlx, int32_t xpos, int32_t ypos);
  */
 void	mlx_get_window_pos(t_mlx *mlx, int32_t *xpos, int32_t *ypos);
 
-//= Pixel Functions =//
-
-/**
- * Sets / puts a pixel onto the screen using 
- * 
- * @param[in] MLX The MLX instance handle.
- * @param[in] X The X coordinate position.
- * @param[in] Y The Y coordinate position.
- * @param[in] Color The RGBA8 Color value.
- */
-void	mlx_putpixel(t_mlx *MLX, int32_t X, int32_t Y, int32_t Color);
-
 //= Input Functions =//
 
 /**
@@ -276,6 +287,39 @@ void	mlx_set_cursor(t_mlx *mlx, void *cursor);
  * @returns The XPM image struct containing its information.
  */
 t_xpm	*mlx_load_xpm42(const char *path);
+
+//= Image Functions =//
+
+/**
+ * Sets / puts a pixel onto an image.
+ * 
+ * @param[in] img The MLX instance handle.
+ * @param[in] X The X coordinate position.
+ * @param[in] Y The Y coordinate position.
+ * @param[in] Color The RGBA8 Color value.
+ */
+void	mlx_putpixel(t_mlx_image *img, int32_t X, int32_t Y, int32_t Color);
+
+/**
+ * Creates and allocates a new image buffer.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] width The desired width of the image.
+ * @param[in] height The desired height of the image.
+ * @return Pointer to the image buffer, if it failed to allocate then NULL.
+ */
+t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
+
+/**
+ * Draws the image onto the specified screen coordinates.
+ * NOTE: You can modify the images x & y coordinate directly to move it.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] img The image to draw onto the screen.
+ * @param[in] x The X position.
+ * @param[in] y The Y poistion.
+ */
+void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
 
 //void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y);
 
