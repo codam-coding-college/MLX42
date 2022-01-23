@@ -1,11 +1,18 @@
-# MLX42
+</br>
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/63303990/150698103-7e908ff3-abf8-4b0f-ad54-07a76b6c45e2.png" alt="42MLX_Logo">
+</div>
+<div align="center">
+  <sub>Written by <a href="https://w2wizard.github.io/">W2.Wizard</a> for the 42 Network</sub>
+    <div align="center">
+    </br>
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="42MLX_Logo"> 
+    <img src="https://svgshare.com/i/Zhy.svg" alt="42MLX_Logo">
+    <img src="https://svgshare.com/i/ZjP.svg" alt="42MLX_Logo">
+    <img src="https://svgshare.com/i/ZhY.sv" alt="42MLX_Logo">
+    </div>
+</div>
 
-Project still WIP!
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
-[![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
-[![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
 
 My own recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL 3.3.
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
