@@ -34,7 +34,7 @@ No more guessing and searching how something functions or is supposed to work.
 A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
 
 #### Up-to-date with latest OpenGL
-This lib will try to always maintain and use the latest and stable version of OpenGL available.
+MLX42 will try to always maintain and use the latest and stable version of OpenGL available.
 
 #### Almost identical usage to MiniLibX
 Switching to MLX42 from MiniLibX is not a lot of work, most features present in MiniLibX are also present in MLX42, albeit with different prototypes.
