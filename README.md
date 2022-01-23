@@ -157,7 +157,7 @@ The systems below have not been tested yet.
  - `make`
  - `make install`
 
-13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to the MLX include folder & copy the .a file in the lib folder to `C:\MinGW\lib`.
+13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to `C:\MinGW\include` & copy the .a file in the lib folder to `C:\MinGW\lib`.
 
 #### NOTE: As of now the build script for windows does not exist, compile by adding every c file manually.
 
