@@ -28,7 +28,7 @@ MLX42 will always adhere fully to the latest norme, if 42 creates a norme, it sh
 
 #### Documented
 Almost all functions and types are fully documented giving you a clue as to how to approach and use the library.
-No more guessing and searching how something functions or is supposed to be work.
+No more guessing and searching how something functions or is supposed to work.
 
 #### Custom XPM (XPM42) format
 A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
