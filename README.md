@@ -19,19 +19,26 @@ The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 ## Differences to MiniLibX
 
-#### Custom XPM (XPM42) format
-A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
-
 #### Cross-Platform
 The main idea of MLX42 is to be a cross-platform graphics interface. In 42 everything runs (currently) on MacOS, but it's
 very useful to be able to work remotely on different machines. With MiniLibX this is not possible.
 
-#### Misc
- - Yes, MLX42 adheres 99.98% to the latest norme. 
- - 100% Documented, making it very beginner-friendly and easy to use.
- - Running with OpenGL 3.3.
- - Proper struct types, no longer are images and the mlx handle just `void*`
- 
+#### Norme Proof
+MLX42 will always adhere fully to the latest norme, if 42 creates a norme, it should also use it. 
+
+#### Documented
+Almost all functions and types are fully documented giving you a clue as to how to approach and use the library.
+No more guessing and searching how something functions or is supposed to be work.
+
+#### Custom XPM (XPM42) format
+A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
+
+#### Up-to-date with latest OpenGL
+This lib will try to always maintain and use the latest and stable version of OpenGL available.
+
+#### Almost identical usage to MiniLibX
+Switching to MLX42 from MiniLibX is not a lot of work, most features present in MiniLibX are also present in MLX42, albeit with different prototypes.
+
 ## Installation
 
 In the very end a library is generated, compile your program with this library!
