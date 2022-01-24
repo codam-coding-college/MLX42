@@ -6,11 +6,26 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 13:08:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/24 15:35:06 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+
+/**
+ * Draws a new instance of an image, it will then share the same
+ * pixel buffer as the image.
+ * 
+ * @param mlx 
+ * @param img 
+ * @param x 
+ * @param y 
+ * @return void* 
+void	*mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
+{
+	
+}
+ */
 
 // Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
 static void	mlx_draw_texture(t_mlx_image *img, t_mlx_image_ctx *imgctx, \
@@ -53,6 +68,7 @@ void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	img->y = y;
 	mlxctx = mlx->context;
 	imgctx = img->context;
+	imgctx->draw = true;
 	imgctx->vertices[0] = (t_vert){x, y, z, 0.f, 0.f};
 	imgctx->vertices[1] = (t_vert){x + w, y + h, z, 1.f, 1.f};
 	imgctx->vertices[2] = (t_vert){x + w, y, z, 1.f, 0.f};
@@ -72,13 +88,14 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newimg = calloc(1, sizeof(t_mlx_image));
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
-		return (NULL);
+		return ((void *)mlx_free_va(false, 2, newimg, newctx));
 	newimg->width = width;
 	newimg->height = height;
 	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
 		return ((void *)mlx_free_va(false, 2, newimg, newctx));
+	newctx->draw = false;
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \

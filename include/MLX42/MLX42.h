@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 21:36:53 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/24 15:34:18 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ typedef struct s_mlx_image
 	int32_t	y;
 	int32_t	depth;
 	uint8_t	*pixels;
-	int32_t	height;
 	int32_t	width;
+	int32_t	height;
 	void	*context;
 }	t_mlx_image;
 
@@ -158,6 +158,13 @@ void	mlx_set_icon(t_mlx *mlx, t_xpm *image);
  * @param[in] mlx The MLX instance handle.
  */
 void	mlx_terminate(t_mlx *mlx);
+
+/**
+ * Gets the elapsed time since MLX was initialized.
+ * 
+ * @return The amount of time elapsed in seconds.
+ */
+int32_t	mlx_get_time(void);
 
 //= Window/Monitor Functions
 

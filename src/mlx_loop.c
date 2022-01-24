@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 16:05:29 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/24 15:36:22 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,31 @@ static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 	}
 	return (true);
 }
+*/
 
 static void	mlx_render_images(t_mlx *mlx)
 {
-	t_mlx_ctx		*mlxctx;
-	t_mlx_list		*images;
 	t_mlx_image		*img;
 	t_mlx_image_ctx	*imgctx;
+	t_mlx_list		*images;
+	t_mlx_ctx		*mlxctx;
 
 	images = mlx->images;
 	mlxctx = mlx->context;
 	while (images)
 	{
 		img = images->content;
-		imgctx = img->context;\
-		mlx_draw_image(mlx, img, img->x, img->y);
+		imgctx = img->context;
+		if (imgctx->draw)
+			mlx_draw_image(mlx, img, img->x, img->y);
 		images = images->next;
 	}
 }
-*/
+
+int32_t	mlx_get_time(void)
+{
+	return (glfwGetTime());
+}
 
 // Essentially just loops forever and executes the hooks and window size.
 // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
@@ -100,6 +106,7 @@ void	mlx_loop(t_mlx *mlx)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
 		mlx_exec_loop_hooks(mlx);
+		mlx_render_images(mlx);
 		glfwSwapBuffers(mlx->window);
 		glfwPollEvents();
 	}

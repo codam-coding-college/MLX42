@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 10:36:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/24 15:37:19 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,28 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 }
 
 /*
-void	mlx_draw_xpm(t_mlx *mlx, t_xpm *xpm, int32_t X, int32_t Y)
+void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 {
-	
+	uint8_t		*pixel;
+	uint32_t	color;
+	int32_t		i;
+	int32_t		j;
+
+	i = 0;
+	while (i < xpm->height)
+	{
+		j = 0;
+		while (j < xpm->width)
+		{
+			pixel = &image->pixels[((Y + i) * image->width + X + j) * \
+				sizeof(int32_t)];
+			color = (*(uint32_t *)
+					(xpm->pixels + (j * 4 + (i * xpm->width * 4))) / 256);
+			*(uint32_t *)pixel = color;
+			j++;
+		}
+		i++;
+	}
 }
 */
 
