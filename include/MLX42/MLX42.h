@@ -58,21 +58,21 @@ typedef struct s_xpm
  * 
  * @param x The x location of the image.
  * @param y The y location of the image.
- * @param depth The depth controls in Z layer it is drawn in.
+ * @param z The depth controls in Z layer it is drawn in.
  * @param pixels The literal pixel data.
  * @param width The width of the image.
  * @param height The height of the image.
- * @param context Abstracted data.
+ * @param context Abstracted OpenGL data.
  */
 typedef struct s_mlx_image
 {
-	int32_t	x;
-	int32_t	y;
-	int32_t	depth;
-	uint8_t	*pixels;
-	int32_t	width;
-	int32_t	height;
-	void	*context;
+	int32_t			x;
+	int32_t			y;
+	int32_t			z;
+	uint8_t			*pixels;
+	const uint16_t	width;
+	const uint16_t	height;
+	void			*context;
 }	t_mlx_image;
 
 /**

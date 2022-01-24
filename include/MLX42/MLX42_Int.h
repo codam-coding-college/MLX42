@@ -34,6 +34,9 @@
 # ifndef FRAGMENT_PATH
 #  define FRAGMENT_PATH "shaders/default.frag"
 # endif
+# ifndef MLX_SWAP_INTERVAL
+#  define MLX_SWAP_INTERVAL 1
+# endif
 # define MLX_ERROR "MLX42 Error:"
 # define MLX_INVALID_FILE_EXT "Invalid file extension!"
 # define MLX_INVALID_FILE "Failed to read file!"

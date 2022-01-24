@@ -58,15 +58,13 @@ t_mlx *mlx)
 
 void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 {
-	t_mlx_ctx		*mlxctx;
 	t_mlx_image_ctx	*imgctx;
 	const int32_t	w = img->width;
 	const int32_t	h = img->height;
-	const int32_t	z = img->depth;
+	const int32_t	z = img->z;
 
 	img->x = x;
 	img->y = y;
-	mlxctx = mlx->context;
 	imgctx = img->context;
 	imgctx->draw = true;
 	imgctx->vertices[0] = (t_vert){x, y, z, 0.f, 0.f};
@@ -89,8 +87,8 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
 		return ((void *)mlx_free_va(false, 2, newimg, newctx));
-	newimg->width = width;
-	newimg->height = height;
+	(*(uint16_t *)&newimg->width) = width;
+	(*(uint16_t *)&newimg->height) = height;
 	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
@@ -98,12 +96,12 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newctx->draw = false;
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
-	GL_UNSIGNED_BYTE, newimg->pixels);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
+	GL_UNSIGNED_BYTE, newimg->pixels);
 	mlx_lstadd_back((t_mlx_list **)(&mlx->images), mlx_lstnew(newimg));
 	return (newimg);
 }

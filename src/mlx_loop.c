@@ -69,10 +69,8 @@ static void	mlx_render_images(t_mlx *mlx)
 	t_mlx_image		*img;
 	t_mlx_image_ctx	*imgctx;
 	t_mlx_list		*images;
-	t_mlx_ctx		*mlxctx;
 
 	images = mlx->images;
-	mlxctx = mlx->context;
 	while (images)
 	{
 		img = images->content;
