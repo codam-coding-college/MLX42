@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 21:24:52 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/24 13:08:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newimg->width = width;
 	newimg->height = height;
 	newimg->context = newctx;
-	newimg->pixels = malloc(width * height * sizeof(int32_t));
+	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
 		return ((void *)mlx_free_va(false, 2, newimg, newctx));
 	glGenTextures(1, &newctx->texture);

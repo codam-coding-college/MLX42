@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 18:12:24 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/01/24 13:01:35 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,13 @@ char	*mlx_readfile(const char *FilePath)
 	fseek(file, 0L, SEEK_END);
 	filesize = ftell(file);
 	fseek(file, 0L, SEEK_SET);
-	data = calloc(filesize, sizeof(char));
+	data = calloc(filesize + 1, sizeof(char));
 	if (!data)
 		return (NULL);
 	bread = fread(data, sizeof(char), filesize, file);
-	if (bread == 0)
+	if (bread <= 0)
 	{
+		free(data);
 		fclose(file);
 		return (NULL);
 	}
