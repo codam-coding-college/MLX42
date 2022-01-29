@@ -12,24 +12,9 @@
 
 #include "MLX42/MLX42_Int.h"
 
-/**
- * Draws a new instance of an image, it will then share the same
- * pixel buffer as the image.
- * 
- * @param mlx 
- * @param img 
- * @param x 
- * @param y 
- * @return void* 
-void	*mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
-{
-	
-}
- */
-
 // Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
-static void	mlx_draw_texture(t_mlx_image *img, t_mlx_image_ctx *imgctx, \
-t_mlx *mlx)
+static void	mlx_draw_texture(t_mlx *mlx, t_mlx_image *img, uint8_t *pixels, \
+t_vert *vertices)
 {
 	t_mlx_ctx		*mlxctx;
 	const int32_t	w = img->width;
@@ -49,11 +34,41 @@ t_mlx *mlx)
 	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "outTexture"), 0);
 	glBindVertexArray(mlxctx->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, mlxctx->vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, &imgctx->vertices, \
+	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, \
 	GL_STATIC_DRAW);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, \
-	GL_UNSIGNED_BYTE, img->pixels);
+	GL_UNSIGNED_BYTE, pixels);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+/**
+ * Draws a new instance of an image, it will then share the same
+ * pixel buffer as the image.
+ * 
+ * @param mlx 
+ * @param img 
+ * @param x 
+ * @param y 
+ * @return void* 
+ */
+void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
+{
+	t_mlx_image_ctx	*imgctx;
+	t_vert			vertices[6];
+	const int32_t	w = img->width;
+	const int32_t	h = img->height;
+	const int32_t	z = img->z;
+
+	imgctx = img->context;
+	vertices[0] = (t_vert){x, y, z, 0.f, 0.f};
+	vertices[1] = (t_vert){x + w, y + h, z, 1.f, 1.f};
+	vertices[2] = (t_vert){x + w, y, z, 1.f, 0.f};
+	vertices[3] = (t_vert){x, y, z, 0.f, 0.f};
+	vertices[4] = (t_vert){x, y + h, z, 0.f, 1.f};
+	vertices[5] = (t_vert){x + w, y + h, z, 1.f, 1.f};
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
+	mlx_draw_texture(mlx, img, img->pixels, vertices);
 }
 
 void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
@@ -75,7 +90,7 @@ void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	imgctx->vertices[5] = (t_vert){x + w, y + h, z, 1.f, 1.f};
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-	mlx_draw_texture(img, imgctx, mlx);
+	mlx_draw_texture(mlx, img, img->pixels, imgctx->vertices);
 }
 
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
