@@ -94,7 +94,6 @@ void	mlx_loop(t_mlx *mlx)
 	double		oldstart;
 
 	oldstart = 0;
-	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		start = glfwGetTime();

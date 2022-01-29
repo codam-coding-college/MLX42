@@ -32,7 +32,9 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(t_vert), \
 	(void *)(sizeof(float) * 3));
 	glEnableVertexAttribArray(1);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendEquation(GL_FUNC_ADD);
 	return (true);
 }

@@ -344,4 +344,15 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
  */
 void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
 
+/**
+ * Draws a new instance of an image, it will then share the same
+ * pixel buffer as the image.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] img The image to draw onto the screen.
+ * @param[in] x The X position.
+ * @param[in] y The Y poistion.
+ */
+void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
+
 #endif

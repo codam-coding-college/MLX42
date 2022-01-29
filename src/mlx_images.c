@@ -41,16 +41,6 @@ t_vert *vertices)
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-/**
- * Draws a new instance of an image, it will then share the same
- * pixel buffer as the image.
- * 
- * @param mlx 
- * @param img 
- * @param x 
- * @param y 
- * @return void* 
- */
 void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 {
 	t_mlx_image_ctx	*imgctx;
