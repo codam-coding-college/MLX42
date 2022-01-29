@@ -111,7 +111,7 @@ typedef void (*	t_mlx_scrollfunc)(double xdelta, double ydelta, void *param);
  * @param[in] action The action is either MLX_PRESS, MLX_REPEAT or MLX_RELEASE. 
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*	t_mlx_scrollfunc)(t_keys key, t_action action, void *param);
+typedef void (*	t_mlx_keyfunc)(t_keys key, t_action action, void *param);
 
 //= Generic Functions =//
 
