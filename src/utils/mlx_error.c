@@ -21,7 +21,7 @@
  * @param ... Any form of pointer.
  * @return Output, this is simply for convinience when necessary.
  */
-bool	mlx_free_va(bool output, int32_t count, ...)
+bool	mlx_freen(bool output, int32_t count, ...)
 {
 	int32_t	i;
 	va_list	args;

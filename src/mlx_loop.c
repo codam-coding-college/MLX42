@@ -87,7 +87,7 @@ int32_t	mlx_get_time(void)
 }
 
 // Essentially just loops forever and executes the hooks and window size.
-// glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 void	mlx_loop(t_mlx *mlx)
 {
 	double		start;

@@ -11,14 +11,22 @@
 /* ************************************************************************** */
 
 /**
- * These are copied from glfw3.h due to the abstraction layer.
+ * These are copied from GLFW.
  * 
  * Any new entries should have the exact same values as defined
- * over there.
+ * over in the glfw3.h file.
  */
 
 #ifndef MLX42_KEYS_H
 # define MLX42_KEYS_H
+
+// Specific key action
+typedef enum e_action
+{
+	MLX_PRESS	= 0,
+	MLX_RELEASE = 1,
+	MLX_REPEAT	= 2,
+}	t_action;
 
 // The mouse button IDs.
 typedef enum e_mouse_key
@@ -41,7 +49,11 @@ typedef enum e_mouse_mode
 	MLX_MOUSE_DISABLED		= 0x00034003,
 }	t_mouse_mode;
 
-// All sorts of keyboard keycodes used by OpenGL.
+/**
+ * All sorts of keyboard keycodes.
+ * 
+ * KP = Keypad.
+ */
 typedef enum e_keys
 {
 	MLX_KEY_SPACE				= 32,

@@ -100,9 +100,18 @@ typedef struct s_mlx
  * 
  * @param[in] x The mouse x delta.
  * @param[in] y The mouse y delta.
- * @param[in] param The parameter to pass onto the function.
+ * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*	t_MLXscrollfun)(double xdelta, double ydelta, void *param);
+typedef void (*	t_mlx_scrollfunc)(double xdelta, double ydelta, void *param);
+
+/**
+ * Callback function used to handle key presses.
+ * 
+ * @param[in] key The key/keycode that was pressed.
+ * @param[in] action The action is either MLX_PRESS, MLX_REPEAT or MLX_RELEASE. 
+ * @param[in] param Additional parameter to pass onto the function.
+ */
+typedef void (*	t_mlx_scrollfunc)(t_keys key, t_action action, void *param);
 
 //= Generic Functions =//
 
@@ -256,7 +265,7 @@ void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
  * @param[in] mlx The MLX instance handle.
  * @param[in] func The scroll wheel callback.
  */
-void	mlx_scroll_hook(t_mlx *mlx, t_MLXscrollfun func, void *param);
+void	mlx_scroll_hook(t_mlx *mlx, t_mlx_scrollfunc func, void *param);
 
 //= Cursor Functions =//
 

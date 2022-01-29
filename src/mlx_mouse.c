@@ -20,7 +20,7 @@
  */
 
 static void				*g_param_cb = NULL;
-static t_MLXscrollfun	g_mlx_scroll_cb = NULL;
+static t_mlx_scrollfunc	g_mlx_scroll_cb = NULL;
 
 static void	mlx_scroll_cb(GLFWwindow *window, double xoffset, double yoffset)
 {
@@ -28,7 +28,7 @@ static void	mlx_scroll_cb(GLFWwindow *window, double xoffset, double yoffset)
 	g_mlx_scroll_cb(xoffset, yoffset, g_param_cb);
 }
 
-void	mlx_scroll_hook(t_mlx *mlx, t_MLXscrollfun func, void *param)
+void	mlx_scroll_hook(t_mlx *mlx, t_mlx_scrollfunc func, void *param)
 {
 	g_param_cb = param;
 	g_mlx_scroll_cb = func;

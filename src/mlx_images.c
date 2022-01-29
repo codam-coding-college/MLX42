@@ -101,13 +101,13 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newimg = calloc(1, sizeof(t_mlx_image));
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
-		return ((void *)mlx_free_va(false, 2, newimg, newctx));
+		return ((void *)mlx_freen(false, 2, newimg, newctx));
 	(*(uint16_t *)&newimg->width) = width;
 	(*(uint16_t *)&newimg->height) = height;
 	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
-		return ((void *)mlx_free_va(false, 2, newimg, newctx));
+		return ((void *)mlx_freen(false, 2, newimg, newctx));
 	newctx->draw = false;
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);

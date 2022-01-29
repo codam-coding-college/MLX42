@@ -49,6 +49,7 @@ static bool	mlx_init_render(t_mlx *mlx)
 		return (mlx_error(GLFW_WIN_FAILURE));
 	glfwMakeContextCurrent(mlx->window);
 	glfwSetFramebufferSizeCallback(mlx->window, framebuffer_callback);
+	glfwSetWindowUserPointer(mlx->window, mlx);
 	glfwSwapInterval(MLX_SWAP_INTERVAL);
 	{
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

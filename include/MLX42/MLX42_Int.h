@@ -109,21 +109,29 @@ typedef struct xpm42_entry
 	uint32_t	color;
 }	t_xpm42_entry;
 
-//= Functions =//
+//= Linked List Functions =//
 
-int32_t		mlx_lstsize(t_mlx_list *lst);
-void		mlx_lstclear(t_mlx_list **lst, void (*del)(void*));
 t_mlx_list	*mlx_lstnew(void *content);
 t_mlx_list	*mlx_lstlast(t_mlx_list *lst);
+int32_t		mlx_lstsize(t_mlx_list *lst);
+void		mlx_lstclear(t_mlx_list **lst, void (*del)(void*));
 void		mlx_lstadd_back(t_mlx_list **lst, t_mlx_list *new);
 
-bool		mlx_error(const char *error);
-bool		mlx_free_va(bool output, int32_t count, ...);
+//= Error Handling Functions =//
 
-void		mlx_set_image_shader(t_mlx *mlx);
-bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
-bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
+bool		mlx_error(const char *error);
+bool		mlx_freen(bool output, int32_t count, ...);
+
+//= IO Functions =//
+
 char		*mlx_readfile(const char *FilePath);
+
+//= OpenGL Functions =//
+bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
+bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
+
+// Utils Functions =//
+
 int32_t		mlx_rgba_to_mono(int32_t color);
 int32_t		mlx_atoi_base(const char *str, int32_t base);
 #endif
