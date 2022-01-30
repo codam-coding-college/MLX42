@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 15:37:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/30 17:15:20 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static bool	mlx_read_xpm_data(t_xpm *xpm, FILE *file, t_xpm42_entry *table)
 		while (output != -1 && (buffer[i] != '\0' && buffer[i] != '\n'))
 		{
 			if (!mlx_add_pixel(xpm, table, &j, buffer[i++]))
-				return (mlx_free_va(false, 2, buffer, xpm->pixels));
+				return (mlx_freen(false, 2, buffer, xpm->pixels));
 		}
 	}
 	free(buffer);

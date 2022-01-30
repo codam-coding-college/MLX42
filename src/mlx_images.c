@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 15:35:06 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/30 17:18:29 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,46 +41,53 @@ t_vert *vertices)
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
-{
-	t_mlx_image_ctx	*imgctx;
-	t_vert			vertices[6];
-	const int32_t	w = img->width;
-	const int32_t	h = img->height;
-	const int32_t	z = img->z;
-
-	imgctx = img->context;
-	vertices[0] = (t_vert){x, y, z, 0.f, 0.f};
-	vertices[1] = (t_vert){x + w, y + h, z, 1.f, 1.f};
-	vertices[2] = (t_vert){x + w, y, z, 1.f, 0.f};
-	vertices[3] = (t_vert){x, y, z, 0.f, 0.f};
-	vertices[4] = (t_vert){x, y + h, z, 0.f, 1.f};
-	vertices[5] = (t_vert){x + w, y + h, z, 1.f, 1.f};
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-	mlx_draw_texture(mlx, img, img->pixels, vertices);
-}
-
-void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
+/**
+ * Internal function to 
+ * 
+ * @param mlx The MLX handle.
+ * @param img The image handler.
+ * @param instance The instance to draw.
+ */
+void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \
+t_mlx_instance *instance)
 {
 	t_mlx_image_ctx	*imgctx;
 	const int32_t	w = img->width;
-	const int32_t	h = img->height;
-	const int32_t	z = img->z;
+	const int32_t	h = img->height;	
+	const int32_t	x = instance->x;
+	const int32_t	y = instance->y;
 
-	img->x = x;
-	img->y = y;
 	imgctx = img->context;
-	imgctx->draw = true;
-	imgctx->vertices[0] = (t_vert){x, y, z, 0.f, 0.f};
-	imgctx->vertices[1] = (t_vert){x + w, y + h, z, 1.f, 1.f};
-	imgctx->vertices[2] = (t_vert){x + w, y, z, 1.f, 0.f};
-	imgctx->vertices[3] = (t_vert){x, y, z, 0.f, 0.f};
-	imgctx->vertices[4] = (t_vert){x, y + h, z, 0.f, 1.f};
-	imgctx->vertices[5] = (t_vert){x + w, y + h, z, 1.f, 1.f};
+	imgctx->vertices[0] = (t_vert){x, y, instance->z, 0.f, 0.f};
+	imgctx->vertices[1] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
+	imgctx->vertices[2] = (t_vert){x + w, y, instance->z, 1.f, 0.f};
+	imgctx->vertices[3] = (t_vert){x, y, instance->z, 0.f, 0.f};
+	imgctx->vertices[4] = (t_vert){x, y + h, instance->z, 0.f, 1.f};
+	imgctx->vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
 	mlx_draw_texture(mlx, img, img->pixels, imgctx->vertices);
+}
+
+//= Exposed ==//
+
+void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y)
+{
+	int32_t			index;
+	t_mlx_instance	*temp;
+
+	temp = realloc(img->instances, (++img->count) * \
+	sizeof(t_mlx_instance));
+	if (!temp)
+	{
+		mlx_error(MLX_MEMORY_FAIL);
+		return ;
+	}
+	img->instances = temp;
+	index = img->count - 1;
+	img->instances[index].x = x;
+	img->instances[index].y = y;
+	img->instances[index].z = 0;
 }
 
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)

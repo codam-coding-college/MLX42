@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 15:36:22 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/30 17:16:49 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 
 static void	mlx_render_images(t_mlx *mlx)
 {
+	int32_t			i;
 	t_mlx_image		*img;
-	t_mlx_image_ctx	*imgctx;
 	t_mlx_list		*images;
 
 	images = mlx->images;
 	while (images)
 	{
+		i = 0;
 		img = images->content;
-		imgctx = img->context;
-		if (imgctx->draw)
-			mlx_draw_image(mlx, img, img->x, img->y);
+		while (i < img->count)
+			mlx_draw_instance(mlx, img, &img->instances[i++]);
 		images = images->next;
 	}
 }

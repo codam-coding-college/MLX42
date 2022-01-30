@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 15:30:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/30 17:14:27 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ char		*mlx_readfile(const char *FilePath);
 //= OpenGL Functions =//
 bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
 bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
+void		mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \
+t_mlx_instance *instance);
 
 // Utils Functions =//
 

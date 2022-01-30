@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 15:34:18 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/30 17:16:37 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ typedef struct s_xpm
 }	t_xpm;
 
 /**
+ * An image instance can be summarized as just a simple
+ * x, y & z coordinate.
+ */
+typedef struct s_mlx_instance
+{
+	int32_t			x;
+	int32_t			y;
+	int32_t			z;
+}	t_mlx_instance;
+
+/**
  * An image with an individual buffer that can be rendered.
  * Any value can be modified except the width/height and context.
  * 
@@ -66,12 +77,11 @@ typedef struct s_xpm
  */
 typedef struct s_mlx_image
 {
-	int32_t			x;
-	int32_t			y;
-	int32_t			z;
-	uint8_t			*pixels;
 	const uint16_t	width;
 	const uint16_t	height;
+	uint8_t			*pixels;
+	t_mlx_instance	*instances;
+	uint16_t		count;
 	void			*context;
 }	t_mlx_image;
 
@@ -334,17 +344,6 @@ void	mlx_putpixel(t_mlx_image *img, int32_t X, int32_t Y, int32_t Color);
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
 
 /**
- * Draws the image onto the specified screen coordinates.
- * NOTE: You can modify the images x & y coordinate directly to move it.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] img The image to draw onto the screen.
- * @param[in] x The X position.
- * @param[in] y The Y poistion.
- */
-void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
-
-/**
  * Draws a new instance of an image, it will then share the same
  * pixel buffer as the image.
  * 
@@ -353,6 +352,6 @@ void	mlx_draw_image(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
  * @param[in] x The X position.
  * @param[in] y The Y poistion.
  */
-void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
+void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y);
 
 #endif
