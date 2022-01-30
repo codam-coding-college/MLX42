@@ -199,12 +199,12 @@ The systems below have not been tested yet.
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/01 14:26:23 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 17:14:14 by W2Wizard      ########   odam.nl         */
+/*   Created: 2022/01/31 00:40:08 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/01/31 00:41:56 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/MLX42/MLX42.h"
+#include "MLX42/MLX42.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -222,14 +222,13 @@ void	hook(void *param)
 	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
 		mlx_quit(param);
 	if (mlx_is_key_down(param, MLX_KEY_UP))
-		g_img->y -= 5;
+		g_img->instances[0].y -= 5;
 	if (mlx_is_key_down(param, MLX_KEY_DOWN))
-		g_img->y += 5;
+		g_img->instances[0].y += 5;
 	if (mlx_is_key_down(param, MLX_KEY_LEFT))
-		g_img->x -= 5;
+		g_img->instances[0].x -= 5;
 	if (mlx_is_key_down(param, MLX_KEY_RIGHT))
-		g_img->x += 5;
-	mlx_draw_image(param, g_img, g_img->x, g_img->y);
+		g_img->instances[0].x += 5;
 }
 
 int32_t	main(void)
@@ -241,6 +240,7 @@ int32_t	main(void)
 		exit(EXIT_FAILURE);
 	g_img = mlx_new_image(mlx, 128, 128);
 	memset(g_img->pixels, 255, g_img->width * g_img->width * sizeof(int));
+	mlx_image_to_window(g_img, 0, 0, 0);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
