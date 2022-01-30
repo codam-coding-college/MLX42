@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 13:01:35 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:19:11 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ int32_t	mlx_rgba_to_mono(int32_t color)
 
 /**
  * Reads an entire file into a single allocated buffer.
+ * 
+ * TODO: Convert any path to absolute, on some OS's fopen only 
+ * works with an absolute given path.
  * 
  * @param FilePath The path to the file to read.
  * @return The files content in a single buffer.

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/22 18:29:13 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:11:22 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static bool	mlx_init_render(t_mlx *mlx)
 	}
 	s[2] = 0;
 	if (!mlx_init_shaders(mlx, s))
-		return (mlx_error(MLX_SHADER_FAILURE));
+		return (false);
 	glDeleteShader(s[0]);
 	glDeleteShader(s[1]);
 	glUseProgram(((t_mlx_ctx *)mlx->context)->shaderprogram);
@@ -89,7 +89,7 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	mlx->width = Width;
 	mlx->height = Height;
 	mlx->window = glfwCreateWindow(Width, Height, Title, NULL, NULL);
-	mlx->context = malloc(sizeof(t_mlx_ctx));
+	mlx->context = calloc(1, sizeof(t_mlx_ctx));
 	if (!mlx->context || !mlx_init_render(mlx))
 	{
 		free(mlx);

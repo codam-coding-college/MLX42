@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 17:16:49 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 20:52:02 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static void	mlx_exec_loop_hooks(t_mlx *mlx)
 {
-	t_mlx_list	*lstcpy;
-	t_mlx_hook	*hook;
+	t_mlx_list		*lstcpy;
+	t_mlx_hook		*hook;
+	const t_mlx_ctx	*mlxctx = mlx->context;
 
-	lstcpy = mlx->hooks;
+	lstcpy = mlxctx->hooks;
 	while (lstcpy)
 	{
 		hook = ((t_mlx_hook *)lstcpy->content);
@@ -28,8 +29,9 @@ static void	mlx_exec_loop_hooks(t_mlx *mlx)
 
 bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 {
-	t_mlx_list	*lst;
-	t_mlx_hook	*hook;
+	t_mlx_list		*lst;
+	t_mlx_hook		*hook;
+	const t_mlx_ctx	*mlxctx = mlx->context;
 
 	hook = malloc(sizeof(t_mlx_hook));
 	if (!hook)
@@ -42,7 +44,7 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 		free(hook);
 		return (false);
 	}
-	mlx_lstadd_back((t_mlx_list **)(&mlx->hooks), lst);
+	mlx_lstadd_back((t_mlx_list **)(&mlxctx->hooks), lst);
 	return (true);
 }
 
@@ -69,8 +71,9 @@ static void	mlx_render_images(t_mlx *mlx)
 	int32_t			i;
 	t_mlx_image		*img;
 	t_mlx_list		*images;
+	const t_mlx_ctx	*mlxctx = mlx->context;
 
-	images = mlx->images;
+	images = mlxctx->images;
 	while (images)
 	{
 		i = 0;

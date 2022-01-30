@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/24 13:09:33 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/30 20:57:11 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ bool	mlx_init_shaders(t_mlx *mlx, uint32_t *shaders)
  */
 bool	mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out)
 {
+	GLint		len;
 	int32_t		success;
 	char		infolog[512];
 	const char	*shader_source = mlx_readfile(Path);
-	const GLint	len = strlen(shader_source);
 
 	if (!shader_source)
-		return (false);
+		return (mlx_error(MLX_INVALID_FILE));
+	len = strlen(shader_source);
 	*out = glCreateShader(Type);
 	if (!*out)
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 17:14:27 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:14:00 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,24 @@ typedef struct s_vert
 }	t_vert;
 
 /**
+ * Linked list layout.
+ */
+typedef struct s_mlx_list
+{
+	void				*content;
+	struct s_mlx_list	*next;
+}	t_mlx_list;
+
+/**
  * Variables used for OpenGL.
  */
 typedef struct s_mlx_ctx
 {
-	GLuint	vao;
-	GLuint	vbo;
-	GLuint	ebo;
-	GLuint	shaderprogram;
+	GLuint		vao;
+	GLuint		vbo;
+	GLuint		shaderprogram;
+	t_mlx_list	*hooks;
+	t_mlx_list	*images;
 }	t_mlx_ctx;
 
 /**
@@ -79,7 +89,6 @@ typedef struct s_mlx_image_ctx
 {
 	t_vert	vertices[6];
 	GLuint	texture;
-	bool	draw;
 }	t_mlx_image_ctx;
 
 /**
@@ -90,15 +99,6 @@ typedef struct s_mlx_hook
 	void	*param;
 	void	(*func)(void*);
 }	t_mlx_hook;
-
-/**
- * Linked list layout.
- */
-typedef struct s_mlx_list
-{
-	void				*content;
-	struct s_mlx_list	*next;
-}	t_mlx_list;
 
 /**
  * Color entry for XPM42.
@@ -127,6 +127,7 @@ bool		mlx_freen(bool output, int32_t count, ...);
 char		*mlx_readfile(const char *FilePath);
 
 //= OpenGL Functions =//
+
 bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
 bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
 void		mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \

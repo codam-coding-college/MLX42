@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 17:18:29 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:16:31 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 {
 	t_mlx_image		*newimg;
 	t_mlx_image_ctx	*newctx;
+	const t_mlx_ctx	*mlxctx = mlx->context;
 
 	newimg = calloc(1, sizeof(t_mlx_image));
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
@@ -105,7 +106,6 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
 		return ((void *)mlx_freen(false, 2, newimg, newctx));
-	newctx->draw = false;
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -114,6 +114,6 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
 	GL_UNSIGNED_BYTE, newimg->pixels);
-	mlx_lstadd_back((t_mlx_list **)(&mlx->images), mlx_lstnew(newimg));
+	mlx_lstadd_back((t_mlx_list **)(&mlxctx->images), mlx_lstnew(newimg));
 	return (newimg);
 }
