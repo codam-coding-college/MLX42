@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 21:25:25 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 23:53:40 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,14 +310,22 @@ void	*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
 void	mlx_set_cursor(t_mlx *mlx, void *cursor);
 
 /**
- * TODO: NOT WORKING!
- * 
  * Loads an XPM42 image from the given file path.
  * 
  * @param[in] path The file path to the XPM image.
  * @returns The XPM image struct containing its information.
  */
 t_xpm	*mlx_load_xpm42(const char *path);
+
+/**
+ * Draws the xpm picture onto an image.
+ * 
+ * @param image The image to draw the picture on.
+ * @param xpm The picture to draw.
+ * @param X The X position offset for the picture.
+ * @param Y The Y position offset for the picture.
+ */
+void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y);
 
 //= Image Functions =//
 
@@ -348,8 +356,9 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
  * @param[in] mlx The MLX instance handle.
  * @param[in] img The image to draw onto the screen.
  * @param[in] x The X position.
- * @param[in] y The Y poistion.
+ * @param[in] y The Y position.
+ * @param[in] z The Z depth.
  */
-void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y);
+void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y, int32_t z);
 
 #endif
