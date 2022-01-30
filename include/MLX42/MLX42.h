@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 21:17:38 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:25:25 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ typedef struct s_mlx_image
 typedef struct s_mlx
 {
 	void		*window;
-	void		*hooks;
-	void		*images;
 	void		*context;
 	int32_t		width;
 	int32_t		height;

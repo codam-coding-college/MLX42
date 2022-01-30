@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 21:16:31 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:23:47 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_mlx_instance *instance)
 	mlx_draw_texture(mlx, img, img->pixels, imgctx->vertices);
 }
 
-//= Exposed ==//
+//= Exposed =//
 
 void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y)
 {
