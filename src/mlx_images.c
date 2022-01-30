@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 21:23:47 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:33:31 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ t_vert *vertices)
 }
 
 /**
- * Internal function to 
+ * Internal function to draw a single instance of an image
+ * to the screen.
  * 
  * @param mlx The MLX handle.
- * @param img The image handler.
+ * @param img The image.
  * @param instance The instance to draw.
  */
 void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \
@@ -71,7 +72,7 @@ t_mlx_instance *instance)
 
 //= Exposed =//
 
-void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y)
+void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y, int32_t z)
 {
 	int32_t			index;
 	t_mlx_instance	*temp;
@@ -87,7 +88,7 @@ void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y)
 	index = img->count - 1;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
-	img->instances[index].z = 0;
+	img->instances[index].z = z;
 }
 
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)

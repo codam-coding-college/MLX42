@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 21:14:00 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:29:11 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@
 
 //= Types =//
 
-/**
- * Struct used to represent a single vertex.
- */
+// A single vertex, identical to the layout in the shader.
 typedef struct s_vert
 {
 	float	x;
@@ -61,18 +59,14 @@ typedef struct s_vert
 	float	v;
 }	t_vert;
 
-/**
- * Linked list layout.
- */
+// Layout for linked list.
 typedef struct s_mlx_list
 {
 	void				*content;
 	struct s_mlx_list	*next;
 }	t_mlx_list;
 
-/**
- * Variables used for OpenGL.
- */
+// MLX Instance handle context used for OpenGL stuff.
 typedef struct s_mlx_ctx
 {
 	GLuint		vao;
@@ -82,27 +76,21 @@ typedef struct s_mlx_ctx
 	t_mlx_list	*images;
 }	t_mlx_ctx;
 
-/**
- * Additional OpenGL information in regards to images.
- */
+// Additional OpenGL information for images/textures.
 typedef struct s_mlx_image_ctx
 {
 	t_vert	vertices[6];
 	GLuint	texture;
 }	t_mlx_image_ctx;
 
-/**
- * A functor, useful to add hooks to the mainloop.
- */
+// Hook layout used to add generic loop hooks.
 typedef struct s_mlx_hook
 {
 	void	*param;
 	void	(*func)(void*);
 }	t_mlx_hook;
 
-/**
- * Color entry for XPM42.
- */
+// Color entry for XPM42
 typedef struct xpm42_entry
 {
 	char		character;

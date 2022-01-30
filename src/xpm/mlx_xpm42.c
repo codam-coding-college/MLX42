@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 17:15:20 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/30 21:55:52 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	return (mlx_read_xpm_data(xpm, file, table));
 }
 
-/*
 void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 {
 	uint8_t		*pixel;
@@ -153,7 +152,6 @@ void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 		i++;
 	}
 }
-*/
 
 // TODO: Add custom strnstr, seems like Linux doesn't have it ?
 t_xpm	*mlx_load_xpm42(const char *path)
@@ -167,7 +165,7 @@ t_xpm	*mlx_load_xpm42(const char *path)
 	file = fopen(path, "r");
 	if (!file)
 		return ((void *)mlx_error(MLX_INVALID_FILE));
-	xpm = malloc(sizeof(xpm));
+	xpm = malloc(sizeof(t_xpm));
 	if (!xpm)
 		return ((void *)mlx_error(MLX_MEMORY_FAIL));
 	if (!mlx_read_xpm_header(xpm, file))
