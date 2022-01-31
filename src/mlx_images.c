@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 22:37:27 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/31 13:33:14 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,33 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	GL_UNSIGNED_BYTE, newimg->pixels);
 	mlx_lstadd_back((t_mlx_list **)(&mlxctx->images), mlx_lstnew(newimg));
 	return (newimg);
+}
+
+void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
+{
+	t_mlx_list		*lstcpy;
+	t_mlx_ctx		*mlxctx;
+
+	mlxctx = mlx->context;
+	lstcpy = mlxctx->images;
+	if (!mlxctx->images || !image)
+		return ;
+	if (lstcpy->content != image)
+	{
+		while (lstcpy && lstcpy->next->content != image)
+			lstcpy = lstcpy->next;
+		if (lstcpy)
+			lstcpy->next = lstcpy->next->next;
+	}
+	else
+	{
+		lstcpy = mlxctx->images->next;
+		free(mlxctx->images);
+		mlxctx->images = lstcpy;
+	}
+	glDeleteTextures(1, &((t_mlx_image_ctx *)image->context)->texture);
+	free(image->pixels);
+	free(image->context);
+	free(image->instances);
+	memset(image, 0, sizeof(t_mlx_image));
 }

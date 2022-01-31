@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 23:53:40 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/31 13:04:29 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ typedef struct s_xpm
 /**
  * An image instance can be summarized as just a simple
  * x, y & z coordinate.
+ * 
+ * Coordinates start from the top left of the screen at 0,0 and increase
+ * towards the bottom right.
+ * 
+ * @param x The x location.
+ * @param y The y location.
+ * @param z The z depth, controls if the image is on the fore or background.
  */
 typedef struct s_mlx_instance
 {
@@ -67,12 +74,11 @@ typedef struct s_mlx_instance
  * An image with an individual buffer that can be rendered.
  * Any value can be modified except the width/height and context.
  * 
- * @param x The x location of the image.
- * @param y The y location of the image.
- * @param z The depth controls in Z layer it is drawn in.
- * @param pixels The literal pixel data.
  * @param width The width of the image.
  * @param height The height of the image.
+ * @param pixels The literal pixel data.
+ * @param instances An instance carries the X, Y, Z location data.
+ * @param count The element count of the instances array.
  * @param context Abstracted OpenGL data.
  */
 typedef struct s_mlx_image
@@ -88,11 +94,11 @@ typedef struct s_mlx_image
 /**
  * Main MLX handle, carries important data in regards to the program.
  * @param window The window itself.
- * @param hooks List of all the current hooks.
- * @param images List of all the current images.
  * @param context Abstracted opengl data.
  * @param width The width.
  * @param height The height.
+ * @param delta_time The time difference between the previous frame 
+ * and the current frame.
  */
 typedef struct s_mlx
 {
@@ -359,6 +365,14 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
  * @param[in] y The Y position.
  * @param[in] z The Z depth.
  */
-void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y, int32_t z);
+void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
+
+/**
+ * Deletes an image and all its instances.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] image The image to delete.
+ */
+void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image);
 
 #endif

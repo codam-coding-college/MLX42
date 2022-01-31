@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 21:29:11 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/31 13:06:06 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,22 @@ typedef struct s_mlx_list
 	struct s_mlx_list	*next;
 }	t_mlx_list;
 
+// To maintain the drawing order we add every instance to a queue.
+typedef struct s_draw_queue
+{
+	t_mlx_image			*image;
+	t_mlx_instance		*instance;
+}	t_draw_queue;
+
 // MLX Instance handle context used for OpenGL stuff.
 typedef struct s_mlx_ctx
 {
-	GLuint		vao;
-	GLuint		vbo;
-	GLuint		shaderprogram;
-	t_mlx_list	*hooks;
-	t_mlx_list	*images;
+	GLuint			vao;
+	GLuint			vbo;
+	GLuint			shaderprogram;
+	t_mlx_list		*hooks;
+	t_mlx_list		*images;
+	t_mlx_list		*render_queue;
 }	t_mlx_ctx;
 
 // Additional OpenGL information for images/textures.
