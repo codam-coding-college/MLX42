@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/19 00:03:19 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/31 23:39:44 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
  * 
  * @param count The amount of args provided.
  * @param ... Any form of pointer.
- * @return Output, this is simply for convinience when necessary.
+ * @return False, this is simply for convinience when necessary.
  */
-bool	mlx_freen(bool output, int32_t count, ...)
+bool	mlx_freen(int32_t count, ...)
 {
 	int32_t	i;
 	va_list	args;
@@ -34,7 +34,7 @@ bool	mlx_freen(bool output, int32_t count, ...)
 		i++;
 	}
 	va_end(args);
-	return (output);
+	return (false);
 }
 
 /**

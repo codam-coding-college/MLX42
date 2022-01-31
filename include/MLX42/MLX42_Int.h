@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 18:11:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 23:40:13 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ bool		mlx_equal_inst(void *lstcontent, void *value);
 //= Error Handling Functions =//
 
 bool		mlx_error(const char *error);
-bool		mlx_freen(bool output, int32_t count, ...);
+bool		mlx_freen(int32_t count, ...);
 
 //= IO Functions =//
 

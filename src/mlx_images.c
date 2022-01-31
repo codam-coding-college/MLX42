@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 20:07:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 23:40:51 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newimg = calloc(1, sizeof(t_mlx_image));
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
-		return ((void *)mlx_freen(false, 2, newimg, newctx));
+		return ((void *)mlx_freen(2, newimg, newctx));
 	(*(uint16_t *)&newimg->width) = width;
 	(*(uint16_t *)&newimg->height) = height;
 	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
-		return ((void *)mlx_freen(false, 2, newimg, newctx));
+		return ((void *)mlx_freen(2, newimg, newctx));
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -128,9 +128,6 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	return (newimg);
 }
 
-// Step 1: Remove all instances from render queue, relink.
-// Step 2: Remove from image list, relink.
-// Step 3: Free 
 void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
 {
 	t_mlx_image		*img;
@@ -140,9 +137,7 @@ void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
 	mlxctx = mlx->context;
 	img = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
 	que = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
-	//glDeleteTextures(1, &((t_mlx_image_ctx *)img->context)->texture);
-	//free(img->pixels);
-	//free(img->context);
-	//free(img->instances);
-	//memset(img, 0, sizeof(t_mlx_image));
+	glDeleteTextures(1, &((t_mlx_image_ctx *)img->context)->texture);
+	mlx_freen(3, img->pixels, img->instances, img->context);
+	memset(img, 0, sizeof(t_mlx_image));
 }

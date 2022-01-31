@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/31 15:20:51 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/01/31 18:19:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 23:23:42 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ bool (*comp)(void *, void*))
 	if (temp != NULL && comp(temp->content, value))
 	{
 		*lst = temp->next;
-		return (temp);
+		temp->prev = NULL;
+		temp->next = NULL;
+		return (temp->content);
 	}
 	while (temp && !comp(temp->content, value))
 	{
@@ -55,8 +57,8 @@ bool (*comp)(void *, void*))
 	}
 	if (!temp)
 		return (NULL);
-	temp->next = temp->next;
+	prev->next = temp->next;
 	temp->next = NULL;
 	temp->prev = NULL;
-	return (temp);
+	return (temp->content);
 }
