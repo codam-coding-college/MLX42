@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 20:52:02 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/31 13:47:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 	}
 	return (true);
 }
-*/
 
-static void	mlx_render_images(t_mlx *mlx)
-{
+
 	int32_t			i;
 	t_mlx_image		*img;
 	t_mlx_list		*images;
@@ -81,6 +79,22 @@ static void	mlx_render_images(t_mlx *mlx)
 		while (i < img->count)
 			mlx_draw_instance(mlx, img, &img->instances[i++]);
 		images = images->next;
+	}
+
+*/
+
+static void	mlx_render_images(t_mlx *mlx)
+{
+	t_draw_queue	*entry;
+	t_mlx_list		*render_queue;
+	const t_mlx_ctx	*mlxctx = mlx->context;
+
+	render_queue = mlxctx->render_queue;
+	while (render_queue)
+	{
+		entry = render_queue->content;
+		mlx_draw_instance(mlx, entry->image, entry->instance);
+		render_queue = render_queue->next;
 	}
 }
 

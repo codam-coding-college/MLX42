@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:33:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 13:42:46 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,31 @@ t_mlx_instance *instance)
 //= Exposed =//
 
 // TODO: Change to linked list, then introduce function for ease of access?
-void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y, int32_t z)
+void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 {
 	int32_t			index;
+	t_mlx_ctx		*mlxctx;
 	t_mlx_instance	*temp;
+	t_draw_queue	*queue;
 
+	mlxctx = mlx->context;
 	temp = realloc(img->instances, (++img->count) * \
 	sizeof(t_mlx_instance));
-	if (!temp)
+	queue = malloc(sizeof(t_draw_queue));
+	if (!temp || !queue)
 	{
 		mlx_error(MLX_MEMORY_FAIL);
+		free(queue);
 		return ;
 	}
 	img->instances = temp;
 	index = img->count - 1;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
-	img->instances[index].z = z;
+	img->instances[index].z = 0;
+	queue->image = img;
+	queue->instance = &img->instances[index];
+	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
 }
 
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)

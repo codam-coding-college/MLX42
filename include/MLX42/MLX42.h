@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:35:35 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 13:38:13 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,7 +365,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
  * @param[in] y The Y position.
  * @param[in] z The Z depth.
  */
-void	mlx_image_to_window(t_mlx_image *img, int32_t x, int32_t y, int32_t z);
+void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
 
 /**
  * Deletes an image and all its instances.
