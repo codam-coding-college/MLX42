@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:50:44 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 13:56:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(t_vert), \
 	(void *)(sizeof(float) * 3));
 	glEnableVertexAttribArray(1);
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	return (true);
