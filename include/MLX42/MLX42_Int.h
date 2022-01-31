@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:06:06 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 18:11:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_mlx_list
 {
 	void				*content;
 	struct s_mlx_list	*next;
+	struct s_mlx_list	*prev;
 }	t_mlx_list;
 
 // To maintain the drawing order we add every instance to a queue.
@@ -112,6 +113,13 @@ t_mlx_list	*mlx_lstlast(t_mlx_list *lst);
 int32_t		mlx_lstsize(t_mlx_list *lst);
 void		mlx_lstclear(t_mlx_list **lst, void (*del)(void*));
 void		mlx_lstadd_back(t_mlx_list **lst, t_mlx_list *new);
+void		*mlx_lstremove(t_mlx_list **lst, void *value, \
+bool (*comp)(void *, void*));
+
+//= Misc functions =//
+
+bool		mlx_equal_image(void *lstcontent, void *value);
+bool		mlx_equal_inst(void *lstcontent, void *value);
 
 //= Error Handling Functions =//
 

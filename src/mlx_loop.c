@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:47:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 15:02:24 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 }
 
 /*
+Perhaps useful for later feature?
 static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 {
 	const int32_t	old_width = img->width;
@@ -64,23 +65,6 @@ static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 	}
 	return (true);
 }
-
-
-	int32_t			i;
-	t_mlx_image		*img;
-	t_mlx_list		*images;
-	const t_mlx_ctx	*mlxctx = mlx->context;
-
-	images = mlxctx->images;
-	while (images)
-	{
-		i = 0;
-		img = images->content;
-		while (i < img->count)
-			mlx_draw_instance(mlx, img, &img->instances[i++]);
-		images = images->next;
-	}
-
 */
 
 static void	mlx_render_images(t_mlx *mlx)
@@ -93,7 +77,8 @@ static void	mlx_render_images(t_mlx *mlx)
 	while (render_queue)
 	{
 		entry = render_queue->content;
-		mlx_draw_instance(mlx, entry->image, entry->instance);
+		if (entry->image && entry->instance)
+			mlx_draw_instance(mlx, entry->image, entry->instance);
 		render_queue = render_queue->next;
 	}
 }
@@ -103,7 +88,6 @@ int32_t	mlx_get_time(void)
 	return (glfwGetTime());
 }
 
-// Essentially just loops forever and executes the hooks and window size.
 // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 void	mlx_loop(t_mlx *mlx)
 {

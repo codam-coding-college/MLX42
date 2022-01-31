@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/01 16:51:24 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/31 15:12:24 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_mlx_list	*mlx_lstnew(void *content)
 	{
 		out->content = content;
 		out->next = NULL;
+		out->prev = NULL;
 		return (out);
 	}
 	return (NULL);
@@ -65,10 +66,16 @@ t_mlx_list	*mlx_lstlast(t_mlx_list *lst)
 
 void	mlx_lstadd_back(t_mlx_list **lst, t_mlx_list *new)
 {
+	t_mlx_list	*temp;
+
 	if (!lst || !new)
 		return ;
 	if (!*lst)
 		*lst = new;
 	else
-		mlx_lstlast(*lst)->next = new;
+	{
+		temp = mlx_lstlast(*lst);
+		new->prev = temp;
+		temp->next = new;
+	}
 }

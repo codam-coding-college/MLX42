@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/30 20:53:29 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/01/31 18:40:06 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	mlx_delete_images(void	*content)
 {
+	(void) content;
+	/*
 	t_mlx_image		*img;
 
 	img = content;
@@ -21,6 +23,7 @@ static void	mlx_delete_images(void	*content)
 	free(img->context);
 	free(img->pixels);
 	free(img->instances);
+	*/
 }
 
 // TODO: Delete images!

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:42:46 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/01/31 20:07:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,31 +128,21 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	return (newimg);
 }
 
+// Step 1: Remove all instances from render queue, relink.
+// Step 2: Remove from image list, relink.
+// Step 3: Free 
 void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
 {
-	t_mlx_list		*lstcpy;
+	t_mlx_image		*img;
+	t_draw_queue	*que;
 	t_mlx_ctx		*mlxctx;
 
 	mlxctx = mlx->context;
-	lstcpy = mlxctx->images;
-	if (!mlxctx->images || !image)
-		return ;
-	if (lstcpy->content != image)
-	{
-		while (lstcpy && lstcpy->next->content != image)
-			lstcpy = lstcpy->next;
-		if (lstcpy)
-			lstcpy->next = lstcpy->next->next;
-	}
-	else
-	{
-		lstcpy = mlxctx->images->next;
-		free(mlxctx->images);
-		mlxctx->images = lstcpy;
-	}
-	glDeleteTextures(1, &((t_mlx_image_ctx *)image->context)->texture);
-	free(image->pixels);
-	free(image->context);
-	free(image->instances);
-	memset(image, 0, sizeof(t_mlx_image));
+	img = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
+	que = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
+	//glDeleteTextures(1, &((t_mlx_image_ctx *)img->context)->texture);
+	//free(img->pixels);
+	//free(img->context);
+	//free(img->instances);
+	//memset(img, 0, sizeof(t_mlx_image));
 }
