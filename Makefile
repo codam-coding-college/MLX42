@@ -6,13 +6,13 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/01/17 19:08:59 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/01 11:21:40 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 
 ifeq ($(OS), Windows_NT)
-    CC = gcc
+    CC = gcc # Assuming user has installed GnuWin32, perhaps switch to VC++
     $(error No Build script availble. Compile manually!)
 else
     UNAME_S := $(shell uname -s)

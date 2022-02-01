@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:38:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/01 10:09:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
  * @note Useful stuff for later:
  * https://bit.ly/3qQof6q
  * __attribute__ ((deprecated));
+ * __attribute__((nonnull));
  * 
  * Written in accordance with norminette 3.3.51.
  */
@@ -368,7 +369,9 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
 void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y);
 
 /**
- * Deletes an image and all its instances.
+ * Deleting an image will remove it from the render queue as well as any and all
+ * instances it might have. Additionally, just as extra measures sets all the
+ * data to NULL.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] image The image to delete.
