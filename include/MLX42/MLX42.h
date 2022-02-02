@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/01 10:09:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/02 10:12:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,9 +278,20 @@ void	mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
  * device is used, such as a mouse wheel.
  * 
  * @param[in] mlx The MLX instance handle.
- * @param[in] func The scroll wheel callback.
+ * @param[in] func The scroll wheel callback function.
+ * @param[in] param An additional optional parameter.
  */
 void	mlx_scroll_hook(t_mlx *mlx, t_mlx_scrollfunc func, void *param);
+
+/**
+ * This function sets the key callback, which is called when a key is pressed
+ * on the keyboard. Useful for single key press detection.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The key press callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param);
 
 //= Cursor Functions =//
 
