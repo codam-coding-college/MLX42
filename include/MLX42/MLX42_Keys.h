@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/01 10:07:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:32:07 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 // Specific key action
 typedef enum e_action
 {
-	MLX_PRESS	= 0,
-	MLX_RELEASE = 1,
+	MLX_RELEASE = 0,
+	MLX_PRESS	= 1,
 	MLX_REPEAT	= 2,
 }	t_action;
 

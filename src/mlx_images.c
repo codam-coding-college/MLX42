@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/01 10:06:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:26:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,19 @@ void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	t_draw_queue	*queue;
 
 	mlxctx = mlx->context;
+	if (!mlx || !img)
+		return ;
 	temp = realloc(img->instances, (++img->count) * \
 	sizeof(t_mlx_instance));
 	queue = malloc(sizeof(t_draw_queue));
 	if (!temp || !queue)
 	{
-		mlx_error(MLX_MEMORY_FAIL);
+		mlx_log(MLX_ERROR, MLX_MEMORY_FAIL);
 		free(queue);
 		return ;
 	}
-	img->instances = temp;
 	index = img->count - 1;
+	img->instances = temp;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
 	img->instances[index].z = 0;

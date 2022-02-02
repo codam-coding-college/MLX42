@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 23:40:13 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:26:42 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
-# define MLX_ERROR "MLX42 Error:"
+# define MLX_INFO "MLX42: Info"
+# define MLX_ERROR "MLX42: Error:"
+# define MLX_WARNING "MLX42: Warning:"
 # define MLX_INVALID_FILE_EXT "Invalid file extension!"
 # define MLX_INVALID_FILE "Failed to read file!"
+# define MLX_INVALID_ARG "Invalid argument provided!"
+# define MLX_NULL_ARG "NULL argument exception!"
 # define MLX_SHADER_FAILURE "Shader failure!"
 # define MLX_RENDER_FAILURE "Failed to initialize Renderer!"
 # define MLX_MEMORY_FAIL "Failed to allocate enough memory!"
@@ -59,6 +63,13 @@ typedef struct s_vert
 	float	v;
 }	t_vert;
 
+// Hook layout used to add generic loop hooks.
+typedef struct s_mlx_hook
+{
+	void	*param;
+	void	(*func)(void*);
+}	t_mlx_hook;
+
 // Layout for linked list.
 typedef struct s_mlx_list
 {
@@ -77,12 +88,14 @@ typedef struct s_draw_queue
 // MLX Instance handle context used for OpenGL stuff.
 typedef struct s_mlx_ctx
 {
-	GLuint			vao;
-	GLuint			vbo;
-	GLuint			shaderprogram;
-	t_mlx_list		*hooks;
-	t_mlx_list		*images;
-	t_mlx_list		*render_queue;
+	GLuint				vao;
+	GLuint				vbo;
+	GLuint				shaderprogram;
+	t_mlx_list			*hooks;
+	t_mlx_list			*images;
+	t_mlx_list			*render_queue;
+	t_mlx_scrollfunc	scroll_hook;
+	t_mlx_keyfunc		key_hook;
 }	t_mlx_ctx;
 
 // Additional OpenGL information for images/textures.
@@ -91,13 +104,6 @@ typedef struct s_mlx_image_ctx
 	t_vert	vertices[6];
 	GLuint	texture;
 }	t_mlx_image_ctx;
-
-// Hook layout used to add generic loop hooks.
-typedef struct s_mlx_hook
-{
-	void	*param;
-	void	(*func)(void*);
-}	t_mlx_hook;
 
 // Color entry for XPM42
 typedef struct xpm42_entry
@@ -121,9 +127,9 @@ bool (*comp)(void *, void*));
 bool		mlx_equal_image(void *lstcontent, void *value);
 bool		mlx_equal_inst(void *lstcontent, void *value);
 
-//= Error Handling Functions =//
+//= Error/log Handling Functions =//
 
-bool		mlx_error(const char *error);
+bool		mlx_log(const char *log, const char *msg);
 bool		mlx_freen(int32_t count, ...);
 
 //= IO Functions =//

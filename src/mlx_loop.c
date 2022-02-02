@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 15:02:24 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:33:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 	t_mlx_hook		*hook;
 	const t_mlx_ctx	*mlxctx = mlx->context;
 
+	if (!mlx || !f)
+		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
 	hook = malloc(sizeof(t_mlx_hook));
 	if (!hook)
 		return (false);

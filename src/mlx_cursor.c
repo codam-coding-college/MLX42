@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/18 20:10:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/18 20:26:24 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:30:08 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*mlx_create_cursor(t_mlx *mlx, t_xpm *image)
 	if (cursor)
 		glfwSetCursor(mlx->window, cursor);
 	else
-		return ((void *)mlx_error(MLX_MEMORY_FAIL));
+		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
 	return (cursor);
 }
 

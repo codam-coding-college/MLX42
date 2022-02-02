@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 18:40:06 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:08:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	mlx_terminate(t_mlx *mlx)
 	t_mlx_ctx	*mlxctx;
 
 	mlxctx = mlx->context;
+	glDeleteProgram(mlxctx->shaderprogram);
+	glDeleteBuffers(1, &(mlxctx->vbo));
 	glfwTerminate();
 	mlx_lstclear((t_mlx_list **)(&mlxctx->hooks), &free);
 	mlx_lstclear((t_mlx_list **)(&mlxctx->images), &mlx_delete_images);
-	glDeleteProgram(mlxctx->shaderprogram);
-	glDeleteBuffers(1, &(mlxctx->vbo));
 	free(mlxctx);
 	free(mlx);
 }

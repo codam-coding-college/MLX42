@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mlx_error.c                                        :+:    :+:            */
+/*   mlx_log.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 23:39:44 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:26:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ bool	mlx_freen(int32_t count, ...)
 }
 
 /**
- * Simple error handling function.
+ * Simple logging function.
  * 
- * @param error The error message to write.
+ * @param msg The message to write.
  * @return Always false, for the sake of making it convenient. 
  */
-bool	mlx_error(const char *error)
+bool	mlx_log(const char *log, const char *msg)
 {
-	fprintf(stderr, "%s %s\n", MLX_ERROR, error);
+	fprintf(stderr, "%s %s\n", log, msg);
 	return (false);
 }

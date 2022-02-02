@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 23:39:51 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:29:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static bool	mlx_read_xpm_data(t_xpm *xpm, FILE *file, t_xpm42_entry *table)
 	(void) table;
 	xpm->pixels = calloc(xpm->width * xpm->height, sizeof(int32_t));
 	if (!(xpm->pixels))
-		return ((void *)mlx_error(MLX_MEMORY_FAIL));
+		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
 	while (output != -1)
 	{
 		i = 0;
@@ -161,13 +161,13 @@ t_xpm	*mlx_load_xpm42(const char *path)
 
 	xpm = NULL;
 	if (!strstr(path, ".xpm42"))
-		return ((void *)mlx_error(MLX_INVALID_FILE_EXT));
+		return ((void *)mlx_log(MLX_ERROR, MLX_INVALID_FILE_EXT));
 	file = fopen(path, "r");
 	if (!file)
-		return ((void *)mlx_error(MLX_INVALID_FILE));
+		return ((void *)mlx_log(MLX_ERROR, MLX_INVALID_FILE));
 	xpm = malloc(sizeof(t_xpm));
 	if (!xpm)
-		return ((void *)mlx_error(MLX_MEMORY_FAIL));
+		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
 	if (!mlx_read_xpm_header(xpm, file))
 	{
 		free(xpm);

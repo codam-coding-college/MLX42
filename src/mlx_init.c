@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 13:56:12 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:28:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ static bool	mlx_init_render(t_mlx *mlx)
 	uint32_t	s[3];
 
 	if (!mlx->window)
-		return (mlx_error(GLFW_WIN_FAILURE));
+		return (mlx_log(MLX_ERROR, GLFW_WIN_FAILURE));
 	glfwMakeContextCurrent(mlx->window);
 	glfwSetFramebufferSizeCallback(mlx->window, framebuffer_callback);
 	glfwSetWindowUserPointer(mlx->window, mlx);
 	glfwSwapInterval(MLX_SWAP_INTERVAL);
 	{
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-			return (mlx_error(GLFW_GLAD_FAILURE));
+			return (mlx_log(MLX_ERROR, GLFW_GLAD_FAILURE));
 		if (!mlx_compile_shader(VERTEX_PATH, GL_VERTEX_SHADER, &s[0]) || \
 			!mlx_compile_shader(FRAGMENT_PATH, GL_FRAGMENT_SHADER, &s[1]))
-			return (mlx_error(MLX_SHADER_FAILURE));
+			return (mlx_log(MLX_ERROR, MLX_SHADER_FAILURE));
 	}
 	s[2] = 0;
 	if (!mlx_init_shaders(mlx, s))
@@ -74,7 +74,7 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	if (!mlx || !init)
 	{
 		free(mlx);
-		return ((void *)mlx_error(GLFW_INIT_FAILURE));
+		return ((void *)mlx_log(MLX_ERROR, GLFW_INIT_FAILURE));
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -89,7 +89,7 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	if (!mlx->context || !mlx_init_render(mlx))
 	{
 		free(mlx);
-		return ((void *)mlx_error(MLX_RENDER_FAILURE));
+		return ((void *)mlx_log(MLX_ERROR, MLX_RENDER_FAILURE));
 	}
 	return (mlx);
 }

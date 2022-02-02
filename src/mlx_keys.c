@@ -6,27 +6,21 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/02 10:13:02 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/02 12:29:41 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-/**
- * HACK: Questionable way of intercepting and adding additional custom params 
- * to the glfw mouse key callback function.
- * 
- * TODO: Use glfwSetWindowPointer!
- */
-
-static void				*g_param_cb = NULL;
-static t_mlx_keyfunc	g_mlx_key_cb = NULL;
+static void	*g_param_cb = NULL;
 
 void	mlx_key_callback(GLFWwindow *window, int key, int scancode, int action)
 {
-	(void) window;
+	const t_mlx			*mlx = glfwGetWindowUserPointer(window);
+	const t_mlx_keyfunc	hook = ((t_mlx_ctx *)mlx->context)->key_hook;
+
 	(void) scancode;
-	g_mlx_key_cb(key, action, g_param_cb);
+	hook(key, action, g_param_cb);
 }
 
 /**
@@ -37,7 +31,12 @@ void	mlx_key_callback(GLFWwindow *window, int key, int scancode, int action)
 void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param)
 {
 	g_param_cb = param;
-	g_mlx_key_cb = func;
+	if (!func)
+	{
+		mlx_log(MLX_WARNING, MLX_NULL_ARG);
+		return ;
+	}
+	((t_mlx_ctx *)mlx->context)->key_hook = func;
 	glfwSetKeyCallback(mlx->window, (GLFWkeyfun)mlx_key_callback);
 }
 
