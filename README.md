@@ -6,10 +6,11 @@
   <sub>Written by <a href="https://w2wizard.github.io/">W2.Wizard</a> for the 42 Network</sub>
     <div align="center">
     </br>
-    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="42MLX_Logo"> 
+    <img src="https://img.shields.io/github/license/W2Codam/MLX42" alt="42MLX_Logo"> 
     <img src="https://svgshare.com/i/Zhy.svg" alt="42MLX_Logo">
     <img src="https://svgshare.com/i/ZjP.svg" alt="42MLX_Logo">
     <img src="https://svgshare.com/i/ZhY.sv" alt="42MLX_Logo">
+    <img src="https://img.shields.io/github/forks/W2Codam/MLX42" alt="42MLX_Logo">
     </div>
 </div>
 
