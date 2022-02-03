@@ -12,6 +12,8 @@
 
 #include "MLX42/MLX42_Int.h"
 
+// TODO: Still need to finish clean up functions. 
+
 static void	mlx_delete_images(void	*content)
 {
 	(void) content;
