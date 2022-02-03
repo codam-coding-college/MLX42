@@ -12,13 +12,6 @@
 
 #include "MLX42/MLX42_Int.h"
 
-/**
- * HACK: Questionable way of intercepting and adding additional custom params 
- * to the glfw mouse scroll callback function.
- * 
- * TODO: Use glfwSetWindowPointer!
- */
-
 static void	*g_param_cb = NULL;
 
 static void	mlx_scroll_cb(GLFWwindow *window, double xoffset, double yoffset)
