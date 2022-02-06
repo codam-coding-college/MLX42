@@ -6,13 +6,13 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/12/28 01:01:14 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/02/01 10:11:25 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/06 22:30:14 by w2wizard      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= mlx42.a
 HEADERS = -I include
-CFLAGS	= -Wextra -Wall -Werror -Wunreachable-code -g -Wpedantic
+CFLAGS	= -Wextra -Wall -Werror -Wunreachable-code -g # -Wpedantic
 DYLIB_EXISTS = test -e /usr/local/lib/libglfw.3.dylib || echo "false"
 
 # Check for dylib amongst brew directories.

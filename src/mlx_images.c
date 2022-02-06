@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/02 12:26:57 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/06 22:39:01 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
 }
 
+// TODO: Protect malloc and report actual errors.
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 {
 	t_mlx_image		*newimg;
@@ -133,7 +134,6 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
 {
 	t_mlx_image		*img;
-	t_draw_queue	*que;
 	t_mlx_ctx		*mlxctx;
 
 	mlxctx = mlx->context;
@@ -144,5 +144,5 @@ void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
 		mlx_freen(3, img->pixels, img->instances, img->context);
 		memset(img, 0, sizeof(t_mlx_image));
 	}
-	que = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
+	free(mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst));
 }
