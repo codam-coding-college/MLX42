@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 18:35:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/07 20:17:34 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,26 @@
  */
 
 /**
- * 
- * 
- * @param xpm 
- * @param color 
- * @param x 
- * @param y 
- * @return If it managed to add 
+ * Put pixel but for
  */
 bool	mlx_add_pixel(t_xpm *xpm, uint32_t color, int32_t x, int32_t y)
 {
 	uint8_t	*pixelstart;
 
 	pixelstart = &xpm->pixels[(y * xpm->width + x) * sizeof(int32_t)];
-	*(xpm->pixels + 0) = (uint8_t)((color >> 24) & 0xFF);
-	*(xpm->pixels + 1) = (uint8_t)((color >> 16) & 0xFF);
-	*(xpm->pixels + 2) = (uint8_t)((color >> 8) & 0xFF);
-	*(xpm->pixels + 3) = (uint8_t)((color >> 0) & 0xFF);
+	*(pixelstart + 0) = (uint8_t)((color >> 24) & 0xFF);
+	*(pixelstart + 1) = (uint8_t)((color >> 16) & 0xFF);
+	*(pixelstart + 2) = (uint8_t)((color >> 8) & 0xFF);
+	*(pixelstart + 3) = (uint8_t)((color >> 0) & 0xFF);
 	return (true);
 }
 
+// pixel = &image->pixels[((Y + i) * image->width + X + j) * sizeof(int32_t)];
 void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 {
-	uint8_t		*pixel;
-	uint32_t	color;
-	int32_t		i;
-	int32_t		j;
+	int32_t	i;
+	int32_t	j;
+	uint8_t	*pixel;
 
 	i = 0;
 	while (i < xpm->height)
@@ -72,11 +66,8 @@ void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 		j = 0;
 		while (j < xpm->width)
 		{
-			pixel = &image->pixels[((Y + i) * image->width + X + j) * \
-				sizeof(int32_t)];
-			color = (*(uint32_t *)
-					(xpm->pixels + (j * 4 + (i * xpm->width * 4))) / 256);
-			*(uint32_t *)pixel = color;
+			pixel = &xpm->pixels[(i * xpm->width + j) * sizeof(int32_t)];
+			mlx_putpixel(image, X + j, Y + i, *pixel | *(pixel + 1) | *(pixel + 2) | *(pixel + 3));
 			j++;
 		}
 		i++;
