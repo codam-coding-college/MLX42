@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/06 22:39:01 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/07 23:09:27 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ t_vert *vertices)
 /**
  * Internal function to draw a single instance of an image
  * to the screen.
- * 
- * @param mlx The MLX handle.
- * @param img The image.
- * @param instance The instance to draw.
  */
 void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \
 t_mlx_instance *instance)
@@ -72,7 +68,6 @@ t_mlx_instance *instance)
 
 //= Exposed =//
 
-// TODO: Change to linked list, then introduce function for ease of access?
 void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 {
 	int32_t			index;
@@ -80,9 +75,9 @@ void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	t_mlx_instance	*temp;
 	t_draw_queue	*queue;
 
-	mlxctx = mlx->context;
 	if (!mlx || !img)
 		return ;
+	mlxctx = mlx->context;
 	temp = realloc(img->instances, (++img->count) * \
 	sizeof(t_mlx_instance));
 	queue = malloc(sizeof(t_draw_queue));

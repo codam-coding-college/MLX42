@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 20:17:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/07 23:12:55 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@
  * straight forward to this format however.
  */
 
-/**
- * Put pixel but for
- */
+// TODO: Move to different file
 bool	mlx_add_pixel(t_xpm *xpm, uint32_t color, int32_t x, int32_t y)
 {
 	uint8_t	*pixelstart;
