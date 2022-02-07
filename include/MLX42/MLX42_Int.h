@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 10:43:12 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/07 23:42:55 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,6 @@ typedef struct s_mlx_image_ctx
 	GLuint	texture;
 }	t_mlx_image_ctx;
 
-// Color entry for XPM42
-typedef struct xpm42_entry
-{
-	char		character;
-	uint32_t	color;
-}	t_xpm42_entry;
-
 //= Linked List Functions =//
 
 t_mlx_list	*mlx_lstnew(void *content);
@@ -127,6 +120,7 @@ bool (*comp)(void *, void*));
 
 bool		mlx_equal_image(void *lstcontent, void *value);
 bool		mlx_equal_inst(void *lstcontent, void *value);
+void		mlx_xpm_putpixel(t_xpm *xpm, int32_t x, int32_t y, uint32_t color);
 
 //= Error/log Handling Functions =//
 

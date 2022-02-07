@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 23:12:55 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/07 23:48:57 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,40 +38,7 @@
  * straight forward to this format however.
  */
 
-// TODO: Move to different file
-bool	mlx_add_pixel(t_xpm *xpm, uint32_t color, int32_t x, int32_t y)
-{
-	uint8_t	*pixelstart;
-
-	pixelstart = &xpm->pixels[(y * xpm->width + x) * sizeof(int32_t)];
-	*(pixelstart + 0) = (uint8_t)((color >> 24) & 0xFF);
-	*(pixelstart + 1) = (uint8_t)((color >> 16) & 0xFF);
-	*(pixelstart + 2) = (uint8_t)((color >> 8) & 0xFF);
-	*(pixelstart + 3) = (uint8_t)((color >> 0) & 0xFF);
-	return (true);
-}
-
-// pixel = &image->pixels[((Y + i) * image->width + X + j) * sizeof(int32_t)];
-void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
-{
-	int32_t	i;
-	int32_t	j;
-	uint8_t	*pixel;
-
-	i = 0;
-	while (i < xpm->height)
-	{
-		j = 0;
-		while (j < xpm->width)
-		{
-			pixel = &xpm->pixels[(i * xpm->width + j) * sizeof(int32_t)];
-			mlx_putpixel(image, X + j, Y + i, *pixel | *(pixel + 1) | *(pixel + 2) | *(pixel + 3));
-			j++;
-		}
-		i++;
-	}
-}
-
+// Basicaly just "putpixels" every pixel character it finds onto the buffer.
 static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
 {
 	int64_t	x;
@@ -91,8 +58,7 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
 			return (mlx_freen(1, line));
 		while (x < xpm->width)
 		{
-			if (!mlx_add_pixel(xpm, ctable[(uint32_t)line[x]], x, y))
-				return (mlx_freen(1, line));
+			mlx_xpm_putpixel(xpm, x, y, ctable[(uint32_t)line[x]]);
 			x++;
 		}
 	}
@@ -140,10 +106,6 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
  * m for Monochrome.
  * 
  * TODO: xpm->mode != 'c' || xpm->mode != 'm'
- * 
- * @param xpm The XPM image.
- * @param file The XPM file pointer.
- * @return Wether or not it was successful to parse the header.
  */
 static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 {
@@ -163,6 +125,27 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	if (!xpm->pixels)
 		return (false);
 	return (mlx_read_table(xpm, file));
+}
+
+void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
+{
+	int32_t	i;
+	int32_t	j;
+	uint8_t	*pixel;
+
+	i = 0;
+	while (i < xpm->height)
+	{
+		j = 0;
+		while (j < xpm->width)
+		{
+			pixel = &xpm->pixels[(i * xpm->width + j) * sizeof(int32_t)];
+			mlx_putpixel(image, X + j, Y + i, \
+			*pixel << 24 | *(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
+			j++;
+		}
+		i++;
+	}
 }
 
 t_xpm	*mlx_load_xpm42(const char *path)
