@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 23:44:00 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 00:26:55 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,8 @@ void	*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
  */
 void	mlx_set_cursor(t_mlx *mlx, void *cursor);
 
+//= XPM42 Functions =//
+
 /**
  * Loads an XPM42 image from the given file path.
  * 
@@ -343,7 +345,14 @@ t_xpm	*mlx_load_xpm42(const char *path);
  * @param X The X position offset for the picture.
  * @param Y The Y position offset for the picture.
  */
-void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y);
+void	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y);
+
+/**
+ * Deletes an XPM42 image and sets the pointer itself to NULL.
+ * 
+ * @param xpm The image to delete.
+ */
+void	mlx_delete_xpm42(t_xpm **xpm);
 
 //= Image Functions =//
 
