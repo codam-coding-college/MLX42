@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 23:48:57 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/07 23:55:40 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	char	buffer[128];
 
 	memset(buffer, '\0', sizeof(buffer));
-	flagc = fscanf(file, "%128s\n", buffer);
+	flagc = fscanf(file, "%127s\n", buffer);
 	if (flagc < 1 || strncmp(buffer, "!XPM42", sizeof(buffer)) != 0)
 		return (false);
 	flagc = fscanf(file, "%i %i %i %c\n", &xpm->width, &xpm->height, \
