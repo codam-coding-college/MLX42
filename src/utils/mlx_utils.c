@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/01 10:07:48 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/07 09:07:15 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ static int32_t	isbase(char c, int32_t base)
 	(c >= 'a' && c <= ('a' + base - 10)));
 }
 
+/**
+ * Converts a given string to an integer of a given base.
+ * 
+ * @param str The string to convert.
+ * @param base A given base, only up to 16.
+ * @return The result of the conversion. 
+ */
 int32_t	mlx_atoi_base(const char *str, int32_t base)
 {
 	int32_t	i;

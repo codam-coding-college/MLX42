@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/02 12:26:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/07 10:43:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define MLX_SHADER_FAILURE "Shader failure!"
 # define MLX_RENDER_FAILURE "Failed to initialize Renderer!"
 # define MLX_MEMORY_FAIL "Failed to allocate enough memory!"
+# define MLX_XPM_FAILURE "Failed to read XPM42 file!"
 # define GLFW_INIT_FAILURE "Failed to initialize GLFW!"
 # define GLFW_WIN_FAILURE "Failed to create GLFW Window!"
 # define GLFW_GLAD_FAILURE "Failed to initialize GLAD!"
