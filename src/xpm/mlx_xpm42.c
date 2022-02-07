@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 23:55:40 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 00:47:38 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,12 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
 		if (bread < 1 || !isascii(line[0]) || !isspace(line[1]) || \
 			line[2] != '#' || !isalnum(line[3]))
 			return (mlx_freen(1, line));
-		ctable[(int32_t)line[0]] = mlx_atoi_base(&(line[1]), 16);
+		if (xpm->mode == 'm')
+			ctable[(int32_t)line[0]] = \
+			mlx_rgba_to_mono(mlx_atoi_base(&(line[1]), 16));
+		else
+			ctable[(int32_t)line[0]] = mlx_atoi_base(&(line[1]), 16);
+		
 	}
 	free(line);
 	return (mlx_read_data(xpm, file, ctable));
@@ -127,7 +132,7 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	return (mlx_read_table(xpm, file));
 }
 
-void	mlx_draw_xpm(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
+void	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 {
 	int32_t	i;
 	int32_t	j;
