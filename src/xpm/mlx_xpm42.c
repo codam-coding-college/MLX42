@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 00:47:38 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 10:37:36 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
 			mlx_rgba_to_mono(mlx_atoi_base(&(line[1]), 16));
 		else
 			ctable[(int32_t)line[0]] = mlx_atoi_base(&(line[1]), 16);
-		
 	}
 	free(line);
 	return (mlx_read_data(xpm, file, ctable));
@@ -138,6 +137,11 @@ void	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 	int32_t	j;
 	uint8_t	*pixel;
 
+	if (!xpm || !image)
+	{
+		mlx_log(MLX_WARNING, MLX_NULL_ARG);
+		return ;
+	}
 	i = 0;
 	while (i < xpm->height)
 	{
@@ -145,8 +149,8 @@ void	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 		while (j < xpm->width)
 		{
 			pixel = &xpm->pixels[(i * xpm->width + j) * sizeof(int32_t)];
-			mlx_putpixel(image, X + j, Y + i, \
-			*pixel << 24 | *(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
+			mlx_putpixel(image, X + j, Y + i, *pixel << 24 | \
+			*(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
 			j++;
 		}
 		i++;
