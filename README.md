@@ -243,7 +243,7 @@ int32_t	main(void)
 		exit(EXIT_FAILURE);
 	g_img = mlx_new_image(mlx, 128, 128);
 	memset(g_img->pixels, 255, g_img->width * g_img->width * sizeof(int));
-	mlx_image_to_window(g_img, 0, 0, 0);
+	mlx_image_to_window(mlx, g_img, 0, 0);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
