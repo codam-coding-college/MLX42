@@ -6,12 +6,11 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 10:37:36 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/08 14:27:32 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
-#include <string.h>
 
 /**
  * XPM is an obscure image format which can't seem to make up its mind
