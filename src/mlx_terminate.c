@@ -6,15 +6,15 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 00:45:35 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 17:19:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-void		mlx_delete_xpm42(t_xpm **xpm)
+void	mlx_delete_xpm42(t_xpm **xpm)
 {
-	mlx_freen(2, (*xpm)->pixels, *xpm);
+	mlx_freen(2, (*xpm)->texture.pixels, *xpm);
 	*xpm = NULL;
 }
 

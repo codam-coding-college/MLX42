@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/31 15:20:51 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/08 01:04:37 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 16:09:27 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	mlx_equal_inst(void *lstcontent, void *value)
  * @param[in] comp Function to check if the content and value are the same.
  * @returns The removed element, clean up as you wish.
  */
-t_mlx_list		*mlx_lstremove(t_mlx_list **lst, void *value, \
+t_mlx_list	*mlx_lstremove(t_mlx_list **lst, void *value, \
 bool (*comp)(void *, void*))
 {
 	t_mlx_list		*temp;

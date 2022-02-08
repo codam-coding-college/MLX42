@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/07 23:44:43 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 17:19:32 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	mlx_xpm_putpixel(t_xpm *xpm, int32_t x, int32_t y, uint32_t color)
 {
 	uint8_t	*pixelstart;
 
-	pixelstart = &xpm->pixels[(y * xpm->width + x) * sizeof(int32_t)];
+	pixelstart = &xpm->texture.pixels[(y * xpm->texture.width + x) * \
+	sizeof(int32_t)];
 	mlx_draw_pixel(pixelstart, color);
 }
 

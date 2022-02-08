@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/01 11:21:40 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/08 17:45:43 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,17 +39,17 @@ OBJS	=	${SRCS:.c=.o}
 all: $(NAME)
 	
 %.o: %.c
-	@printf	"$(GREEN)$(BOLD)\rCompiling: $(notdir $<) 🔨 \n$(RESET)"
+	@printf	"$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\x1b[35C[OK]\n$(RESET)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(ARCHIVE)
 
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS) 
-	@printf "$(GREEN)$(BOLD)Done ✅\n$(RESET)"
+	@printf "$(GREEN)$(BOLD)Done\n$(RESET)"
 
 ## //= Commands =// #
 
 clean:
-	@echo "$(RED)Cleaning 🧹$(RESET)"
+	@echo "$(RED)Cleaning$(RESET)"
 	@rm -f $(OBJS)
 
 fclean: clean

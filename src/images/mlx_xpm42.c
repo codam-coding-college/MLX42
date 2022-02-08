@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 14:27:32 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/08 17:21:10 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,13 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
 
 	y = -1;
 	line = NULL;
-	(void) ctable;
-	while (++y < xpm->height)
+	while (++y < xpm->texture.height)
 	{
 		x = 0;
 		bread = getline(&line, &buffsize, file);
-		if (bread == -1 || bread < xpm->width)
+		if (bread == -1 || bread < xpm->texture.width)
 			return (mlx_freen(1, line));
-		while (x < xpm->width)
+		while (x < xpm->texture.width)
 		{
 			mlx_xpm_putpixel(xpm, x, y, ctable[(uint32_t)line[x]]);
 			x++;
@@ -119,14 +118,17 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	flagc = fscanf(file, "%127s\n", buffer);
 	if (flagc < 1 || strncmp(buffer, "!XPM42", sizeof(buffer)) != 0)
 		return (false);
-	flagc = fscanf(file, "%i %i %i %c\n", &xpm->width, &xpm->height, \
-	&xpm->color_count, &xpm->mode);
-	if (flagc < 4 || xpm->width < 0 || xpm->width > UINT16_MAX || \
-		xpm->height < 0 || xpm->height > UINT16_MAX)
+	flagc = fscanf(file, "%i %i %i %c\n", &xpm->texture.width, \
+	&xpm->texture.height, &xpm->color_count, &xpm->mode);
+	if (flagc < 4 || xpm->texture.width < 0 || \
+		xpm->texture.width > UINT16_MAX || xpm->texture.height < 0 || \
+		xpm->texture.height > UINT16_MAX)
 		return (false);
-	xpm->pixels = calloc(xpm->width * xpm->height, sizeof(int32_t));
-	if (!xpm->pixels)
+	xpm->texture.pixels = calloc(xpm->texture.width * \
+		xpm->texture.height, sizeof(int32_t));
+	if (!xpm->texture.pixels)
 		return (false);
+	xpm->texture.bytes_per_pixel = sizeof(int32_t);
 	return (mlx_read_table(xpm, file));
 }
 
@@ -142,12 +144,13 @@ void	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 		return ;
 	}
 	i = 0;
-	while (i < xpm->height)
+	while (i < xpm->texture.height)
 	{
 		j = 0;
-		while (j < xpm->width)
+		while (j < xpm->texture.width)
 		{
-			pixel = &xpm->pixels[(i * xpm->width + j) * sizeof(int32_t)];
+			pixel = &xpm->texture.pixels[(i * xpm->texture.width + j) * \
+			sizeof(int32_t)];
 			mlx_putpixel(image, X + j, Y + i, *pixel << 24 | \
 			*(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
 			j++;
@@ -172,7 +175,7 @@ t_xpm	*mlx_load_xpm42(const char *path)
 		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
 	if (!mlx_read_xpm_header(xpm, file))
 	{
-		mlx_freen(2, xpm->pixels, xpm);
+		mlx_freen(2, xpm->texture.pixels, xpm);
 		mlx_log(MLX_ERROR, MLX_XPM_FAILURE);
 		xpm = NULL;
 	}

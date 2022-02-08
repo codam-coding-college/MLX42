@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 14:38:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/08 17:20:31 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,23 @@
 # include "MLX42_Keys.h"
 
 /**
+ * Base object for disk loaded textures.
+ * It contains rudementary information about the texture.
+ * 
+ * @param width The width.
+ * @param height The height.
+ * @param pixels The literal pixel data.
+ * @param bytes_per_pixel The byte size of a pixel, e.g: 3 = RGB & 4 = RGBA
+ */
+typedef struct s_mlx_texture
+{
+	int32_t		width;
+	int32_t		height;
+	uint8_t		*pixels;
+	uint16_t	bytes_per_pixel;
+}	t_mlx_texture;
+
+/**
  * Struct containing data regarding an XPM image.
  * 
  * @param width The width.
@@ -46,11 +63,9 @@
  */
 typedef struct s_xpm
 {
-	int32_t		width;
-	int32_t		height;
-	uint8_t		*pixels;
-	int32_t		color_count;
-	char		mode;
+	t_mlx_texture	texture;
+	int32_t			color_count;
+	char			mode;
 }	t_xpm;
 
 /**

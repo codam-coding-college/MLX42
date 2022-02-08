@@ -6,7 +6,7 @@
 /*   By: w2wizard <w2wizard@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by w2wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 01:20:03 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 16:09:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	mlx_set_window_size(t_mlx *mlx, int32_t new_width, int32_t new_height)
 
 void	mlx_set_window_limit(t_mlx *mlx, int32_t min_wh[2], int32_t max_wh[2])
 {
-	glfwSetWindowSizeLimits(mlx->window, min_wh[0], min_wh[1], max_wh[0], max_wh[1]);
+	glfwSetWindowSizeLimits(mlx->window, min_wh[0], min_wh[1], \
+	max_wh[0], max_wh[1]);
 }
