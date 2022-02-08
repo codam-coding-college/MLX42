@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 23:59:29 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/09 00:18:09 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,6 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
  * count and finally the color mode. Which is either c for Color or
  * m for Monochrome.
  * 
- * Because fscanf is amazing we do a single seek of 1 byte forward
- * to skip the newline... Adding a newline to the fscanf technically works
- * but XPM's have the tendency to have the ' ' character as a pixel and having
- * that newline causes the file pointer to skip that very important
- * space!!! W T F!!! This causes an issue as now we when we call getline
- * we don't get those spaces anymore and only a color which the program
- * then assumes is invalid! I need to check this a bit more however.
- * 
  * TODO: xpm->mode != 'c' || xpm->mode != 'm'
  */
 static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
@@ -134,6 +126,8 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	if (flagc < 4 || xpm->texture.width < 0 || \
 		xpm->texture.width > UINT16_MAX || xpm->texture.height < 0 || \
 		xpm->texture.height > UINT16_MAX)
+		return (false);
+	if (!(xpm->mode == 'c' || xpm->mode == 'm'))
 		return (false);
 	xpm->texture.pixels = calloc(xpm->texture.width * \
 		xpm->texture.height, sizeof(int32_t));
@@ -181,7 +175,7 @@ t_xpm	*mlx_load_xpm42(const char *path)
 	file = fopen(path, "r");
 	if (!file)
 		return ((void *)mlx_log(MLX_ERROR, MLX_INVALID_FILE));
-	xpm = malloc(sizeof(t_xpm));
+	xpm = calloc(1, sizeof(t_xpm));
 	if (!xpm)
 		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
 	if (!mlx_read_xpm_header(xpm, file))
