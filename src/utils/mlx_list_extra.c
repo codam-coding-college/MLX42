@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/31 15:20:51 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/01/31 23:23:42 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 01:04:37 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	mlx_equal_inst(void *lstcontent, void *value)
  * @param[in] comp Function to check if the content and value are the same.
  * @returns The removed element, clean up as you wish.
  */
-void	*mlx_lstremove(t_mlx_list **lst, void *value, \
+t_mlx_list		*mlx_lstremove(t_mlx_list **lst, void *value, \
 bool (*comp)(void *, void*))
 {
 	t_mlx_list		*temp;
@@ -48,7 +48,7 @@ bool (*comp)(void *, void*))
 		*lst = temp->next;
 		temp->prev = NULL;
 		temp->next = NULL;
-		return (temp->content);
+		return (temp);
 	}
 	while (temp && !comp(temp->content, value))
 	{
@@ -60,5 +60,5 @@ bool (*comp)(void *, void*))
 	prev->next = temp->next;
 	temp->next = NULL;
 	temp->prev = NULL;
-	return (temp->content);
+	return (temp);
 }
