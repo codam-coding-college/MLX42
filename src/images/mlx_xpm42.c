@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 17:21:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/08 23:33:28 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,14 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
  * count and finally the color mode. Which is either c for Color or
  * m for Monochrome.
  * 
+ * Because fscanf is amazing we do a single seek of 1 byte forward
+ * to skip the newline... Adding a newline to the fscanf technically works
+ * but XPM's have the tendency to have the ' ' character as a pixel and having
+ * that newline causes the file pointer to skip that very important
+ * space!!! W T F!!! This causes an issue as now we when we call getline
+ * we don't get those spaces anymore and only a color which the program
+ * then assumes is invalid! I need to check this a bit more however.
+ * 
  * TODO: xpm->mode != 'c' || xpm->mode != 'm'
  */
 static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
@@ -118,7 +126,7 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	flagc = fscanf(file, "%127s\n", buffer);
 	if (flagc < 1 || strncmp(buffer, "!XPM42", sizeof(buffer)) != 0)
 		return (false);
-	flagc = fscanf(file, "%i %i %i %c\n", &xpm->texture.width, \
+	flagc = fscanf(file, "%i %i %i %c", &xpm->texture.width, \
 	&xpm->texture.height, &xpm->color_count, &xpm->mode);
 	if (flagc < 4 || xpm->texture.width < 0 || \
 		xpm->texture.width > UINT16_MAX || xpm->texture.height < 0 || \
@@ -129,6 +137,7 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	if (!xpm->texture.pixels)
 		return (false);
 	xpm->texture.bytes_per_pixel = sizeof(int32_t);
+	fseek(file, ftell(file) + 1, SEEK_SET);
 	return (mlx_read_table(xpm, file));
 }
 
