@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 00:26:55 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 01:23:10 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,27 @@ void	mlx_set_window_pos(t_mlx *mlx, int32_t xpos, int32_t ypos);
  * @param[in] ypos The y position.
  */
 void	mlx_get_window_pos(t_mlx *mlx, int32_t *xpos, int32_t *ypos);
+
+/**
+ * Changes the window size to the newly specified values.
+ * Use this to update the the window width and heigth values in the mlx ptr.
+ * 
+ * @param mlx The MLX instance handle.
+ * @param new_width The new desired width.
+ * @param new_height The new desired height.
+ */
+void	mlx_set_window_size(t_mlx *mlx, int32_t new_width, int32_t new_height);
+
+/**
+ * Sets a desired min and max window width and height.
+ * Will force the window to not be resizable past or below the given values.
+ * Due to norme constraints this is a bit ugly, sorry.
+ * 
+ * @param mlx The MLX instance handle.
+ * @param min_wh The min width and height values.
+ * @param max_wh The max width and height values.
+ */
+void	mlx_set_window_limit(t_mlx *mlx, int32_t min_wh[2], int32_t max_wh[2]);
 
 //= Input Functions =//
 
