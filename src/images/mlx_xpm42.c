@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 23:33:28 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/08 23:59:29 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,16 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
 static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 {
 	int32_t	flagc;
-	char	buffer[128];
+	char	buffer[64];
 
 	memset(buffer, '\0', sizeof(buffer));
-	flagc = fscanf(file, "%127s\n", buffer);
-	if (flagc < 1 || strncmp(buffer, "!XPM42", sizeof(buffer)) != 0)
+	if (!fgets(buffer, sizeof(buffer), file))
 		return (false);
-	flagc = fscanf(file, "%i %i %i %c", &xpm->texture.width, \
+	if (strncmp(buffer, "!XPM42\n", sizeof(buffer)) != 0)
+		return (false);
+	if (!fgets(buffer, sizeof(buffer), file))
+		return (false);
+	flagc = sscanf(buffer, "%i %i %i %c\n", &xpm->texture.width, \
 	&xpm->texture.height, &xpm->color_count, &xpm->mode);
 	if (flagc < 4 || xpm->texture.width < 0 || \
 		xpm->texture.width > UINT16_MAX || xpm->texture.height < 0 || \
@@ -137,7 +140,6 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	if (!xpm->texture.pixels)
 		return (false);
 	xpm->texture.bytes_per_pixel = sizeof(int32_t);
-	fseek(file, ftell(file) + 1, SEEK_SET);
 	return (mlx_read_table(xpm, file));
 }
 
