@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 10:01:38 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 10:27:55 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,12 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
 	line = NULL;
 	while (++y < xpm->texture.height)
 	{
-		x = 0;
+		x = -1;
 		bread = getline(&line, &buffsize, file);
 		if (bread == -1 || bread < xpm->texture.width)
 			return (mlx_freen(1, line));
-		while (x < xpm->texture.width)
-		{
+		while (++x < xpm->texture.width)
 			mlx_xpm_putpixel(xpm, x, y, ctable[(uint32_t)line[x]]);
-			x++;
-		}
 	}
 	return (!mlx_freen(1, line));
 }
@@ -135,31 +132,30 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	return (mlx_read_table(xpm, file));
 }
 
-void	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
+bool	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 {
 	int32_t	i;
 	int32_t	j;
 	uint8_t	*pixel;
 
 	if (!xpm || !image)
+		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
+	if (xpm->texture.width > image->width || \
+		xpm->texture.height > image->height)
+		return (mlx_log(MLX_ERROR, "XPM is larger than image!"));
+	i = -1;
+	while (++i < xpm->texture.height)
 	{
-		mlx_log(MLX_WARNING, MLX_NULL_ARG);
-		return ;
-	}
-	i = 0;
-	while (i < xpm->texture.height)
-	{
-		j = 0;
-		while (j < xpm->texture.width)
+		j = -1;
+		while (++j < xpm->texture.width)
 		{
 			pixel = &xpm->texture.pixels[(i * xpm->texture.width + j) * \
-			sizeof(int32_t)];
+			xpm->texture.bytes_per_pixel];
 			mlx_putpixel(image, X + j, Y + i, *pixel << 24 | \
 			*(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
-			j++;
 		}
-		i++;
 	}
+	return (true);
 }
 
 t_xpm	*mlx_load_xpm42(const char *path)

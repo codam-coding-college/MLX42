@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 17:20:31 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 10:25:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,8 +383,9 @@ t_xpm		*mlx_load_xpm42(const char *path);
  * @param xpm The picture to draw.
  * @param X The X position offset for the picture.
  * @param Y The Y position offset for the picture.
+ * @returns If the function was able to draw onto the image.
  */
-void		mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, \
+bool		mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, \
 int32_t X, int32_t Y);
 
 /**

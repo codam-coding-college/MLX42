@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 01:04:49 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/09 10:29:06 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@
 # include <stdlib.h>
 # include <memory.h>
 # include <stdio.h>
-# include <limits.h>
+# if defined(__linux__)
+#  include <linux/limits.h>
+# else
+#  include <limits.h>
+# endif
 # include <ctype.h>
 # include <string.h>
 # ifndef VERTEX_PATH
@@ -37,9 +41,6 @@
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
-# define MLX_INFO "MLX42: Info"
-# define MLX_ERROR "MLX42: Error:"
-# define MLX_WARNING "MLX42: Warning:"
 # define MLX_INVALID_FILE_EXT "Invalid file extension!"
 # define MLX_INVALID_FILE "Failed to read file!"
 # define MLX_INVALID_ARG "Invalid argument provided!"
@@ -53,6 +54,20 @@
 # define GLFW_GLAD_FAILURE "Failed to initialize GLAD!"
 
 //= Types =//
+
+/**
+ * Various log types to give different verbose types of feedback.
+ * 
+ * @param MLX_INFO Info is for simple feedback
+ * @param MLX_WARNING Something happened that shouldn't have.
+ * @param MLX_INFO Critical error.
+ */
+typedef enum e_logtype
+{
+	MLX_INFO,
+	MLX_WARNING,
+	MLX_ERROR,
+}	t_logtype;
 
 // A single vertex, identical to the layout in the shader.
 typedef struct s_vert
@@ -124,7 +139,7 @@ void		mlx_xpm_putpixel(t_xpm *xpm, int32_t x, int32_t y, uint32_t color);
 
 //= Error/log Handling Functions =//
 
-bool		mlx_log(const char *log, const char *msg);
+bool		mlx_log(const t_logtype type, const char *msg);
 bool		mlx_freen(int32_t count, ...);
 
 //= IO Functions =//
