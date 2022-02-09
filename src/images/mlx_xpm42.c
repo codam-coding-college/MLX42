@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 00:18:09 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/09 10:01:38 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
  * containing image information such as width, height, unique color
  * count and finally the color mode. Which is either c for Color or
  * m for Monochrome.
- * 
- * TODO: xpm->mode != 'c' || xpm->mode != 'm'
  */
 static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 {
