@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 10:25:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 11:11:05 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,14 +379,17 @@ t_xpm		*mlx_load_xpm42(const char *path);
 /**
  * Draws the xpm picture onto an image.
  * 
+ * Drawing the XPM beyond the bounds of an image is considered
+ * undefined behaviour!
+ * 
  * @param image The image to draw the picture on.
  * @param xpm The picture to draw.
- * @param X The X position offset for the picture.
- * @param Y The Y position offset for the picture.
+ * @param x The X position offset for the picture.
+ * @param y The Y position offset for the picture.
  * @returns If the function was able to draw onto the image.
  */
 bool		mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, \
-int32_t X, int32_t Y);
+int32_t x, int32_t y);
 
 /**
  * Deletes an XPM42 image and sets the pointer itself to NULL.
@@ -400,10 +403,13 @@ void		mlx_delete_xpm42(t_xpm **xpm);
 /**
  * Sets / puts a pixel onto an image.
  * 
- * @param[in] img The MLX instance handle.
- * @param[in] X The X coordinate position.
- * @param[in] Y The Y coordinate position.
- * @param[in] Color The RGBA8 Color value.
+ * Putting a pixel beyond the bounds of an image is considered
+ * undefined behaviour!
+ * 
+ * @param[in] image The MLX instance handle.
+ * @param[in] x The X coordinate position.
+ * @param[in] y The Y coordinate position.
+ * @param[in] color The RGBA8 Color value.
  */
 void		mlx_putpixel(t_mlx_image *image, int32_t x, \
 int32_t y, uint32_t color);

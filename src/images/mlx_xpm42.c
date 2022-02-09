@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 10:27:55 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 11:11:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 	return (mlx_read_table(xpm, file));
 }
 
-bool	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
+bool	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t x, int32_t y)
 {
 	int32_t	i;
 	int32_t	j;
@@ -151,7 +151,7 @@ bool	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t X, int32_t Y)
 		{
 			pixel = &xpm->texture.pixels[(i * xpm->texture.width + j) * \
 			xpm->texture.bytes_per_pixel];
-			mlx_putpixel(image, X + j, Y + i, *pixel << 24 | \
+			mlx_putpixel(image, x + j, y + i, *pixel << 24 | \
 			*(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
 		}
 	}
