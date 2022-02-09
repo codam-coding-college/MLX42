@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 11:46:07 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:26:20 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ typedef struct s_mlx_texture
  * @param height The height.
  * @param pixels The literal pixel data.
  * @param color_count The amount of colors available.
+ * @param cpp The amount of characters per pixel.
  * @param mode The color mode, either (c)olor or (m)onochrome.
  */
 typedef struct s_xpm
 {
 	t_mlx_texture	texture;
 	int32_t			color_count;
+	int32_t			cpp;
 	char			mode;
 }	t_xpm;
 

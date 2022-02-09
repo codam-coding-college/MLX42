@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 10:29:06 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 17:29:58 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,10 @@ bool (*comp)(void *, void*));
 bool		mlx_equal_image(void *lstcontent, void *value);
 bool		mlx_equal_inst(void *lstcontent, void *value);
 void		mlx_xpm_putpixel(t_xpm *xpm, int32_t x, int32_t y, uint32_t color);
+bool		mlx_insert_xpm_entry(t_xpm *xpm, char *line, uint32_t *ctable, \
+size_t s);
+uint32_t	mlx_grab_xpm_pixel(char *pixelstart, uint32_t *ctable, \
+t_xpm *xpm, size_t s);
 
 //= Error/log Handling Functions =//
 
@@ -157,4 +161,5 @@ t_mlx_instance *instance);
 
 int32_t		mlx_rgba_to_mono(int32_t color);
 int32_t		mlx_atoi_base(const char *str, int32_t base);
+uint64_t	mlx_fnv_hash(char *str, size_t len);
 #endif

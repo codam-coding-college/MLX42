@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 11:27:23 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 18:58:47 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@
  * straight forward to this format however.
  */
 
-static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
+static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable, size_t s)
 {
 	int64_t	x;
+	int64_t	x_xpm;
 	int64_t	y;
 	int64_t	bread;
 	size_t	buffsize;
@@ -50,13 +51,18 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
 	while (++y < xpm->texture.height)
 	{
 		x = -1;
+		x_xpm = 0;
 		bread = getline(&line, &buffsize, file);
 		if (line[bread - 1] == '\n')
 			bread--;
-		if (bread == -1 || bread != xpm->texture.width)
+		if (bread == -1 || bread != xpm->texture.width * xpm->cpp)
 			return (mlx_freen(1, line));
 		while (++x < xpm->texture.width)
-			mlx_xpm_putpixel(xpm, x, y, ctable[(uint32_t)line[x]]);
+		{
+			mlx_xpm_putpixel(xpm, x, y, \
+			mlx_grab_xpm_pixel(&line[x_xpm], ctable, xpm, s));
+			x_xpm += xpm->cpp;
+		}
 	}
 	return (!mlx_freen(1, line));
 }
@@ -69,7 +75,8 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
  * Downside is we still need to iterate of each pixel to solve its color.
  * So I hope this makes it atleast a bit faster.
  * 
- * TODO: Make actual function that ensure that the string follows these rules!
+ * TODO: This buffer is way to big! Do actual collision checks, for now 
+ * just straight up raw dog this.
  */
 static bool	mlx_read_table(t_xpm *xpm, FILE *file)
 {
@@ -77,7 +84,7 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
 	int32_t		i;
 	int64_t		bread;
 	size_t		buffsize;
-	uint32_t	ctable[UINT8_MAX];
+	uint32_t	ctable[UINT16_MAX];
 
 	i = -1;
 	line = NULL;
@@ -85,17 +92,13 @@ static bool	mlx_read_table(t_xpm *xpm, FILE *file)
 	while (++i < xpm->color_count)
 	{
 		bread = getline(&line, &buffsize, file);
-		if (bread < 1 || !isascii(line[0]) || !isspace(line[1]) || \
-			line[2] != '#' || !isalnum(line[3]))
+		if (bread < 1)
 			return (mlx_freen(1, line));
-		if (xpm->mode == 'm')
-			ctable[(int32_t)line[0]] = \
-			mlx_rgba_to_mono(mlx_atoi_base(&(line[1]), 16));
-		else
-			ctable[(int32_t)line[0]] = mlx_atoi_base(&(line[1]), 16);
+		if (!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / 4)))
+			return (mlx_freen(1, line));
 	}
 	free(line);
-	return (mlx_read_data(xpm, file, ctable));
+	return (mlx_read_data(xpm, file, ctable, (sizeof(ctable) / 4)));
 }
 
 /**
@@ -117,13 +120,13 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 		return (false);
 	if (!fgets(buffer, sizeof(buffer), file))
 		return (false);
-	flagc = sscanf(buffer, "%i %i %i %c\n", &xpm->texture.width, \
-	&xpm->texture.height, &xpm->color_count, &xpm->mode);
+	flagc = sscanf(buffer, "%i %i %i %i %c\n", &xpm->texture.width, \
+	&xpm->texture.height, &xpm->color_count, &xpm->cpp, &xpm->mode);
 	if (flagc < 4 || xpm->texture.width < 0 || \
 		xpm->texture.width > UINT16_MAX || xpm->texture.height < 0 || \
 		xpm->texture.height > UINT16_MAX)
 		return (false);
-	if (!(xpm->mode == 'c' || xpm->mode == 'm'))
+	if (!(xpm->mode == 'c' || xpm->mode == 'm') || xpm->cpp > 10)
 		return (false);
 	xpm->texture.pixels = calloc(xpm->texture.width * \
 		xpm->texture.height, sizeof(int32_t));
