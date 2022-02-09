@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 11:11:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 11:27:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
  * straight forward to this format however.
  */
 
-// Basicaly just "putpixels" every pixel character it finds onto the buffer.
 static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
 {
 	int64_t	x;
@@ -52,7 +51,9 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable)
 	{
 		x = -1;
 		bread = getline(&line, &buffsize, file);
-		if (bread == -1 || bread < xpm->texture.width)
+		if (line[bread - 1] == '\n')
+			bread--;
+		if (bread == -1 || bread != xpm->texture.width)
 			return (mlx_freen(1, line));
 		while (++x < xpm->texture.width)
 			mlx_xpm_putpixel(xpm, x, y, ctable[(uint32_t)line[x]]);
