@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 11:11:05 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 11:46:07 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,6 +393,9 @@ int32_t x, int32_t y);
 
 /**
  * Deletes an XPM42 image and sets the pointer itself to NULL.
+ * 
+ * This will not remove any already drawn XPMs, it simply
+ * deletes the XPM buffer.
  * 
  * @param xpm The image to delete.
  */
