@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/08 17:45:43 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/09 21:20:55 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ else
         CC = clang
         include Makefile_Darwin.mk
     else
-        $(error OS: $(OS_NAME) - Is not supported!)
+        $(error OS: $(OS) - Is not supported!)
     endif
 endif
 
