@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 14:00:50 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/09 18:03:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/09 22:25:48 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	mlx_insert_xpm_entry(t_xpm *xpm, char *line, uint32_t *ctable, size_t s)
 {
 	int32_t			index;
 
-	if (((int32_t)strrchr(line, ' ') - (int32_t)line) != xpm->cpp)
+	if (((int64_t)strrchr(line, ' ') - (int64_t)line) != xpm->cpp)
 		return (false);
 	if (!isspace(line[xpm->cpp]) || line[xpm->cpp + 1] != '#' || \
 		!isalnum(line[xpm->cpp + 2]))
