@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 18:58:47 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/10 10:10:38 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,15 @@
  * straight forward to this format however.
  */
 
+/**
+ * Retrieves the pixel data line by line and then processes each pixel
+ * by hashing the characters and looking it up from the color table.
+ * 
+ * Dirty norme hack to make this norme with the X array... norme is great right?
+ */
 static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable, size_t s)
 {
-	int64_t	x;
-	int64_t	x_xpm;
+	int64_t	x[2];
 	int64_t	y;
 	int64_t	bread;
 	size_t	buffsize;
@@ -50,18 +55,18 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable, size_t s)
 	line = NULL;
 	while (++y < xpm->texture.height)
 	{
-		x = -1;
-		x_xpm = 0;
+		x[0] = -1;
+		x[1] = 0;
 		bread = getline(&line, &buffsize, file);
 		if (line[bread - 1] == '\n')
 			bread--;
 		if (bread == -1 || bread != xpm->texture.width * xpm->cpp)
 			return (mlx_freen(1, line));
-		while (++x < xpm->texture.width)
+		while (++x[0] < xpm->texture.width)
 		{
-			mlx_xpm_putpixel(xpm, x, y, \
-			mlx_grab_xpm_pixel(&line[x_xpm], ctable, xpm, s));
-			x_xpm += xpm->cpp;
+			mlx_xpm_putpixel(xpm, x[0], y, \
+			mlx_grab_xpm_pixel(&line[x[1]], ctable, xpm, s));
+			x[1] += xpm->cpp;
 		}
 	}
 	return (!mlx_freen(1, line));
@@ -75,7 +80,7 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable, size_t s)
  * Downside is we still need to iterate of each pixel to solve its color.
  * So I hope this makes it atleast a bit faster.
  * 
- * TODO: This buffer is way to big! Do actual collision checks, for now 
+ * TODO: This buffer way to big! Do actual collision checks, for now 
  * just straight up raw dog this.
  */
 static bool	mlx_read_table(t_xpm *xpm, FILE *file)
