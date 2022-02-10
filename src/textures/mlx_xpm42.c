@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 10:10:38 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/10 23:13:27 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ static bool	mlx_read_data(t_xpm *xpm, FILE *file, uint32_t *ctable, size_t s)
  * Downside is we still need to iterate of each pixel to solve its color.
  * So I hope this makes it atleast a bit faster.
  * 
- * TODO: This buffer way to big! Do actual collision checks, for now 
- * just straight up raw dog this.
+ * TODO: This buffer might be way to big! Do actual collision checks, 
+ * for now just straight up raw dog this.
  */
 static bool	mlx_read_table(t_xpm *xpm, FILE *file)
 {

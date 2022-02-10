@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 17:58:03 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/10 23:09:32 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_vert *vertices)
 	mlxctx = mlx->context;
 	glUseProgram(mlxctx->shaderprogram);
 	glUniformMatrix4fv(glGetUniformLocation(mlxctx->shaderprogram, \
-	"proj_matrix"), 1, GL_FALSE, matrix);
-	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "outTexture"), 0);
+	"ProjMatrix"), 1, GL_FALSE, matrix);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "OutTexture"), 0);
 	glBindVertexArray(mlxctx->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, mlxctx->vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, \

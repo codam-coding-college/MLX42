@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 19:12:45 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/10 21:58:51 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,16 @@ void		*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
 void		mlx_set_cursor(t_mlx *mlx, void *cursor);
 
 //= XPM42 Functions =//
+
+/**
+ * Loads an XPM42 image from the given file path. And
+ * uses it to create a new image.
+ * 
+ * @param mlx The MLX instance handle.
+ * @param path The file path to the XPM image.
+ * @return Pointer to the image or null if any error occured.
+ */
+t_mlx_image	*mlx_xpm_to_image(t_mlx *mlx, const char *path);
 
 /**
  * Loads an XPM42 image from the given file path.

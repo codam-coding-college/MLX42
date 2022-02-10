@@ -6,11 +6,30 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 14:00:50 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/09 22:25:48 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/10 23:05:34 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+
+t_mlx_image	*mlx_xpm_to_image(t_mlx *mlx, const char *path)
+{
+	t_xpm		*xpm;
+	t_mlx_image	*img;
+
+	if (!mlx || !path)
+		return ((void *)mlx_log(MLX_WARNING, MLX_NULL_ARG));
+	xpm = mlx_load_xpm42(path);
+	if (!xpm)
+		return (NULL);
+	img = mlx_new_image(mlx, xpm->texture.width, xpm->texture.height);
+	if (!img)
+		return (NULL);
+	if (!mlx_draw_xpm42(img, xpm, 0, 0))
+		return (NULL);	
+	mlx_delete_xpm42(&xpm);
+	return (img);
+}
 
 uint32_t	mlx_grab_xpm_pixel(char *pixelstart, uint32_t *ctable, t_xpm *xpm, \
 size_t s)
