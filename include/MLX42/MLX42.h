@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 18:06:29 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/10 19:12:45 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -449,7 +449,7 @@ int32_t y);
  * data to NULL.
  * 
  * If you simply wish to stop rendering an image without de-allocation
- * set the 'enabled' boolean in 
+ * set the 'enabled' boolean in the image struct.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] image The image to delete.
