@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/08 01:07:49 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/10 17:58:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ t_mlx_instance *instance)
 
 //= Exposed =//
 
-void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
+t_mlx_image	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
+int32_t y)
 {
 	int32_t			index;
 	t_mlx_ctx		*mlxctx;
@@ -76,16 +77,15 @@ void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	t_draw_queue	*queue;
 
 	if (!mlx || !img)
-		return ;
+		return (NULL);
 	mlxctx = mlx->context;
-	temp = realloc(img->instances, (++img->count) * \
-	sizeof(t_mlx_instance));
+	temp = realloc(img->instances, (++img->count) * sizeof(t_mlx_instance));
 	queue = malloc(sizeof(t_draw_queue));
 	if (!temp || !queue)
 	{
 		mlx_log(MLX_ERROR, MLX_MEMORY_FAIL);
 		free(queue);
-		return ;
+		return (NULL);
 	}
 	index = img->count - 1;
 	img->instances = temp;
@@ -95,6 +95,7 @@ void	mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, int32_t y)
 	queue->image = img;
 	queue->instance = &img->instances[index];
 	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
+	return (img);
 }
 
 // TODO: Protect malloc and report actual errors.
@@ -123,6 +124,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
 	GL_UNSIGNED_BYTE, newimg->pixels);
 	mlx_lstadd_back((t_mlx_list **)(&mlxctx->images), mlx_lstnew(newimg));
+	newimg->enabled = true;
 	return (newimg);
 }
 

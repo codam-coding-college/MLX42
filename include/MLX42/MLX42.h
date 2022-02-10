@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:26:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/10 18:06:29 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_mlx_instance
  * @param pixels The literal pixel data.
  * @param instances An instance carries the X, Y, Z location data.
  * @param count The element count of the instances array.
+ * @param enabled If true the image is drawn onto the screen, else its not.
  * @param context Abstracted OpenGL data.
  */
 typedef struct s_mlx_image
@@ -106,6 +107,7 @@ typedef struct s_mlx_image
 	uint8_t			*pixels;
 	t_mlx_instance	*instances;
 	uint16_t		count;
+	bool			enabled;
 	void			*context;
 }	t_mlx_image;
 
@@ -437,15 +439,17 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
  * @param[in] img The image to draw onto the screen.
  * @param[in] x The X position.
  * @param[in] y The Y position.
- * @param[in] z The Z depth.
  */
-void		mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, \
-int32_t x, int32_t y);
+t_mlx_image	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
+int32_t y);
 
 /**
  * Deleting an image will remove it from the render queue as well as any and all
  * instances it might have. Additionally, just as extra measures sets all the
  * data to NULL.
+ * 
+ * If you simply wish to stop rendering an image without de-allocation
+ * set the 'enabled' boolean in 
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] image The image to delete.
