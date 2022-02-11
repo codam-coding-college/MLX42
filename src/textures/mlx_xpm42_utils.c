@@ -6,13 +6,13 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 14:00:50 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/10 23:05:34 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/11 11:56:14 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-t_mlx_image	*mlx_xpm_to_image(t_mlx *mlx, const char *path)
+t_mlx_image	*mlx_xpm42_to_image(t_mlx *mlx, const char *path)
 {
 	t_xpm		*xpm;
 	t_mlx_image	*img;
@@ -26,7 +26,7 @@ t_mlx_image	*mlx_xpm_to_image(t_mlx *mlx, const char *path)
 	if (!img)
 		return (NULL);
 	if (!mlx_draw_xpm42(img, xpm, 0, 0))
-		return (NULL);	
+		return (NULL);
 	mlx_delete_xpm42(&xpm);
 	return (img);
 }

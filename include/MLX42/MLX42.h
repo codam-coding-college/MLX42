@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 21:58:51 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/11 11:56:34 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,22 +156,23 @@ typedef void (*	t_mlx_keyfunc)(t_keys key, t_action action, void *param);
  * @param[in] Height The height of the window.
  * @param[in] Title The title of the window.
  * @param[in] Resize Enable window resizing.
- * @returns Ptr to the MLX handle.
+ * @returns Ptr to the MLX handle or null on failure.
  */
 t_mlx		*mlx_init(int32_t Width, int32_t Height, const char *Title, \
 bool Resize);
 
 /**
- * Tells MLX that it should stop rendering and quit the main loop.
- * Make sure to call terminate after calling this function.
+ * Notifies MLX that it should stop rendering and exit the main loop.
+ * This is not the same as terminate, this simply tells MLX to close the window.
  * 
  * @param[in] mlx The MLX instance handle.
  */
 void		mlx_quit(t_mlx *mlx);
 
 /**
- * The program loop, this will cause MLX to continously render
- * and output its content. Can be halted with mlx_quit.
+ * Initializes the rendering of MLX, this function won't return until
+ * mlx_quit is called, meaning it will loop until the user requests that
+ * the window should close.
  * 
  * @param[in] mlx The MLX instance handle.
  */
@@ -197,6 +198,8 @@ void		mlx_set_icon(t_mlx *mlx, t_xpm *image);
 
 /**
  * Terminates MLX and cleans up any of its used resources.
+ * Using any functions that require mlx afterwards will
+ * be considered undefined behaviour, beware of segfaults.
  * 
  * @param[in] mlx The MLX instance handle.
  */
@@ -380,7 +383,7 @@ void		mlx_set_cursor(t_mlx *mlx, void *cursor);
  * @param path The file path to the XPM image.
  * @return Pointer to the image or null if any error occured.
  */
-t_mlx_image	*mlx_xpm_to_image(t_mlx *mlx, const char *path);
+t_mlx_image	*mlx_xpm42_to_image(t_mlx *mlx, const char *path);
 
 /**
  * Loads an XPM42 image from the given file path.

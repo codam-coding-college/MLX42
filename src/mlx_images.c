@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 23:09:32 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/11 11:57:44 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,14 @@ int32_t y)
 	t_draw_queue	*queue;
 
 	if (!mlx || !img)
-		return (NULL);
+		return ((void *)mlx_log(MLX_WARNING, MLX_NULL_ARG));
 	mlxctx = mlx->context;
 	temp = realloc(img->instances, (++img->count) * sizeof(t_mlx_instance));
 	queue = malloc(sizeof(t_draw_queue));
 	if (!temp || !queue)
 	{
 		mlx_log(MLX_ERROR, MLX_MEMORY_FAIL);
-		free(queue);
-		return (NULL);
+		return ((void *)mlx_freen(2, temp, queue));
 	}
 	index = img->count - 1;
 	img->instances = temp;
@@ -98,7 +97,7 @@ int32_t y)
 	return (img);
 }
 
-// TODO: Protect malloc and report actual errors.
+// TODO: Report errors somehow, will cause
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 {
 	t_mlx_image		*newimg;
