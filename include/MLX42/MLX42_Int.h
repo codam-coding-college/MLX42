@@ -30,6 +30,9 @@
 # else
 #  include <limits.h>
 # endif
+# if defined(_WIN32)
+#  include <malloc.h>
+# endif
 # include <ctype.h>
 # include <string.h>
 # ifndef VERTEX_PATH

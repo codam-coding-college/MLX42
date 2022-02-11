@@ -57,7 +57,7 @@ bool	mlx_insert_xpm_entry(t_xpm *xpm, char *line, uint32_t *ctable, size_t s)
 {
 	int32_t			index;
 
-	if (((int64_t)strrchr(line, ' ') - (int64_t)line) != xpm->cpp)
+	if (((uintptr_t)strrchr(line, ' ') - (uintptr_t)line) != xpm->cpp)
 		return (false);
 	if (!isspace(line[xpm->cpp]) || line[xpm->cpp + 1] != '#' || \
 		!isalnum(line[xpm->cpp + 2]))
