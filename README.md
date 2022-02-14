@@ -5,15 +5,15 @@
 <div align="center">
   <sub>Written by <a href="https://w2wizard.github.io/">W2.Wizard</a> for the 42 Network</sub>
     <div align="center">
-    </br>
-    <img src="https://img.shields.io/github/license/W2Codam/MLX42" alt="42MLX_Logo"> 
-    <img src="https://svgshare.com/i/Zhy.svg" alt="42MLX_Logo">
-    <img src="https://svgshare.com/i/ZjP.svg" alt="42MLX_Logo">
-    <img src="https://svgshare.com/i/ZhY.sv" alt="42MLX_Logo">
-    <img src="https://img.shields.io/github/forks/W2Codam/MLX42" alt="42MLX_Logo">
+	</br>
+	<img src="https://img.shields.io/github/license/W2Codam/MLX42" alt="License GPL2.0"> 
+	<img src="https://svgshare.com/i/Zhy.svg" alt="Linux">
+	<img src="https://svgshare.com/i/ZjP.svg" alt="MacOS">
+	<img src="https://svgshare.com/i/ZhY.sv" alt="Windows">
+	<img src="https://github.com/W2Codam/MLX42/actions/workflows/ci.yml/badge.svg" alt="Build">
+	<img src="https://img.shields.io/github/forks/W2Codam/MLX42" alt="Forks">
     </div>
 </div>
-
 
 My own recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL 3.3.
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
