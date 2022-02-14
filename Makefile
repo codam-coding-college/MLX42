@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/14 11:49:53 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/14 12:01:10 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,7 @@ all: $(NAME)
 	
 # TODO: Cursor positioning does not work on Linux :(
 %.o: %.c
-	@printf	"$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(ARCHIVE)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(ARCHIVE) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS) 

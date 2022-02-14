@@ -33,3 +33,10 @@ jobs:
   
     - name: Build
       run: make NOWARNING=1
+
+    - name: Norminette
+      continue-on-error: true
+      run: |
+        pip3 install Norminette
+        norminette src include/MLX42
+        norminette --version
