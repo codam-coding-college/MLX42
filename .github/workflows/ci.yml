@@ -34,7 +34,7 @@ jobs:
     - name: Build
       run: make NOWARNING=1
 
-	  - name: Install Norminette
+    - name: Install Norminette
       continue-on-error: true
       run: |
         pip3 install Norminette
