@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/14 12:01:10 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/14 12:25:58 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ endif
 # //= Files =// #
 
 # TODO: Add files, remove shell command.
-# TODO: Exclude glad.c from norme.
 SRCS	=	$(shell find ./src -iname "*.c") lib/glad/glad.c
 OBJS	=	${SRCS:.c=.o}
 
@@ -44,7 +43,6 @@ OBJS	=	${SRCS:.c=.o}
 ## //= Compile =// #
 all: $(NAME)
 	
-# TODO: Cursor positioning does not work on Linux :(
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(ARCHIVE) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
 
