@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/11 11:27:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/14 11:50:17 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	mlx_quit(t_mlx *mlx)
 	}
 	glfwSetWindowShouldClose(mlx->window, true);
 }
-
 
 /**
  * All of glfw & glads resources are cleaned up by the terminate function.
