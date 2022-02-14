@@ -1,35 +1,35 @@
 name: Build
 
 on:
-	push:
-		branches: [ master ]
-	pull_request:
-		branches: [ master ]
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
-	build:
+  build:
 
-		runs-on: ${{ matrix.os }}
-		strategy:
-			matrix:
-				os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
 
-		timeout-minutes: 2
-		steps:
-		- uses: actions/checkout@v2
-		- name: Install Dependencies
-			run: |
-				set -x
-				if [ "$RUNNER_OS" == "Linux" ]; then
-						sudo apt-get update -qq
-						sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3
-				elif [ "$RUNNER_OS" == "macOS" ]; then
-						brew update
-						brew install glfw
-				else
-						echo "$RUNNER_OS not supported"
-						exit 1
-				fi
-	
-		- name: Build
-			run: make
+    timeout-minutes: 2
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: |
+        set -x
+        if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew update
+            brew install glfw
+        else
+            echo "$RUNNER_OS not supported"
+            exit 1
+        fi
+  
+    - name: Build
+      run: make
