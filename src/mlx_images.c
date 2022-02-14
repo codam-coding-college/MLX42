@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/11 11:57:44 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/14 14:36:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int32_t y)
 	return (img);
 }
 
-// TODO: Report errors somehow, will cause
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 {
 	t_mlx_image		*newimg;
@@ -123,8 +122,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
 	GL_UNSIGNED_BYTE, newimg->pixels);
 	mlx_lstadd_back((t_mlx_list **)(&mlxctx->images), mlx_lstnew(newimg));
-	newimg->enabled = true;
-	return (newimg);
+	return (newimg->enabled = true, newimg);
 }
 
 void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)

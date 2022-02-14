@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/11 11:56:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/14 14:35:20 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -417,6 +417,18 @@ int32_t x, int32_t y);
  * @param xpm The image to delete.
  */
 void		mlx_delete_xpm42(t_xpm **xpm);
+
+/**
+ * Creates a new image from a given area of the xpm.
+ * 
+ * @param mlx The MLX instance handle.
+ * @param xpm The XPM42 texture.
+ * @param xy The X & Y location from the XPM to create an image from.
+ * @param wh The width and height of the area
+ * @return  Pointer to the image or null if any error occured.
+ */
+t_mlx_image	*mlx_xpm42_image_area(t_mlx *mlx, t_xpm *xpm, const uint16_t xy[2], \
+const uint16_t wh[2]);
 
 //= Image Functions =//
 

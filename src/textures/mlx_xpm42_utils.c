@@ -6,11 +6,41 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 14:00:50 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/13 21:41:05 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/14 14:24:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+
+t_mlx_image	*mlx_xpm42_image_area(t_mlx *mlx, t_xpm *xpm, const uint16_t xy[2], \
+const uint16_t wh[2])
+{
+	int32_t		x;
+	int32_t		y;
+	uint8_t		*pixel;
+	t_mlx_image	*image;
+
+	y = -1;
+	if (!mlx || !xpm || !xy || !wh)
+		return ((void *)mlx_log(MLX_WARNING, MLX_NULL_ARG));
+	if (xy[0] > xpm->texture.width || xy[1] > xpm->texture.height)
+		return ((void *)mlx_log(MLX_WARNING, MLX_INVALID_ARG));
+	image = mlx_new_image(mlx, wh[0], wh[1]);
+	if (!image)
+		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
+	while (++y < wh[1])
+	{
+		x = -1;
+		while (++x < wh[0])
+		{
+			pixel = &xpm->texture.pixels[(xy[1] + y * xpm->texture.width + \
+			xy[0] + x) * xpm->texture.bytes_per_pixel];
+			mlx_putpixel(image, x, y, *pixel << 24 | *(pixel + 1) << 16 \
+			| *(pixel + 2) << 8 | *(pixel + 3));
+		}
+	}
+	return (image);
+}
 
 t_mlx_image	*mlx_xpm42_to_image(t_mlx *mlx, const char *path)
 {
