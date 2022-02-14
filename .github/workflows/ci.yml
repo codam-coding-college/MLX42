@@ -14,7 +14,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
 
-    timeout-minutes: 2
+    timeout-minutes: 10
     steps:
     - uses: actions/checkout@v2
     - name: Install Dependencies
@@ -34,9 +34,12 @@ jobs:
     - name: Build
       run: make NOWARNING=1
 
-    - name: Norminette
+	  - name: Install Norminette
       continue-on-error: true
       run: |
         pip3 install Norminette
-        norminette src include/MLX42
         norminette --version
+
+    - name: Norminette
+      continue-on-error: true
+      run: norminette src include/MLX42
