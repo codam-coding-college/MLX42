@@ -32,4 +32,4 @@ jobs:
         fi
   
     - name: Build
-      run: make
+      run: make NOWARNING=1
