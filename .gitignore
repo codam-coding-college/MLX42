@@ -56,3 +56,4 @@ main.c
 *.xpm
 *.xpm42
 .vscode/
+lib/glfw/

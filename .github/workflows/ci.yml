@@ -9,7 +9,7 @@ on:
     - cron:  '0 0 * * FRI'
 
 jobs:
-  build:
+  build-unix:
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -45,3 +45,33 @@ jobs:
     - name: Norminette
       continue-on-error: true
       run: norminette src include/MLX42
+
+  build-win:
+
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
+
+    - name: Install Cygwin, including gcc
+      uses: egor-tensin/setup-cygwin@v3
+      with:
+        packages: unzip gcc-g++
+
+    - name: Download GLFW binaries
+      uses: carlosperate/download-file-action@v1.1.1
+      with:
+        file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
+        file-name: 'glfw.zip'
+        location: '${{ github.workspace }}\lib'
+      
+    - name: Unpack GLFW binaries
+      run: |
+        unzip 'lib/glfw.zip' -d 'lib'
+        rm 'lib\glfw.zip'
+        mv 'lib\glfw*' 'lib\glfw'
+
+    - name: Build
+      run: |
+        make HEADERS="-I lib/glfw/include" NOWARNING=1
