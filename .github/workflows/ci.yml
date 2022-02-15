@@ -11,7 +11,7 @@ on:
 jobs:
   norminette:
 
-    runs-in: macos-latest
+    runs-on: macos-latest
     timeout-minutes: 5
     steps:
       - name: Clone repository
