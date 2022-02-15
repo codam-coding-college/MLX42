@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/14 22:51:28 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/15 10:05:24 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -430,8 +430,8 @@ void		mlx_delete_xpm42(t_xpm **xpm);
  * @param wh The width and height of the area.
  * @return  Pointer to the image or null if any error occured.
  */
-t_mlx_image	*mlx_xpm42_area_to_image(t_mlx *mlx, t_xpm *xpm, \
-const uint16_t xy[2], const uint16_t wh[2]);
+t_mlx_image	*mlx_xpm42_area_to_image(t_mlx *mlx, t_xpm *xpm, uint16_t xy[2], \
+uint16_t wh[2]);
 
 //= Image Functions =//
 

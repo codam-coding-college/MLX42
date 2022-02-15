@@ -6,14 +6,14 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/09 14:00:50 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/14 22:50:34 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/15 10:04:55 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-t_mlx_image	*mlx_xpm42_area_to_image(t_mlx *mlx, t_xpm *xpm, \
-const uint16_t xy[2], const uint16_t wh[2])
+t_mlx_image	*mlx_xpm42_area_to_image(t_mlx *mlx, t_xpm *xpm, uint16_t xy[2], \
+uint16_t wh[2])
 {
 	int32_t		y;
 	uint16_t	bpp;

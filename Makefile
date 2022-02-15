@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/14 12:25:58 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/14 14:56:53 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ endif
 
 # //= Files =// #
 
-# TODO: Add files, remove shell command.
 SRCS	=	$(shell find ./src -iname "*.c") lib/glad/glad.c
 OBJS	=	${SRCS:.c=.o}
 
