@@ -9,6 +9,22 @@ on:
     - cron:  '0 0 * * FRI'
 
 jobs:
+  norminette:
+
+    runs-in: macos-latest
+    timeout-minutes: 5
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Install Norminette
+        run: |
+          pip3 install Norminette
+          norminette --version
+
+      - name: Norminette
+        run: norminette src include/MLX42
+
   build-unix:
 
     runs-on: ${{ matrix.os }}
@@ -18,7 +34,9 @@ jobs:
 
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v2
+    - name: Clone repository
+      uses: actions/checkout@v2
+
     - name: Install Dependencies
       run: |
         set -x
@@ -35,16 +53,6 @@ jobs:
   
     - name: Build
       run: make NOWARNING=1
-
-    - name: Install Norminette
-      continue-on-error: true
-      run: |
-        pip3 install Norminette
-        norminette --version
-
-    - name: Norminette
-      continue-on-error: true
-      run: norminette src include/MLX42
 
   build-win:
 
