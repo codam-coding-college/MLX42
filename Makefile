@@ -12,7 +12,7 @@
 
 ifeq ($(OS), Windows_NT)
     CC = gcc # Assuming user has installed GnuWin32, perhaps switch to VC++
-    $(error No Build script availble. Compile manually!)
+    include Makefile_Windows.mk
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
@@ -31,11 +31,9 @@ ifndef NOWARNING
 CFLAGS	+= -Werror # Because norme forced us to live with an error
 endif
 
-#TODO: Due to Windows, might have to move recipes below to their own respective makefiles
-
+# /usr/bin/find is explicitly mentioned here for Windows compilation under Cygwin
 # //= Files =// #
-
-SRCS	=	$(shell find ./src -iname "*.c") lib/glad/glad.c
+SRCS	=	$(shell /usr/bin/find ./src -iname "*.c") lib/glad/glad.c
 OBJS	=	${SRCS:.c=.o}
 
 # //= Rules =// #
