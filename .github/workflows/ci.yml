@@ -9,7 +9,23 @@ on:
     - cron:  '0 0 * * FRI'
 
 jobs:
-  build:
+  norminette:
+
+    runs-on: macos-latest
+    timeout-minutes: 5
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Install Norminette
+        run: |
+          pip3 install Norminette
+          norminette --version
+
+      - name: Norminette
+        run: norminette src include/MLX42
+
+  build-unix:
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -18,7 +34,9 @@ jobs:
 
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v2
+    - name: Clone repository
+      uses: actions/checkout@v2
+
     - name: Install Dependencies
       run: |
         set -x
@@ -36,12 +54,32 @@ jobs:
     - name: Build
       run: make NOWARNING=1
 
-    - name: Install Norminette
-      continue-on-error: true
-      run: |
-        pip3 install Norminette
-        norminette --version
+  build-win:
 
-    - name: Norminette
-      continue-on-error: true
-      run: norminette src include/MLX42
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
+
+    - name: Install Cygwin, including gcc
+      uses: egor-tensin/setup-cygwin@v3
+      with:
+        packages: unzip gcc-g++
+
+    - name: Download GLFW binaries
+      uses: carlosperate/download-file-action@v1.1.1
+      with:
+        file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
+        file-name: 'glfw.zip'
+        location: '${{ github.workspace }}\lib'
+      
+    - name: Unpack GLFW binaries
+      run: |
+        unzip 'lib/glfw.zip' -d 'lib'
+        rm 'lib\glfw.zip'
+        mv 'lib\glfw*' 'lib\glfw'
+
+    - name: Build
+      run: |
+        make HEADERS="-I lib/glfw/include" NOWARNING=1
