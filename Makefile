@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/14 14:56:53 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/16 23:21:18 by W2Wizard      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,10 @@ ifndef NOWARNING
 CFLAGS	+= -Werror # Because norme forced us to live with an error
 endif
 
-# /usr/bin/find is explicitly mentioned here for Windows compilation under Cygwin
 # //= Files =// #
-SRCS	=	$(shell /usr/bin/find ./src -iname "*.c") lib/glad/glad.c
+# /usr/bin/find is explicitly mentioned here for Windows compilation under Cygwin
+LIBS	=	$(shell /usr/bin/find ./lib -iname "*.c")
+SRCS	=	$(shell /usr/bin/find ./src -iname "*.c") $(LIBS)
 OBJS	=	${SRCS:.c=.o}
 
 # //= Rules =// #

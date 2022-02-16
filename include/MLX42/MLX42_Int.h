@@ -6,13 +6,14 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 17:29:58 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/16 23:21:46 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX42_INT_H
 # define MLX42_INT_H
 # include "MLX42/MLX42.h"
+# include "lodepng/lodepng.h"
 # include "glad/glad.h"
 # include "KHR/khrplatform.h"
 # if defined(__APPLE__)
