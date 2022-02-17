@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 11:58:05 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 14:02:20 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ int32_t y)
 {
 	int32_t			index;
 	t_mlx_ctx		*mlxctx;
-	t_mlx_instance	*temp;
 	t_draw_queue	*queue;
+	t_mlx_instance	*temp;
 
 	if (!mlx || !img)
 		return ((void *)mlx_log(MLX_WARNING, MLX_NULL_ARG));
 	mlxctx = mlx->context;
 	temp = realloc(img->instances, (++img->count) * sizeof(t_mlx_instance));
-	queue = malloc(sizeof(t_draw_queue));
-	if (!temp || !queue)
+	queue = calloc(1, sizeof(t_draw_queue));
+	if (!queue || !temp)
 	{
 		mlx_log(MLX_ERROR, MLX_MEMORY_FAIL);
 		return ((void *)mlx_freen(2, temp, queue));
@@ -90,10 +90,10 @@ int32_t y)
 	img->instances = temp;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
-	img->instances[index].z = 0;
+	img->instances[index].z = mlxctx->zdepth++;
 	queue->image = img;
-	queue->instance = &img->instances[index];
-	mlx_lstadd_front(&mlxctx->render_queue, mlx_lstnew(queue));
+	queue->instanceid = index;
+	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
 	return (img);
 }
 

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 11:13:32 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 14:04:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ typedef struct s_xpm
 	int32_t			cpp;
 	char			mode;
 }	t_xpm;
+
+// TODO: MAJOR problem here is that we can update the Z value but not the
+// order in which we draw, resulting in loss of transparency.
 
 /**
  * An image instance can be summarized as just a simple

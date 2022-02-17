@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/02 12:28:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 12:31:17 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 	t_mlx_ctx		*context;
 
 	context = mlx->context;
+	context->zdepth = 0;
 	glGenVertexArrays(1, &(context->vao));
 	glGenBuffers(1, &(context->vbo));
 	glBindVertexArray(context->vao);

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 11:52:31 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 13:45:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ typedef struct s_mlx_list
 // To maintain the drawing order we add every instance to a queue.
 typedef struct s_draw_queue
 {
-	t_mlx_image			*image;
-	t_mlx_instance		*instance;
+	t_mlx_image	*image;
+	int32_t		instanceid;
 }	t_draw_queue;
 
 // MLX Instance handle context used for OpenGL stuff.
@@ -116,6 +116,7 @@ typedef struct s_mlx_ctx
 	t_mlx_list			*render_queue;
 	t_mlx_scrollfunc	scroll_hook;
 	t_mlx_keyfunc		key_hook;
+	int32_t				zdepth;
 }	t_mlx_ctx;
 
 // Additional OpenGL information for images/textures.

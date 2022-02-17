@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 17:51:09 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 13:53:51 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
 
 static void	mlx_render_images(t_mlx *mlx)
 {
+	t_mlx_instance	*instance;
 	t_draw_queue	*entry;
 	t_mlx_list		*render_queue;
 	const t_mlx_ctx	*mlxctx = mlx->context;
@@ -79,8 +80,11 @@ static void	mlx_render_images(t_mlx *mlx)
 	while (render_queue)
 	{
 		entry = render_queue->content;
-		if (entry->image && entry->instance && entry->image->enabled)
-			mlx_draw_instance(mlx, entry->image, entry->instance);
+		if (entry->image && entry->instanceid != -1 && entry->image->enabled)
+		{
+			instance = &entry->image->instances[entry->instanceid];
+			mlx_draw_instance(mlx, entry->image, instance);
+		}
 		render_queue = render_queue->next;
 	}
 }
