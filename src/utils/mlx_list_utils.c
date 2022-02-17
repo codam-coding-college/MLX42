@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/31 15:20:51 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/15 10:10:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 11:52:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ bool	mlx_equal_inst(void *lstcontent, void *value)
 	const t_mlx_image	*lvalue = value;
 
 	return (lcontent->image == lvalue);
+}
+
+void	mlx_lstadd_front(t_mlx_list **lst, t_mlx_list *new)
+{
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	new->prev = NULL;
+	*lst = new;
 }
 
 /**

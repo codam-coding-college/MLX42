@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 11:07:18 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 11:13:32 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,7 +375,7 @@ void		mlx_set_cursor(t_mlx *mlx, void *cursor);
 
 //= XPM42 Functions =//
 
-t_mlx_texture *mlx_decode_png(const char *path);
+t_mlx_texture *mlx_load_png(const char *path);
 
 /**
  * 

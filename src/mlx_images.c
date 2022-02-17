@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 11:07:02 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 11:58:05 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int32_t y)
 	img->instances[index].z = 0;
 	queue->image = img;
 	queue->instance = &img->instances[index];
-	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
+	mlx_lstadd_front(&mlxctx->render_queue, mlx_lstnew(queue));
 	return (img);
 }
 
