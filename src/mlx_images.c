@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/14 14:36:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 11:07:02 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int32_t y)
 	return (img);
 }
 
-t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
+t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
 {
 	t_mlx_image		*newimg;
 	t_mlx_image_ctx	*newctx;
@@ -107,8 +107,8 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
 		return ((void *)mlx_freen(2, newimg, newctx));
-	(*(uint16_t *)&newimg->width) = width;
-	(*(uint16_t *)&newimg->height) = height;
+	(*(uint32_t *)&newimg->width) = width;
+	(*(uint32_t *)&newimg->height) = height;
 	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)

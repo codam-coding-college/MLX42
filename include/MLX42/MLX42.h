@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 01:43:13 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/17 11:07:18 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@
  */
 typedef struct s_mlx_texture
 {
-	uint16_t	width;
-	uint16_t	height;
+	uint32_t	width;
+	uint32_t	height;
 	uint8_t		*pixels;
-	uint16_t	bytes_per_pixel;
+	uint8_t		bytes_per_pixel;
 }	t_mlx_texture;
 
 /**
@@ -102,8 +102,8 @@ typedef struct s_mlx_instance
  */
 typedef struct s_mlx_image
 {
-	const uint16_t	width;
-	const uint16_t	height;
+	const uint32_t	width;
+	const uint32_t	height;
 	uint8_t			*pixels;
 	t_mlx_instance	*instances;
 	uint16_t		count;
@@ -375,17 +375,16 @@ void		mlx_set_cursor(t_mlx *mlx, void *cursor);
 
 //= XPM42 Functions =//
 
+t_mlx_texture *mlx_decode_png(const char *path);
+
 /**
  * 
  * 
  * @param mlx 
  * @param texture 
- * @param x 
- * @param y 
  * @return t_mlx_image* 
  */
-t_mlx_image	*mlx_texture_to_image(t_mlx *mlx, t_mlx_texture *texture, \
-int32_t x, int32_t y);
+t_mlx_image	*mlx_texture_to_image(t_mlx *mlx, t_mlx_texture *texture);
 
 /**
  * 
@@ -397,7 +396,7 @@ int32_t x, int32_t y);
  * @return t_mlx_image* 
  */
 t_mlx_image	*mlx_texture_area_to_image(t_mlx *mlx, t_mlx_texture *texture, \
-int32_t xy[2], uint16_t wh[2]);
+int32_t xy[2], uint32_t wh[2]);
 
 /**
  * Loads an XPM42 image from the given file path.
@@ -441,7 +440,7 @@ int32_t y, uint32_t color);
  * @param[in] height The desired height of the image.
  * @return Pointer to the image buffer, if it failed to allocate then NULL.
  */
-t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height);
+t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height);
 
 /**
  * Draws a new instance of an image, it will then share the same

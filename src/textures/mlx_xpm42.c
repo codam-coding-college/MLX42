@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 01:30:05 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/17 10:42:22 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 		return (false);
 	if (!fgets(buffer, sizeof(buffer), file))
 		return (false);
-	flagc = sscanf(buffer, "%hi %hi %i %i %c\n", &xpm->texture.width, \
+	flagc = sscanf(buffer, "%i %i %i %i %c\n", &xpm->texture.width, \
 	&xpm->texture.height, &xpm->color_count, &xpm->cpp, &xpm->mode);
 	if (flagc < 4 || xpm->texture.width < 0 || \
 		xpm->texture.width > UINT16_MAX || xpm->texture.height < 0 || \
@@ -139,32 +139,6 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 		return (false);
 	xpm->texture.bytes_per_pixel = sizeof(int32_t);
 	return (mlx_read_table(xpm, file));
-}
-
-bool	mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, int32_t x, int32_t y)
-{
-	int32_t	i;
-	int32_t	j;
-	uint8_t	*pixel;
-
-	if (!xpm || !image)
-		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
-	if (xpm->texture.width > image->width || \
-		xpm->texture.height > image->height)
-		return (mlx_log(MLX_ERROR, "XPM is larger than image!"));
-	i = -1;
-	while (++i < xpm->texture.height)
-	{
-		j = -1;
-		while (++j < xpm->texture.width)
-		{
-			pixel = &xpm->texture.pixels[(i * xpm->texture.width + j) * \
-			xpm->texture.bytes_per_pixel];
-			mlx_putpixel(image, x + j, y + i, *pixel << 24 | \
-			*(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
-		}
-	}
-	return (true);
 }
 
 t_xpm	*mlx_load_xpm42(const char *path)
