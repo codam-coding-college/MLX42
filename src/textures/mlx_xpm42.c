@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/10 23:13:27 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/17 01:30:05 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 		return (false);
 	if (!fgets(buffer, sizeof(buffer), file))
 		return (false);
-	flagc = sscanf(buffer, "%i %i %i %i %c\n", &xpm->texture.width, \
+	flagc = sscanf(buffer, "%hi %hi %i %i %c\n", &xpm->texture.width, \
 	&xpm->texture.height, &xpm->color_count, &xpm->cpp, &xpm->mode);
 	if (flagc < 4 || xpm->texture.width < 0 || \
 		xpm->texture.width > UINT16_MAX || xpm->texture.height < 0 || \

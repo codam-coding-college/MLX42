@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/15 10:05:24 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 01:43:13 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@
  */
 typedef struct s_mlx_texture
 {
-	int32_t		width;
-	int32_t		height;
+	uint16_t	width;
+	uint16_t	height;
 	uint8_t		*pixels;
 	uint16_t	bytes_per_pixel;
 }	t_mlx_texture;
@@ -376,14 +376,28 @@ void		mlx_set_cursor(t_mlx *mlx, void *cursor);
 //= XPM42 Functions =//
 
 /**
- * Loads an XPM42 image from the given file path. And
- * uses it to create a new image.
  * 
- * @param mlx The MLX instance handle.
- * @param path The file path to the XPM image.
- * @return Pointer to the image or null if any error occured.
+ * 
+ * @param mlx 
+ * @param texture 
+ * @param x 
+ * @param y 
+ * @return t_mlx_image* 
  */
-t_mlx_image	*mlx_xpm42_to_image(t_mlx *mlx, const char *path);
+t_mlx_image	*mlx_texture_to_image(t_mlx *mlx, t_mlx_texture *texture, \
+int32_t x, int32_t y);
+
+/**
+ * 
+ * 
+ * @param mlx 
+ * @param texture 
+ * @param xy 
+ * @param wh 
+ * @return t_mlx_image* 
+ */
+t_mlx_image	*mlx_texture_area_to_image(t_mlx *mlx, t_mlx_texture *texture, \
+int32_t xy[2], uint16_t wh[2]);
 
 /**
  * Loads an XPM42 image from the given file path.
@@ -394,21 +408,6 @@ t_mlx_image	*mlx_xpm42_to_image(t_mlx *mlx, const char *path);
 t_xpm		*mlx_load_xpm42(const char *path);
 
 /**
- * Draws the xpm picture onto an image.
- * 
- * Drawing the XPM beyond the bounds of an image is considered
- * undefined behaviour!
- * 
- * @param image The image to draw the picture on.
- * @param xpm The picture to draw.
- * @param x The X position offset for the picture.
- * @param y The Y position offset for the picture.
- * @returns If the function was able to draw onto the image.
- */
-bool		mlx_draw_xpm42(t_mlx_image *image, t_xpm *xpm, \
-int32_t x, int32_t y);
-
-/**
  * Deletes an XPM42 image and sets the pointer itself to NULL.
  * 
  * This will not remove any already drawn XPMs, it simply
@@ -417,21 +416,6 @@ int32_t x, int32_t y);
  * @param xpm The image to delete.
  */
 void		mlx_delete_xpm42(t_xpm **xpm);
-
-/**
- * Creates a new image from a given area of the xpm.
- * 
- * NOTE: It is considered undefined behaviour if the requested area
- * exceeds the bounds of the image.
- * 
- * @param mlx The MLX instance handle.
- * @param xpm The XPM42 texture.
- * @param xy The X & Y location from the XPM to create an image from.
- * @param wh The width and height of the area.
- * @return  Pointer to the image or null if any error occured.
- */
-t_mlx_image	*mlx_xpm42_area_to_image(t_mlx *mlx, t_xpm *xpm, uint16_t xy[2], \
-uint16_t wh[2]);
 
 //= Image Functions =//
 
