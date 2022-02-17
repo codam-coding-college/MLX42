@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/02 12:28:29 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 22:32:56 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,35 +49,34 @@ bool	mlx_init_shaders(t_mlx *mlx, uint32_t *shaders)
 }
 
 /**
- * Opens the shader file and compiles it.
+ * Compiles the given shader source code, of a given shader type.
+ * Returns shader object via param.
  * 
- * @param Path File path to the shader.
+ * @param code The shader source code.
  * @param Type GL_VERTEX_SHADER or GL_FRAGMENT_SHADER or ...
+ * @param out The created shader object. 
  * @return Whether it managed to compile the shader or not.
  */
-bool	mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out)
+bool	mlx_compile_shader(const char *code, int32_t type, uint32_t *out)
 {
 	GLint		len;
 	int32_t		success;
 	char		infolog[512];
-	const char	*shader_source = mlx_readfile(Path);
 
-	if (!shader_source)
-		return (mlx_log(MLX_ERROR, MLX_INVALID_FILE));
-	len = strlen(shader_source);
-	*out = glCreateShader(Type);
+	if (!code)
+		return (mlx_log(MLX_ERROR, MLX_NULL_ARG));
+	len = strlen(code);
+	*out = glCreateShader(type);
 	if (!*out)
 		return (false);
-	glShaderSource(*out, 1, &shader_source, &len);
+	glShaderSource(*out, 1, &code, &len);
 	glCompileShader(*out);
 	glGetShaderiv(*out, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
 		glGetShaderInfoLog(*out, sizeof(infolog), NULL, infolog);
 		fprintf(stderr, "%s", infolog);
-		free((void *)shader_source);
 		return (false);
 	}
-	free((void *)shader_source);
 	return (true);
 }

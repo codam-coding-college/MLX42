@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/15 10:05:24 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 23:13:52 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@
  * why MLX is split into two different headers, so to speak, 
  * is mainly for abstraction. Most users won't have a need for the inner 
  * workings of MLX (shaders, ...) and it also helps keep MLX nice and tidy.
- * 
- * @note Useful stuff for later:
- * https://bit.ly/3qQof6q
- * __attribute__ ((deprecated));
- * __attribute__((nonnull));
  * 
  * Written in accordance with norminette 3.3.51.
  */
