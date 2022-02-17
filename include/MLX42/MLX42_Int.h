@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 23:10:47 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/17 23:28:32 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@
  * See: https://bit.ly/3LJYG0r
  */
 
-extern const char    *g_vert_shader;
-extern const char    *g_frag_shader;
+extern const char	*g_vert_shader;
+extern const char	*g_frag_shader;
 
 //= Types =//
 
