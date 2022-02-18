@@ -6,20 +6,17 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/16 23:21:18 by W2Wizard      ########   odam.nl          #
+#    Updated: 2022/02/18 01:23:16 by w2wizard      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 ifeq ($(OS), Windows_NT)
-    CC = gcc # Assuming user has installed GnuWin32, perhaps switch to VC++
     include Makefile_Windows.mk
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
-        CC = gcc
         include Makefile_Linux.mk
 	else ifeq ($(UNAME_S), Darwin)
-        CC = clang
         include Makefile_Darwin.mk
     else
         $(error OS: $(OS) - Is not supported!)
