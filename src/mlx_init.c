@@ -23,6 +23,7 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 	t_mlx_ctx		*context;
 
 	context = mlx->context;
+	context->zdepth = 0;
 	glGenVertexArrays(1, &(context->vao));
 	glGenBuffers(1, &(context->vbo));
 	glBindVertexArray(context->vao);

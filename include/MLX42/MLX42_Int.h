@@ -13,6 +13,7 @@
 #ifndef MLX42_INT_H
 # define MLX42_INT_H
 # include "MLX42/MLX42.h"
+# include "lodepng/lodepng.h"
 # include "glad/glad.h"
 # include "KHR/khrplatform.h"
 # if defined(__APPLE__)
@@ -111,8 +112,8 @@ typedef struct s_mlx_list
 // To maintain the drawing order we add every instance to a queue.
 typedef struct s_draw_queue
 {
-	t_mlx_image			*image;
-	t_mlx_instance		*instance;
+	t_mlx_image	*image;
+	int32_t		instanceid;
 }	t_draw_queue;
 
 // MLX Instance handle context used for OpenGL stuff.
@@ -126,6 +127,7 @@ typedef struct s_mlx_ctx
 	t_mlx_list			*render_queue;
 	t_mlx_scrollfunc	scroll_hook;
 	t_mlx_keyfunc		key_hook;
+	int32_t				zdepth;
 }	t_mlx_ctx;
 
 // Additional OpenGL information for images/textures.
@@ -142,6 +144,7 @@ t_mlx_list	*mlx_lstlast(t_mlx_list *lst);
 int32_t		mlx_lstsize(t_mlx_list *lst);
 void		mlx_lstclear(t_mlx_list **lst, void (*del)(void*));
 void		mlx_lstadd_back(t_mlx_list **lst, t_mlx_list *new);
+void		mlx_lstadd_front(t_mlx_list **lst, t_mlx_list *new);
 t_mlx_list	*mlx_lstremove(t_mlx_list **lst, void *value, \
 bool (*comp)(void *, void*));
 

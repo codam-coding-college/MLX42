@@ -6,14 +6,14 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/14 14:36:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/18 10:54:15 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
 // Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
-static void	mlx_draw_texture(t_mlx *mlx, t_mlx_image *img, uint8_t *pixels, \
+static void	mlx_render_texture(t_mlx *mlx, t_mlx_image *img, uint8_t *pixels, \
 t_vert *vertices)
 {
 	t_mlx_ctx		*mlxctx;
@@ -63,7 +63,7 @@ t_mlx_instance *instance)
 	imgctx->vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-	mlx_draw_texture(mlx, img, img->pixels, imgctx->vertices);
+	mlx_render_texture(mlx, img, img->pixels, imgctx->vertices);
 }
 
 //= Exposed =//
@@ -73,15 +73,15 @@ int32_t y)
 {
 	int32_t			index;
 	t_mlx_ctx		*mlxctx;
-	t_mlx_instance	*temp;
 	t_draw_queue	*queue;
+	t_mlx_instance	*temp;
 
 	if (!mlx || !img)
 		return ((void *)mlx_log(MLX_WARNING, MLX_NULL_ARG));
 	mlxctx = mlx->context;
 	temp = realloc(img->instances, (++img->count) * sizeof(t_mlx_instance));
-	queue = malloc(sizeof(t_draw_queue));
-	if (!temp || !queue)
+	queue = calloc(1, sizeof(t_draw_queue));
+	if (!queue || !temp)
 	{
 		mlx_log(MLX_ERROR, MLX_MEMORY_FAIL);
 		return ((void *)mlx_freen(2, temp, queue));
@@ -90,14 +90,14 @@ int32_t y)
 	img->instances = temp;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
-	img->instances[index].z = 0;
+	img->instances[index].z = mlxctx->zdepth++;
 	queue->image = img;
-	queue->instance = &img->instances[index];
+	queue->instanceid = index;
 	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
 	return (img);
 }
 
-t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
+t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
 {
 	t_mlx_image		*newimg;
 	t_mlx_image_ctx	*newctx;
@@ -107,8 +107,8 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint16_t width, uint16_t height)
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
 		return ((void *)mlx_freen(2, newimg, newctx));
-	(*(uint16_t *)&newimg->width) = width;
-	(*(uint16_t *)&newimg->height) = height;
+	(*(uint32_t *)&newimg->width) = width;
+	(*(uint32_t *)&newimg->height) = height;
 	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
