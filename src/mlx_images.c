@@ -6,14 +6,14 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 14:02:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/18 10:54:15 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
 // Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
-static void	mlx_draw_texture(t_mlx *mlx, t_mlx_image *img, uint8_t *pixels, \
+static void	mlx_render_texture(t_mlx *mlx, t_mlx_image *img, uint8_t *pixels, \
 t_vert *vertices)
 {
 	t_mlx_ctx		*mlxctx;
@@ -63,7 +63,7 @@ t_mlx_instance *instance)
 	imgctx->vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-	mlx_draw_texture(mlx, img, img->pixels, imgctx->vertices);
+	mlx_render_texture(mlx, img, img->pixels, imgctx->vertices);
 }
 
 //= Exposed =//

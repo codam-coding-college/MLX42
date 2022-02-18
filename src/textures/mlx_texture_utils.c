@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 10:46:00 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/18 11:02:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,48 @@ t_mlx_image	*mlx_texture_to_image(t_mlx *mlx, t_mlx_texture *texture)
 
 	if (!mlx || !texture)
 		return ((void *)mlx_log(MLX_WARNING, MLX_NULL_ARG));
-	img = mlx_texture_area_to_image(mlx, texture, (int32_t *)xy, (uint32_t *)wh);
+	img = mlx_texture_area_to_image(mlx, texture, (int32_t *)xy, \
+	(uint32_t *)wh);
 	if (!img)
 		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
 	return (img);
+}
+
+bool	mlx_draw_texture(t_mlx_image *image, t_mlx_texture *texture, int32_t x, \
+int32_t y)
+{
+	uint32_t	i;
+	uint32_t	j;
+	uint8_t		*pixel;
+
+	if (!texture || !image)
+		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
+	if (texture->width > image->width || \
+		texture->height > image->height)
+		return (mlx_log(MLX_ERROR, "Texture is larger than image!"));
+	i = 0;
+	while (i < texture->height)
+	{
+		j = 0;
+		while (++j < texture->width)
+		{
+			pixel = &texture->pixels[(i * texture->width + j) * \
+			texture->bytes_per_pixel];
+			mlx_putpixel(image, x + j, y + i, *pixel << 24 | \
+			*(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
+
+void	mlx_delete_texture(t_mlx_texture *texture)
+{
+	if (!texture)
+	{
+		mlx_log(MLX_WARNING, MLX_NULL_ARG);
+		return ;
+	}
+	mlx_freen(2, texture->pixels, texture);
 }

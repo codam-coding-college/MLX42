@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 14:04:28 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/18 11:11:53 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_mlx_image
 	const uint32_t	height;
 	uint8_t			*pixels;
 	t_mlx_instance	*instances;
-	uint16_t		count;
+	int32_t			count;
 	bool			enabled;
 	void			*context;
 }	t_mlx_image;
@@ -132,6 +132,10 @@ typedef struct s_mlx
 	double		delta_time;
 }	t_mlx;
 
+// This is the dam that keeps norme back.
+// Simple texture typedef to shorten type name slightly for norme...
+typedef t_mlx_texture	t_mlx_tex;
+
 /**
  * Callback function used to handle scrolling.
  * 
@@ -139,7 +143,8 @@ typedef struct s_mlx
  * @param[in] y The mouse y delta.
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*	t_mlx_scrollfunc)(double xdelta, double ydelta, void *param);
+typedef void (*			t_mlx_scrollfunc)(double xdelta, double ydelta, \
+void *param);
 
 /**
  * Callback function used to handle key presses.
@@ -148,7 +153,8 @@ typedef void (*	t_mlx_scrollfunc)(double xdelta, double ydelta, void *param);
  * @param[in] action The action is either MLX_PRESS, MLX_REPEAT or MLX_RELEASE. 
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*	t_mlx_keyfunc)(t_keys key, t_action action, void *param);
+typedef void (*			t_mlx_keyfunc)(t_keys key, t_action action, \
+void *param);
 
 //= Generic Functions =//
 
@@ -376,48 +382,79 @@ void		*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
  */
 void		mlx_set_cursor(t_mlx *mlx, void *cursor);
 
-//= XPM42 Functions =//
-
-t_mlx_texture *mlx_load_png(const char *path);
+//= Texture Functions =//
 
 /**
+ * Decode/load a PNG file onto a buffer. BPP will always be 4.
  * 
+ * NOTE: The output type is just a t_mlx_texture *, it only has this typedef
+ * because of norme.
  * 
- * @param mlx 
- * @param texture 
+ * @param[in] path Path to the PNG file.
+ * @return If successful the texture data is returned, else NULL.
+ */
+t_mlx_tex	*mlx_load_png(const char *path);
+
+/**
+ * Loads an XPM42 texture from the given file path.
+ * 
+ * @param[in] path The file path to the XPM image.
+ * @returns The XPM texture struct containing its information.
+ */
+t_xpm		*mlx_load_xpm42(const char *path);
+
+/**
+ * Deletes a texture by freeing its allocated data.
+ * 
+ * @param[in] texture The texture to free. 
+ */
+void		mlx_delete_texture(t_mlx_texture *texture);
+
+/**
+ * Deletes an XPM42 texture by freeing its allocated data.
+ * 
+ * This will not remove any already drawn XPMs, it simply
+ * deletes the XPM buffer.
+ * 
+ * @param xpm[in] The xpm texture to delete.
+ */
+void		mlx_delete_xpm42(t_xpm *xpm);
+
+/**
+ * Converts a given texture to an image.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] texture The texture to use to create the image from.
  * @return t_mlx_image* 
  */
 t_mlx_image	*mlx_texture_to_image(t_mlx *mlx, t_mlx_texture *texture);
 
 /**
+ * Given an X & Y coordinate and a Width and Height from a section of a
+ * texture a new image is created, useful for texture atlases.
  * 
+ * Basically a cropping tool.
  * 
- * @param mlx 
- * @param texture 
- * @param xy 
- * @param wh 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] texture The texture to use to create the image from.
+ * @param[in] xy The X & Y location.
+ * @param[in] wh The Width & Height.
  * @return t_mlx_image* 
  */
 t_mlx_image	*mlx_texture_area_to_image(t_mlx *mlx, t_mlx_texture *texture, \
 int32_t xy[2], uint32_t wh[2]);
 
 /**
- * Loads an XPM42 image from the given file path.
+ * Draws the texture on an already existing image.
  * 
- * @param[in] path The file path to the XPM image.
- * @returns The XPM image struct containing its information.
+ * @param[in] image The image to draw on.
+ * @param[in] texture The texture to use to draw on the image.
+ * @param[in] x X position relative to the image.
+ * @param[in] y Y position relative to the image.
+ * @return In-case of any issues, false else true.
  */
-t_xpm		*mlx_load_xpm42(const char *path);
-
-/**
- * Deletes an XPM42 image and sets the pointer itself to NULL.
- * 
- * This will not remove any already drawn XPMs, it simply
- * deletes the XPM buffer.
- * 
- * @param xpm The image to delete.
- */
-void		mlx_delete_xpm42(t_xpm **xpm);
+bool		mlx_draw_texture(t_mlx_image *image, t_mlx_texture *texture, \
+int32_t x, int32_t y);
 
 //= Image Functions =//
 

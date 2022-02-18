@@ -6,20 +6,12 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/16 23:11:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 11:13:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/18 10:47:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-/**
- * Decode/load a PNG file onto a buffer. BPP will always be 4.
- * 
- * @note: Yes, we're using a lib, not going to re-invent the wheel here.
- * 
- * @param path Path to the PNG file.
- * @return If successful the texture data is returned, else NULL.
- */
 t_mlx_texture	*mlx_load_png(const char *path)
 {
 	uint32_t		error;
