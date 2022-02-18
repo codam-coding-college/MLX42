@@ -6,15 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/18 11:11:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/18 12:30:52 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
- * An OpenGL graphics library based on the idea on what MiniLibX
+ * A cross-platform OpenGL graphics library based on the idea on what MiniLibX
  * provides. Just quite a bit better, in terms of norme and code quality.
- * 
- * Additionally with glfw its cross-platform, unlike MiniLibX.
  * 
  * As for the few void* present in some structs and functions and 
  * why MLX is split into two different headers, so to speak, 
@@ -65,9 +63,7 @@ typedef struct s_xpm
 	char			mode;
 }	t_xpm;
 
-// TODO: MAJOR problem here is that we can update the Z value but not the
-// order in which we draw, resulting in loss of transparency.
-
+// TODO: MAJOR problem here transparency breaks on z layer change.
 /**
  * An image instance can be summarized as just a simple
  * x, y & z coordinate.
@@ -128,8 +124,9 @@ typedef struct s_mlx
 }	t_mlx;
 
 // This is the dam that keeps norme back.
-// Simple texture typedef to shorten type name slightly for norme...
+// Simple texture typedef to shorten type name for norme...
 typedef t_mlx_texture	t_mlx_tex;
+typedef t_mlx_instance	t_mlx_inst;
 
 /**
  * Callback function used to handle scrolling.
@@ -485,8 +482,9 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height);
  * @param[in] img The image to draw onto the screen.
  * @param[in] x The X position.
  * @param[in] y The Y position.
+ * @return Pointer to the newly created instance or NULL on failure.
  */
-t_mlx_image	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
+t_mlx_inst	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
 int32_t y);
 
 /**

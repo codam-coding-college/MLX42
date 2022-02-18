@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/18 10:54:15 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/18 12:28:15 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_mlx_instance *instance)
 
 //= Exposed =//
 
-t_mlx_image	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
+t_mlx_inst	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
 int32_t y)
 {
 	int32_t			index;
@@ -94,7 +94,7 @@ int32_t y)
 	queue->image = img;
 	queue->instanceid = index;
 	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
-	return (img);
+	return (&img->instances[index]);
 }
 
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
