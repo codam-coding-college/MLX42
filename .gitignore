@@ -57,3 +57,7 @@ main.c
 *.xpm42
 .vscode/
 lib/glfw/
+
+# Special shader files
+mlx_vert.c
+mlx_frag.c

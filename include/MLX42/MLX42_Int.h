@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 13:45:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 23:28:32 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@
 # endif
 # include <ctype.h>
 # include <string.h>
-# ifndef VERTEX_PATH
-#  define VERTEX_PATH "shaders/default.vert"
-# endif
-# ifndef FRAGMENT_PATH
-#  define FRAGMENT_PATH "shaders/default.frag"
-# endif
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
@@ -56,6 +50,23 @@
 # define GLFW_INIT_FAILURE "Failed to initialize GLFW!"
 # define GLFW_WIN_FAILURE "Failed to create GLFW Window!"
 # define GLFW_GLAD_FAILURE "Failed to initialize GLAD!"
+
+/**
+ * The shader code is extracted from the shader files
+ * and converted into a .c file as a single string at 
+ * compile time. This keeps shader files external but 
+ * still integrated into the program letting you use 
+ * the executable anywhere without having to take the 
+ * shaders with you.
+ * 
+ * Most modern frameworks like .NET do this by having resource files
+ * instead.
+ * 
+ * See: https://bit.ly/3LJYG0r
+ */
+
+extern const char	*g_vert_shader;
+extern const char	*g_frag_shader;
 
 //= Types =//
 
@@ -159,7 +170,7 @@ char		*mlx_readfile(const char *FilePath);
 //= OpenGL Functions =//
 
 bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
-bool		mlx_compile_shader(const char *Path, int32_t Type, uint32_t *out);
+bool		mlx_compile_shader(const char *code, int32_t type, uint32_t *out);
 void		mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \
 t_mlx_instance *instance);
 

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 12:31:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/17 22:53:07 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static bool	mlx_init_render(t_mlx *mlx)
 	{
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 			return (mlx_log(MLX_ERROR, GLFW_GLAD_FAILURE));
-		if (!mlx_compile_shader(VERTEX_PATH, GL_VERTEX_SHADER, &s[0]) || \
-			!mlx_compile_shader(FRAGMENT_PATH, GL_FRAGMENT_SHADER, &s[1]))
+		if (!mlx_compile_shader(g_vert_shader, GL_VERTEX_SHADER, &s[0]) || \
+			!mlx_compile_shader(g_frag_shader, GL_FRAGMENT_SHADER, &s[1]))
 			return (mlx_log(MLX_ERROR, MLX_SHADER_FAILURE));
 	}
 	s[2] = 0;

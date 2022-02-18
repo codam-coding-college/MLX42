@@ -21,11 +21,6 @@
  * is mainly for abstraction. Most users won't have a need for the inner 
  * workings of MLX (shaders, ...) and it also helps keep MLX nice and tidy.
  * 
- * @note Useful stuff for later:
- * https://bit.ly/3qQof6q
- * __attribute__ ((deprecated));
- * __attribute__((nonnull));
- * 
  * Written in accordance with norminette 3.3.51.
  */
 
