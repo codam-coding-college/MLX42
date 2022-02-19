@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 08:19:22 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 20:51:58 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,21 @@ typedef struct s_mlx_instance
 }	t_mlx_instance;
 
 /**
+ * Key function callback data.
+ * Data related the mlx_key_hook function
+ * 
+ * @param key The key that was pressed.
+ * @param action The action that was done with the key.
+ * @param modifier The modifier key that was pressed, 0 if none.
+ */
+typedef struct s_mlx_key_cbdata
+{
+	t_keys		key;
+	t_action	action;
+	t_modifier	modifier;
+}	t_mlx_key_cbdata;
+
+/**
  * An image with an individual buffer that can be rendered.
  * Any value can be modified except the width/height and context.
  * 
@@ -145,8 +160,7 @@ void *param);
  * @param[in] action The action is either MLX_PRESS, MLX_REPEAT or MLX_RELEASE. 
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*			t_mlx_keyfunc)(t_keys key, t_action action, \
-void *param);
+typedef void (*			t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);
 
 /**
  * Callback function used to handle key presses.

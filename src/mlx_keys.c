@@ -6,27 +6,35 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/02 12:29:41 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 21:08:58 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdarg.h>
 #include "MLX42/MLX42_Int.h"
 
 static void	*g_param_cb = NULL;
 
-void	mlx_key_callback(GLFWwindow *window, int key, int scancode, int action)
+void	mlx_key_callback(GLFWwindow *window, ...)
 {
+	va_list				args;
+	t_mlx_key_cbdata	callback_data;
 	const t_mlx			*mlx = glfwGetWindowUserPointer(window);
 	const t_mlx_keyfunc	hook = ((t_mlx_ctx *)mlx->context)->key_hook;
 
-	(void) scancode;
-	hook(key, action, g_param_cb);
+	va_start(args, window);
+	callback_data.key = va_arg(args, int32_t);
+	va_arg(args, int32_t);
+	callback_data.action = va_arg(args, int32_t);
+	callback_data.modifier = va_arg(args, int32_t);
+	hook(callback_data, g_param_cb);
+	va_end(args);
 }
 
 /**
  * I suppose this is fine, due to norme I can't have a callback with more
  * than 4 arguments (wtf?), apparently I can also just cast this to the
- * desired function and its fine.
+ * desired function and its fine also VA_ARGS is a blessing!
  */
 void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param)
 {

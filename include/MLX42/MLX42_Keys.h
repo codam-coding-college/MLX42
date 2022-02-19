@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/02 12:32:07 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 21:11:02 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ typedef enum e_action
 	MLX_PRESS	= 1,
 	MLX_REPEAT	= 2,
 }	t_action;
+
+// Specific key modifiers
+typedef enum e_modifier
+{
+	MLX_SHIFT		= 0x0001,
+	MLX_CONTROL		= 0x0002,
+	MLX_ALT			= 0x0004,
+	MLX_SUPERKEY	= 0x0008,
+	MLX_CAPSLOCK	= 0x0010,
+	MLX_NUMLOCK		= 0x0020,
+}	t_modifier;
 
 // The mouse button IDs.
 typedef enum e_mouse_key
