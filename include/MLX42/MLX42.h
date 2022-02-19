@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 20:51:58 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 21:40:33 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void *param);
 typedef void (*			t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);
 
 /**
- * Callback function used to handle key presses.
+ * Callback function used to handle window resizing.
  * 
  * @param[in] width The new width of the window.
  * @param[in] height The new height of the window. 
@@ -171,6 +171,14 @@ typedef void (*			t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);
  */
 typedef void (*			t_mlx_resizefunc)(int32_t width, int32_t height, \
 void *param);
+
+/**
+ * Callback function used to handle window closing which is called when the user attempts 
+ * to close the window, for example by clicking the close widget in the title bar.
+ * 
+ * @param[in] param Additional parameter to pass onto the function.
+ */
+typedef void (*			t_mlx_closefunc)(void *param);
 
 //= Generic Functions =//
 
