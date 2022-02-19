@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/18 12:30:52 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 08:19:22 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,16 @@ void *param);
  * @param[in] param Additional parameter to pass onto the function.
  */
 typedef void (*			t_mlx_keyfunc)(t_keys key, t_action action, \
+void *param);
+
+/**
+ * Callback function used to handle key presses.
+ * 
+ * @param[in] width The new width of the window.
+ * @param[in] height The new height of the window. 
+ * @param[in] param Additional parameter to pass onto the function.
+ */
+typedef void (*			t_mlx_resizefunc)(int32_t width, int32_t height, \
 void *param);
 
 //= Generic Functions =//
@@ -500,4 +510,15 @@ int32_t y);
  */
 void		mlx_delete_image(t_mlx *mlx, t_mlx_image *image);
 
+/**
+ * Allows you to resize an image to a new size, the pixel buffer is re-allocated
+ * to fit & the previous data is copied over.
+ * 
+ * @param[in] img The image to resize.
+ * @param[in] nwidth The new width.
+ * @param[in] nheight The new height.
+ * @return True if image was resize or false on error
+ */
+bool		mlx_resize_image(t_mlx_image *img, uint32_t nwidth, \
+uint32_t nheight);
 #endif

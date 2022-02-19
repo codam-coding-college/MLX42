@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 13:53:51 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 08:18:31 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	mlx_exec_loop_hooks(t_mlx *mlx)
 	const t_mlx_ctx	*mlxctx = mlx->context;
 
 	lstcpy = mlxctx->hooks;
-	while (lstcpy)
+	while (lstcpy && !glfwWindowShouldClose(mlx->window))
 	{
 		hook = ((t_mlx_hook *)lstcpy->content);
 		hook->func(hook->param);
@@ -49,25 +49,6 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 	mlx_lstadd_back((t_mlx_list **)(&mlxctx->hooks), lst);
 	return (true);
 }
-
-/*
-Perhaps useful for later feature?
-static bool	mlx_handle_resize(t_mlx *mlx, t_mlx_image *img)
-{
-	const int32_t	old_width = img->width;
-	const int32_t	old_height = img->height;
-
-	if (img->width != old_width || img->height != old_height)
-	{
-		img->pixels = realloc(img->pixels, \
-		(img->width * img->height) * sizeof(int32_t));
-		if (img->pixels == NULL)
-			return (false);
-		memset(img->pixels, 0, (img->width * img->height) * sizeof(int32_t));
-	}
-	return (true);
-}
-*/
 
 static void	mlx_render_images(t_mlx *mlx)
 {

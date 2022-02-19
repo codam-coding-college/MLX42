@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 23:28:32 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/19 08:26:14 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define GLFW_INIT_FAILURE "Failed to initialize GLFW!"
 # define GLFW_WIN_FAILURE "Failed to create GLFW Window!"
 # define GLFW_GLAD_FAILURE "Failed to initialize GLAD!"
+// TODO: Switch to error codes instead.
 
 /**
  * The shader code is extracted from the shader files
@@ -127,6 +128,7 @@ typedef struct s_mlx_ctx
 	t_mlx_list			*render_queue;
 	t_mlx_scrollfunc	scroll_hook;
 	t_mlx_keyfunc		key_hook;
+	t_mlx_resizefunc	key_hook;
 	int32_t				zdepth;
 }	t_mlx_ctx;
 
