@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 21:40:33 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 21:49:07 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,16 @@ void		mlx_scroll_hook(t_mlx *mlx, t_mlx_scrollfunc func, void *param);
  * @param[in] param An additional optional parameter.
  */
 void		mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param);
+
+/**
+ * This function sets the close callback, which is called in attempt to close 
+ * the window device such as a close window widget used in the window bar.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The close callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void		mlx_close_hook(t_mlx *mlx, t_mlx_closefunc func, void *param);
 
 //= Cursor Functions =//
 
