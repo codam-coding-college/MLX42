@@ -70,12 +70,12 @@ In the very end a library is generated, compile your program with this library!
 4. Compile Program
 With normal brew you can now simply compile the program with:
 ```bash
-➜  ~ gcc main.c mlx42.a -lglfw ...
+➜  ~ gcc main.c libmlx42.a -lglfw ...
 ```
 
 However, with 42Homebrew you have additionally specify the location of the library like here:
 ```bash
-➜  ~ gcc main.c mlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
+➜  ~ gcc main.c libmlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
 ```
 
 ### Pre-compiled libraries
@@ -94,11 +94,11 @@ However, with 42Homebrew you have additionally specify the location of the libra
 
 When compiling with the static library, directly you should compile your program like this:
 ```bash
-➜  ~ gcc main.c mlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
+➜  ~ gcc main.c libmlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
 ```
 Else, simply compile like this:
 ```bash
-➜  ~ gcc main.c mlx42.a -lglfw ...
+➜  ~ gcc main.c libmlx42.a -lglfw ...
 ```
 
 4. Run
@@ -185,7 +185,7 @@ The systems below have not been tested yet.
  
  In the end you should have something like:
 ```bash
-➜  ~ gcc main.c <Additional .c Files> mlx42.a -lglfw3 -lopengl32 -lgdi32
+➜  ~ gcc main.c <Additional .c Files> libmlx42.a -lglfw3 -lopengl32 -lgdi32
 ```
 
 15. Run.
