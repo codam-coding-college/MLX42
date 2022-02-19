@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 08:26:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 20:05:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct s_mlx_ctx
 	t_mlx_list			*render_queue;
 	t_mlx_scrollfunc	scroll_hook;
 	t_mlx_keyfunc		key_hook;
-	t_mlx_resizefunc	key_hook;
+	t_mlx_resizefunc	resize_hook;
 	int32_t				zdepth;
 }	t_mlx_ctx;
 

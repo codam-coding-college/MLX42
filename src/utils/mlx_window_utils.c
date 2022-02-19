@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 08:24:33 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/19 08:28:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/19 20:09:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,15 @@
 
 static void	*g_param_cb = NULL;
 
-void	mlx_resize_callback(GLFWwindow *window, int32_t key, int32_t scancode)
+void	mlx_resize_callback(GLFWwindow *window, int32_t width, int32_t height)
 {
 	const t_mlx				*mlx = glfwGetWindowUserPointer(window);
 	const t_mlx_resizefunc	hook = ((t_mlx_ctx *)mlx->context)->resize_hook;
 
-	(void) scancode;
-	hook(key, action, g_param_cb);
+	hook(width, height, g_param_cb);
 }
 
-/**
- * I suppose this is fine, due to norme I can't have a callback with more
- * than 4 arguments (wtf?), apparently I can also just cast this to the
- * desired function and its fine.
- */
-void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param)
+void	mlx_resize_hook(t_mlx *mlx, t_mlx_resizefunc func, void *param)
 {
 	g_param_cb = param;
 	if (!func)
@@ -36,6 +30,6 @@ void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param)
 		mlx_log(MLX_WARNING, MLX_NULL_ARG);
 		return ;
 	}
-	((t_mlx_ctx *)mlx->context)->key_hook = func;
-	glfwSetKeyCallback(mlx->window, (GLFWkeyfun)mlx_key_callback);
+	((t_mlx_ctx *)mlx->context)->resize_hook = func;
+	glfwSetWindowSizeCallback(mlx->window, mlx_resize_callback);
 }
