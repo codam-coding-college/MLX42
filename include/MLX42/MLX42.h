@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 21:49:07 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/20 00:17:43 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
  * @param width The width.
  * @param height The height.
  * @param pixels The literal pixel data.
- * @param bytes_per_pixel The byte size of a pixel, e.g: 3 = RGB & 4 = RGBA
+ * @param bytes_per_pixel The amount of bytes in a pixel, always 4.
  */
 typedef struct s_mlx_texture
 {
@@ -48,9 +48,7 @@ typedef struct s_mlx_texture
 /**
  * Struct containing data regarding an XPM image.
  * 
- * @param width The width.
- * @param height The height.
- * @param pixels The literal pixel data.
+ * @param texture The texture data of the XPM.
  * @param color_count The amount of colors available.
  * @param cpp The amount of characters per pixel.
  * @param mode The color mode, either (c)olor or (m)onochrome.
@@ -200,26 +198,16 @@ bool Resize);
  * 
  * @param[in] mlx The MLX instance handle.
  */
-void		mlx_quit(t_mlx *mlx);
+void		mlx_close_window(t_mlx *mlx);
 
 /**
  * Initializes the rendering of MLX, this function won't return until
- * mlx_quit is called, meaning it will loop until the user requests that
+ * mlx_close_window is called, meaning it will loop until the user requests that
  * the window should close.
  * 
  * @param[in] mlx The MLX instance handle.
  */
 void		mlx_loop(t_mlx *mlx);
-
-/**
- * Adds a function hook to the main loop. Aka, executes a function per frame.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] f The function.
- * @param[in] param The parameter to pass onto the function.
- * @returns Wether the hook was added successfuly. 
- */
-bool		mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
 
 /**
  * Lets you set a custom image as the program icon.
@@ -312,7 +300,7 @@ int32_t new_height);
 void		mlx_set_window_limit(t_mlx *mlx, int32_t min_wh[2], \
 int32_t max_wh[2]);
 
-//= Input Functions =//
+//= Hooks & Input =//
 
 /**
  * Returns true or false if the key is down or not.
@@ -332,25 +320,6 @@ bool		mlx_is_key_down(t_mlx *mlx, t_keys key);
  */
 bool		mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
 
-/**
- * Returns the current, relative, mouse cursor position on the window, starting
- * from the top left corner.
- * 
- * Negative values or values greater than window width or height 
- * indicate that it is outside the window.
- * 
- * @param[in] mlx The MLX instance handle. 
- * @param[in] pos_out The position.
- */
-void		mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out);
-
-/**
- * Sets the mouse position.
- * 
- * @param[in] mlx The MLX instance handle. 
- * @param[in] pos The position.
- */
-void		mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
 
 /**
  * This function sets the scroll callback, which is called when a scrolling 
@@ -382,7 +351,48 @@ void		mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param);
  */
 void		mlx_close_hook(t_mlx *mlx, t_mlx_closefunc func, void *param);
 
+/**
+ * This function sets the resize callback, which is called when the window is
+ * resized
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The resize callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void		mlx_resize_hook(t_mlx *mlx, t_mlx_resizefunc func, void *param);
+
+/**
+ * Generic loop hook for any custom hooks to add to the main loop. 
+ * Executes a function per frame, so be careful.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] f The function.
+ * @param[in] param The parameter to pass onto the function.
+ * @returns Wether the hook was added successfuly. 
+ */
+bool		mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
+
 //= Cursor Functions =//
+
+/**
+ * Returns the current, relative, mouse cursor position on the window, starting
+ * from the top left corner.
+ * 
+ * Negative values or values greater than window width or height 
+ * indicate that it is outside the window.
+ * 
+ * @param[in] mlx The MLX instance handle. 
+ * @param[in] pos_out The position.
+ */
+void		mlx_get_mouse_pos(t_mlx *mlx, int32_t *x_out, int32_t *y_out);
+
+/**
+ * Sets the mouse position.
+ * 
+ * @param[in] mlx The MLX instance handle. 
+ * @param[in] pos The position.
+ */
+void		mlx_set_mouse_pos(t_mlx *mlx, int32_t x, int32_t y);
 
 /**
  * Defines the state for the cursor, which can be:
