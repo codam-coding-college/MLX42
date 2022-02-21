@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/21 10:25:52 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/21 10:50:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ typedef struct s_mlx_instance
  * 
  * @param key The key that was pressed.
  * @param action The action that was done with the key.
- * @param os_key The os_key is unique for every key, and will have a different 
- * value/keycode depending on the platform. They may be consistent on different platforms.
+ * @param os_key The os_key is unique for every key, and will have a 
+ * different value/keycode depending on the platform. 
+ * They may be consistent on different platforms.
  * @param modifier The modifier key that was pressed, 0 if none.
  */
 typedef struct s_mlx_key_cbdata
@@ -174,8 +175,9 @@ typedef void (*			t_mlx_resizefunc)(int32_t width, int32_t height, \
 void *param);
 
 /**
- * Callback function used to handle window closing which is called when the user attempts 
- * to close the window, for example by clicking the close widget in the title bar.
+ * Callback function used to handle window closing which is called when 
+ * the user attempts to close the window, for example by clicking the 
+ * close widget in the title bar.
  * 
  * @param[in] param Additional parameter to pass onto the function.
  */
@@ -322,7 +324,6 @@ bool		mlx_is_key_down(t_mlx *mlx, t_keys key);
  * @returns True or false if the mouse key is down or not.
  */
 bool		mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
-
 
 /**
  * This function sets the scroll callback, which is called when a scrolling 
