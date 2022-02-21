@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/21 10:50:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/21 11:15:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ int32_t new_height);
 void		mlx_set_window_limit(t_mlx *mlx, int32_t min_wh[2], \
 int32_t max_wh[2]);
 
-//= Hooks & Input =//
+//= Cursor/Mouse Functions =//
 
 /**
  * Returns true or false if the key is down or not.
@@ -324,59 +324,6 @@ bool		mlx_is_key_down(t_mlx *mlx, t_keys key);
  * @returns True or false if the mouse key is down or not.
  */
 bool		mlx_is_mouse_down(t_mlx *mlx, t_mouse_key key);
-
-/**
- * This function sets the scroll callback, which is called when a scrolling 
- * device is used, such as a mouse wheel.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] func The scroll wheel callback function.
- * @param[in] param An additional optional parameter.
- */
-void		mlx_scroll_hook(t_mlx *mlx, t_mlx_scrollfunc func, void *param);
-
-/**
- * This function sets the key callback, which is called when a key is pressed
- * on the keyboard. Useful for single key press detection.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] func The key press callback function.
- * @param[in] param An additional optional parameter.
- */
-void		mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param);
-
-/**
- * This function sets the close callback, which is called in attempt to close 
- * the window device such as a close window widget used in the window bar.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] func The close callback function.
- * @param[in] param An additional optional parameter.
- */
-void		mlx_close_hook(t_mlx *mlx, t_mlx_closefunc func, void *param);
-
-/**
- * This function sets the resize callback, which is called when the window is
- * resized
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] func The resize callback function.
- * @param[in] param An additional optional parameter.
- */
-void		mlx_resize_hook(t_mlx *mlx, t_mlx_resizefunc func, void *param);
-
-/**
- * Generic loop hook for any custom hooks to add to the main loop. 
- * Executes a function per frame, so be careful.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] f The function.
- * @param[in] param The parameter to pass onto the function.
- * @returns Wether the hook was added successfuly. 
- */
-bool		mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
-
-//= Cursor Functions =//
 
 /**
  * Returns the current, relative, mouse cursor position on the window, starting
@@ -429,6 +376,59 @@ void		*mlx_create_cursor(t_mlx *mlx, t_xpm *image);
  * @param[in] cursor The cursor to display.
  */
 void		mlx_set_cursor(t_mlx *mlx, void *cursor);
+
+//= Hooks =//
+
+/**
+ * This function sets the scroll callback, which is called when a scrolling 
+ * device is used, such as a mouse wheel.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The scroll wheel callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void		mlx_scroll_hook(t_mlx *mlx, t_mlx_scrollfunc func, void *param);
+
+/**
+ * This function sets the key callback, which is called when a key is pressed
+ * on the keyboard. Useful for single key press detection.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The key press callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void		mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param);
+
+/**
+ * This function sets the close callback, which is called in attempt to close 
+ * the window device such as a close window widget used in the window bar.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The close callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void		mlx_close_hook(t_mlx *mlx, t_mlx_closefunc func, void *param);
+
+/**
+ * This function sets the resize callback, which is called when the window is
+ * resized
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The resize callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void		mlx_resize_hook(t_mlx *mlx, t_mlx_resizefunc func, void *param);
+
+/**
+ * Generic loop hook for any custom hooks to add to the main loop. 
+ * Executes a function per frame, so be careful.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] f The function.
+ * @param[in] param The parameter to pass onto the function.
+ * @returns Wether the hook was added successfuly. 
+ */
+bool		mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param);
 
 //= Texture Functions =//
 
@@ -558,7 +558,7 @@ void		mlx_delete_image(t_mlx *mlx, t_mlx_image *image);
 
 /**
  * Allows you to resize an image to a new size, the pixel buffer is re-allocated
- * to fit & the previous data is copied over.
+ * to fit & the previous data is copied over. New pixels are zeroed.
  * 
  * @param[in] img The image to resize.
  * @param[in] nwidth The new width.

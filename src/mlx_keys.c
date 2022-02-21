@@ -6,11 +6,10 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/21 10:26:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/21 11:10:42 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
 #include "MLX42/MLX42_Int.h"
 
 static void	*g_param_cb = NULL;
