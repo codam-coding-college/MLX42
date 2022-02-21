@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/18 01:23:16 by w2wizard      ########   odam.nl          #
+#    Updated: 2022/02/21 10:43:07 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,12 @@ else
     endif
 endif
 
-CFLAGS	= -Wextra -Wall -Wunreachable-code -g
+CFLAGS	= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
 ifndef NOWARNING
-CFLAGS	+= -Werror # Because norme forced us to live with an error
+CFLAGS	+= -Werror # Windows
+endif
+ifdef DEBUG
+CFLAGS	+= -g
 endif
 
 # //= Files =// #

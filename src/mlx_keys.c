@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 21:08:58 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/21 10:26:53 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,13 @@ void	mlx_key_callback(GLFWwindow *window, ...)
 
 	va_start(args, window);
 	callback_data.key = va_arg(args, int32_t);
-	va_arg(args, int32_t);
+	callback_data.os_key = va_arg(args, int32_t);
 	callback_data.action = va_arg(args, int32_t);
 	callback_data.modifier = va_arg(args, int32_t);
 	hook(callback_data, g_param_cb);
 	va_end(args);
 }
 
-/**
- * I suppose this is fine, due to norme I can't have a callback with more
- * than 4 arguments (wtf?), apparently I can also just cast this to the
- * desired function and its fine also VA_ARGS is a blessing!
- */
 void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param)
 {
 	g_param_cb = param;

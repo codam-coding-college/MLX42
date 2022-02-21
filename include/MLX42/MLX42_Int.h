@@ -6,12 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 21:35:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/21 10:43:31 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX42_INT_H
 # define MLX42_INT_H
+# define LODEPNG_NO_COMPILE_ALLOCATORS
 # include "MLX42/MLX42.h"
 # include "lodepng/lodepng.h"
 # include "glad/glad.h"

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/20 00:17:43 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/21 10:25:52 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,15 @@ typedef struct s_mlx_instance
  * 
  * @param key The key that was pressed.
  * @param action The action that was done with the key.
+ * @param os_key The os_key is unique for every key, and will have a different 
+ * value/keycode depending on the platform. They may be consistent on different platforms.
  * @param modifier The modifier key that was pressed, 0 if none.
  */
 typedef struct s_mlx_key_cbdata
 {
 	t_keys		key;
 	t_action	action;
+	int16_t		os_key;
 	t_modifier	modifier;
 }	t_mlx_key_cbdata;
 
