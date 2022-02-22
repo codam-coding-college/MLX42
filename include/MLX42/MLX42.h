@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/21 11:15:57 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/22 15:33:37 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef struct s_mlx_texture
 {
 	uint32_t	width;
 	uint32_t	height;
-	uint8_t		*pixels;
 	uint8_t		bytes_per_pixel;
+	uint8_t		*pixels;
 }	t_mlx_texture;
 
 /**
@@ -567,4 +567,17 @@ void		mlx_delete_image(t_mlx *mlx, t_mlx_image *image);
  */
 bool		mlx_resize_image(t_mlx_image *img, uint32_t nwidth, \
 uint32_t nheight);
+
+//= String Functions =//
+
+/**
+ * Draws a string onto the screen.
+ * 
+ * @param mlx The MLX instance handle.
+ * @param str The string to draw.
+ * @param x The X location.
+ * @param y The Y location.
+ */
+void		mlx_put_string(t_mlx *mlx, char *str, int32_t x, int32_t y);
+
 #endif

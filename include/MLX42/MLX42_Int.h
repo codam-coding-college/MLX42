@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/21 11:10:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/22 15:34:12 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_mlx_ctx
 	t_mlx_keyfunc		key_hook;
 	t_mlx_resizefunc	resize_hook;
 	t_mlx_closefunc		close_hook;
+	t_mlx_image			*char_images[94];
 	int32_t				zdepth;
 }	t_mlx_ctx;
 
@@ -184,4 +185,5 @@ t_mlx_instance *instance);
 int32_t		mlx_rgba_to_mono(int32_t color);
 int32_t		mlx_atoi_base(const char *str, int32_t base);
 uint64_t	mlx_fnv_hash(char *str, size_t len);
+bool		mlx_parse_font_atlas(t_mlx *mlx);
 #endif
