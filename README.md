@@ -68,7 +68,7 @@ In the very end a library is generated, compile your program with this library!
 ```
 
 4. Compile Program
-With normal brew you can now simply compile the program with:
+With the normal brew version you can now simply compile the program with:
 ```bash
 ➜  ~ gcc main.c libmlx42.a -lglfw ...
 ```
