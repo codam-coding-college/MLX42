@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:22:08 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 14:25:52 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,8 @@ static enum e_errno
 	MLX_INVPNG,
 } mlx_errno = MLX_SUCCESS;
 
-// English error messages used to identify if something went wrong.
-const char				*g_mlx_errors[] = {
+// English description of the error codes.
+static const char		*g_mlx_errors[] = {
 	"No Errors",
 	"File has invalid extension",
 	"Failed to open the file",
@@ -229,10 +229,7 @@ typedef void (*			t_mlx_closefunc)(void *param);
  * @param val The error code.
  * @return The error string that describes the error code.
  */
-inline const char	*mlx_strerror(enum e_errno val)
-{
-	return (g_mlx_errors[val]);
-}
+const char	*mlx_strerror(enum e_errno val);
 
 //= Generic Functions =//
 
