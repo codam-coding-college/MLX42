@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 10:44:33 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 12:36:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	mlx_putpixel(t_mlx_image *image, int32_t x, int32_t y, uint32_t color)
 
 	if (!image)
 	{
-		mlx_log(MLX_WARNING, MLX_NULL_ARG);
+		mlx_error(MLX_NULLARG);
 		return ;
 	}
 	pixelstart = &image->pixels[(y * image->width + x) * sizeof(int32_t)];

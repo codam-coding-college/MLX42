@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 07:52:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/19 08:11:11 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 13:17:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ bool	mlx_resize_image(t_mlx_image *img, uint32_t nwidth, uint32_t nheight)
 	t_mlx_image_ctx	*imgctx;
 
 	if (!img)
-		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
+		return (mlx_error(MLX_NULLARG));
 	if (nwidth > UINT16_MAX || nheight > UINT16_MAX)
-		return (mlx_log(MLX_WARNING, "New size is too big!"));
+		return (mlx_error(MLX_RESTOBIG));
 	if (nwidth != img->width || nheight != img->height)
 	{
 		imgctx = img->context;
 		tempbuff = realloc(img->pixels, (nwidth * nheight) * sizeof(int32_t));
 		if (!tempbuff)
-			return (false);
+			return (mlx_error(MLX_MEMFAIL));
 		img->pixels = tempbuff;
 		(*(uint32_t *)&img->width) = nwidth;
 		(*(uint32_t *)&img->height) = nheight;

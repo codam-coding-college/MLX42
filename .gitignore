@@ -55,6 +55,7 @@ dkms.conf
 main.c
 *.xpm
 *.xpm42
+*.png
 .vscode/
 lib/glfw/
 

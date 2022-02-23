@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 08:18:31 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 12:36:36 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 	const t_mlx_ctx	*mlxctx = mlx->context;
 
 	if (!mlx || !f)
-		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
+		return (mlx_error(MLX_NULLARG));
 	hook = malloc(sizeof(t_mlx_hook));
 	if (!hook)
 		return (false);
@@ -44,7 +44,7 @@ bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
 	if (!lst)
 	{
 		free(hook);
-		return (false);
+		return (mlx_error(MLX_MEMFAIL));
 	}
 	mlx_lstadd_back((t_mlx_list **)(&mlxctx->hooks), lst);
 	return (true);
@@ -61,7 +61,7 @@ static void	mlx_render_images(t_mlx *mlx)
 	while (render_queue)
 	{
 		entry = render_queue->content;
-		if (entry->image && entry->instanceid != -1 && entry->image->enabled)
+		if (entry->image && entry->image->enabled)
 		{
 			instance = &entry->image->instances[entry->instanceid];
 			mlx_draw_instance(mlx, entry->image, instance);
