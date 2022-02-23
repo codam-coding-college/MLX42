@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/22 15:33:37 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/22 20:58:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
  * Base object for disk loaded textures.
  * It contains rudementary information about the texture.
  * 
- * @param width The width.
- * @param height The height.
+ * @param width The width of the texture.
+ * @param height The height of the texture.
  * @param pixels The literal pixel data.
  * @param bytes_per_pixel The amount of bytes in a pixel, always 4.
  */
@@ -126,8 +126,8 @@ typedef struct s_mlx_image
  * Main MLX handle, carries important data in regards to the program.
  * @param window The window itself.
  * @param context Abstracted opengl data.
- * @param width The width.
- * @param height The height.
+ * @param width The width of the window.
+ * @param height The height of the window.
  * @param delta_time The time difference between the previous frame 
  * and the current frame.
  */
@@ -158,8 +158,7 @@ void *param);
 /**
  * Callback function used to handle key presses.
  * 
- * @param[in] key The key/keycode that was pressed.
- * @param[in] action The action is either MLX_PRESS, MLX_REPEAT or MLX_RELEASE. 
+ * @param[in] keydata The callback data, contains info on key, actinon, ...
  * @param[in] param Additional parameter to pass onto the function.
  */
 typedef void (*			t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);

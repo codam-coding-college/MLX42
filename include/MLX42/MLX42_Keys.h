@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 21:11:02 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/22 21:04:55 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@
 #ifndef MLX42_KEYS_H
 # define MLX42_KEYS_H
 
-// Specific key action
+/**
+ * A key action such as pressing or releasing a key.
+ * 
+ * @param RELEASE Execute when the key is being released.
+ * @param PRESS Execute when the key is being pressed.
+ * @param REPEAT Execute when the key is being held down.
+ */
 typedef enum e_action
 {
 	MLX_RELEASE = 0,
@@ -28,7 +34,18 @@ typedef enum e_action
 	MLX_REPEAT	= 2,
 }	t_action;
 
-// Specific key modifiers
+/**
+ * Key modifiers, such as shift, control or alt.
+ * These keys are flags meaning you can combine them to detect
+ * key combinations such as CTRL + ALT so CTRL | ALT.
+ * 
+ * @param SHIFT The shift key.
+ * @param CONTROL The control key.
+ * @param ALT The alt key.
+ * @param SUPERKEY The Superkey such as the Windows Key or Command.
+ * @param CAPSLOCK The capslock key.
+ * @param NUMLOCK The numlock key.
+ */
 typedef enum e_modifier
 {
 	MLX_SHIFT		= 0x0001,
@@ -39,7 +56,12 @@ typedef enum e_modifier
 	MLX_NUMLOCK		= 0x0020,
 }	t_modifier;
 
-// The mouse button IDs.
+/**
+ * The mouse button keycodes.
+ * @param LEFT The left mouse button.
+ * @param RIGHT The right mouse button.
+ * @param MIDDLE The middle mouse button, aka the Scrollwheel.
+ */
 typedef enum e_mouse_key
 {
 	MLX_MOUSE_BUTTON_LEFT	= 0,

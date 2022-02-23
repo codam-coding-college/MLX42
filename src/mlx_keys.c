@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/21 11:10:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 10:34:21 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	*g_param_cb = NULL;
 
+// Wtf is this ... God has abandoned us!??
 void	mlx_key_callback(GLFWwindow *window, ...)
 {
 	va_list				args;
