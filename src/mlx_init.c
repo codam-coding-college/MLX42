@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:17:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 16:22:32 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	t_mlx		*mlx;
 	const bool	init = glfwInit();
 
+	g_mlx_errno = 0;
 	mlx = calloc(1, sizeof(t_mlx));
 	if (!mlx || !init)
 		return (free(mlx), (void *)mlx_error(MLX_GLFWFAIL));

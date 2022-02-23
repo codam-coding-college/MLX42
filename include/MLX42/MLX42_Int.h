@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:24:22 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 16:18:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@
 #  include <limits.h>
 # endif
 # if defined(_WIN32)
-#  include <malloc.h>
+#  include <malloc.h> /* alloca */
 # endif
-# include <ctype.h>
-# include <string.h>
-# include <stdarg.h>
+# include <ctype.h> /* isspace, isprint, ... */
+# include <string.h> /* strlen, memmove, ... */
+# include <stdarg.h> /* va_arg, va_end, ... */
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
@@ -141,7 +141,7 @@ t_xpm *xpm, size_t s);
 
 //= Error/log Handling Functions =//
 
-bool		mlx_error(enum e_errno val);
+bool		mlx_error(t_mlx_errno val);
 bool		mlx_freen(int32_t count, ...);
 
 //= IO Functions =//

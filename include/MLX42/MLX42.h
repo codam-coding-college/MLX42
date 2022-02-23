@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 14:25:52 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 16:22:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ typedef t_mlx_texture	t_mlx_tex;
 typedef t_mlx_instance	t_mlx_inst;
 
 // The error codes used to idenfity the correct error message.
-static enum e_errno
+typedef enum e_mlx_errno
 {
 	MLX_SUCCESS = 0,
 	MLX_INVEXT,
@@ -162,27 +162,10 @@ static enum e_errno
 	MLX_TEXTOBIG,
 	MLX_RESTOBIG,
 	MLX_INVPNG,
-} mlx_errno = MLX_SUCCESS;
+}	t_mlx_errno;
 
-// English description of the error codes.
-static const char		*g_mlx_errors[] = {
-	"No Errors",
-	"File has invalid extension",
-	"Failed to open the file",
-	"Invalid parameter passed to function",
-	"Argument passed was NULL",
-	"Failed to compile shader",
-	"Failed to initilize the renderer",
-	"Failed to allocated memory",
-	"XPM42 file is invalid or corrupted",
-	"Failed to initialize GLFW",
-	"Failed to create GLFW Window",
-	"Failed to initialize GLAD",
-	"Texture area out of range",
-	"Texture is larger than image"
-	"New image size is too big"
-	"PNG file is invalid or corrupted",
-};
+// Global error code from the MLX42 library, 0 on no error.
+t_mlx_errno				g_mlx_errno;
 
 /**
  * Callback function used to handle scrolling.
@@ -229,7 +212,7 @@ typedef void (*			t_mlx_closefunc)(void *param);
  * @param val The error code.
  * @return The error string that describes the error code.
  */
-const char	*mlx_strerror(enum e_errno val);
+const char	*mlx_strerror(t_mlx_errno val);
 
 //= Generic Functions =//
 

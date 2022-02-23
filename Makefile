@@ -6,7 +6,7 @@
 #    By: w2wizard <w2wizard@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/01/15 15:06:20 by w2wizard      #+#    #+#                  #
-#    Updated: 2022/02/21 10:43:07 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/23 14:57:06 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ else
     endif
 endif
 
-CFLAGS	= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
+CFLAGS	= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -Ofast
 ifndef NOWARNING
 CFLAGS	+= -Werror # Windows
 endif
