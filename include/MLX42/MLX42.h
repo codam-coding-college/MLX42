@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/25 15:15:12 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:48:13 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef enum e_mlx_errno
 	MLX_INVFILE,
 	MLX_INVPNG,
 	MLX_INVXPM,
+	MLX_INVFONT,
 	MLX_INVAREA,
 	MLX_NULLARG,
 	MLX_SHDRFAIL,

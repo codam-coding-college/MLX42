@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/25 15:15:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:47:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static const char		*g_mlx_errors[] = {
 	"Failed to open the file",
 	"PNG file is invalid or corrupted",
 	"XPM42 file is invalid or corrupted",
+	"Font atlas data is invalid",
 	"Texture area out of range",
 	"Parameter passed was NULL",
 	"Failed to compile shader",
