@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 12:03:49 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 14:16:52 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,24 @@ int32_t y)
 	return (mlx_freen(2, temp, queue), (void *)mlx_error(MLX_MEMFAIL));
 }
 
+// Nasty cheats to get around norme...
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
 {
 	t_mlx_image		*newimg;
 	t_mlx_image_ctx	*newctx;
 	const t_mlx_ctx	*mlxctx = mlx->context;
 
+	if (width > INT16_MAX || height > INT16_MAX)
+		return ((void *)mlx_error(MLX_IMGTOBIG));
 	newimg = calloc(1, sizeof(t_mlx_image));
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
-		return ((void *)mlx_freen(2, newimg, newctx));
+		return (mlx_freen(2, newimg, newctx), (void *)mlx_error(MLX_MEMFAIL));
 	(*(uint32_t *)&newimg->width) = width;
 	(*(uint32_t *)&newimg->height) = height;
-	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
-		return ((void *)mlx_freen(2, newimg, newctx));
+		return (mlx_freen(2, newimg, newctx), (void *)mlx_error(MLX_MEMFAIL));
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -123,7 +125,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
 	GL_UNSIGNED_BYTE, newimg->pixels);
 	mlx_lstadd_back((t_mlx_list **)(&mlxctx->images), mlx_lstnew(newimg));
-	return (newimg->enabled = true, newimg);
+	return (newimg->context = newctx, newimg->enabled = true, newimg);
 }
 
 void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/16 23:11:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:24:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:17:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_mlx_texture	*mlx_load_png(const char *path)
 	if (error)
 	{
 		free(image);
-		fprintf(stderr, "Error: LodePNG: %s", lodepng_error_text(error));
+		fprintf(stderr, "MLX42: LodePNG: %s\n", lodepng_error_text(error));
 		return ((void *)mlx_error(MLX_INVPNG));
 	}
 	image->bytes_per_pixel = sizeof(int32_t);

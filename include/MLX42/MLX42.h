@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 16:22:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:15:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,18 +150,17 @@ typedef enum e_mlx_errno
 	MLX_SUCCESS = 0,
 	MLX_INVEXT,
 	MLX_INVFILE,
+	MLX_INVPNG,
+	MLX_INVXPM,
+	MLX_INVAREA,
 	MLX_NULLARG,
 	MLX_SHDRFAIL,
 	MLX_MEMFAIL,
-	MLX_INVXPM,
-	MLX_GLFWFAIL,
-	MLX_GLFWWIN,
 	MLX_GLADFAIL,
+	MLX_GLFWFAIL,
+	MLX_WINFAIL,
 	MLX_IMGTOBIG,
-	MLX_INVAREA,
 	MLX_TEXTOBIG,
-	MLX_RESTOBIG,
-	MLX_INVPNG,
 }	t_mlx_errno;
 
 // Global error code from the MLX42 library, 0 on no error.

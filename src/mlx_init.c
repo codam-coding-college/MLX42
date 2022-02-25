@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 16:22:32 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:08:46 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	mlx_init_render(t_mlx *mlx)
 	uint32_t	s[3];
 
 	if (!mlx->window)
-		return (mlx_error(MLX_GLFWWIN));
+		return (mlx_error(MLX_WINFAIL));
 	glfwMakeContextCurrent(mlx->window);
 	glfwSetFramebufferSizeCallback(mlx->window, framebuffer_callback);
 	glfwSetWindowUserPointer(mlx->window, mlx);

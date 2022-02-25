@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 15:07:06 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:15:13 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,17 @@ static const char		*g_mlx_errors[] = {
 	"No Errors",
 	"File has invalid extension",
 	"Failed to open the file",
-	"Invalid parameter passed to function",
-	"Argument passed was NULL",
-	"Failed to compile shader",
-	"Failed to initilize the renderer",
-	"Failed to allocated memory",
-	"XPM42 file is invalid or corrupted",
-	"Failed to initialize GLFW",
-	"Failed to create GLFW Window",
-	"Failed to initialize GLAD",
-	"Texture area out of range",
-	"Texture is larger than image"
-	"New image size is too big"
 	"PNG file is invalid or corrupted",
+	"XPM42 file is invalid or corrupted",
+	"Texture area out of range",
+	"Parameter passed was NULL",
+	"Failed to compile shader",
+	"Failed to allocate memory",
+	"Failed to initialize GLAD",
+	"Failed to initialize GLFW",
+	"Failed to create window",
+	"Image size is too big",
+	"Texture is larger than image",
 };
 
 /**

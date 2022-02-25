@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 07:52:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:17:03 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:04:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ bool	mlx_resize_image(t_mlx_image *img, uint32_t nwidth, uint32_t nheight)
 
 	if (!img)
 		return (mlx_error(MLX_NULLARG));
-	if (nwidth > UINT16_MAX || nheight > UINT16_MAX)
-		return (mlx_error(MLX_RESTOBIG));
+	if (nwidth > INT16_MAX || nheight > INT16_MAX)
+		return (mlx_error(MLX_IMGTOBIG));
 	if (nwidth != img->width || nheight != img->height)
 	{
 		imgctx = img->context;
