@@ -22,22 +22,22 @@ CC		= gcc # We need to explicitly mention GCC/CC here.
 WINSTFU	= > NUL 2>&1 # In some cases we want windows to just stfu
 MAKE	= make --no-print-directory
 
-SHDR	= src/mlx_vert.c src/mlx_frag.c
-SHDRSRC	= shaders/default.frag shaders/default.vert
-SRCS	= $(shell dir * /S/B | findstr \.c*$) $(SHDR)
+SHDR	= src\mlx_vert.c src\mlx_frag.c
+SHDRSRC	= shaders\default.frag shaders\default.vert
+SRCS	= $(shell dir /S/B "*.c") $(SHDR)
 OBJS	= $(SRCS:.c=.o)
 
 #//= Recipes =//#
 all: $(SHDR) $(NAME)
 
 # Convert our shaders to .c files
-src/mlx_vert.c: shaders/default.vert
+src\mlx_vert.c: shaders\default.vert
 	@echo Converting shader: $< -> $@
-	@python3 tools/compile_shader.py $^ > $@
+	@python3 tools\compile_shader.py $^ > $@
 
-src/mlx_frag.c: shaders/default.frag 
+src\mlx_frag.c: shaders\default.frag 
 	@echo Converting shader: $< -> $@
-	@python3 tools/compile_shader.py $^ > $@
+	@python3 tools\compile_shader.py $^ > $@
 
 %.o: %.c
 	@$(CC) -c $< -o $@ $(HEADERS) $(ARCHIVE) && echo Compiling: $(notdir $<) [OK]
@@ -47,7 +47,7 @@ $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 
 clean:
-	@del /Q $(OBJS) $(WINSTFU)
+	@del /F /Q $(OBJS) $(WINSTFU)
 
 fclean:
 	@$(MAKE) clean
