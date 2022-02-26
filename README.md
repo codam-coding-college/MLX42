@@ -53,7 +53,7 @@ In the very end a library is generated, compile your program with this library!
 ➜  ~ git clone https://github.com/W2Codam/MLX42.git
 ```
 
-### Via Homebrew / Homebrew42 by building from source.
+### Via [Homebrew](https://brew.sh/) / [Homebrew42](https://github.com/kube/42homebrew) by building from source.
 
 2. Install GLFW
 ```bash
