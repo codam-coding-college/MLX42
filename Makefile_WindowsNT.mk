@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-# While windows does have support for nmake it offers not near the amount of
+# While windows does have support for nmake it offers nowhere near the amount of
 # features GnuWin does.
 
 #//= Colors =//#
@@ -18,8 +18,6 @@
 
 CC		= gcc # We need to explicitly mention GCC/CC here.
 WINSTFU	= > NUL 2>&1 # In some cases we want windows to just stfu
-MAKE	= make --no-print-directory
-
 SHDR	= src\mlx_vert.c src\mlx_frag.c
 SHDRSRC	= shaders\default.frag shaders\default.vert
 SRCS	= $(shell dir /S/B "*.c") $(SHDR)
@@ -41,7 +39,8 @@ src\mlx_frag.c: shaders\default.frag
 	@$(CC) -c $< -o $@ $(HEADERS) $(ARCHIVE) && echo Compiling: $(notdir $<) [OK]
 
 $(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJS)
+	@echo Done
 
 clean:
 	@del /F /Q $(OBJS) $(SHDR) $(WINSTFU)
