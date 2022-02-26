@@ -139,10 +139,7 @@ NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11`
 
 The systems below have not been tested yet.
 
-### For Windows: (Partial Support)
-
-Windows, while entirely possible to compile and run, is not fully supported due to compilation difficulty and it being a bit of a hassle.
-As of now the build script for windows does not exist fully, compile by adding every c file manually or install cygwin and then 'make' will work.
+### For Windows:
 
 1. Download & Install MinGW: [Here!](https://sourceforge.net/projects/mingw/)
 
