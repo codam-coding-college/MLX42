@@ -15,34 +15,46 @@
 
 # TODO: Make clean sometimes just NUKES the entire freaking project away ???
 
-CC		= gcc # We need to explictely mention GCC/CC here.
+#//= Colors =//#
+# Nope :(
+
+CC		= gcc # We need to explicitly mention GCC/CC here.
 NAME	= libmlx.a
 HEADERS	= -I include
 CFLAGS	= -Werror -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -Ofast
 WINSTFU	= > NUL 2>&1 # In some cases we want windows to just stfu
 MAKE	= make --no-print-directory
 
-SRCS	= $(shell dir * /S/B | findstr \.c*$)
+SHDR	= src/mlx_vert.c src/mlx_frag.c
+SHDRSRC	= shaders/default.frag shaders/default.vert
+SRCS	= $(shell dir * /S/B | findstr \.c*$) $(SHDR)
 OBJS	= $(SRCS:.c=.o)
 
-#//= Colors =//#
-# Nope :(
-
 #//= Recipes =//#
-all: $(NAME)
+all: $(SHDR) $(NAME)
+
+# Convert our shaders to .c files
+src/mlx_vert.c: shaders/default.vert
+	@echo Converting shader: $< -> $@
+	@python3 tools/compile_shader.py $^ > $@
+
+src/mlx_frag.c: shaders/default.frag 
+	@echo Converting shader: $< -> $@
+	@python3 tools/compile_shader.py $^ > $@
 
 %.o: %.c
 	@$(CC) -c $< -o $@ $(HEADERS) $(ARCHIVE) && echo Compiling: $(notdir $<) [OK]
 
+# TODO: AR tries to ar .github dir, for some reason ?
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 
 clean:
-	@del /F /Q $(OBJS) $(WINSTFU)
+	@del /Q $(OBJS) $(WINSTFU)
 
 fclean:
 	@$(MAKE) clean
-	@del /F /Q $(NAME) $(WINSTFU)
+	@del /Q $(NAME) $(WINSTFU)
 
 re:
 	@$(MAKE) clean
