@@ -19,9 +19,6 @@
 # Nope :(
 
 CC		= gcc # We need to explicitly mention GCC/CC here.
-NAME	= libmlx.a
-HEADERS	= -I include
-CFLAGS	= -Werror -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -Ofast
 WINSTFU	= > NUL 2>&1 # In some cases we want windows to just stfu
 MAKE	= make --no-print-directory
 

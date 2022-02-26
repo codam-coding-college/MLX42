@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= libmlx.a
+NAME	= libmlx42.a
 CFLAGS	= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
 override HEADERS +=	-I include # Allow override for cygwin github actions
 ifndef NOWARNING
