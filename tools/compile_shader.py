@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/17 22:35:29 by tbruinem      #+#    #+#                  #
-#    Updated: 2022/02/17 23:09:33 by w2wizard      ########   odam.nl          #
+#    Updated: 2022/02/26 15:18:00 by rdrazsky      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,14 @@ import sys
 import os
 
 if (len(sys.argv) != 2):
-    exit(1)
+	exit(1)
 file_path = sys.argv[1]
 
 lines = [x for x in open(file_path).read().split('\n') if x]
 
 shadertype = os.path.splitext(file_path)[1]
 
-header = '''
+header = '''\
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
@@ -41,8 +41,8 @@ output = []
 output.append(header)
 output.append("// If you wish to modify this file edit the .vert or .frag file!\n")
 output.append("#include \"MLX42/MLX42_Int.h\"\n")
-output.append(f"const char    *g_{shadertype[1:]}_shader = \"{lines[0]}\\n\"")
-output.extend(["\"" + line + "\"" for line in lines[1:]])
-output.append(";");
+output.append(f"const char	*g_{shadertype[1:]}_shader = \"{lines[0]}\\n\"")
+output.extend(["	\"" + line + "\"" for line in lines[1:]])
+output[-1] += ';'
 for line in output:
-    print(line)
+	print(line)
