@@ -10,10 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-# While windows does have support for nmake it offers no near the amount of
+# While windows does have support for nmake it offers not near the amount of
 # features GnuWin does.
-
-# TODO: Make clean sometimes just NUKES the entire freaking project away ???
 
 #//= Colors =//#
 # Nope :(
@@ -32,29 +30,25 @@ all: $(SHDR) $(NAME)
 
 # Convert our shaders to .c files
 src\mlx_vert.c: shaders\default.vert
-	@echo Converting shader: $< -> $@
+	@echo "Converting shader: $< -> $@"
 	@python3 tools\compile_shader.py $^ > $@
 
 src\mlx_frag.c: shaders\default.frag 
-	@echo Converting shader: $< -> $@
+	@echo "Converting shader: $< -> $@"
 	@python3 tools\compile_shader.py $^ > $@
 
 %.o: %.c
 	@$(CC) -c $< -o $@ $(HEADERS) $(ARCHIVE) && echo Compiling: $(notdir $<) [OK]
 
-# TODO: AR tries to ar .github dir, for some reason ?
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 
 clean:
-	@del /F /Q $(OBJS) $(WINSTFU)
+	@del /F /Q $(OBJS) $(SHDR) $(WINSTFU)
 
-fclean:
-	@$(MAKE) clean
+fclean: clean
 	@del /Q $(NAME) $(WINSTFU)
 
-re:
-	@$(MAKE) clean
-	@$(MAKE) all
+re: clean all
 
 .PHONY : all clean re fclean
