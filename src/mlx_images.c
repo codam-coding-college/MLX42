@@ -63,7 +63,8 @@ t_mlx_instance *instance)
 	imgctx->vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-	mlx_render_texture(mlx, img, img->pixels, imgctx->vertices);
+	if (mlx->width > 0 && mlx->height > 0)
+		mlx_render_texture(mlx, img, img->pixels, imgctx->vertices);
 }
 
 //= Exposed =//

@@ -36,7 +36,7 @@ src\mlx_frag.c: shaders\default.frag
 	@python3 tools\compile_shader.py $^ > $@
 
 %.o: %.c
-	@$(CC) -c $< -o $@ $(HEADERS) $(ARCHIVE) && echo Compiling: $(notdir $<) [OK]
+	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS) $(ARCHIVE) && echo Compiling: $(notdir $<) [OK]
 
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
