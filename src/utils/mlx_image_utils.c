@@ -15,15 +15,13 @@
 bool	mlx_resize_image(t_mlx_image *img, uint32_t nwidth, uint32_t nheight)
 {
 	uint8_t			*tempbuff;
-	t_mlx_image_ctx	*imgctx;
 
 	if (!img)
 		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
-	if (nwidth > UINT16_MAX || nheight > UINT16_MAX)
+	if (nwidth > INT16_MAX || nheight > INT16_MAX)
 		return (mlx_log(MLX_WARNING, "New size is too big!"));
 	if (nwidth != img->width || nheight != img->height)
 	{
-		imgctx = img->context;
 		tempbuff = realloc(img->pixels, (nwidth * nheight) * sizeof(int32_t));
 		if (!tempbuff)
 			return (false);
@@ -37,14 +35,18 @@ bool	mlx_resize_image(t_mlx_image *img, uint32_t nwidth, uint32_t nheight)
 	return (true);
 }
 
-// Recalculate the view projection matrix, used by images for screen pos
-// Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
+/**
+ * Recalculate the view projection matrix, used by images for screen pos
+ * Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
+ * HACH: Increment width and height to avoid divison by zero exception
+ * can't do if due to norme.
+ */
 void	mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height)
 {
 	const t_mlx		*mlx = glfwGetWindowUserPointer(window);
-	const float		matrix[16] = {
-		2.f / width, 0, 0, 0,
-		0, 2.f / -height, 0, 0,
+	float		matrix[16] = {
+		2.f / ++width, 0, 0, 0,
+		0, 2.f / -(++height), 0, 0,
 		0, 0, -2.f / (1000.f - -1000.f), 0,
 		-1, -(height / -height),
 		-((1000.f + -1000.f) / (1000.f - -1000.f)), 1

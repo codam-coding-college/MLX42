@@ -127,8 +127,8 @@ static bool	mlx_read_xpm_header(t_xpm *xpm, FILE *file)
 		return (false);
 	flagc = sscanf(buffer, "%i %i %i %i %c\n", &xpm->texture.width, \
 	&xpm->texture.height, &xpm->color_count, &xpm->cpp, &xpm->mode);
-	if (flagc < 4 || xpm->texture.width > UINT16_MAX || \
-	xpm->texture.height > UINT16_MAX)
+	if (flagc < 4 || xpm->texture.width > INT16_MAX || \
+	xpm->texture.height > INT16_MAX)
 		return (false);
 	if (!(xpm->mode == 'c' || xpm->mode == 'm') || xpm->cpp > 10)
 		return (false);

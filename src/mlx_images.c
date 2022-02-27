@@ -15,6 +15,8 @@
 /**
  * Internal function to draw a single instance of an image
  * to the screen. Returns if window is 1 x 1 big or 0.
+ * 
+ * ISSUE: The draw calls are killing your GPU!
  */
 void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, t_mlx_inst *instance)
 {
