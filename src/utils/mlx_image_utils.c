@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 07:52:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/27 21:00:21 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/27 21:03:10 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	mlx_resize_image(t_mlx_image *img, uint32_t nwidth, uint32_t nheight)
  * Recalculate the view projection matrix, used by images for screen pos
  * Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
  */
-static void	mlx_update_matrix(t_mlx *mlx, int32_t width, int32_t height)
+static void	mlx_update_matrix(const t_mlx *mlx, int32_t width, int32_t height)
 {
 	const float		matrix[16] = {
 		2.f / width, 0, 0, 0,
