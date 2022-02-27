@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/22 15:35:20 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/27 19:50:58 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 
 	context = mlx->context;
 	context->zdepth = 0;
+	glActiveTexture(GL_TEXTURE0);
 	glGenVertexArrays(1, &(context->vao));
 	glGenBuffers(1, &(context->vbo));
 	glBindVertexArray(context->vao);
@@ -36,8 +37,11 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glUniform1i(glGetUniformLocation(context->shaderprogram, "OutTexture"), 0);
 	if (!mlx_parse_font_atlas(mlx))
 		return (false);
+	glfwSetWindowSizeCallback(mlx->window, &mlx_on_resize);
+	mlx_on_resize(mlx->window, mlx->width, mlx->height);
 	return (true);
 }
 
