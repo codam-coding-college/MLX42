@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 07:52:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/27 19:50:49 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/27 21:00:21 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,12 @@ bool	mlx_resize_image(t_mlx_image *img, uint32_t nwidth, uint32_t nheight)
 /**
  * Recalculate the view projection matrix, used by images for screen pos
  * Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
- * HACH: Increment width and height to avoid divison by zero exception
- * can't do if due to norme.
  */
-void	mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height)
+static void	mlx_update_matrix(t_mlx *mlx, int32_t width, int32_t height)
 {
-	const t_mlx		*mlx = glfwGetWindowUserPointer(window);
-	float		matrix[16] = {
-		2.f / ++width, 0, 0, 0,
-		0, 2.f / -(++height), 0, 0,
+	const float		matrix[16] = {
+		2.f / width, 0, 0, 0,
+		0, 2.f / -(height), 0, 0,
 		0, 0, -2.f / (1000.f - -1000.f), 0,
 		-1, -(height / -height),
 		-((1000.f + -1000.f) / (1000.f - -1000.f)), 1
@@ -54,4 +51,12 @@ void	mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height)
 
 	glUniformMatrix4fv(glGetUniformLocation(((t_mlx_ctx *)mlx->context) \
 	->shaderprogram, "ProjMatrix"), 1, GL_FALSE, matrix);
+}
+
+void	mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height)
+{
+	const t_mlx		*mlx = glfwGetWindowUserPointer(window);
+
+	if (width > 1 || height > 1)
+		mlx_update_matrix(mlx, width, height);
 }
