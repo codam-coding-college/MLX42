@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/27 20:08:27 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/27 21:06:47 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, t_mlx_inst *instance)
 	vertices[3] = (t_vert){x, y, instance->z, 0.f, 0.f};
 	vertices[4] = (t_vert){x, y + h, instance->z, 0.f, 1.f};
 	vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
+	glBindTexture(GL_TEXTURE_2D, ((t_mlx_image_ctx *)img->context)->texture);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, \
 	GL_STATIC_DRAW);
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, w, h, GL_RGBA, \
