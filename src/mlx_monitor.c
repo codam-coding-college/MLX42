@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 17:18:59 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/19 08:23:56 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/28 20:45:19 by fbes          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	mlx_get_monitor_size(int32_t index, int32_t *width, int32_t *height)
 	GLFWmonitor			**monitors;
 	int32_t				monitor_count;
 
+	*width = 0;
+	*height = 0;
 	monitors = glfwGetMonitors(&monitor_count);
 	if (index > monitor_count || !monitors)
 		return ;
@@ -26,10 +28,5 @@ void	mlx_get_monitor_size(int32_t index, int32_t *width, int32_t *height)
 	{
 		*width = vidmode->width;
 		*height = vidmode->height;
-	}
-	else
-	{
-		*width = 0;
-		*height = 0;
 	}
 }
