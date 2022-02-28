@@ -6,57 +6,70 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/22 15:33:59 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/28 13:20:33 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "font.h"
 #include "MLX42/MLX42_Int.h"
 
-bool	mlx_parse_font_atlas(t_mlx *mlx)
+static void	mlx_draw_font(t_mlx_image *image, const t_mlx_texture *texture, \
+int32_t texoffset, int32_t imgoffset)
 {
-	int32_t			i;
-	t_mlx_texture	font;
-	t_mlx_ctx		*mlxctx;
-	int32_t			xy[2];
-	int32_t			wh[2];
+	uint32_t	y;
+	uint32_t	bpp;
+	uint8_t		*pixelx;
+	uint8_t		*pixeli;
 
-	i = -1;
-	wh[0] = FONT_WIDTH;
-	wh[1] = FONT_HEIGHT;
-	memset(xy, 0, sizeof(xy));
-	mlxctx = mlx->context;
-	font.width = font_atlas.width;
-	font.height = font_atlas.height;
-	font.bytes_per_pixel = font_atlas.bpp;
-	font.pixels = font_atlas.pixels;
-	while (++i < 94)
+	y = 0;
+	bpp = texture->bytes_per_pixel;
+	while (y < FONT_HEIGHT)
 	{
-		mlxctx->char_images[i] = \
-		mlx_texture_area_to_image(mlx, &font, (int32_t *)xy, (uint32_t *)wh);
-		if (mlxctx->char_images[i] == NULL)
-			return (false);
-		xy[0] += FONT_WIDTH + 2;
+		pixelx = &texture->pixels[(y * texture->width + texoffset) * bpp];
+		pixeli = &image->pixels[(y * image->width + imgoffset) * bpp];
+		memmove(pixeli, pixelx, FONT_WIDTH * bpp);
+		y++;
+	}
+}
+
+static bool	mlx_draw_text(const char *str, t_mlx_image *image)
+{
+	size_t				i;
+	int32_t				imgoffset;
+	int32_t				texoffset;
+	const t_mlx_tex		atlas = {
+		font_atlas.width,
+		font_atlas.height,
+		font_atlas.bpp,
+		font_atlas.pixels,
+	};
+
+	i = 0;
+	imgoffset = 0;
+	while (str[i])
+	{
+		// Get character offset in the atlas texture
+		texoffset = (FONT_WIDTH + 2) * (str[i] - 32);
+		//printf("Draw: %c Pos: %d %d | CharOffset @ %d\n", str[i], imgoffset, 0, texoffset);
+		mlx_draw_font(image, &atlas, texoffset, imgoffset);
+		imgoffset += FONT_WIDTH;
+		i++;
 	}
 	return (true);
 }
 
-void	mlx_put_string(t_mlx *mlx, char *str, int32_t x, int32_t y)
+t_mlx_image	*mlx_put_string(t_mlx *mlx, const char *str, int32_t x, int32_t y)
 {
-	size_t		i;
-	int32_t		gx;
-	t_mlx_ctx	*mlxctx;
+	int32_t		total_width;
+	t_mlx_image	*strimage;
 
-	i = 0;
-	gx = x;
-	mlxctx = mlx->context;
-	while (str[i] != '\0')
-	{
-		if (isprint(str[i]))
-		{
-			mlx_image_to_window(mlx, mlxctx->char_images[str[i] - 32], gx, y);
-			gx += FONT_WIDTH;
-		}
-		i++;
-	}
+	total_width = strlen(str) * (FONT_WIDTH);
+	//printf("Draw img with width: %d\n", total_width);
+	strimage = mlx_new_image(mlx, total_width, FONT_HEIGHT);
+	if (!strimage)
+		return (NULL);
+	mlx_draw_text(str, strimage);
+	if (!mlx_image_to_window(mlx, strimage, x, y))
+		return (mlx_delete_image(mlx, strimage), NULL);
+	return (strimage);
 }

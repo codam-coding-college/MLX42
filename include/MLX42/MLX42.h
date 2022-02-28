@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/22 20:58:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/28 13:05:15 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -577,6 +577,6 @@ uint32_t nheight);
  * @param x The X location.
  * @param y The Y location.
  */
-void		mlx_put_string(t_mlx *mlx, char *str, int32_t x, int32_t y);
+t_mlx_image	*mlx_put_string(t_mlx *mlx, const char *str, int32_t x, int32_t y);
 
 #endif
