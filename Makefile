@@ -6,17 +6,19 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:32:49 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/02/28 12:57:03 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/02/28 17:55:05 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= libmlx42.a
-CFLAGS	= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -Ofast
+CFLAGS	= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
 ifndef NOWARNING
 CFLAGS	+= -Werror
 endif
 ifdef DEBUG
 CFLAGS	+= -g
+else
+CFLAGS	+= -Ofast
 endif
 
 ifeq ($(OS), Windows_NT)
