@@ -6,13 +6,12 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:32:49 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/02/27 20:55:47 by W2Wizard      ########   odam.nl          #
+#    Updated: 2022/02/28 12:57:03 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= libmlx42.a
 CFLAGS	= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -Ofast
-override HEADERS +=	-I include # Allow override for cygwin github actions
 ifndef NOWARNING
 CFLAGS	+= -Werror
 endif
@@ -22,11 +21,14 @@ endif
 
 ifeq ($(OS), Windows_NT)
 	ifdef CYGWIN
+		override HEADERS +=	-I include
 		include Makefile_Unix.mk
 	else
+		HEADERS +=	-I include
     	include Makefile_WindowsNT.mk
 	endif
 else
+	HEADERS +=	-I include
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
         include Makefile_Unix.mk
