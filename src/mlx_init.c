@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/28 13:05:44 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/28 20:52:09 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	mlx->height = Height;
 	mlx->window = glfwCreateWindow(Width, Height, Title, NULL, NULL);
 	mlx->context = calloc(1, sizeof(t_mlx_ctx));
-	if (!mlx->context || !mlx_init_render(mlx) || !mlx_parse_font_atlas(mlx))
+	if (!mlx->context || !mlx_init_render(mlx))
 	{
 		mlx_terminate(mlx);
 		return (NULL);
