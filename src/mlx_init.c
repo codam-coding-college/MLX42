@@ -26,6 +26,7 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 	context->zdepth = 0;
 	glActiveTexture(GL_TEXTURE0);
 	glGenVertexArrays(1, &(context->vao));
+	glGenVertexArrays(1, &(context->vao));
 	glGenBuffers(1, &(context->vbo));
 	glBindVertexArray(context->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, context->vbo);
@@ -43,23 +44,22 @@ static bool	mlx_create_buffers(t_mlx *mlx)
 	return (true);
 }
 
-// TODO: Fix relative to absolute, in some cases fopen just fails on some OS.
 static bool	mlx_init_render(t_mlx *mlx)
 {
 	uint32_t	s[3];
 
 	if (!mlx->window)
-		return (mlx_log(MLX_ERROR, GLFW_WIN_FAILURE));
+		return (mlx_error(MLX_WINFAIL));
 	glfwMakeContextCurrent(mlx->window);
 	glfwSetFramebufferSizeCallback(mlx->window, framebuffer_callback);
 	glfwSetWindowUserPointer(mlx->window, mlx);
 	glfwSwapInterval(MLX_SWAP_INTERVAL);
 	{
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-			return (mlx_log(MLX_ERROR, GLFW_GLAD_FAILURE));
+			return (mlx_error(MLX_GLADFAIL));
 		if (!mlx_compile_shader(g_vert_shader, GL_VERTEX_SHADER, &s[0]) || \
 			!mlx_compile_shader(g_frag_shader, GL_FRAGMENT_SHADER, &s[1]))
-			return (mlx_log(MLX_ERROR, MLX_SHADER_FAILURE));
+			return (false);
 	}
 	s[2] = 0;
 	if (!mlx_init_shaders(mlx, s))
@@ -75,12 +75,10 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	t_mlx		*mlx;
 	const bool	init = glfwInit();
 
+	g_mlx_errno = 0;
 	mlx = calloc(1, sizeof(t_mlx));
 	if (!mlx || !init)
-	{
-		free(mlx);
-		return ((void *)mlx_log(MLX_ERROR, GLFW_INIT_FAILURE));
-	}
+		return (free(mlx), (void *)mlx_error(MLX_GLFWFAIL));
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -91,10 +89,10 @@ t_mlx	*mlx_init(int32_t Width, int32_t Height, const char *Title, bool Resize)
 	mlx->height = Height;
 	mlx->window = glfwCreateWindow(Width, Height, Title, NULL, NULL);
 	mlx->context = calloc(1, sizeof(t_mlx_ctx));
-	if (!mlx->context || !mlx_init_render(mlx))
+	if (!mlx->context || !mlx_init_render(mlx) || !mlx_parse_font_atlas(mlx))
 	{
-		free(mlx);
-		return ((void *)mlx_log(MLX_ERROR, MLX_RENDER_FAILURE));
+		mlx_terminate(mlx);
+		return (NULL);
 	}
 	return (mlx);
 }

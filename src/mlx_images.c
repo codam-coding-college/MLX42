@@ -48,47 +48,50 @@ t_mlx_inst	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
 int32_t y)
 {
 	int32_t			index;
-	t_mlx_ctx		*mlxctx;
 	t_draw_queue	*queue;
 	t_mlx_instance	*temp;
+	t_mlx_list		*templst;
 
 	if (!mlx || !img)
-		return ((void *)mlx_log(MLX_WARNING, MLX_NULL_ARG));
-	mlxctx = mlx->context;
+		return ((void *)mlx_error(MLX_NULLARG));
 	temp = realloc(img->instances, (++img->count) * sizeof(t_mlx_instance));
 	queue = calloc(1, sizeof(t_draw_queue));
 	if (!queue || !temp)
-	{
-		mlx_log(MLX_ERROR, MLX_MEMORY_FAIL);
-		return ((void *)mlx_freen(2, temp, queue));
-	}
+		return (mlx_freen(2, temp, queue), (void *)mlx_error(MLX_MEMFAIL));
 	index = img->count - 1;
 	img->instances = temp;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
-	img->instances[index].z = mlxctx->zdepth++;
+	img->instances[index].z = ((t_mlx_ctx *)mlx->context)->zdepth++;
 	queue->image = img;
 	queue->instanceid = index;
-	mlx_lstadd_back(&mlxctx->render_queue, mlx_lstnew(queue));
-	return (&img->instances[index]);
+	templst = mlx_lstnew(queue);
+	if (templst)
+	{
+		mlx_lstadd_back(&((t_mlx_ctx *)mlx->context)->render_queue, templst);
+		return (&img->instances[index]);
+	}
+	return (mlx_freen(2, temp, queue), (void *)mlx_error(MLX_MEMFAIL));
 }
 
+// Nasty cheats to get around norme...
 t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
 {
 	t_mlx_image		*newimg;
 	t_mlx_image_ctx	*newctx;
 	const t_mlx_ctx	*mlxctx = mlx->context;
 
+	if (width > INT16_MAX || height > INT16_MAX)
+		return ((void *)mlx_error(MLX_IMGTOBIG));
 	newimg = calloc(1, sizeof(t_mlx_image));
 	newctx = calloc(1, sizeof(t_mlx_image_ctx));
 	if (!newimg || !newctx)
-		return ((void *)mlx_freen(2, newimg, newctx));
+		return (mlx_freen(2, newimg, newctx), (void *)mlx_error(MLX_MEMFAIL));
 	(*(uint32_t *)&newimg->width) = width;
 	(*(uint32_t *)&newimg->height) = height;
-	newimg->context = newctx;
 	newimg->pixels = calloc(width * height, sizeof(int32_t));
 	if (!newimg->pixels)
-		return ((void *)mlx_freen(2, newimg, newctx));
+		return (mlx_freen(2, newimg, newctx), (void *)mlx_error(MLX_MEMFAIL));
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -98,7 +101,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
 	GL_UNSIGNED_BYTE, newimg->pixels);
 	mlx_lstadd_back((t_mlx_list **)(&mlxctx->images), mlx_lstnew(newimg));
-	return (newimg->enabled = true, newimg);
+	return (newimg->context = newctx, newimg->enabled = true, newimg);
 }
 
 void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)

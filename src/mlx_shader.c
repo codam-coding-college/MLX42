@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 22:32:56 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/23 12:07:14 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	mlx_init_shaders(t_mlx *mlx, uint32_t *shaders)
 	context = mlx->context;
 	context->shaderprogram = glCreateProgram();
 	if (!context->shaderprogram)
-		return (false);
+		return (mlx_error(MLX_SHDRFAIL));
 	while (shaders[i])
 		glAttachShader(context->shaderprogram, shaders[i++]);
 	glLinkProgram(context->shaderprogram);
@@ -40,7 +40,7 @@ bool	mlx_init_shaders(t_mlx *mlx, uint32_t *shaders)
 		glGetProgramInfoLog(context->shaderprogram, sizeof(infolog), \
 		NULL, infolog);
 		fprintf(stderr, "%s", infolog);
-		return (false);
+		return (mlx_error(MLX_SHDRFAIL));
 	}
 	i = 0;
 	while (shaders[i])
@@ -64,11 +64,11 @@ bool	mlx_compile_shader(const char *code, int32_t type, uint32_t *out)
 	char		infolog[512];
 
 	if (!code)
-		return (mlx_log(MLX_ERROR, MLX_NULL_ARG));
+		return (mlx_error(MLX_NULLARG));
 	len = strlen(code);
 	*out = glCreateShader(type);
 	if (!*out)
-		return (false);
+		return (mlx_error(MLX_SHDRFAIL));
 	glShaderSource(*out, 1, &code, &len);
 	glCompileShader(*out);
 	glGetShaderiv(*out, GL_COMPILE_STATUS, &success);
@@ -76,7 +76,7 @@ bool	mlx_compile_shader(const char *code, int32_t type, uint32_t *out)
 	{
 		glGetShaderInfoLog(*out, sizeof(infolog), NULL, infolog);
 		fprintf(stderr, "%s", infolog);
-		return (false);
+		return (mlx_error(MLX_SHDRFAIL));
 	}
 	return (true);
 }

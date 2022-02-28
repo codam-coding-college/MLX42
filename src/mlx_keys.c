@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 10:34:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/23 12:35:53 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param)
 	g_param_cb = param;
 	if (!func)
 	{
-		mlx_log(MLX_WARNING, MLX_NULL_ARG);
+		mlx_error(MLX_NULLARG);
 		return ;
 	}
 	((t_mlx_ctx *)mlx->context)->key_hook = func;

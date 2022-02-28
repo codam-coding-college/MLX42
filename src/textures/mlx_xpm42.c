@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/17 23:48:08 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/25 14:08:00 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,17 +147,17 @@ t_xpm	*mlx_load_xpm42(const char *path)
 
 	xpm = NULL;
 	if (!strstr(path, ".xpm42"))
-		return ((void *)mlx_log(MLX_ERROR, MLX_INVALID_FILE_EXT));
+		return ((void *)mlx_error(MLX_INVEXT));
 	file = fopen(path, "r");
 	if (!file)
-		return ((void *)mlx_log(MLX_ERROR, MLX_INVALID_FILE));
+		return ((void *)mlx_error(MLX_INVFILE));
 	xpm = calloc(1, sizeof(t_xpm));
 	if (!xpm)
-		return ((void *)mlx_log(MLX_ERROR, MLX_MEMORY_FAIL));
+		return ((void *)mlx_error(MLX_MEMFAIL));
 	if (!mlx_read_xpm_header(xpm, file))
 	{
 		mlx_freen(2, xpm->texture.pixels, xpm);
-		mlx_log(MLX_ERROR, MLX_XPM_FAILURE);
+		mlx_error(MLX_INVXPM);
 		xpm = NULL;
 	}
 	fclose(file);

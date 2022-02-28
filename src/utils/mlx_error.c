@@ -1,17 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mlx_log.c                                          :+:    :+:            */
+/*   mlx_error.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/09 10:12:07 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/25 15:47:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
-#include <stdarg.h>
+
+// English description of the error codes.
+static const char		*g_mlx_errors[] = {
+	"No Errors",
+	"File has invalid extension",
+	"Failed to open the file",
+	"PNG file is invalid or corrupted",
+	"XPM42 file is invalid or corrupted",
+	"Font atlas data is invalid",
+	"Texture area out of range",
+	"Parameter passed was NULL",
+	"Failed to compile shader",
+	"Failed to allocate memory",
+	"Failed to initialize GLAD",
+	"Failed to initialize GLFW",
+	"Failed to create window",
+	"Image size is too big",
+	"Texture is larger than image",
+};
 
 /**
  * This is what a 25 line limit does to people...
@@ -38,18 +56,18 @@ bool	mlx_freen(int32_t count, ...)
 }
 
 /**
- * Simple logging function.
+ * Functions to set the error number, simply for convenience.
  * 
- * @param msg The message to write.
- * @return Always false, for the sake of making it convenient. 
+ * @param val The error value.
+ * @return Always false 
  */
-bool	mlx_log(const t_logtype type, const char *msg)
+bool	mlx_error(t_mlx_errno val)
 {
-	if (type == MLX_INFO)
-		fprintf(stdout, "MLX42: Info: %s\n", msg);
-	else if (type == MLX_WARNING)
-		fprintf(stderr, "MLX42: Warning: %s\n", msg);
-	else if (type == MLX_ERROR)
-		fprintf(stderr, "MLX42: Error: %s\n", msg);
+	g_mlx_errno = val;
 	return (false);
+}
+
+const char	*mlx_strerror(t_mlx_errno val)
+{
+	return (g_mlx_errors[val]);
 }

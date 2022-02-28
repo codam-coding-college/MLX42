@@ -33,25 +33,14 @@
 #  include <limits.h>
 # endif
 # if defined(_WIN32)
-#  include <malloc.h>
+#  include <malloc.h> /* alloca */
 # endif
-# include <ctype.h>
-# include <string.h>
-# include <stdarg.h>
+# include <ctype.h> /* isspace, isprint, ... */
+# include <string.h> /* strlen, memmove, ... */
+# include <stdarg.h> /* va_arg, va_end, ... */
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
-# define MLX_INVALID_FILE_EXT "Invalid file extension!"
-# define MLX_INVALID_FILE "Failed to read file!"
-# define MLX_INVALID_ARG "Invalid argument provided!"
-# define MLX_NULL_ARG "NULL argument exception!"
-# define MLX_SHADER_FAILURE "Shader failure!"
-# define MLX_RENDER_FAILURE "Failed to initialize Renderer!"
-# define MLX_MEMORY_FAIL "Failed to allocate enough memory!"
-# define MLX_XPM_FAILURE "Failed to read XPM42 file!"
-# define GLFW_INIT_FAILURE "Failed to initialize GLFW!"
-# define GLFW_WIN_FAILURE "Failed to create GLFW Window!"
-# define GLFW_GLAD_FAILURE "Failed to initialize GLAD!"
 // TODO: Switch to error codes instead.
 
 /**
@@ -72,20 +61,6 @@ extern const char	*g_vert_shader;
 extern const char	*g_frag_shader;
 
 //= Types =//
-
-/**
- * Various log types to give different verbose types of feedback.
- * 
- * @param MLX_INFO Info is for simple feedback
- * @param MLX_WARNING Something happened that shouldn't have.
- * @param MLX_INFO Critical error.
- */
-typedef enum e_logtype
-{
-	MLX_INFO,
-	MLX_WARNING,
-	MLX_ERROR,
-}	t_logtype;
 
 // A single vertex, identical to the layout in the shader.
 typedef struct s_vert
@@ -165,7 +140,7 @@ t_xpm *xpm, size_t s);
 
 //= Error/log Handling Functions =//
 
-bool		mlx_log(const t_logtype type, const char *msg);
+bool		mlx_error(t_mlx_errno val);
 bool		mlx_freen(int32_t count, ...);
 
 //= IO Functions =//

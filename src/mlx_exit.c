@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 23:54:50 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/02/23 12:28:39 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mlx_close_window(t_mlx *mlx)
 {
 	if (!mlx)
 	{
-		mlx_log(MLX_WARNING, MLX_NULL_ARG);
+		mlx_error(MLX_NULLARG);
 		return ;
 	}
 	glfwSetWindowShouldClose(mlx->window, true);
@@ -40,7 +40,7 @@ void	mlx_terminate(t_mlx *mlx)
 
 	if (!mlx)
 	{
-		mlx_log(MLX_WARNING, MLX_NULL_ARG);
+		mlx_error(MLX_NULLARG);
 		return ;
 	}
 	if (!glfwWindowShouldClose(mlx->window))

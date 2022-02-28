@@ -140,10 +140,32 @@ typedef struct s_mlx
 	double		delta_time;
 }	t_mlx;
 
-// This is the dam that keeps norme back.
 // Simple texture typedef to shorten type name for norme...
 typedef t_mlx_texture	t_mlx_tex;
 typedef t_mlx_instance	t_mlx_inst;
+
+// The error codes used to idenfity the correct error message.
+typedef enum e_mlx_errno
+{
+	MLX_SUCCESS = 0,
+	MLX_INVEXT,
+	MLX_INVFILE,
+	MLX_INVPNG,
+	MLX_INVXPM,
+	MLX_INVFONT,
+	MLX_INVAREA,
+	MLX_NULLARG,
+	MLX_SHDRFAIL,
+	MLX_MEMFAIL,
+	MLX_GLADFAIL,
+	MLX_GLFWFAIL,
+	MLX_WINFAIL,
+	MLX_IMGTOBIG,
+	MLX_TEXTOBIG,
+}	t_mlx_errno;
+
+// Global error code from the MLX42 library, 0 on no error.
+t_mlx_errno				g_mlx_errno;
 
 /**
  * Callback function used to handle scrolling.
@@ -152,7 +174,7 @@ typedef t_mlx_instance	t_mlx_inst;
  * @param[in] y The mouse y delta.
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*			t_mlx_scrollfunc)(double xdelta, double ydelta, \
+typedef void (			*t_mlx_scrollfunc)(double xdelta, double ydelta, \
 void *param);
 
 /**
@@ -161,7 +183,7 @@ void *param);
  * @param[in] keydata The callback data, contains info on key, actinon, ...
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*			t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);
+typedef void (			*t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);
 
 /**
  * Callback function used to handle window resizing.
@@ -170,7 +192,7 @@ typedef void (*			t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);
  * @param[in] height The new height of the window. 
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*			t_mlx_resizefunc)(int32_t width, int32_t height, \
+typedef void (			*t_mlx_resizefunc)(int32_t width, int32_t height, \
 void *param);
 
 /**
@@ -181,6 +203,16 @@ void *param);
  * @param[in] param Additional parameter to pass onto the function.
  */
 typedef void (*			t_mlx_closefunc)(void *param);
+
+//= Error Functions =//
+
+/**
+ * Gets the english description of the error code.
+ * 
+ * @param val The error code.
+ * @return The error string that describes the error code.
+ */
+const char	*mlx_strerror(t_mlx_errno val);
 
 //= Generic Functions =//
 
@@ -258,7 +290,7 @@ void		mlx_focus(t_mlx *mlx);
  * @param[in] height The height of the window.
  */
 void		mlx_get_monitor_size(int32_t index, int32_t *width, \
-int32_t *height);
+		int32_t *height);
 
 /**
  * Sets the windows position.
@@ -290,7 +322,7 @@ void		mlx_get_window_pos(t_mlx *mlx, int32_t *xpos, int32_t *ypos);
  * @param new_height The new desired height.
  */
 void		mlx_set_window_size(t_mlx *mlx, int32_t new_width, \
-int32_t new_height);
+		int32_t new_height);
 
 /**
  * Sets a desired min and max window width and height.
@@ -302,7 +334,7 @@ int32_t new_height);
  * @param max_wh The max width and height values.
  */
 void		mlx_set_window_limit(t_mlx *mlx, int32_t min_wh[2], \
-int32_t max_wh[2]);
+		int32_t max_wh[2]);
 
 //= Cursor/Mouse Functions =//
 
@@ -489,7 +521,7 @@ t_mlx_image	*mlx_texture_to_image(t_mlx *mlx, t_mlx_texture *texture);
  * @return t_mlx_image* 
  */
 t_mlx_image	*mlx_texture_area_to_image(t_mlx *mlx, t_mlx_texture *texture, \
-int32_t xy[2], uint32_t wh[2]);
+		int32_t xy[2], uint32_t wh[2]);
 
 /**
  * Draws the texture on an already existing image.
@@ -501,7 +533,7 @@ int32_t xy[2], uint32_t wh[2]);
  * @return In-case of any issues, false else true.
  */
 bool		mlx_draw_texture(t_mlx_image *image, t_mlx_texture *texture, \
-int32_t x, int32_t y);
+		int32_t x, int32_t y);
 
 //= Image Functions =//
 
@@ -517,7 +549,7 @@ int32_t x, int32_t y);
  * @param[in] color The RGBA8 Color value.
  */
 void		mlx_putpixel(t_mlx_image *image, int32_t x, \
-int32_t y, uint32_t color);
+		int32_t y, uint32_t color);
 
 /**
  * Creates and allocates a new image buffer.
@@ -543,7 +575,7 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height);
  * @return Pointer to the newly created instance or NULL on failure.
  */
 t_mlx_inst	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
-int32_t y);
+		int32_t y);
 
 /**
  * Deleting an image will remove it from the render queue as well as any and all
@@ -565,10 +597,10 @@ void		mlx_delete_image(t_mlx *mlx, t_mlx_image *image);
  * @param[in] img The image to resize.
  * @param[in] nwidth The new width.
  * @param[in] nheight The new height.
- * @return True if image was resize or false on error
+ * @return True if image was resize or false on error.
  */
 bool		mlx_resize_image(t_mlx_image *img, uint32_t nwidth, \
-uint32_t nheight);
+		uint32_t nheight);
 
 //= String Functions =//
 

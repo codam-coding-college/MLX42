@@ -17,14 +17,14 @@ bool	mlx_resize_image(t_mlx_image *img, uint32_t nwidth, uint32_t nheight)
 	uint8_t			*tempbuff;
 
 	if (!img)
-		return (mlx_log(MLX_WARNING, MLX_NULL_ARG));
+		return (mlx_error(MLX_NULLARG));
 	if (nwidth > INT16_MAX || nheight > INT16_MAX)
-		return (mlx_log(MLX_WARNING, "New size is too big!"));
+		return (mlx_error(MLX_IMGTOBIG));
 	if (nwidth != img->width || nheight != img->height)
 	{
 		tempbuff = realloc(img->pixels, (nwidth * nheight) * sizeof(int32_t));
 		if (!tempbuff)
-			return (false);
+			return (mlx_error(MLX_MEMFAIL));
 		img->pixels = tempbuff;
 		(*(uint32_t *)&img->width) = nwidth;
 		(*(uint32_t *)&img->height) = nheight;
