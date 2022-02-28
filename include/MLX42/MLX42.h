@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/22 20:58:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/28 15:46:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -533,6 +533,9 @@ t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height);
  * Draws a new instance of an image, it will then share the same
  * pixel buffer as the image.
  * 
+ * WARNING: Try to display as few images onto the window as possible,
+ * drawing too many images will cause a loss in peformance!
+ * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] img The image to draw onto the screen.
  * @param[in] x The X position.
@@ -570,13 +573,14 @@ uint32_t nheight);
 //= String Functions =//
 
 /**
- * Draws a string onto the screen.
+ * Draws a string onto an image and then outputs it onto the window.
  * 
  * @param mlx The MLX instance handle.
  * @param str The string to draw.
  * @param x The X location.
  * @param y The Y location.
+ * @return Image ptr to the string.
  */
-void		mlx_put_string(t_mlx *mlx, char *str, int32_t x, int32_t y);
+t_mlx_image	*mlx_put_string(t_mlx *mlx, const char *str, int32_t x, int32_t y);
 
 #endif

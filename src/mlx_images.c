@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/27 21:06:47 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/02/28 18:52:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,19 +107,17 @@ void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
 	t_mlx_list		*quelst;
 	t_mlx_ctx		*mlxctx;
 
+	if (!mlx)
+		return ;
 	mlxctx = mlx->context;
 	imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
+	quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
+	if (quelst)
+		mlx_freen(2, quelst->content, quelst);
 	if (imglst)
 	{
 		glDeleteTextures(1, &((t_mlx_image_ctx *)image->context)->texture);
-		mlx_freen(3, image->pixels, image->instances, image->context);
-		free(imglst);
+		mlx_freen(4, image->pixels, image->instances, image->context, imglst);
+		free(image);
 	}
-	quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
-	if (quelst)
-	{
-		free(quelst->content);
-		free(quelst);
-	}
-	free(image);
 }
