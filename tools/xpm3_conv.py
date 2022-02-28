@@ -6,7 +6,7 @@
 #    By: pvan-dij <pvan-dij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/09 21:04:31 by pvan-dij      #+#    #+#                  #
-#    Updated: 2022/02/10 19:06:54 by w2wizard      ########   odam.nl          #
+#    Updated: 2022/02/23 16:48:19 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -793,7 +793,7 @@ def main():
 		temp = l[1:-3] + "FF" + "\n"
 		out = temp[:cpp]
 		out = out + temp[(cpp+2):]
-		if "#" not in out:
+		if "#" not in out[2:]:
 			repcol = out[cpp+1:]
 			temp = repcol[:-3].lower()
 			repcol = colours[repcol[:-3].lower()]

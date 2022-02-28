@@ -53,7 +53,7 @@ In the very end a library is generated, compile your program with this library!
 ➜  ~ git clone https://github.com/W2Codam/MLX42.git
 ```
 
-### Via Homebrew / Homebrew42 by building from source.
+### Via [Homebrew](https://brew.sh/) / [Homebrew42](https://github.com/kube/42homebrew) by building from source.
 
 2. Install GLFW
 ```bash
@@ -175,8 +175,6 @@ The systems below have not been tested yet.
  - `make install`
 
 13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to `C:\MinGW\include` & copy the .a file in the lib folder to `C:\MinGW\lib`.
-
-#### NOTE: As of now the build script for windows does not exist, compile by adding every c file manually.
 
 14. Compile your program with these flags:
  - `-lglfw3`

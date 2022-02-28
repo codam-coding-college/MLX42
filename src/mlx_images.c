@@ -6,64 +6,40 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/25 14:16:52 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/28 18:52:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-// Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
-static void	mlx_render_texture(t_mlx *mlx, t_mlx_image *img, uint8_t *pixels, \
-t_vert *vertices)
-{
-	t_mlx_ctx		*mlxctx;
-	const int32_t	w = img->width;
-	const int32_t	h = img->height;
-	const float		matrix[16] = {
-		2.f / mlx->width, 0, 0, 0,
-		0, 2. / -mlx->height, 0, 0,
-		0, 0, -2. / (1000. - -1000.), 0,
-		-1, -(mlx->height / -mlx->height),
-		-((1000. + -1000.) / (1000. - -1000.)), 1
-	};
-
-	mlxctx = mlx->context;
-	glUseProgram(mlxctx->shaderprogram);
-	glUniformMatrix4fv(glGetUniformLocation(mlxctx->shaderprogram, \
-	"ProjMatrix"), 1, GL_FALSE, matrix);
-	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "OutTexture"), 0);
-	glBindVertexArray(mlxctx->vao);
-	glBindBuffer(GL_ARRAY_BUFFER, mlxctx->vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, \
-	GL_STATIC_DRAW);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, \
-	GL_UNSIGNED_BYTE, pixels);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-}
-
 /**
  * Internal function to draw a single instance of an image
- * to the screen.
+ * to the screen. Returns if window is 1 x 1 big or 0.
+ * 
+ * ISSUE: The draw calls are killing your GPU!
  */
-void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \
-t_mlx_instance *instance)
+void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, t_mlx_inst *instance)
 {
-	t_mlx_image_ctx	*imgctx;
+	t_vert			vertices[6];
 	const int32_t	w = img->width;
 	const int32_t	h = img->height;	
 	const int32_t	x = instance->x;
 	const int32_t	y = instance->y;
 
-	imgctx = img->context;
-	imgctx->vertices[0] = (t_vert){x, y, instance->z, 0.f, 0.f};
-	imgctx->vertices[1] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
-	imgctx->vertices[2] = (t_vert){x + w, y, instance->z, 1.f, 0.f};
-	imgctx->vertices[3] = (t_vert){x, y, instance->z, 0.f, 0.f};
-	imgctx->vertices[4] = (t_vert){x, y + h, instance->z, 0.f, 1.f};
-	imgctx->vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-	mlx_render_texture(mlx, img, img->pixels, imgctx->vertices);
+	if (mlx->width <= 1 || mlx->height <= 1)
+		return ;
+	vertices[0] = (t_vert){x, y, instance->z, 0.f, 0.f};
+	vertices[1] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
+	vertices[2] = (t_vert){x + w, y, instance->z, 1.f, 0.f};
+	vertices[3] = (t_vert){x, y, instance->z, 0.f, 0.f};
+	vertices[4] = (t_vert){x, y + h, instance->z, 0.f, 1.f};
+	vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
+	glBindTexture(GL_TEXTURE_2D, ((t_mlx_image_ctx *)img->context)->texture);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, \
+	GL_STATIC_DRAW);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, w, h, GL_RGBA, \
+	GL_UNSIGNED_BYTE, img->pixels);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 //= Exposed =//
@@ -134,19 +110,17 @@ void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
 	t_mlx_list		*quelst;
 	t_mlx_ctx		*mlxctx;
 
+	if (!mlx)
+		return ;
 	mlxctx = mlx->context;
 	imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
+	quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
+	if (quelst)
+		mlx_freen(2, quelst->content, quelst);
 	if (imglst)
 	{
 		glDeleteTextures(1, &((t_mlx_image_ctx *)image->context)->texture);
-		mlx_freen(3, image->pixels, image->instances, image->context);
-		free(imglst);
+		mlx_freen(4, image->pixels, image->instances, image->context, imglst);
+		free(image);
 	}
-	quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
-	if (quelst)
-	{
-		free(quelst->content);
-		free(quelst);
-	}
-	free(image);
 }

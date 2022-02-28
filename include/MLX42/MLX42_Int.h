@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 16:18:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/02/27 19:54:56 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ typedef struct s_mlx_ctx
 // Additional OpenGL information for images/textures.
 typedef struct s_mlx_image_ctx
 {
-	t_vert	vertices[6];
 	GLuint	texture;
 }	t_mlx_image_ctx;
 
@@ -150,6 +149,7 @@ char		*mlx_readfile(const char *FilePath);
 
 //= OpenGL Functions =//
 
+void		mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height);
 bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
 bool		mlx_compile_shader(const char *code, int32_t type, uint32_t *out);
 void		mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, \
