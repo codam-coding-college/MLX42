@@ -15,10 +15,12 @@
     </div>
 </div>
 
-My own recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL 3.3.
+My own recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL.
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 For information and documentation about MLX42 check the wiki.
+
+## NOTE: As of now NORME is being removed from MLX42 due it encouraging bad practices and making the code poorly maintainable.
 
 ## Differences to MiniLibX
 
@@ -26,18 +28,12 @@ For information and documentation about MLX42 check the wiki.
 The main idea of MLX42 is to be a cross-platform graphics interface. In 42 everything runs (currently) on MacOS, but it's
 very useful to be able to work remotely on different machines. With MiniLibX this is not possible.
 
-#### Norme Proof
-MLX42 will always adhere fully to the latest norme, if 42 creates a norme, it should also use it. 
-
 #### Documented
 Almost all functions and types are fully documented giving you a clue as to how to approach and use the library.
 No more guessing and searching how something functions or is supposed to work.
 
 #### Custom XPM (XPM42) format
 A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
-
-#### Up-to-date with latest OpenGL
-MLX42 will try to always maintain and use the latest and stable version of OpenGL available.
 
 #### Almost identical usage to MiniLibX
 Switching to MLX42 from MiniLibX is not a lot of work, most features present in MiniLibX are also present in MLX42, albeit with different prototypes.
