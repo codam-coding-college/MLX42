@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 11:28:03 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 22:37:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param c The char to find.
  * @return Non-negative if found or -1 if not found.
  */
-static int32_t	mlx_get_texoffset(char c)
+static int32_t mlx_get_texoffset(char c)
 {
 	const bool	_isprint = isprint(c);
 
@@ -39,17 +39,16 @@ static int32_t	mlx_get_texoffset(char c)
  * @param texoffset The character texture X offset.
  * @param imgoffset The image X offset.
  */
-static void	mlx_draw_font(t_mlx_image *image, const t_mlx_texture *texture, \
-int32_t texoffset, int32_t imgoffset)
+static void mlx_draw_font(mlx_image_t* image, const mlx_texture_t* texture, int32_t texoffset, int32_t imgoffset)
 {
-	uint32_t		y;
-	uint8_t			*pixelx;
-	uint8_t			*pixeli;
-	const uint32_t	bpp = texture->bytes_per_pixel;
+	uint32_t y = 0;
+	uint8_t* pixelx = NULL;
+	uint8_t* pixeli = NULL;
+	const uint32_t bpp = texture->bytes_per_pixel;
 
-	y = 0;
 	if (texoffset < 0)
-		return ;
+		return;
+
 	while (y < FONT_HEIGHT)
 	{
 		pixelx = texture->pixels + ((y * texture->width + texoffset) * bpp);
@@ -65,19 +64,19 @@ int32_t texoffset, int32_t imgoffset)
  * @param str The string to draw.
  * @param image The target image.
  */
-static void	mlx_draw_text(const char *str, t_mlx_image *image)
+static void	mlx_draw_text(const char* str, mlx_image_t* image)
 {
-	size_t				i;
-	int32_t				imgoffset;
-	const t_mlx_tex		atlas = {
+	size_t i = 0;
+	int32_t imgoffset = 0;
+
+	// We need to 'convert' it from one struct to another.
+	const mlx_texture_t atlas = {
 		font_atlas.width,
 		font_atlas.height,
 		font_atlas.bpp,
 		font_atlas.pixels,
 	};
 
-	i = 0;
-	imgoffset = 0;
 	while (str[i])
 	{
 		mlx_draw_font(image, &atlas, mlx_get_texoffset(str[i++]), imgoffset);
@@ -85,14 +84,13 @@ static void	mlx_draw_text(const char *str, t_mlx_image *image)
 	}
 }
 
-t_mlx_image	*mlx_put_string(t_mlx *mlx, const char *str, int32_t x, int32_t y)
+mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 {
-	t_mlx_image	*strimage;
+	mlx_image_t* strimage;
 
 	if (!mlx || !str)
-		return (NULL);
-	strimage = mlx_new_image(mlx, strlen(str) * FONT_WIDTH, FONT_HEIGHT);
-	if (!strimage)
+		return (mlx_error(MLX_NULLARG));
+	if (!(strimage = mlx_new_image(mlx, strlen(str) * FONT_WIDTH, FONT_HEIGHT)))
 		return (NULL);
 	mlx_draw_text(str, strimage);
 	if (!mlx_image_to_window(mlx, strimage, x, y))
