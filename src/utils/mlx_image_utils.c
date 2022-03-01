@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 07:52:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/27 21:03:10 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/03/01 12:34:36 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ static void	mlx_update_matrix(const t_mlx *mlx, int32_t width, int32_t height)
 void	mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height)
 {
 	const t_mlx		*mlx = glfwGetWindowUserPointer(window);
+	const t_mlx_ctx	*mlxctx = mlx->context;
 
+	printf("This is the REAL daniel!\n");
+	if (mlxctx->resize_hook.func)
+		mlxctx->resize_hook.func(width, height, mlxctx->resize_hook.param);
 	if (width > 1 || height > 1)
 		mlx_update_matrix(mlx, width, height);
 }

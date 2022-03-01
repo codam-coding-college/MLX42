@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/27 19:54:56 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/03/01 12:40:51 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
-// TODO: Switch to error codes instead.
 
 /**
  * The shader code is extracted from the shader files
@@ -72,13 +71,6 @@ typedef struct s_vert
 	float	v;
 }	t_vert;
 
-// Hook layout used to add generic loop hooks.
-typedef struct s_mlx_hook
-{
-	void	*param;
-	void	(*func)(void*);
-}	t_mlx_hook;
-
 // Layout for linked list.
 typedef struct s_mlx_list
 {
@@ -87,14 +79,75 @@ typedef struct s_mlx_list
 	struct s_mlx_list	*prev;
 }	t_mlx_list;
 
-// To maintain the drawing order we add every instance to a queue.
-typedef struct s_draw_queue
-{
-	t_mlx_image	*image;
-	int32_t		instanceid;
-}	t_draw_queue;
+//= Hook structs =//
+/**
+ * There are 2 types of hooks, special and generics.
+ * 
+ * Specials: Are specific callback functions to a specific action
+ * such as window resizing or key presses. These are attached to the
+ * callbacks of glfw. In case MLX itself needs the callback we call
+ * the specials in that callback since there can only ever be a single
+ * callback.
+ * 
+ * Generics: Generics are MLX42 specific hooks and can have multiple
+ * hooks at the same time, these are executed every frame and get be
+ * used as an alternative for key presses or animations for instance.
+ * 
+ * NOTE: Hooks could be achieved with va_args to have any amount
+ * of args sized functor but we can't/don't want to let the user
+ * deal with va_args and having to look up what args are what, etc...
+ * 
+ * We want to keep it straight forward with functors already describing
+ * what params they have.
+ */
 
-// MLX Instance handle context used for OpenGL stuff.
+typedef struct s_mlx_scoll
+{
+	void				*param;
+	t_mlx_scrollfunc	func;
+}	t_mlx_scroll;
+
+typedef struct s_mlx_close
+{
+	void				*param;
+	t_mlx_closefunc		func;
+}	t_mlx_close;
+
+typedef struct s_mlx_resize
+{
+	void				*param;
+	t_mlx_resizefunc	func;
+}	t_mlx_resize;
+
+typedef struct s_mlx_key
+{
+	void				*param;
+	t_mlx_keyfunc		func;
+}	t_mlx_key;
+
+typedef struct s_mlx_hook
+{
+	void	*param;
+	void	(*func)(void*);
+}	t_mlx_hook;
+
+//= Rendering =//
+/**
+ * For rendering we need to store most of OpenGLs stuff
+ * such as the vertex array object, vertex buffer object &
+ * the shader program. As well as hooks and the zdepth level.
+ * 
+ * Additionally we represent draw calls with a linked list
+ * queue that point to the image and the index of which instance.
+ * Again, instances only carry xyz data so coupled with the image it
+ * lets us know which image and where to draw a copy.
+ * 
+ * Texture contexts are kept in a struct purely for convience of
+ * expanding the variables in potential later updates. As well as
+ * having had more variables before now just one.
+ */
+
+// MLX instance context.
 typedef struct s_mlx_ctx
 {
 	GLuint				vao;
@@ -103,19 +156,31 @@ typedef struct s_mlx_ctx
 	t_mlx_list			*hooks;
 	t_mlx_list			*images;
 	t_mlx_list			*render_queue;
-	t_mlx_scrollfunc	scroll_hook;
-	t_mlx_keyfunc		key_hook;
-	t_mlx_resizefunc	resize_hook;
-	t_mlx_closefunc		close_hook;
-	t_mlx_image			*char_images[94];
+	t_mlx_scroll		scroll_hook;
+	t_mlx_key			key_hook;
+	t_mlx_resize		resize_hook;
+	t_mlx_close			close_hook;
 	int32_t				zdepth;
 }	t_mlx_ctx;
 
-// Additional OpenGL information for images/textures.
+// Draw call queue entry.
+typedef struct s_draw_queue
+{
+	t_mlx_image	*image;
+	int32_t		instanceid;
+}	t_draw_queue;
+
+// Image context.
 typedef struct s_mlx_image_ctx
 {
 	GLuint	texture;
 }	t_mlx_image_ctx;
+
+//= Functions =//
+/**
+ * All sorts of internal functions shared in the library that
+ * should not be accessible to the user! No touch!
+ */
 
 //= Linked List Functions =//
 
@@ -130,9 +195,9 @@ bool (*comp)(void *, void*));
 
 //= Misc functions =//
 
+void		mlx_xpm_putpixel(t_xpm *xpm, int32_t x, int32_t y, uint32_t color);
 bool		mlx_equal_image(void *lstcontent, void *value);
 bool		mlx_equal_inst(void *lstcontent, void *value);
-void		mlx_xpm_putpixel(t_xpm *xpm, int32_t x, int32_t y, uint32_t color);
 bool		mlx_insert_xpm_entry(t_xpm *xpm, char *line, uint32_t *ctable, \
 size_t s);
 uint32_t	mlx_grab_xpm_pixel(char *pixelstart, uint32_t *ctable, \
@@ -142,10 +207,6 @@ t_xpm *xpm, size_t s);
 
 bool		mlx_error(t_mlx_errno val);
 bool		mlx_freen(int32_t count, ...);
-
-//= IO Functions =//
-
-char		*mlx_readfile(const char *FilePath);
 
 //= OpenGL Functions =//
 

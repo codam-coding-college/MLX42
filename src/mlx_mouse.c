@@ -6,31 +6,32 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 12:36:43 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 12:31:34 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-static void	*g_param_cb = NULL;
-
 static void	mlx_scroll_cb(GLFWwindow *window, double xoffset, double yoffset)
 {
-	const t_mlx				*mlx = glfwGetWindowUserPointer(window);
-	const t_mlx_scrollfunc	hook = ((t_mlx_ctx *)mlx->context)->scroll_hook;
+	const t_mlx			*mlx = glfwGetWindowUserPointer(window);
+	const t_mlx_scroll	scroll_hook = ((t_mlx_ctx *)mlx->context)->scroll_hook;
 
-	hook(xoffset, yoffset, g_param_cb);
+	scroll_hook.func(xoffset, yoffset, scroll_hook.param);
 }
 
 void	mlx_scroll_hook(t_mlx *mlx, t_mlx_scrollfunc func, void *param)
 {
-	g_param_cb = param;
-	if (!func)
+	t_mlx_ctx	*mlxctx;
+
+	if (!mlx || !func)
 	{
 		mlx_error(MLX_NULLARG);
 		return ;
 	}
-	((t_mlx_ctx *)mlx->context)->scroll_hook = func;
+	mlxctx = mlx->context;
+	mlxctx->scroll_hook.func = func;
+	mlxctx->scroll_hook.param = param;
 	glfwSetScrollCallback(mlx->window, mlx_scroll_cb);
 }
 

@@ -6,13 +6,11 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 12:35:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 12:30:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
-
-static void	*g_param_cb = NULL;
 
 // Wtf is this ... God has abandoned us!??
 void	mlx_key_callback(GLFWwindow *window, ...)
@@ -20,26 +18,31 @@ void	mlx_key_callback(GLFWwindow *window, ...)
 	va_list				args;
 	t_mlx_key_cbdata	callback_data;
 	const t_mlx			*mlx = glfwGetWindowUserPointer(window);
-	const t_mlx_keyfunc	hook = ((t_mlx_ctx *)mlx->context)->key_hook;
+	const t_mlx_key		key_hook = ((t_mlx_ctx *)mlx->context)->key_hook;
 
 	va_start(args, window);
-	callback_data.key = va_arg(args, int32_t);
-	callback_data.os_key = va_arg(args, int32_t);
-	callback_data.action = va_arg(args, int32_t);
-	callback_data.modifier = va_arg(args, int32_t);
-	hook(callback_data, g_param_cb);
+	callback_data = (t_mlx_key_cbdata){
+		va_arg(args, int32_t),
+		va_arg(args, int32_t),
+		va_arg(args, int32_t),
+		va_arg(args, int32_t),
+	};
+	key_hook.func(callback_data, key_hook.param);
 	va_end(args);
 }
 
 void	mlx_key_hook(t_mlx *mlx, t_mlx_keyfunc func, void *param)
 {
-	g_param_cb = param;
-	if (!func)
+	t_mlx_ctx	*mlxctx;
+
+	if (!mlx || !func)
 	{
 		mlx_error(MLX_NULLARG);
 		return ;
 	}
-	((t_mlx_ctx *)mlx->context)->key_hook = func;
+	mlxctx = mlx->context;
+	mlxctx->key_hook.func = func;
+	mlxctx->key_hook.param = param;
 	glfwSetKeyCallback(mlx->window, (GLFWkeyfun)mlx_key_callback);
 }
 

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 12:36:36 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 10:44:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ static void	mlx_render_images(t_mlx *mlx)
 		}
 		render_queue = render_queue->next;
 	}
-}
-
-int32_t	mlx_get_time(void)
-{
-	return (glfwGetTime());
 }
 
 // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

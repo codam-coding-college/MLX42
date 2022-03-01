@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/28 15:46:12 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 12:38:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_xpm
 	char			mode;
 }	t_xpm;
 
-// TODO: MAJOR problem here transparency breaks on z layer change.
+// BUG: Transparency breaks on z layer change, need to sort draw calls.
 /**
  * An image instance can be summarized as just a simple
  * x, y & z coordinate.

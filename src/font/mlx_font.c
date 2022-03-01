@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/28 15:26:31 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 11:28:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int32_t	mlx_get_texoffset(char c)
 {
 	const bool	_isprint = isprint(c);
 
-	return (-1 * (!_isprint) + ((FONT_WIDTH + 2) * (c - 32)) * (_isprint));
+	return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
 }
 
 /**
