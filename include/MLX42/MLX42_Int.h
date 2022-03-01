@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 22:07:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 00:32:30 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,26 +100,26 @@ typedef struct mlx_list
 
 typedef struct mlx_srcoll
 {
-	void*				param;
-	mlx_scrollfunc_t	func;
+	void*			param;
+	mlx_scrollfunc	func;
 }	mlx_scroll_t;
 
 typedef struct s_mlx_close
 {
-	void*				param;
-	mlx_closefunc_t		func;
+	void*			param;
+	mlx_closefunc	func;
 }	mlx_close_t;
 
 typedef struct mlx_resize
 {
-	void*				param;
-	mlx_resizefunc_t	func;
+	void*			param;
+	mlx_resizefunc	func;
 }	mlx_resize_t;
 
 typedef struct mlx_key
 {
-	void*				param;
-	mlx_keyfunc_t		func;
+	void*			param;
+	mlx_keyfunc		func;
 }	mlx_key_t;
 
 typedef struct mlx_hook
@@ -153,10 +153,10 @@ typedef struct mlx_ctx
 	mlx_list_t*		hooks;
 	mlx_list_t*		images;
 	mlx_list_t*		render_queue;
-	t_mlx_scroll	scroll_hook;
-	t_mlx_key		key_hook;
-	t_mlx_resize	resize_hook;
-	t_mlx_close		close_hook;
+	mlx_scroll_t	scroll_hook;
+	mlx_key_t		key_hook;
+	mlx_resize_t	resize_hook;
+	mlx_close_t		close_hook;
 	int32_t			zdepth;
 }	mlx_ctx_t;
 
@@ -181,38 +181,35 @@ typedef struct mlx_image_ctx
 
 //= Linked List Functions =//
 
-mlx_list_t*	mlx_lstnew(void* content);
-mlx_list_t*	mlx_lstlast(mlx_list_t* lst);
-int32_t		mlx_lstsize(mlx_list_t* lst);
-void		mlx_lstclear(mlx_list_t** lst, void (*del)(void*));
-void		mlx_lstadd_back(mlx_list_t** lst, mlx_list_t* new);
-void		mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new);
-mlx_list_t*	mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, void*));
+mlx_list_t* mlx_lstnew(void* content);
+mlx_list_t* mlx_lstlast(mlx_list_t* lst);
+int32_t mlx_lstsize(mlx_list_t* lst);
+void mlx_lstclear(mlx_list_t** lst, void (*del)(void*));
+void mlx_lstadd_back(mlx_list_t** lst, mlx_list_t* new);
+void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new);
+mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, void*));
 
 //= Misc functions =//
 
-void		mlx_xpm_putpixel(xpm_t* xpm, int32_t x, int32_t y, uint32_t color);
-bool		mlx_equal_image(void* lstcontent, void* value);
-bool		mlx_equal_inst(void* lstcontent, void* value);
-bool		mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_t s);
-uint32_t	mlx_grab_xpm_pixel(char* pixelstart, uint32_t* ctable, xpm_t* xpm, size_t s);
+void mlx_xpm_putpixel(xpm_t* xpm, int32_t x, int32_t y, uint32_t color);
+bool mlx_equal_image(void* lstcontent, void* value);
+bool mlx_equal_inst(void* lstcontent, void* value);
 
 //= Error/log Handling Functions =//
 
-bool		mlx_error(mlx_errno_t val);
-bool		mlx_freen(int32_t count, ...);
+bool mlx_error(mlx_errno_t val);
+bool mlx_freen(int32_t count, ...);
 
 //= OpenGL Functions =//
 
-void		mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height);
-bool		mlx_init_shaders(mlx_t* mlx, uint32_t* shaders);
-bool		mlx_compile_shader(const char* code, int32_t type, uint32_t* out);
-void		mlx_draw_instance(t_mlx_image* img, t_mlx_inst* instance);
+void mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height);
+bool mlx_init_shaders(mlx_t* mlx, uint32_t* shaders);
+bool mlx_compile_shader(const char* code, int32_t type, uint32_t* out);
+void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance);
 
 // Utils Functions =//
 
-int32_t		mlx_rgba_to_mono(int32_t color);
-int32_t		mlx_atoi_base(const char* str, int32_t base);
-uint64_t	mlx_fnv_hash(char* str, size_t len);
-bool		mlx_parse_font_atlas(mlx_t* mlx);
+int32_t mlx_rgba_to_mono(int32_t color);
+int32_t mlx_atoi_base(const char* str, int32_t base);
+uint64_t mlx_fnv_hash(char* str, size_t len);
 #endif
