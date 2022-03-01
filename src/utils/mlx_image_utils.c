@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/19 07:52:41 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/03/01 12:34:36 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 12:48:09 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height)
 	const t_mlx		*mlx = glfwGetWindowUserPointer(window);
 	const t_mlx_ctx	*mlxctx = mlx->context;
 
-	printf("This is the REAL daniel!\n");
 	if (mlxctx->resize_hook.func)
 		mlxctx->resize_hook.func(width, height, mlxctx->resize_hook.param);
 	if (width > 1 || height > 1)
