@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 17:55:09 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 22:07:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include "KHR/khrplatform.h"
 # if defined(__APPLE__)
 #  define GL_SILENCE_DEPRECATION
-#  define IS_APPLE 1
-# else
-#  define IS_APPLE 0
 # endif
 # include <GLFW/glfw3.h>
 # include <stdlib.h>
@@ -56,28 +53,28 @@
  * See: https://bit.ly/3LJYG0r
  */
 
-extern const char	*g_vert_shader;
-extern const char	*g_frag_shader;
+extern const char* vert_shader;
+extern const char* frag_shader;
 
 //= Types =//
 
 // A single vertex, identical to the layout in the shader.
-typedef struct s_vert
+typedef struct vertex
 {
 	float	x;
 	float	y;
 	float	z;
 	float	u;
 	float	v;
-}	t_vert;
+}	vertex_t;
 
 // Layout for linked list.
-typedef struct s_mlx_list
+typedef struct mlx_list
 {
-	void				*content;
-	struct s_mlx_list	*next;
-	struct s_mlx_list	*prev;
-}	t_mlx_list;
+	void*				content;
+	struct mlx_list*	next;
+	struct mlx_list*	prev;
+}	mlx_list_t;
 
 //= Hook structs =//
 /**
@@ -101,35 +98,35 @@ typedef struct s_mlx_list
  * what params they have.
  */
 
-typedef struct s_mlx_srcoll
+typedef struct mlx_srcoll
 {
-	void				*param;
-	t_mlx_scrollfunc	func;
-}	t_mlx_scroll;
+	void*				param;
+	mlx_scrollfunc_t	func;
+}	mlx_scroll_t;
 
 typedef struct s_mlx_close
 {
-	void				*param;
-	t_mlx_closefunc		func;
-}	t_mlx_close;
+	void*				param;
+	mlx_closefunc_t		func;
+}	mlx_close_t;
 
-typedef struct s_mlx_resize
+typedef struct mlx_resize
 {
-	void				*param;
-	t_mlx_resizefunc	func;
-}	t_mlx_resize;
+	void*				param;
+	mlx_resizefunc_t	func;
+}	mlx_resize_t;
 
-typedef struct s_mlx_key
+typedef struct mlx_key
 {
-	void				*param;
-	t_mlx_keyfunc		func;
-}	t_mlx_key;
+	void*				param;
+	mlx_keyfunc_t		func;
+}	mlx_key_t;
 
-typedef struct s_mlx_hook
+typedef struct mlx_hook
 {
-	void	*param;
+	void*	param;
 	void	(*func)(void*);
-}	t_mlx_hook;
+}	mlx_hook_t;
 
 //= Rendering =//
 /**
@@ -148,33 +145,33 @@ typedef struct s_mlx_hook
  */
 
 // MLX instance context.
-typedef struct s_mlx_ctx
+typedef struct mlx_ctx
 {
-	GLuint				vao;
-	GLuint				vbo;
-	GLuint				shaderprogram;
-	t_mlx_list			*hooks;
-	t_mlx_list			*images;
-	t_mlx_list			*render_queue;
-	t_mlx_scroll		scroll_hook;
-	t_mlx_key			key_hook;
-	t_mlx_resize		resize_hook;
-	t_mlx_close			close_hook;
-	int32_t				zdepth;
-}	t_mlx_ctx;
+	GLuint			vao;
+	GLuint			vbo;
+	GLuint			shaderprogram;
+	mlx_list_t*		hooks;
+	mlx_list_t*		images;
+	mlx_list_t*		render_queue;
+	t_mlx_scroll	scroll_hook;
+	t_mlx_key		key_hook;
+	t_mlx_resize	resize_hook;
+	t_mlx_close		close_hook;
+	int32_t			zdepth;
+}	mlx_ctx_t;
 
 // Draw call queue entry.
-typedef struct s_draw_queue
+typedef struct draw_queue
 {
-	t_mlx_image	*image;
-	int32_t		instanceid;
-}	t_draw_queue;
+	mlx_image_t*	image;
+	int32_t			instanceid;
+}	draw_queue_t;
 
 // Image context.
-typedef struct s_mlx_image_ctx
+typedef struct mlx_image_ctx
 {
 	GLuint	texture;
-}	t_mlx_image_ctx;
+}	mlx_image_ctx_t;
 
 //= Functions =//
 /**
@@ -184,41 +181,38 @@ typedef struct s_mlx_image_ctx
 
 //= Linked List Functions =//
 
-t_mlx_list	*mlx_lstnew(void *content);
-t_mlx_list	*mlx_lstlast(t_mlx_list *lst);
-int32_t		mlx_lstsize(t_mlx_list *lst);
-void		mlx_lstclear(t_mlx_list **lst, void (*del)(void*));
-void		mlx_lstadd_back(t_mlx_list **lst, t_mlx_list *new);
-void		mlx_lstadd_front(t_mlx_list **lst, t_mlx_list *new);
-t_mlx_list	*mlx_lstremove(t_mlx_list **lst, void *value, \
-bool (*comp)(void *, void*));
+mlx_list_t*	mlx_lstnew(void* content);
+mlx_list_t*	mlx_lstlast(mlx_list_t* lst);
+int32_t		mlx_lstsize(mlx_list_t* lst);
+void		mlx_lstclear(mlx_list_t** lst, void (*del)(void*));
+void		mlx_lstadd_back(mlx_list_t** lst, mlx_list_t* new);
+void		mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new);
+mlx_list_t*	mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, void*));
 
 //= Misc functions =//
 
-void		mlx_xpm_putpixel(t_xpm *xpm, int32_t x, int32_t y, uint32_t color);
-bool		mlx_equal_image(void *lstcontent, void *value);
-bool		mlx_equal_inst(void *lstcontent, void *value);
-bool		mlx_insert_xpm_entry(t_xpm *xpm, char *line, uint32_t *ctable, \
-size_t s);
-uint32_t	mlx_grab_xpm_pixel(char *pixelstart, uint32_t *ctable, \
-t_xpm *xpm, size_t s);
+void		mlx_xpm_putpixel(xpm_t* xpm, int32_t x, int32_t y, uint32_t color);
+bool		mlx_equal_image(void* lstcontent, void* value);
+bool		mlx_equal_inst(void* lstcontent, void* value);
+bool		mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_t s);
+uint32_t	mlx_grab_xpm_pixel(char* pixelstart, uint32_t* ctable, xpm_t* xpm, size_t s);
 
 //= Error/log Handling Functions =//
 
-bool		mlx_error(t_mlx_errno val);
+bool		mlx_error(mlx_errno_t val);
 bool		mlx_freen(int32_t count, ...);
 
 //= OpenGL Functions =//
 
-void		mlx_on_resize(GLFWwindow *window, int32_t width, int32_t height);
-bool		mlx_init_shaders(t_mlx *mlx, uint32_t *shaders);
-bool		mlx_compile_shader(const char *code, int32_t type, uint32_t *out);
-void		mlx_draw_instance(t_mlx_image *img, t_mlx_inst *instance);
+void		mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height);
+bool		mlx_init_shaders(mlx_t* mlx, uint32_t* shaders);
+bool		mlx_compile_shader(const char* code, int32_t type, uint32_t* out);
+void		mlx_draw_instance(t_mlx_image* img, t_mlx_inst* instance);
 
 // Utils Functions =//
 
 int32_t		mlx_rgba_to_mono(int32_t color);
-int32_t		mlx_atoi_base(const char *str, int32_t base);
-uint64_t	mlx_fnv_hash(char *str, size_t len);
-bool		mlx_parse_font_atlas(t_mlx *mlx);
+int32_t		mlx_atoi_base(const char* str, int32_t base);
+uint64_t	mlx_fnv_hash(char* str, size_t len);
+bool		mlx_parse_font_atlas(mlx_t* mlx);
 #endif
