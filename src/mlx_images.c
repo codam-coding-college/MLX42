@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/28 18:52:43 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 17:56:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 /**
  * Internal function to draw a single instance of an image
- * to the screen. Returns if window is 1 x 1 big or 0.
- * 
- * ISSUE: The draw calls are killing your GPU!
+ * to the screen.
  */
-void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, t_mlx_inst *instance)
+void	mlx_draw_instance(t_mlx_image *img, t_mlx_inst *instance)
 {
 	t_vert			vertices[6];
 	const int32_t	w = img->width;
@@ -26,8 +24,6 @@ void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, t_mlx_inst *instance)
 	const int32_t	x = instance->x;
 	const int32_t	y = instance->y;
 
-	if (mlx->width <= 1 || mlx->height <= 1)
-		return ;
 	vertices[0] = (t_vert){x, y, instance->z, 0.f, 0.f};
 	vertices[1] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
 	vertices[2] = (t_vert){x + w, y, instance->z, 1.f, 0.f};
@@ -35,10 +31,7 @@ void	mlx_draw_instance(t_mlx *mlx, t_mlx_image *img, t_mlx_inst *instance)
 	vertices[4] = (t_vert){x, y + h, instance->z, 0.f, 1.f};
 	vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
 	glBindTexture(GL_TEXTURE_2D, ((t_mlx_image_ctx *)img->context)->texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, \
-	GL_STATIC_DRAW);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, w, h, GL_RGBA, \
-	GL_UNSIGNED_BYTE, img->pixels);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, GL_STATIC_DRAW);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
