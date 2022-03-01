@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_window.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: w2wizard <w2wizard@student.codam.nl>         +#+                     */
+/*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/08 01:14:59 by w2wizard      #+#    #+#                 */
-/*   Updated: 2022/02/19 08:24:00 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
+/*   Updated: 2022/03/01 12:52:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

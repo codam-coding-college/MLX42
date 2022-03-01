@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/17 22:35:29 by tbruinem      #+#    #+#                  #
-#    Updated: 2022/02/26 15:18:00 by rdrazsky      ########   odam.nl          #
+#    Updated: 2022/03/01 13:07:23 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ header = '''\
 /*                                                        ::::::::            */
 /*   lol.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2wizard <lde-la-h@student.codam.nl>         +#+                     */
+/*   By: W2wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 22:34:59 by W2wizard      #+#    #+#                 */
 /*   Updated: 2022/02/17 22:34:59 by W2wizard      ########   odam.nl         */

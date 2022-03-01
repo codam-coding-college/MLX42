@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 12:38:03 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 13:12:51 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,9 @@ typedef void (			*t_mlx_keyfunc)(t_mlx_key_cbdata keydata, void *param);
 
 /**
  * Callback function used to handle window resizing.
+ * 
+ * WARNING: The function is called every frame during which the window is being
+ * resized, be aware!
  * 
  * @param[in] width The new width of the window.
  * @param[in] height The new height of the window. 
@@ -607,10 +610,10 @@ bool		mlx_resize_image(t_mlx_image *img, uint32_t nwidth, \
 /**
  * Draws a string onto an image and then outputs it onto the window.
  * 
- * @param mlx The MLX instance handle.
- * @param str The string to draw.
- * @param x The X location.
- * @param y The Y location.
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] str The string to draw.
+ * @param[in] x The X location.
+ * @param[in] y The Y location.
  * @return Image ptr to the string.
  */
 t_mlx_image	*mlx_put_string(t_mlx *mlx, const char *str, int32_t x, int32_t y);

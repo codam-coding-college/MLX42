@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 12:40:51 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 13:05:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_mlx_list
  * callback.
  * 
  * Generics: Generics are MLX42 specific hooks and can have multiple
- * hooks at the same time, these are executed every frame and get be
+ * hooks at the same time, these are executed every frame and can be
  * used as an alternative for key presses or animations for instance.
  * 
  * NOTE: Hooks could be achieved with va_args to have any amount
@@ -101,7 +101,7 @@ typedef struct s_mlx_list
  * what params they have.
  */
 
-typedef struct s_mlx_scoll
+typedef struct s_mlx_srcoll
 {
 	void				*param;
 	t_mlx_scrollfunc	func;

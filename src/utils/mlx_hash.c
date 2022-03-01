@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_hash.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
+/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/09 13:32:12 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/02/09 19:00:46 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/02/09 13:32:12 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2022/03/01 13:06:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
