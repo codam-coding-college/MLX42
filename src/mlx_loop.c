@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:18:24 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 02:28:39 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	mlx_render_images(mlx_t *mlx)
 	// Execute draw calls
 	while (render_queue)
 	{
-		raw_queue_t* drawcall = render_queue->content;
+		draw_queue_t* drawcall = render_queue->content;
 		if (drawcall && drawcall->image->enabled)
 			mlx_draw_instance(drawcall->image, &drawcall->image->instances[drawcall->instanceid]);
 		render_queue = render_queue->next;

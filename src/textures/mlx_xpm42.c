@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 23:55:49 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 02:56:48 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@
  */
 static uint32_t mlx_grab_xpm_pixel(char* pixelchar, uint32_t* ctable, xpm_t* xpm, size_t s)
 {
-	char cpp_buffer[xpm->cpp + 1] = {0};
-
-	memcpy(cpp_buffer, pixelstart, xpm->cpp);
-	return (ctable[mlx_fnv_hash(cpp_buffer, xpm->cpp) % s]);
+	return (ctable[mlx_fnv_hash(pixelchar, xpm->cpp) % s]);
 }
 
 /**
@@ -106,7 +103,7 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 	size_t buffsize;
 	char* line = NULL;
 
-	while (y < xpm->texture.height)
+	while (y_xpm < xpm->texture.height)
 	{
 		x_xpm = 0;
 		x_line = 0;
@@ -122,10 +119,10 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 			bread--;
 		while (x_xpm < xpm->texture.width)
 		{
-			mlx_xpm_putpixel(xpm, x_xpm, y, mlx_grab_xpm_pixel(&line[x_line], ctable, xpm, s));
+			mlx_xpm_putpixel(xpm, x_xpm, y_xpm, mlx_grab_xpm_pixel(&line[x_line], ctable, xpm, s));
 			x_line += xpm->cpp;
 		}
-		y++;
+		y_xpm++;
 	}
 	free(line);
 	return (true);
@@ -205,7 +202,7 @@ xpm_t *mlx_load_xpm42(const char* path)
 		return ((void*)mlx_error(MLX_INVEXT));
 	if (!(file = fopen(path, "r")))
 		return ((void*)mlx_error(MLX_INVFILE));
-	if (!(xpm = calloc(1, sizeof(t_xpm))))
+	if (!(xpm = calloc(1, sizeof(xpm_t))))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 	if (!mlx_read_xpm_header(xpm, file))
 	{
@@ -217,7 +214,7 @@ xpm_t *mlx_load_xpm42(const char* path)
 	return (xpm);
 }
 
-void	mlx_delete_xpm42(t_xpm *xpm)
+void	mlx_delete_xpm42(xpm_t *xpm)
 {
 	if (!xpm)
 	{

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:08:38 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 02:58:17 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param)
 	glfwSetKeyCallback(mlx->window, mlx_key_callback);
 }
 
-bool mlx_is_key_down(mlx_t *mlx, keys_t key)
+bool mlx_is_key_down(mlx_t* mlx, keys_t key)
 {
 	return (glfwGetKey(mlx->window, key) == GLFW_PRESS);
 }

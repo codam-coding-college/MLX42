@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:24:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 02:26:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,7 +389,7 @@ void mlx_set_cursor_mode(mlx_t* mlx, mouse_mode_t mode);
  * @param[in] image The XPM image to use as cursor.
  * @returns The cursor pointer.
  */
-void* mlx_create_cursor(mlx_t* mlx, xpm_t *image);
+void* mlx_create_cursor(mlx_t* mlx, mlx_texture_t* image);
 
 /**
  * Sets the current cursor to the given custom cursor.

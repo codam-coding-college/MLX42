@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 01:30:24 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 02:27:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance)
 	const int32_t x = instance->x;
 	const int32_t y = instance->y;
 
-	vertices[0] = (t_vert){x, y, instance->z, 0.f, 0.f};
-	vertices[1] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
-	vertices[2] = (t_vert){x + w, y, instance->z, 1.f, 0.f};
-	vertices[3] = (t_vert){x, y, instance->z, 0.f, 0.f};
-	vertices[4] = (t_vert){x, y + h, instance->z, 0.f, 1.f};
-	vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
+	vertices[0] = (vertex_t){x, y, instance->z, 0.f, 0.f};
+	vertices[1] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f};
+	vertices[2] = (vertex_t){x + w, y, instance->z, 1.f, 0.f};
+	vertices[3] = (vertex_t){x, y, instance->z, 0.f, 0.f};
+	vertices[4] = (vertex_t){x, y + h, instance->z, 0.f, 1.f};
+	vertices[5] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f};
 
 	glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)img->context)->texture);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_t) * 6, vertices, GL_STATIC_DRAW);
@@ -82,8 +82,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 		return ((void*)mlx_error(MLX_IMGTOBIG));
 
 	const mlx_ctx_t* mlxctx = mlx->context;
-	mlx_image_t* newimg = calloc(1, sizeof(t_mlx_image));
-	mlx_image_ctx_t* newctx = calloc(1, sizeof(t_mlx_image_ctx));
+	mlx_image_t* newimg = calloc(1, sizeof(mlx_image_t));
+	mlx_image_ctx_t* newctx = calloc(1, sizeof(mlx_image_ctx_t));
 	if (!newimg || !newctx)
 	{
 		mlx_freen(2, newimg, newctx);
@@ -109,7 +109,7 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newimg->pixels);
 
 	mlx_list_t* newentry;
-	if (!(newentry = mlx_lstnew(newimg);))
+	if (!(newentry = mlx_lstnew(newimg)))
 		return ((void *)mlx_error(MLX_MEMFAIL));
 	mlx_lstadd_back((mlx_list_t**)(&mlxctx->images), newentry);
 	return (newimg);
