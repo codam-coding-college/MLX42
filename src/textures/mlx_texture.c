@@ -6,11 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 23:08:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 04:42:19 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+
+//= Public =//
 
 mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, int32_t xy[2], uint32_t wh[2])
 {
@@ -52,11 +54,13 @@ mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 
 bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int32_t y)
 {
-	uint32_t j = 0;
 	uint32_t i = 0;
-	uint8_t* pixel;
+	uint8_t* pixelx;
+	uint8_t* pixeli;
 
 	if (!texture || !image)
+		return (mlx_error(MLX_NULLARG));
+	if (x < 0 || y < 0)
 		return (mlx_error(MLX_NULLARG));
 	if (texture->width > image->width || texture->height > image->height)
 		return (mlx_error(MLX_TEXTOBIG));
@@ -64,13 +68,9 @@ bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int
 	// TODO: Remove second while loop, use memmove/cpy, less messy.
 	while (i < texture->height)
 	{
-		j = 0;
-		while (j < texture->width)
-		{
-			pixel = &texture->pixels[(i * texture->width + j) * texture->bytes_per_pixel];
-			mlx_putpixel(image, x + j, y + i, *pixel << 24 | *(pixel + 1) << 16 | *(pixel + 2) << 8 | *(pixel + 3));
-			j++;
-		}
+		pixelx = &texture->pixels[(i * texture->width) * texture->bytes_per_pixel];
+		pixeli = &image->pixels[((i + y) * image->width + x) * texture->bytes_per_pixel];
+		memmove(pixeli, pixelx, texture->width * texture->bytes_per_pixel);
 		i++;
 	}
 	return (true);
