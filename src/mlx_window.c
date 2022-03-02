@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 05:00:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 14:09:02 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param)
 	glfwSetWindowCloseCallback(mlx->window, mlx_close_callback);
 }
 
-void	mlx_resize_hook(mlx_t *mlx, mlx_resizefunc func, void *param)
+void	mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
 {
 	if (!mlx || !func)
 	{
