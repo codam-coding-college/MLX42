@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 13:46:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/23 12:07:14 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 01:54:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,10 @@ bool	mlx_compile_shader(const char *code, int32_t type, uint32_t *out)
 	int32_t		success;
 	char		infolog[512];
 
-	if (!code)
-		return (mlx_error(MLX_NULLARG));
 	len = strlen(code);
 	*out = glCreateShader(type);
 	if (!*out)
-		return (mlx_error(MLX_SHDRFAIL));
+		return (false);
 	glShaderSource(*out, 1, &code, &len);
 	glCompileShader(*out);
 	glGetShaderiv(*out, GL_COMPILE_STATUS, &success);
@@ -76,7 +74,7 @@ bool	mlx_compile_shader(const char *code, int32_t type, uint32_t *out)
 	{
 		glGetShaderInfoLog(*out, sizeof(infolog), NULL, infolog);
 		fprintf(stderr, "%s", infolog);
-		return (mlx_error(MLX_SHDRFAIL));
+		return (false);
 	}
 	return (true);
 }
