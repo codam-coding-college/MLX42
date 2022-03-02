@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 06:26:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 06:32:34 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
  * 
  * @param width The width of the texture.
  * @param height The height of the texture.
- * @param pixels The literal pixel data.
  * @param bytes_per_pixel The amount of bytes in a pixel, always 4.
+ * @param pixels The literal pixel data.
  */
 typedef struct mlx_texture
 {
@@ -165,8 +165,8 @@ mlx_errno_t	mlx_errno;
 /**
  * Callback function used to handle scrolling.
  * 
- * @param[in] x The mouse x delta.
- * @param[in] y The mouse y delta.
+ * @param[in] xdelta The mouse x delta.
+ * @param[in] ydelta The mouse y delta.
  * @param[in] param Additional parameter to pass onto the function.
  */
 typedef void (*mlx_scrollfunc)(double xdelta, double ydelta, void* param);
@@ -174,7 +174,7 @@ typedef void (*mlx_scrollfunc)(double xdelta, double ydelta, void* param);
 /**
  * Callback function used to handle key presses.
  * 
- * @param[in] keydata The callback data, contains info on key, actinon, ...
+ * @param[in] keydata The callback data, contains info on key, action, ...
  * @param[in] param Additional parameter to pass onto the function.
  */
 typedef void (*mlx_keyfunc)(mlx_key_data_t keydata, void* param);
@@ -215,13 +215,13 @@ const char* mlx_strerror(mlx_errno_t val);
 /**
  * Initilizes a new MLX42 Instance.
  * 
- * @param[in] Width The width of the window.
- * @param[in] Height The height of the window.
- * @param[in] Title The title of the window.
- * @param[in] Resize Enable window resizing.
+ * @param[in] width The width of the window.
+ * @param[in] height The height of the window.
+ * @param[in] title The title of the window.
+ * @param[in] resize Enable window resizing.
  * @returns Ptr to the MLX handle or null on failure.
  */
-mlx_t* mlx_init(int32_t width, int32_t height, const char* Title, bool Resize);
+mlx_t* mlx_init(int32_t width, int32_t height, const char* Tttle, bool resize);
 
 /**
  * Notifies MLX that it should stop rendering and exit the main loop.
@@ -331,7 +331,7 @@ void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height);
  */
 void mlx_set_window_limit(mlx_t* mlx, int32_t min_w, int32_t min_h, int32_t max_w, int32_t max_h);
 
-//= Cursor/Mouse Functions =//
+//= Input Functions =//
 
 /**
  * Returns true or false if the key is down or not.
@@ -539,7 +539,7 @@ bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int
  * @param[in] image The MLX instance handle.
  * @param[in] x The X coordinate position.
  * @param[in] y The Y coordinate position.
- * @param[in] color The RGBA8 Color value.
+ * @param[in] color The color value to put.
  */
 void mlx_put_pixel(mlx_image_t* image, int32_t x, int32_t y, uint32_t color);
 
