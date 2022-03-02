@@ -6,87 +6,81 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 17:55:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 02:18:24 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-static void	mlx_exec_loop_hooks(t_mlx *mlx)
-{
-	t_mlx_list		*lstcpy;
-	t_mlx_hook		*hook;
-	const t_mlx_ctx	*mlxctx = mlx->context;
+//= Private =//
 
-	lstcpy = mlxctx->hooks;
+static void	mlx_exec_loop_hooks(mlx_t* mlx)
+{
+	const mlx_ctx_t* mlxctx = mlx->context;
+
+	mlx_list_t* lstcpy = mlxctx->hooks;
 	while (lstcpy && !glfwWindowShouldClose(mlx->window))
 	{
-		hook = ((t_mlx_hook *)lstcpy->content);
+		mlx_hook_t* hook = ((mlx_hook_t*)lstcpy->content);
 		hook->func(hook->param);
 		lstcpy = lstcpy->next;
 	}
 }
 
-bool	mlx_loop_hook(t_mlx *mlx, void (*f)(void *), void *param)
+static void	mlx_render_images(mlx_t *mlx)
 {
-	t_mlx_list		*lst;
-	t_mlx_hook		*hook;
-	const t_mlx_ctx	*mlxctx = mlx->context;
+	const mlx_ctx_t* mlxctx = mlx->context;
+	const mlx_list_t* imglst = mlxctx->images;
+	const mlx_list_t* render_queue = mlxctx->render_queue;
 
-	if (!mlx || !f)
-		return (mlx_error(MLX_NULLARG));
-	hook = malloc(sizeof(t_mlx_hook));
-	if (!hook)
-		return (false);
-	hook->func = f;
-	hook->param = param;
-	lst = mlx_lstnew(hook);
-	if (!lst)
-	{
-		free(hook);
-		return (mlx_error(MLX_MEMFAIL));
-	}
-	mlx_lstadd_back((t_mlx_list **)(&mlxctx->hooks), lst);
-	return (true);
-}
-
-// 1. Iterate over images to upload the texture to the GPU
-// to update pixel data.
-// 2. Bind the texture and execute draw call.
-static void	mlx_render_images(t_mlx *mlx)
-{
-	t_mlx_image			*image;
-	t_draw_queue		*drawcall;
-	const t_mlx_ctx		*mlxctx = mlx->context;
-	const t_mlx_list	*imglst = mlxctx->images;
-	const t_mlx_list	*render_queue = mlxctx->render_queue;
-
+	// Upload image textures to GPU
 	while (imglst)
 	{
-		image = imglst->content;
-		glBindTexture(GL_TEXTURE_2D, \
-		((t_mlx_image_ctx *)image->context)->texture);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image->width, image->height, \
-		GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+		mlx_image_t* image = imglst->content;
+		glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)image->context)->texture);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image->width, image->height, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 		imglst = imglst->next;
 	}
+
+	// Execute draw calls
 	while (render_queue)
 	{
-		drawcall = render_queue->content;
+		raw_queue_t* drawcall = render_queue->content;
 		if (drawcall && drawcall->image->enabled)
-			mlx_draw_instance(drawcall->image, \
-			&drawcall->image->instances[drawcall->instanceid]);
+			mlx_draw_instance(drawcall->image, &drawcall->image->instances[drawcall->instanceid]);
 		render_queue = render_queue->next;
 	}
 }
 
-// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-void	mlx_loop(t_mlx *mlx)
-{
-	double		start;
-	double		oldstart;
+//= Public =//
 
-	oldstart = 0;
+bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
+{
+	if (!mlx || !f)
+		return (mlx_error(MLX_NULLARG));
+
+	mlx_hook_t* hook;
+	if (!(hook = malloc(sizeof(mlx_hook_t))))
+		return (mlx_error(MLX_MEMFAIL));
+
+	mlx_list_t* lst;
+	if (!(lst = mlx_lstnew(hook)))
+	{
+		free(hook);
+		return (mlx_error(MLX_MEMFAIL));
+	}
+	hook->func = f;
+	hook->param = param;
+	const mlx_ctx_t	*mlxctx = mlx->context;
+	mlx_lstadd_back((mlx_list_t**)(&mlxctx->hooks), lst);
+	return (true);
+}
+
+// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+void mlx_loop(mlx_t* mlx)
+{
+	double start, oldstart = 0;
+
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		start = glfwGetTime();

@@ -6,20 +6,18 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 22:12:27 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 02:24:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
  * A cross-platform OpenGL graphics library based on the idea on what MiniLibX
- * provides. Just quite a bit better, in terms of norme and code quality.
+ * provides. Just quite a bit better, in terms of code quality & performance.
  * 
  * As for the few void* present in some structs and functions and 
  * why MLX is split into two different headers, so to speak, 
  * is mainly for abstraction. Most users won't have a need for the inner 
  * workings of MLX (shaders, ...) and it also helps keep MLX nice and tidy.
- * 
- * Written in accordance with norminette 3.3.51.
  */
 
 #ifndef MLX42_H
@@ -73,12 +71,12 @@ typedef struct xpm
  * @param y The y location.
  * @param z The z depth, controls if the image is on the fore or background.
  */
-typedef struct s_mlx_instance
+typedef struct mlx_instance
 {
 	int32_t	x;
 	int32_t	y;
 	int32_t	z;
-}	t_mlx_instance;
+}	mlx_instance_t;
 
 /**
  * Key function callback data.
@@ -97,7 +95,7 @@ typedef struct mlx_key_cbdata
 	action_t		action;
 	int16_t			os_key;
 	modifier_key_t	modifier;
-}	mlx_key_cbdata_t;
+}	mlx_key_data_t;
 
 /**
  * An image with an individual buffer that can be rendered.
@@ -178,7 +176,7 @@ typedef void (*mlx_scrollfunc)(double xdelta, double ydelta, void* param);
  * @param[in] keydata The callback data, contains info on key, actinon, ...
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*mlx_keyfunc)(mlx_key_cbdata_t keydata, void* param);
+typedef void (*mlx_keyfunc)(mlx_key_data_t keydata, void* param);
 
 /**
  * Callback function used to handle window resizing.
