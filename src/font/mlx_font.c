@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:25:15 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 04:51:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static void	mlx_draw_text(const char* str, mlx_image_t* image)
 	const mlx_texture_t atlas = {
 		font_atlas.width,
 		font_atlas.height,
-		font_atlas.bpp,
 		font_atlas.pixels,
+		font_atlas.bpp,
 	};
 
 	while (str[i])

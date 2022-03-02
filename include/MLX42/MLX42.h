@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:26:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 05:05:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct mlx_texture
 {
 	uint32_t	width;
 	uint32_t	height;
-	uint8_t		bytes_per_pixel;
 	uint8_t*	pixels;
+	uint8_t		bytes_per_pixel;
 }	mlx_texture_t;
 
 /**
@@ -242,6 +242,9 @@ void mlx_loop(mlx_t* mlx);
 /**
  * Lets you set a custom image as the program icon.
  * 
+ * NOTE: In MacOS this function does nothing, you should use the bundles icon to set the dock bar icon.
+ * @link: https://9to5mac.com/2021/11/08/change-mac-icons/
+ *
  * @param[in] mlx The MLX instance handle.
  * @param[in] image The image to use as icon.
  */
