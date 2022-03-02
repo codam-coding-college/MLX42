@@ -6,7 +6,7 @@
 #    By: tbruinem <tbruinem@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/17 22:35:29 by tbruinem      #+#    #+#                  #
-#    Updated: 2022/03/01 13:07:23 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/03/02 02:25:33 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ output = []
 output.append(header)
 output.append("// If you wish to modify this file edit the .vert or .frag file!\n")
 output.append("#include \"MLX42/MLX42_Int.h\"\n")
-output.append(f"const char	*g_{shadertype[1:]}_shader = \"{lines[0]}\\n\"")
+output.append(f"const char* {shadertype[1:]}_shader = \"{lines[0]}\\n\"")
 output.extend(["	\"" + line + "\"" for line in lines[1:]])
 output[-1] += ';'
 for line in output:

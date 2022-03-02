@@ -6,114 +6,155 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 17:56:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 05:19:47 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
+//= Private =//
+
 /**
  * Internal function to draw a single instance of an image
  * to the screen.
  */
-void	mlx_draw_instance(t_mlx_image *img, t_mlx_inst *instance)
+void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance)
 {
-	t_vert			vertices[6];
-	const int32_t	w = img->width;
-	const int32_t	h = img->height;	
-	const int32_t	x = instance->x;
-	const int32_t	y = instance->y;
+	vertex_t vertices[6];
+	const int32_t w = img->width;
+	const int32_t h = img->height;
+	const int32_t x = instance->x;
+	const int32_t y = instance->y;
 
-	vertices[0] = (t_vert){x, y, instance->z, 0.f, 0.f};
-	vertices[1] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
-	vertices[2] = (t_vert){x + w, y, instance->z, 1.f, 0.f};
-	vertices[3] = (t_vert){x, y, instance->z, 0.f, 0.f};
-	vertices[4] = (t_vert){x, y + h, instance->z, 0.f, 1.f};
-	vertices[5] = (t_vert){x + w, y + h, instance->z, 1.f, 1.f};
-	glBindTexture(GL_TEXTURE_2D, ((t_mlx_image_ctx *)img->context)->texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(t_vert) * 6, vertices, GL_STATIC_DRAW);
+	vertices[0] = (vertex_t){x, y, instance->z, 0.f, 0.f};
+	vertices[1] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f};
+	vertices[2] = (vertex_t){x + w, y, instance->z, 1.f, 0.f};
+	vertices[3] = (vertex_t){x, y, instance->z, 0.f, 0.f};
+	vertices[4] = (vertex_t){x, y + h, instance->z, 0.f, 1.f};
+	vertices[5] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f};
+
+	glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)img->context)->texture);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_t) * 6, vertices, GL_STATIC_DRAW);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-//= Exposed =//
+//= Public =//
 
-t_mlx_inst	*mlx_image_to_window(t_mlx *mlx, t_mlx_image *img, int32_t x, \
-int32_t y)
+mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 {
-	int32_t			index;
-	t_draw_queue	*queue;
-	t_mlx_instance	*temp;
-	t_mlx_list		*templst;
-
 	if (!mlx || !img)
-		return ((void *)mlx_error(MLX_NULLARG));
-	temp = realloc(img->instances, (++img->count) * sizeof(t_mlx_instance));
-	queue = calloc(1, sizeof(t_draw_queue));
+		return ((void*)mlx_error(MLX_NULLARG));
+	
+	// Allocate buffers...
+	mlx_instance_t* temp = realloc(img->instances, (++img->count) * sizeof(mlx_instance_t));
+	draw_queue_t* queue = calloc(1, sizeof(draw_queue_t));
 	if (!queue || !temp)
-		return (mlx_freen(2, temp, queue), (void *)mlx_error(MLX_MEMFAIL));
-	index = img->count - 1;
+		return (mlx_freen(2, temp, queue), (void*)mlx_error(MLX_MEMFAIL));
+
+	// Set data...
+	int32_t index = img->count - 1;
 	img->instances = temp;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
-	img->instances[index].z = ((t_mlx_ctx *)mlx->context)->zdepth++;
+
+	// Always update Z depth to prevent overlapping images by default.
+	img->instances[index].z = ((mlx_ctx_t*)mlx->context)->zdepth++;
 	queue->image = img;
 	queue->instanceid = index;
-	templst = mlx_lstnew(queue);
-	if (templst)
+
+	// Add draw call...
+	mlx_list_t* templst;
+	if ((templst = mlx_lstnew(queue)))
 	{
-		mlx_lstadd_back(&((t_mlx_ctx *)mlx->context)->render_queue, templst);
+		mlx_lstadd_back(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
 		return (&img->instances[index]);
 	}
 	return (mlx_freen(2, temp, queue), (void *)mlx_error(MLX_MEMFAIL));
 }
 
-// Nasty cheats to get around norme...
-t_mlx_image	*mlx_new_image(t_mlx *mlx, uint32_t width, uint32_t height)
+mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 {
-	t_mlx_image		*newimg;
-	t_mlx_image_ctx	*newctx;
-	const t_mlx_ctx	*mlxctx = mlx->context;
-
+	if (!mlx)
+		return ((void*)mlx_error(MLX_NULLARG));
 	if (width > INT16_MAX || height > INT16_MAX)
-		return ((void *)mlx_error(MLX_IMGTOBIG));
-	newimg = calloc(1, sizeof(t_mlx_image));
-	newctx = calloc(1, sizeof(t_mlx_image_ctx));
+		return ((void*)mlx_error(MLX_IMGTOBIG));
+	if (!width || !height)
+		return ((void*)mlx_error(MLX_IMGTOSML));
+
+	const mlx_ctx_t* mlxctx = mlx->context;
+	mlx_image_t* newimg = calloc(1, sizeof(mlx_image_t));
+	mlx_image_ctx_t* newctx = calloc(1, sizeof(mlx_image_ctx_t));
 	if (!newimg || !newctx)
-		return (mlx_freen(2, newimg, newctx), (void *)mlx_error(MLX_MEMFAIL));
+	{
+		mlx_freen(2, newimg, newctx);
+		return ((void *)mlx_error(MLX_MEMFAIL));
+	}
+	newimg->enabled = true;
+	newimg->context = newctx;
 	(*(uint32_t *)&newimg->width) = width;
 	(*(uint32_t *)&newimg->height) = height;
-	newimg->pixels = calloc(width * height, sizeof(int32_t));
-	if (!newimg->pixels)
-		return (mlx_freen(2, newimg, newctx), (void *)mlx_error(MLX_MEMFAIL));
+	if (!(newimg->pixels = calloc(width * height, sizeof(int32_t))))
+	{
+		mlx_freen(2, newimg, newctx);
+		return ((void *)mlx_error(MLX_MEMFAIL));
+	}
+
+	mlx_list_t* newentry;
+	if (!(newentry = mlx_lstnew(newimg)))
+	{
+		mlx_freen(3, newimg->pixels, newimg->context, newimg);
+		return ((void *)mlx_error(MLX_MEMFAIL));
+	}
+
+	// Generate OpenGL texture
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, \
-	GL_UNSIGNED_BYTE, newimg->pixels);
-	mlx_lstadd_back((t_mlx_list **)(&mlxctx->images), mlx_lstnew(newimg));
-	return (newimg->context = newctx, newimg->enabled = true, newimg);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newimg->pixels);
+	mlx_lstadd_back((mlx_list_t**)(&mlxctx->images), newentry);
+	return (newimg);
 }
 
-void	mlx_delete_image(t_mlx *mlx, t_mlx_image *image)
+void mlx_delete_image(mlx_t *mlx, mlx_image_t* image)
 {
-	t_mlx_list		*imglst;
-	t_mlx_list		*quelst;
-	t_mlx_ctx		*mlxctx;
-
-	if (!mlx)
-		return ;
-	mlxctx = mlx->context;
-	imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
-	quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
+	if (!mlx || !image)
+	{
+		mlx_error(MLX_NULLARG);
+		return;
+	}
+	mlx_ctx_t* mlxctx = mlx->context;
+	mlx_list_t* imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
+	mlx_list_t* quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
 	if (quelst)
 		mlx_freen(2, quelst->content, quelst);
 	if (imglst)
 	{
-		glDeleteTextures(1, &((t_mlx_image_ctx *)image->context)->texture);
-		mlx_freen(4, image->pixels, image->instances, image->context, imglst);
-		free(image);
+		glDeleteTextures(1, &((mlx_image_ctx_t *)image->context)->texture);
+		mlx_freen(4, image->pixels, image->instances, image->context, imglst, image);
 	}
+}
+
+bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
+{
+	if (!img)
+		return (mlx_error(MLX_NULLARG));
+	if (nwidth > INT16_MAX || nheight > INT16_MAX)
+		return (mlx_error(MLX_IMGTOBIG));
+	if (!nwidth || !nheight)
+		return ((void*)mlx_error(MLX_IMGTOSML));
+	if (nwidth != img->width || nheight != img->height)
+	{
+		uint8_t* tempbuff = realloc(img->pixels, (nwidth * nheight) * sizeof(int32_t));
+		if (!tempbuff)
+			return (mlx_error(MLX_MEMFAIL));
+		img->pixels = tempbuff;
+		(*(uint32_t *)&img->width) = nwidth;
+		(*(uint32_t *)&img->height) = nheight;
+		//memset(img->pixels, 0, (img->width * img->height) * sizeof(int32_t));
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nwidth, nheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img->pixels);
+	}
+	return (true);
 }

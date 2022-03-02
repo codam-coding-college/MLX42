@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/02/22 21:04:55 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/01 21:48:20 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
  * @param PRESS Execute when the key is being pressed.
  * @param REPEAT Execute when the key is being held down.
  */
-typedef enum e_action
+typedef enum action
 {
 	MLX_RELEASE = 0,
 	MLX_PRESS	= 1,
 	MLX_REPEAT	= 2,
-}	t_action;
+}	action_t;
 
 /**
  * Key modifiers, such as shift, control or alt.
@@ -46,7 +46,7 @@ typedef enum e_action
  * @param CAPSLOCK The capslock key.
  * @param NUMLOCK The numlock key.
  */
-typedef enum e_modifier
+typedef enum modifier_key
 {
 	MLX_SHIFT		= 0x0001,
 	MLX_CONTROL		= 0x0002,
@@ -54,7 +54,7 @@ typedef enum e_modifier
 	MLX_SUPERKEY	= 0x0008,
 	MLX_CAPSLOCK	= 0x0010,
 	MLX_NUMLOCK		= 0x0020,
-}	t_modifier;
+}	modifier_key_t;
 
 /**
  * The mouse button keycodes.
@@ -62,12 +62,12 @@ typedef enum e_modifier
  * @param RIGHT The right mouse button.
  * @param MIDDLE The middle mouse button, aka the Scrollwheel.
  */
-typedef enum e_mouse_key
+typedef enum mouse_key
 {
 	MLX_MOUSE_BUTTON_LEFT	= 0,
 	MLX_MOUSE_BUTTON_RIGHT	= 1,
 	MLX_MOUSE_BUTTON_MIDDLE	= 2,
-}	t_mouse_key;
+}	mouse_key_t;
 
 /**
  * Various mouse/cursor states.
@@ -75,19 +75,19 @@ typedef enum e_mouse_key
  * @param HIDDEN The cursor is not rendered, still functions however.
  * @param DISABLED The cursor is not rendered, nor is it functional.
  */
-typedef enum e_mouse_mode
+typedef enum mouse_mode
 {
-	MLX_MOUSE_NORMAL		= 0x00034001,
-	MLX_MOUSE_HIDDEN		= 0x00034002,
-	MLX_MOUSE_DISABLED		= 0x00034003,
-}	t_mouse_mode;
+	MLX_MOUSE_NORMAL	= 0x00034001,
+	MLX_MOUSE_HIDDEN	= 0x00034002,
+	MLX_MOUSE_DISABLED	= 0x00034003,
+}	mouse_mode_t;
 
 /**
  * All sorts of keyboard keycodes.
  * 
  * KP = Keypad.
  */
-typedef enum e_keys
+typedef enum keys
 {
 	MLX_KEY_SPACE				= 32,
 	MLX_KEY_APOSTROPHE			= 39,
@@ -207,6 +207,6 @@ typedef enum e_keys
 	MLX_KEY_RIGHT_ALT			= 346,
 	MLX_KEY_RIGHT_SUPER			= 347,
 	MLX_KEY_MENU				= 348,
-}	t_keys;
+}	keys_t;
 
 #endif
