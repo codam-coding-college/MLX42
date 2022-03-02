@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 03:51:46 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 04:16:53 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static bool	mlx_create_buffers(mlx_t *mlx)
 	mlx_on_resize(mlx->window, mlx->width, mlx->height);
 	return (true);
 }
-
 
 /**
  * Compiles the given shader source code, of a given shader type.
@@ -120,7 +119,7 @@ static bool	mlx_init_render(mlx_t *mlx)
 	glDeleteShader(vshader);
 	glDeleteShader(fshader);
 	glUseProgram(mlxctx->shaderprogram);
-	return (mlx_create_buffers(mlx));
+	return (true);
 }
 
 //= Public =//
@@ -153,14 +152,9 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 #endif
 	glfwWindowHint(GLFW_RESIZABLE, resize);
 	if (!(mlx->window = glfwCreateWindow(width, height, title, NULL, NULL)))
-	{
-		mlx_terminate(mlx);
-		return ((void*)mlx_error(MLX_WINFAIL));
-	}
-	if (!mlx_init_render(mlx))
-	{
-		mlx_terminate(mlx);
-		return (NULL);
-	}
+		return (mlx_terminate(mlx), (void*)mlx_error(MLX_WINFAIL));
+	
+	if (!mlx_init_render(mlx) || !mlx_create_buffers(mlx))
+		return (mlx_terminate(mlx), NULL);
 	return (mlx);
 }

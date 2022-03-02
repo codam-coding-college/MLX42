@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:27:12 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 04:23:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,13 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 		return ((void *)mlx_error(MLX_MEMFAIL));
 	}
 
+	mlx_list_t* newentry;
+	if (!(newentry = mlx_lstnew(newimg)))
+	{
+		mlx_freen(3, newimg->pixels, newimg->context, newimg);
+		return ((void *)mlx_error(MLX_MEMFAIL));
+	}
+
 	// Generate OpenGL texture
 	glGenTextures(1, &newctx->texture);
 	glBindTexture(GL_TEXTURE_2D, newctx->texture);
@@ -107,10 +114,6 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, newimg->pixels);
-
-	mlx_list_t* newentry;
-	if (!(newentry = mlx_lstnew(newimg)))
-		return ((void *)mlx_error(MLX_MEMFAIL));
 	mlx_lstadd_back((mlx_list_t**)(&mlxctx->images), newentry);
 	return (newimg);
 }
