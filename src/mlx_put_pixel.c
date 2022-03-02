@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 03:00:54 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 06:25:48 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void mlx_xpm_putpixel(xpm_t* xpm, int32_t x, int32_t y, uint32_t color)
 
 //= Public =//
 
-void mlx_putpixel(mlx_image_t* image, int32_t x, int32_t y, uint32_t color)
+void mlx_put_pixel(mlx_image_t* image, int32_t x, int32_t y, uint32_t color)
 {
 	if (!image)
 	{

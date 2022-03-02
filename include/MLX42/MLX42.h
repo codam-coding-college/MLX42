@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 05:16:48 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 06:26:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -541,7 +541,7 @@ bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int
  * @param[in] y The Y coordinate position.
  * @param[in] color The RGBA8 Color value.
  */
-void mlx_putpixel(mlx_image_t* image, int32_t x, int32_t y, uint32_t color);
+void mlx_put_pixel(mlx_image_t* image, int32_t x, int32_t y, uint32_t color);
 
 /**
  * Creates and allocates a new image buffer.
