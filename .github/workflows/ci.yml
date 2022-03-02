@@ -9,21 +9,6 @@ on:
     - cron:  '0 0 * * FRI'
 
 jobs:
-  norminette:
-
-    runs-on: macos-latest
-    timeout-minutes: 5
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Install Norminette
-        run: |
-          pip3 install Norminette
-          norminette --version
-
-      - name: Norminette
-        run: norminette src include/MLX42
 
   build-unix:
 
