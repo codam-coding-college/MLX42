@@ -6,11 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:57:08 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 06:07:10 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+
+//= Private =//
 
 int32_t mlx_lstsize(mlx_list_t* lst)
 {

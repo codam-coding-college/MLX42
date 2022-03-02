@@ -6,11 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 00:11:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 06:07:00 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+
+//= Privae =//
 
 /**
  * String hashing algorithm using FNV-1a.
@@ -98,16 +100,6 @@ int32_t mlx_atoi_base(const char* str, int32_t base)
 	return (nbr * sign);
 }
 
-int32_t mlx_get_time(void)
-{
-	return (glfwGetTime());
-}
-
-void mlx_focus(mlx_t* mlx)
-{
-	glfwFocusWindow(mlx->window);
-}
-
 /**
  * Converts an RGBA value to a monochrome/grayscale value.
  * It does so using specific weights for each channel.
@@ -125,4 +117,16 @@ int32_t	mlx_rgba_to_mono(int32_t color)
 	const uint8_t y = r + g + b;
 
 	return (y << 24 | y << 16 | y << 8 | (color & 0xFF));
+}
+
+//= Public =//
+
+int32_t mlx_get_time(void)
+{
+	return (glfwGetTime());
+}
+
+void mlx_focus(mlx_t* mlx)
+{
+	glfwFocusWindow(mlx->window);
 }

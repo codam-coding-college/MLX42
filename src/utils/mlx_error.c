@@ -6,11 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 05:17:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 06:07:41 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+
+//= Private =//
 
 // English description of the error codes.
 static const char* mlx_errors[] = {
@@ -31,6 +33,8 @@ static const char* mlx_errors[] = {
 	"Image size is too small",
 	"Texture is larger than image",
 };
+
+//= Public =//
 
 /**
  * Functions to set the error number, simply for convenience.
