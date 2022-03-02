@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/01 23:59:02 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 05:17:10 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static const char* mlx_errors[] = {
 	"Failed to initialize GLFW",
 	"Failed to create window",
 	"Image size is too big",
+	"Image size is too small",
 	"Texture is larger than image",
 };
 

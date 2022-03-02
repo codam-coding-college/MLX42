@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 04:42:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 05:16:02 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int
 		return (mlx_error(MLX_NULLARG));
 	if (texture->width > image->width || texture->height > image->height)
 		return (mlx_error(MLX_TEXTOBIG));
-
-	// TODO: Remove second while loop, use memmove/cpy, less messy.
 	while (i < texture->height)
 	{
 		pixelx = &texture->pixels[(i * texture->width) * texture->bytes_per_pixel];

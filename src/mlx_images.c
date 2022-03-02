@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 04:23:43 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 05:19:47 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int
 
 mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 {
-	// TODO: Add image too small check...
-
 	if (!mlx)
 		return ((void*)mlx_error(MLX_NULLARG));
 	if (width > INT16_MAX || height > INT16_MAX)
 		return ((void*)mlx_error(MLX_IMGTOBIG));
+	if (!width || !height)
+		return ((void*)mlx_error(MLX_IMGTOSML));
 
 	const mlx_ctx_t* mlxctx = mlx->context;
 	mlx_image_t* newimg = calloc(1, sizeof(mlx_image_t));
@@ -143,6 +143,8 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 		return (mlx_error(MLX_NULLARG));
 	if (nwidth > INT16_MAX || nheight > INT16_MAX)
 		return (mlx_error(MLX_IMGTOBIG));
+	if (!nwidth || !nheight)
+		return ((void*)mlx_error(MLX_IMGTOSML));
 	if (nwidth != img->width || nheight != img->height)
 	{
 		uint8_t* tempbuff = realloc(img->pixels, (nwidth * nheight) * sizeof(int32_t));

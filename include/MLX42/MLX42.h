@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 05:05:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 05:16:48 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef enum mlx_errno
 	MLX_GLFWFAIL,
 	MLX_WINFAIL,
 	MLX_IMGTOBIG,
+	MLX_IMGTOSML,
 	MLX_TEXTOBIG,
 }	mlx_errno_t;
 
