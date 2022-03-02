@@ -20,8 +20,6 @@ The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 For information and documentation about MLX42 check the wiki.
 
-## NOTE: As of now NORME is being removed from MLX42 due it encouraging bad practices and making the code poorly maintainable.
-
 ## Differences to MiniLibX
 
 #### Cross-Platform
@@ -209,11 +207,11 @@ The systems below have not been tested yet.
 #define WIDTH 256
 #define HEIGHT 256
 
-t_mlx_image	*g_img;
+mlx_image_t	*g_img;
 
 void	hook(void *param)
 {
-	t_mlx	*mlx;
+	mlx_t	*mlx;
 
 	mlx = param;
 	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
@@ -230,7 +228,7 @@ void	hook(void *param)
 
 int32_t	main(void)
 {
-	t_mlx	*mlx;
+	mlx_t	*mlx;
 
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!mlx)
