@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:28:39 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 14:27:33 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	mlx_exec_loop_hooks(mlx_t* mlx)
 	}
 }
 
-static void	mlx_render_images(mlx_t *mlx)
+static void	mlx_render_images(mlx_t* mlx)
 {
 	const mlx_ctx_t* mlxctx = mlx->context;
 	const mlx_list_t* imglst = mlxctx->images;

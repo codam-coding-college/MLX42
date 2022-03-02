@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 05:19:47 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 14:27:19 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 	}
 	newimg->enabled = true;
 	newimg->context = newctx;
-	(*(uint32_t *)&newimg->width) = width;
-	(*(uint32_t *)&newimg->height) = height;
+	(*(uint32_t*)&newimg->width) = width;
+	(*(uint32_t*)&newimg->height) = height;
 	if (!(newimg->pixels = calloc(width * height, sizeof(int32_t))))
 	{
 		mlx_freen(2, newimg, newctx);
@@ -118,7 +118,7 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 	return (newimg);
 }
 
-void mlx_delete_image(mlx_t *mlx, mlx_image_t* image)
+void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 {
 	if (!mlx || !image)
 	{
@@ -132,7 +132,7 @@ void mlx_delete_image(mlx_t *mlx, mlx_image_t* image)
 		mlx_freen(2, quelst->content, quelst);
 	if (imglst)
 	{
-		glDeleteTextures(1, &((mlx_image_ctx_t *)image->context)->texture);
+		glDeleteTextures(1, &((mlx_image_ctx_t*)image->context)->texture);
 		mlx_freen(4, image->pixels, image->instances, image->context, imglst, image);
 	}
 }
@@ -151,8 +151,8 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 		if (!tempbuff)
 			return (mlx_error(MLX_MEMFAIL));
 		img->pixels = tempbuff;
-		(*(uint32_t *)&img->width) = nwidth;
-		(*(uint32_t *)&img->height) = nheight;
+		(*(uint32_t*)&img->width) = nwidth;
+		(*(uint32_t*)&img->height) = nheight;
 		//memset(img->pixels, 0, (img->width * img->height) * sizeof(int32_t));
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nwidth, nheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img->pixels);
 	}

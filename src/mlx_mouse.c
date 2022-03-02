@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:31:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 14:29:56 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void mlx_scroll_cb(GLFWwindow* window, double xoffset, double yoffset)
 {
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
-	const mlx_scroll_t scroll_hook = ((mlx_ctx_t *)mlx->context)->scroll_hook;
+	const mlx_scroll_t scroll_hook = ((mlx_ctx_t*)mlx->context)->scroll_hook;
 
 	scroll_hook.func(xoffset, yoffset, scroll_hook.param);
 }
@@ -47,7 +47,7 @@ void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y)
 	glfwSetCursorPos(mlx->window, (double)x, (double)y);
 }
 
-void mlx_get_mouse_pos(mlx_t* mlx, int32_t *x_out, int32_t *y_out)
+void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x_out, int32_t* y_out)
 {
 	double	x, y;
 

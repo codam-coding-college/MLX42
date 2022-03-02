@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 06:07:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 14:29:21 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ void mlx_lstadd_back(mlx_list_t** lst, mlx_list_t* new)
 		*lst = new;
 	else
 	{
-		mlx_list_t *temp = mlx_lstlast(*lst);
+		mlx_list_t* temp = mlx_lstlast(*lst);
 		new->prev = temp;
 		temp->next = new;
 	}
 }
 
-void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t *new)
+void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new)
 {
 	if (!lst || !new)
 		return;

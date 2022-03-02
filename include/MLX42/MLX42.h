@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 06:32:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 14:28:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,7 +361,7 @@ bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key);
  * @param[in] mlx The MLX instance handle. 
  * @param[in] pos_out The position.
  */
-void mlx_get_mouse_pos(mlx_t* mlx, int32_t *x_out, int32_t *y_out);
+void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x_out, int32_t* y_out);
 
 /**
  * Sets the mouse position.

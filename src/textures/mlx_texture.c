@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 05:16:02 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 14:28:13 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 
 	if (!mlx || !texture)
 		return ((void*)mlx_error(MLX_NULLARG));
-	if (!(img = mlx_texture_area_to_image(mlx, texture, (int32_t *)xy, (uint32_t *)wh)))
+	if (!(img = mlx_texture_area_to_image(mlx, texture, (int32_t*)xy, (uint32_t*)wh)))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 	return (img);
 }
