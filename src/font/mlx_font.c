@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 06:08:35 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 16:46:16 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  */
 static int32_t mlx_get_texoffset(char c)
 {
-	const bool	_isprint = isprint(c);
+	const bool _isprint = isprint(c);
 
 	return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
 }
@@ -66,7 +66,7 @@ static void mlx_draw_font(mlx_image_t* image, const mlx_texture_t* texture, int3
  * @param str The string to draw.
  * @param image The target image.
  */
-static void	mlx_draw_text(const char* str, mlx_image_t* image)
+static void mlx_draw_text(const char* str, mlx_image_t* image)
 {
 	size_t i = 0;
 	int32_t imgoffset = 0;

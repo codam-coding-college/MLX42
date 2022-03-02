@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 14:29:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 16:46:11 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ bool mlx_equal_image(void* lstcontent, void* value)
 	return (lcontent == lvalue);
 }
 
-bool	mlx_equal_inst(void* lstcontent, void* value)
+bool mlx_equal_inst(void* lstcontent, void* value)
 {
 	const draw_queue_t* lcontent = lstcontent;
 	const mlx_image_t* lvalue = value;

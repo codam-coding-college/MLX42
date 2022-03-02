@@ -6,13 +6,13 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:26:32 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 16:44:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-static void mlx_free_image(void	*content)
+static void mlx_free_image(void* content)
 {
 	mlx_image_t* img = content;
 

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 14:29:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 16:46:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
  * TODO: This buffer might be way to big! Do actual collision checks, 
  * for now just straight up raw dog this.
  */
-static bool	mlx_read_table(xpm_t* xpm, FILE* file)
+static bool mlx_read_table(xpm_t* xpm, FILE* file)
 {
 	size_t buffsize;
 	char* line = NULL;
@@ -151,7 +151,7 @@ static bool	mlx_read_table(xpm_t* xpm, FILE* file)
  * count and finally the color mode. Which is either c for Color or
  * m for Monochrome.
  */
-static bool	mlx_read_xpm_header(xpm_t* xpm, FILE *file)
+static bool mlx_read_xpm_header(xpm_t* xpm, FILE *file)
 {
 	int32_t	flagc;
 	char	buffer[64] = {0};
@@ -198,7 +198,7 @@ xpm_t*mlx_load_xpm42(const char* path)
 	return (xpm);
 }
 
-void	mlx_delete_xpm42(xpm_t* xpm)
+void mlx_delete_xpm42(xpm_t* xpm)
 {
 	if (!xpm)
 	{

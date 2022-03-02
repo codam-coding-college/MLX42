@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 14:27:28 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 16:45:20 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 //= Private =//
 
-static void	framebuffer_callback(GLFWwindow *window, int width, int height)
+static void framebuffer_callback(GLFWwindow *window, int width, int height)
 {
 	(void)window;
 	glViewport(0, 0, width, height);
 }
 
-static bool	mlx_create_buffers(mlx_t* mlx)
+static bool mlx_create_buffers(mlx_t* mlx)
 {
 	mlx_ctx_t* mlxctx = mlx->context;
 
@@ -81,7 +81,7 @@ static uint32_t mlx_compile_shader(const char* code, int32_t type)
 	return (shader);
 }
 
-static bool	mlx_init_render(mlx_t* mlx)
+static bool mlx_init_render(mlx_t* mlx)
 {
 	uint32_t vshader = 0;
 	uint32_t fshader = 0;

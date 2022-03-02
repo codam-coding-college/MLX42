@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 14:09:02 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/02 16:44:17 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param)
 	glfwSetWindowCloseCallback(mlx->window, mlx_close_callback);
 }
 
-void	mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
+void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
 {
 	if (!mlx || !func)
 	{
@@ -78,17 +78,17 @@ void	mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
 	//NOTE: Callback is set just above because MLX needs to hook onto it.
 }
 
-void	mlx_set_icon(mlx_t* mlx, mlx_texture_t* image)
+void mlx_set_icon(mlx_t* mlx, mlx_texture_t* image)
 {
 	glfwSetWindowIcon(mlx->window, 1, (const GLFWimage*)image);
 }
 
-void	mlx_set_window_pos(mlx_t* mlx, int32_t xpos, int32_t ypos)
+void mlx_set_window_pos(mlx_t* mlx, int32_t xpos, int32_t ypos)
 {
 	glfwSetWindowPos(mlx->window, xpos, ypos);
 }
 
-void	mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos)
+void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos)
 {
 	if (!xpos || !ypos)
 	{
@@ -98,7 +98,7 @@ void	mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos)
 	glfwGetWindowPos(mlx->window, xpos, ypos);
 }
 
-void	mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height)
+void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height)
 {
 	mlx->width = new_width;
 	mlx->height = new_height;
