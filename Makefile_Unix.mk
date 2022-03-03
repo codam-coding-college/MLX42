@@ -36,11 +36,11 @@ all: $(SHDR) $(NAME)
 # Convert our shaders to .c files
 src/mlx_vert.c: shaders/default.vert
 	@echo "$(GREEN)$(BOLD)Converting shader: $< -> $@ $(RESET)"
-	@python3 tools/compile_shader.py $^ > $@
+	@bash tools/compile_shader.sh $^ > $@
 
-src/mlx_frag.c: shaders/default.frag 
+src/mlx_frag.c: shaders/default.frag
 	@echo "$(GREEN)$(BOLD)Converting shader: $< -> $@ $(RESET)"
-	@python3 tools/compile_shader.py $^ > $@
+	@bash tools/compile_shader.sh $^ > $@
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
