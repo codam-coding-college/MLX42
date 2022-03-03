@@ -14,28 +14,108 @@
 
 //= Private =//
 
+//static void push_vertex(mlx_ctx_t *mlx, float x, float y, float z, float u, float v, int tex) {
+//	vertex_t *vert = &mlx->batch_vertices[mlx->batch_size];
+//
+//	vert->x = x;
+//	vert->y = y;
+//	vert->z = z;
+//	vert->u = u;
+//	vert->v = v;
+//	vert->tex = tex;
+//
+//	mlx->batch_size++;
+//}
+
 /**
  * Internal function to draw a single instance of an image
  * to the screen.
  */
-void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance)
+void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instance)
 {
-	vertex_t vertices[6];
-	const int32_t w = img->width;
-	const int32_t h = img->height;
-	const int32_t x = instance->x;
-	const int32_t y = instance->y;
+	int32_t w = img->width;
+	int32_t h = img->height;
+	int32_t x = instance->x;
+	int32_t y = instance->y;
+	int8_t tex = mlx_bind_texture(mlx, img);
+//	const int32_t i = mlx->batch_size;
 
-	vertices[0] = (vertex_t){x, y, instance->z, 0.f, 0.f};
-	vertices[1] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f};
-	vertices[2] = (vertex_t){x + w, y, instance->z, 1.f, 0.f};
-	vertices[3] = (vertex_t){x, y, instance->z, 0.f, 0.f};
-	vertices[4] = (vertex_t){x, y + h, instance->z, 0.f, 1.f};
-	vertices[5] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f};
+//	push_vertex(mlx, x, y, instance->z, 0.f, 0.f, tex);
+//	push_vertex(mlx, x + w, y + h, instance->z, 1.f, 1.f, tex);
+//	push_vertex(mlx, x + w, y, instance->z, 1.f, 0.f, tex);
+//	push_vertex(mlx, x, y, instance->z, 0.f, 0.f, tex);
+//	push_vertex(mlx, x, y + h, instance->z, 0.f, 1.f, tex);
+//	push_vertex(mlx, x + w, y + h, instance->z, 1.f, 1.f, tex);
 
-	glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)img->context)->texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_t) * 6, vertices, GL_STATIC_DRAW);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	vertex_t vertices[6] = {
+			(vertex_t){x, y, instance->z, 0.f, 0.f, tex},
+			(vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex},
+			(vertex_t){x + w, y, instance->z, 1.f, 0.f, tex},
+			(vertex_t){x, y, instance->z, 0.f, 0.f, tex},
+			(vertex_t){x, y + h, instance->z, 0.f, 1.f, tex},
+			(vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex},
+	};
+	memmove(mlx->batch_vertices + mlx->batch_size, vertices, sizeof(vertices));
+
+//	mlx->batch_vertices[i + 0] = (vertex_t){x, y, instance->z, 0.f, 0.f, tex};
+//	mlx->batch_vertices[i + 1] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex};
+//	mlx->batch_vertices[i + 2] = (vertex_t){x + w, y, instance->z, 1.f, 0.f, tex};
+//	mlx->batch_vertices[i + 3] = (vertex_t){x, y, instance->z, 0.f, 0.f, tex};
+//	mlx->batch_vertices[i + 4] = (vertex_t){x, y + h, instance->z, 0.f, 1.f, tex};
+//	mlx->batch_vertices[i + 5] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex};
+	mlx->batch_size += 6;
+
+	if (mlx->batch_size >= MLX_BATCH_SIZE)
+		mlx_flush_batch(mlx);
+}
+
+void mlx_flush_batch(mlx_ctx_t* mlx)
+{
+	if (mlx->batch_size <= 0)
+		return ;
+
+	GLint values[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	for (GLint i = 0; i < 16; i++)
+		if (mlx->bound_textures[i] != 0)
+			values[i] = i;
+
+	glBindVertexArray(mlx->vao);
+	glBindBuffer(GL_ARRAY_BUFFER, mlx->vbo);
+	glBufferData(GL_ARRAY_BUFFER, mlx->batch_size * sizeof(vertex_t), mlx->batch_vertices, GL_STATIC_DRAW);
+	glDrawArrays(GL_TRIANGLES, 0, mlx->batch_size);
+
+	mlx->batch_size = 0;
+	for (size_t i = 0; i < 16; i++)
+		mlx->bound_textures[i] = 0;
+}
+
+int8_t mlx_bind_texture(mlx_ctx_t* mlx, mlx_image_t* img)
+{
+	const GLint handle = (GLint)((mlx_image_ctx_t*)img->context)->texture;
+
+	// Attempt to bind the texture, or obtain the index if it is already bound.
+	for (int8_t i = 0; i < 16; i++)
+	{
+		if (mlx->bound_textures[i] == handle)
+			return i;
+
+		if (mlx->bound_textures[i] == 0)
+		{
+			mlx->bound_textures[i] = handle;
+
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, handle);
+			return i;
+		}
+	}
+
+	// If no free slot was found, flush the batch and assign the texture to the first available slot
+	mlx_flush_batch(mlx);
+
+	mlx->bound_textures[0] = handle;
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, handle);
+	return 0;
 }
 
 //= Public =//

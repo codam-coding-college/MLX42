@@ -23,9 +23,9 @@ static void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 	const float matrix[16] = {
 		2.f / width, 0, 0, 0,
 		0, 2.f / -(height), 0, 0,
-		0, 0, -2.f / (1000.f - -1000.f), 0,
+		0, 0, -2.f / (10000.f - -10000.f), 0,
 		-1, -(height / -height),
-		-((1000.f + -1000.f) / (1000.f - -1000.f)), 1
+		-((10000.f + -10000.f) / (10000.f - -10000.f)), 1
 	};
 
 	glUniformMatrix4fv(glGetUniformLocation(((mlx_ctx_t*)mlx->context)->shaderprogram, "ProjMatrix"), 1, GL_FALSE, matrix);

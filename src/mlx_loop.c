@@ -37,6 +37,7 @@ static void mlx_render_images(mlx_t* mlx)
 	while (imglst)
 	{
 		mlx_image_t* image = imglst->content;
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)image->context)->texture);
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image->width, image->height, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 		imglst = imglst->next;
@@ -47,7 +48,8 @@ static void mlx_render_images(mlx_t* mlx)
 	{
 		draw_queue_t* drawcall = render_queue->content;
 		if (drawcall && drawcall->image->enabled)
-			mlx_draw_instance(drawcall->image, &drawcall->image->instances[drawcall->instanceid]);
+			mlx_draw_instance(mlx->context, drawcall->image,
+							  &drawcall->image->instances[drawcall->instanceid]);
 		render_queue = render_queue->next;
 	}
 }
@@ -91,6 +93,7 @@ void mlx_loop(mlx_t* mlx)
 		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
 		mlx_exec_loop_hooks(mlx);
 		mlx_render_images(mlx);
+		mlx_flush_batch(mlx->context);
 		glfwSwapBuffers(mlx->window);
 		glfwPollEvents();
 	}

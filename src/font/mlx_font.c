@@ -76,7 +76,7 @@ static void mlx_draw_text(const char* str, mlx_image_t* image)
 
 	for (size_t i = 0; str[i] != '\0'; i++)
 	{
-		mlx_draw_font(image, &atlas, mlx_get_texoffset(str[i++]), imgoffset);
+		mlx_draw_font(image, &atlas, mlx_get_texoffset(str[i]), imgoffset);
 		imgoffset += FONT_WIDTH;
 	}
 }
