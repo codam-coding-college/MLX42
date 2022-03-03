@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 16:44:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 16:17:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@
  */
 static void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 {
+	// NOTE: The depth should technically be the zdepth in the mlx context.
+	// but that would require us to re-calculate the matrix for each new image.
+	const float depth = 10000.f;
 	const float matrix[16] = {
 		2.f / width, 0, 0, 0,
 		0, 2.f / -(height), 0, 0,
-		0, 0, -2.f / (10000.f - -10000.f), 0,
+		0, 0, -2.f / (depth - -depth), 0,
 		-1, -(height / -height),
-		-((10000.f + -10000.f) / (10000.f - -10000.f)), 1
+		-((depth + -depth) / (depth - -depth)), 1
 	};
 
 	glUniformMatrix4fv(glGetUniformLocation(((mlx_ctx_t*)mlx->context)->shaderprogram, "ProjMatrix"), 1, GL_FALSE, matrix);

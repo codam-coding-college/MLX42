@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 02:58:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 16:53:11 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void mlx_key_callback(GLFWwindow* window, int32_t key, int32_t scancode, 
 	const mlx_key_t key_hook = ((mlx_ctx_t*)mlx->context)->key_hook;
 	const mlx_key_data_t callback_data = {
 		key,
-		scancode,
 		action,
+		scancode,
 		mods,
 	};
 

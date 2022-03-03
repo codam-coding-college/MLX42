@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 13:05:23 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 16:48:45 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int32_t mlx_get_texoffset(char c)
  * @param texoffset The character texture X offset.
  * @param imgoffset The image X offset.
  */
-static void mlx_draw_font(mlx_image_t* image, const mlx_texture_t* texture, int32_t texoffset, int32_t imgoffset)
+static void mlx_draw_char(mlx_image_t* image, int32_t texoffset, int32_t imgoffset)
 {
 	uint8_t* pixelx;
 	uint8_t* pixeli;
@@ -50,34 +50,9 @@ static void mlx_draw_font(mlx_image_t* image, const mlx_texture_t* texture, int3
 		return;
 	for (uint32_t y = 0; y < FONT_HEIGHT; y++)
 	{
-		pixelx = texture->pixels + ((y * texture->width + texoffset) * BPP);
+		pixelx = &font_atlas.pixels[(y * font_atlas.width + texoffset) * BPP];
 		pixeli = image->pixels + ((y * image->width + imgoffset) * BPP);
 		memcpy(pixeli, pixelx, FONT_WIDTH * BPP);
-	}
-}
-
-/**
- * Draws the given text onto an image.
- * 
- * @param str The string to draw.
- * @param image The target image.
- */
-static void mlx_draw_text(const char* str, mlx_image_t* image)
-{
-	int32_t imgoffset = 0;
-
-	// We need to 'convert' it from one struct to another.
-	const mlx_texture_t atlas = {
-		font_atlas.width,
-		font_atlas.height,
-		font_atlas.pixels,
-		font_atlas.bpp,
-	};
-
-	for (size_t i = 0; str[i] != '\0'; i++)
-	{
-		mlx_draw_font(image, &atlas, mlx_get_texoffset(str[i]), imgoffset);
-		imgoffset += FONT_WIDTH;
 	}
 }
 
@@ -91,7 +66,12 @@ mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 		return ((void *)mlx_error(MLX_NULLARG));
 	if (!(strimage = mlx_new_image(mlx, strlen(str) * FONT_WIDTH, FONT_HEIGHT)))
 		return (NULL);
-	mlx_draw_text(str, strimage);
+
+	// Draw the text itself
+	int32_t imgoffset = 0;
+	for (size_t i = 0; str[i] != '\0'; i++, imgoffset += FONT_WIDTH)
+		mlx_draw_char(strimage, mlx_get_texoffset(str[i]), imgoffset);
+	
 	if (!mlx_image_to_window(mlx, strimage, x, y))
 		return (mlx_delete_image(mlx, strimage), NULL);
 	return (strimage);

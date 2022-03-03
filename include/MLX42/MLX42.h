@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 14:28:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 16:53:42 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct mlx_key_cbdata
 {
 	keys_t			key;
 	action_t		action;
-	int16_t			os_key;
+	int32_t			os_key;
 	modifier_key_t	modifier;
 }	mlx_key_data_t;
 

@@ -6,24 +6,19 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:30:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 13:09:57 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 14:11:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
-static void mlx_draw_pixel(uint8_t* pixel, uint32_t color)
+// BUG: Linux may experience a red hue instead due to endiannes
+void mlx_draw_pixel(uint8_t* pixel, uint32_t color)
 {
 	*(pixel++) = (uint8_t)(color >> 24);
 	*(pixel++) = (uint8_t)(color >> 16);
 	*(pixel++) = (uint8_t)(color >> 8);
 	*(pixel++) = (uint8_t)(color & 0xFF);
-}
-
-void mlx_xpm_putpixel(xpm_t* xpm, int32_t x, int32_t y, uint32_t color)
-{
-	uint8_t* pixelstart = &xpm->texture.pixels[(y * xpm->texture.width + x) * BPP];
-	mlx_draw_pixel(pixelstart, color);
 }
 
 //= Public =//
