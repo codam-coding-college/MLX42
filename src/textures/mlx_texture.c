@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 12:59:57 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 15:02:24 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,23 @@
 
 mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, int32_t xy[2], uint32_t wh[2])
 {
-	uint32_t y = 0;
 	uint8_t* pixelx;
 	uint8_t* pixeli;
 	mlx_image_t* image;
 
 	if (!mlx || !texture || !xy || !wh)
 		return ((void*)mlx_error(MLX_NULLARG));
-	if (xy[0] > (int32_t)texture->width || xy[1] > (int32_t)texture->height)
+	if (xy[0] > (int32_t)texture->width || xy[1] > (int32_t)texture->height || \
+		wh[0] > texture->width || wh[1] > texture->height)
 		return ((void*)mlx_error(MLX_INVAREA));
 	if (!(image = mlx_new_image(mlx, wh[0], wh[1])))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 
-	while (y < wh[1])
+	for (uint32_t y = 0; y < wh[1]; y++)
 	{
 		pixelx = &texture->pixels[((xy[1] + y) * texture->width + xy[0]) * BPP];
 		pixeli = &image->pixels[y * wh[0] * BPP];
 		memmove(pixeli, pixelx, wh[0] * BPP);
-		y++;
 	}
 	return (image);
 }
