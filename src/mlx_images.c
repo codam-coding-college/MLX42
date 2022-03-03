@@ -14,55 +14,28 @@
 
 //= Private =//
 
-//static void push_vertex(mlx_ctx_t *mlx, float x, float y, float z, float u, float v, int tex) {
-//	vertex_t *vert = &mlx->batch_vertices[mlx->batch_size];
-//
-//	vert->x = x;
-//	vert->y = y;
-//	vert->z = z;
-//	vert->u = u;
-//	vert->v = v;
-//	vert->tex = tex;
-//
-//	mlx->batch_size++;
-//}
-
 /**
  * Internal function to draw a single instance of an image
  * to the screen.
  */
 void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instance)
 {
-	int32_t w = img->width;
-	int32_t h = img->height;
-	int32_t x = instance->x;
-	int32_t y = instance->y;
+	float w = (float) img->width;
+	float h = (float) img->height;
+	float x = (float) instance->x;
+	float y = (float) instance->y;
+	float z = (float) instance->z;
 	int8_t tex = mlx_bind_texture(mlx, img);
-//	const int32_t i = mlx->batch_size;
-
-//	push_vertex(mlx, x, y, instance->z, 0.f, 0.f, tex);
-//	push_vertex(mlx, x + w, y + h, instance->z, 1.f, 1.f, tex);
-//	push_vertex(mlx, x + w, y, instance->z, 1.f, 0.f, tex);
-//	push_vertex(mlx, x, y, instance->z, 0.f, 0.f, tex);
-//	push_vertex(mlx, x, y + h, instance->z, 0.f, 1.f, tex);
-//	push_vertex(mlx, x + w, y + h, instance->z, 1.f, 1.f, tex);
 
 	vertex_t vertices[6] = {
-			(vertex_t){x, y, instance->z, 0.f, 0.f, tex},
-			(vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex},
-			(vertex_t){x + w, y, instance->z, 1.f, 0.f, tex},
-			(vertex_t){x, y, instance->z, 0.f, 0.f, tex},
-			(vertex_t){x, y + h, instance->z, 0.f, 1.f, tex},
-			(vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex},
+			(vertex_t){x, y, z, 0.f, 0.f, tex},
+			(vertex_t){x + w, y + h, z, 1.f, 1.f, tex},
+			(vertex_t){x + w, y, z, 1.f, 0.f, tex},
+			(vertex_t){x, y, z, 0.f, 0.f, tex},
+			(vertex_t){x, y + h, z, 0.f, 1.f, tex},
+			(vertex_t){x + w, y + h, z, 1.f, 1.f, tex},
 	};
 	memmove(mlx->batch_vertices + mlx->batch_size, vertices, sizeof(vertices));
-
-//	mlx->batch_vertices[i + 0] = (vertex_t){x, y, instance->z, 0.f, 0.f, tex};
-//	mlx->batch_vertices[i + 1] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex};
-//	mlx->batch_vertices[i + 2] = (vertex_t){x + w, y, instance->z, 1.f, 0.f, tex};
-//	mlx->batch_vertices[i + 3] = (vertex_t){x, y, instance->z, 0.f, 0.f, tex};
-//	mlx->batch_vertices[i + 4] = (vertex_t){x, y + h, instance->z, 0.f, 1.f, tex};
-//	mlx->batch_vertices[i + 5] = (vertex_t){x + w, y + h, instance->z, 1.f, 1.f, tex};
 	mlx->batch_size += 6;
 
 	if (mlx->batch_size >= MLX_BATCH_SIZE)

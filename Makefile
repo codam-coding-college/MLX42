@@ -18,7 +18,7 @@ endif
 ifdef DEBUG
 CFLAGS	+= -g
 else
-CFLAGS	+= -g
+CFLAGS	+= -Ofast
 endif
 
 ifeq ($(OS), Windows_NT)
@@ -47,9 +47,6 @@ else
         $(error OS: $(OS) - Is not supported!)
     endif
 endif
-
-test: all
-	gcc main.c -g libmlx42.a -I include -lglfw
 
 #//= Misc =//#
 .PHONY: all, clean, fclean, re

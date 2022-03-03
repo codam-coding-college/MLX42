@@ -30,6 +30,18 @@ void main()
         case 1: outColor = texture(Texture1, TexCoord); break;
         case 2: outColor = texture(Texture2, TexCoord); break;
         case 3: outColor = texture(Texture3, TexCoord); break;
+        case 4: outColor = texture(Texture4, TexCoord); break;
+        case 5: outColor = texture(Texture5, TexCoord); break;
+        case 6: outColor = texture(Texture6, TexCoord); break;
+        case 7: outColor = texture(Texture7, TexCoord); break;
+        case 8: outColor = texture(Texture8, TexCoord); break;
+        case 9: outColor = texture(Texture9, TexCoord); break;
+        case 10: outColor = texture(Texture10, TexCoord); break;
+        case 11: outColor = texture(Texture11, TexCoord); break;
+        case 12: outColor = texture(Texture12, TexCoord); break;
+        case 13: outColor = texture(Texture13, TexCoord); break;
+        case 14: outColor = texture(Texture14, TexCoord); break;
+        case 15: outColor = texture(Texture15, TexCoord); break;
         default: outColor = vec4(1.0, 0.0, 0.0, 1.0); break;
     }
     FragColor = outColor;
