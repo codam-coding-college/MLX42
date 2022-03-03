@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 12:54:54 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 14:15:51 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,9 +192,9 @@ mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, voi
 
 //= Misc functions =//
 
-void mlx_xpm_putpixel(xpm_t* xpm, int32_t x, int32_t y, uint32_t color);
 bool mlx_equal_image(void* lstcontent, void* value);
 bool mlx_equal_inst(void* lstcontent, void* value);
+void mlx_draw_pixel(uint8_t* pixel, uint32_t color);
 
 //= Error/log Handling Functions =//
 

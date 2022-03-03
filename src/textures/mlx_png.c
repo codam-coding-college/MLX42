@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/16 23:11:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 06:08:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 13:54:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 
 mlx_texture_t* mlx_load_png(const char* path)
 {
+	uint32_t error;
+	mlx_texture_t* image;
+
 	if (!path)
 		return ((void*)mlx_error(MLX_NULLARG));
-
-	mlx_texture_t* image;
 	if (!(image = malloc(sizeof(mlx_texture_t))))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 
-	uint32_t error;
-	image->bytes_per_pixel = sizeof(int32_t);
+	image->bytes_per_pixel = BPP;
 	if ((error = lodepng_decode32_file(&image->pixels, &image->width, &image->height, path)))
 	{
 		free(image);

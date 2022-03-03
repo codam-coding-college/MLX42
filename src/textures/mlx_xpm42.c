@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 13:12:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 14:18:59 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
  * Retrieves the pixel data line by line and then processes each pixel
  * by hashing the characters and looking it up from the color table.
  * 
- * This function reads the actual XPM pixel data.
- * For each line, each of its 'pixels' is retrieved, hashed, looked up
- * and the color inserted into the XPM itself.
+ * TODO: Use ssize_t as specified by getline.
  * 
  * @param xpm The XPM.
  * @param file The filepath to the XPM42 file.
@@ -82,30 +80,24 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
 static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 {
 	int64_t bread;
-	int64_t y_xpm = 0;
 	size_t buffsize;
 	char* line = NULL;
 
-	while (y_xpm < xpm->texture.height)
+	for (int64_t y_xpm = 0; y_xpm < xpm->texture.height; y_xpm++)
 	{
-		int64_t x_xpm = 0;
-		int64_t x_line = 0;
 		if ((bread = getline(&line, &buffsize, file)) == -1)
-		{
-			free(line);
-			return (false);
-		}
-		// Skip newline character
+			return (free(line), false);
 		if (line[bread - 1] == '\n')
 			bread--;
 		if (bread != xpm->texture.width * xpm->cpp)
-			return (mlx_freen(1, line));
-		while (x_xpm < xpm->texture.width)
+			return (free(line), false);
+
+		// NOTE: Copy pixel by pixel as we need to retrieve the hash table.
+		for (int64_t x_xpm = 0, x_line = 0; x_xpm < xpm->texture.width; x_xpm++, x_line += xpm->cpp)
 		{
-			mlx_xpm_putpixel(xpm, x_xpm++, y_xpm, ctable[mlx_fnv_hash(&line[x_line], xpm->cpp) % s]);
-			x_line += xpm->cpp;
+			uint8_t* pixelstart = &xpm->texture.pixels[(y_xpm * xpm->texture.width + x_xpm) * BPP];
+			mlx_draw_pixel(pixelstart, ctable[mlx_fnv_hash(&line[x_line], xpm->cpp) % s]);
 		}
-		y_xpm++;
 	}
 	free(line);
 	return (true);
@@ -126,22 +118,17 @@ static bool mlx_read_table(xpm_t* xpm, FILE* file)
 {
 	size_t buffsize;
 	char* line = NULL;
-	int32_t i = 0;
 	int64_t bread = 0;
 	uint32_t ctable[UINT16_MAX] = {0};
 
-	while (i < xpm->color_count)
+	for (int32_t i = 0; i < xpm->color_count; i++)
 	{
 		if ((bread = getline(&line, &buffsize, file)) == -1 || \
-		!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / 4)))
-		{
-			free(line);
-			return (false);
-		}
-		i++;
+		!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / BPP)))
+			return (free(line), false);
 	}
 	free(line);
-	return (mlx_read_data(xpm, file, ctable, (sizeof(ctable) / 4)));
+	return (mlx_read_data(xpm, file, ctable, (sizeof(ctable) / BPP)));
 }
 
 /**
