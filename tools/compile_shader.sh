@@ -34,7 +34,7 @@ echo "// If you wish to modify this file edit the .vert or .frag file!"
 echo ""
 echo "#include \"MLX42/MLX42_Int.h\""
 echo ""
-echo "const char	*g_${SHADERTYPE}_shader = \"$(head -n 2 $1 | sed -n 2p | tr -d '\r')\\n\""
+echo "const char* ${SHADERTYPE}_shader = \"$(head -n 2 $1 | sed -n 2p | tr -d '\r')\\n\""
 {
 	# Skip over first two lines
 	read
@@ -50,5 +50,4 @@ echo "const char	*g_${SHADERTYPE}_shader = \"$(head -n 2 $1 | sed -n 2p | tr -d 
 		fi
 	done
 } < "$1"
-echo ""
 exit 0
