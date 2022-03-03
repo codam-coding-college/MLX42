@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 06:07:00 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 12:52:04 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,11 @@ uint64_t mlx_fnv_hash(char* str, size_t len)
  */
 bool mlx_freen(int32_t count, ...)
 {
-	int32_t	i = 0;
 	va_list	args;
 
 	va_start(args, count);
-	while (i < count)
-	{
+	for (int32_t i = 0; i < count; i++)
 		free(va_arg(args, void*));
-		i++;
-	}
 	va_end(args);
 	return (false);
 }

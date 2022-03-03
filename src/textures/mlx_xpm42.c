@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 16:46:03 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 13:12:34 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,28 +156,27 @@ static bool mlx_read_xpm_header(xpm_t* xpm, FILE *file)
 	int32_t	flagc;
 	char	buffer[64] = {0};
 
-	// Check file type decl...
+	// Check file type dec...
 	if (!fgets(buffer, sizeof(buffer), file))
 		return (false);
 	if (strncmp(buffer, "!XPM42\n", sizeof(buffer)) != 0)
 		return (false);
+
+	// Get header info ...
 	if (!fgets(buffer, sizeof(buffer), file))
 		return (false);
-
-	// Check header info...
 	flagc = sscanf(buffer, "%i %i %i %i %c\n", &xpm->texture.width, &xpm->texture.height, &xpm->color_count, &xpm->cpp, &xpm->mode);
 	if (flagc < 4 || xpm->texture.width > INT16_MAX || xpm->texture.height > INT16_MAX || \
 		!(xpm->mode == 'c' || xpm->mode == 'm') || xpm->cpp > 10)
 		return (false);
-
-	xpm->texture.bytes_per_pixel = sizeof(int32_t);
+	xpm->texture.bytes_per_pixel = BPP;
 	xpm->texture.pixels = calloc(xpm->texture.width * xpm->texture.height, sizeof(int32_t));
 	return (xpm->texture.pixels != NULL ? mlx_read_table(xpm, file) : false);
 }
 
 //= Public =//
 
-xpm_t*mlx_load_xpm42(const char* path)
+xpm_t* mlx_load_xpm42(const char* path)
 {
 	FILE* file;
 	xpm_t* xpm = NULL;

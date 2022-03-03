@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 16:45:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 13:28:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static bool mlx_create_buffers(mlx_t* mlx)
  * Returns shader object via param.
  * 
  * @param code The shader source code.
- * @param Type GL_VERTEX_SHADER or GL_FRAGMENT_SHADER or ...
+ * @param Type GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, GL_GEOMETRY_SHADER, ...
  * @return Non-zero on success, else 0.
  */
 static uint32_t mlx_compile_shader(const char* code, int32_t type)
@@ -97,7 +97,7 @@ static bool mlx_init_render(mlx_t* mlx)
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		return (mlx_error(MLX_GLADFAIL));
 	
-	// Compile & link shaders TODO: Separate error codes for shaders
+	//TODO: Separate error codes for shaders
 	if (!(vshader = mlx_compile_shader(vert_shader, GL_VERTEX_SHADER)))
 		return (mlx_error(MLX_SHDRFAIL));
 	if (!(fshader = mlx_compile_shader(frag_shader, GL_FRAGMENT_SHADER)))
@@ -108,7 +108,7 @@ static bool mlx_init_render(mlx_t* mlx)
 	glAttachShader(mlxctx->shaderprogram, fshader);
 	glLinkProgram(mlxctx->shaderprogram);
 
-	int32_t success; // Check if linking succeeded 
+	int32_t success;
 	glGetProgramiv(mlxctx->shaderprogram, GL_LINK_STATUS, &success);
 	if (!success)
 	{
@@ -126,24 +126,21 @@ static bool mlx_init_render(mlx_t* mlx)
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
+	bool init;
+	mlx_t* mlx;
 	mlx_errno = 0;
 	if (width <= 0 || height <= 0 || !title)
 		return ((void*)mlx_error(MLX_NULLARG));
-	
-	bool init;
 	if (!(init = glfwInit()))
 		return ((void*)mlx_error(MLX_GLFWFAIL));
-
-	mlx_t* mlx;
 	if (!(mlx = calloc(1, sizeof(mlx_t))))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 	if (!(mlx->context = calloc(1, sizeof(mlx_ctx_t))))
-	{
-		free(mlx);
-		return ((void*)mlx_error(MLX_MEMFAIL));
-	}
+		return (free(mlx), (void*)mlx_error(MLX_MEMFAIL));
+
 	mlx->width = width;
 	mlx->height = height;
+	glfwWindowHint(GLFW_DECORATED, GL_TRUE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -153,7 +150,6 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 	glfwWindowHint(GLFW_RESIZABLE, resize);
 	if (!(mlx->window = glfwCreateWindow(width, height, title, NULL, NULL)))
 		return (mlx_terminate(mlx), (void*)mlx_error(MLX_WINFAIL));
-	
 	if (!mlx_init_render(mlx) || !mlx_create_buffers(mlx))
 		return (mlx_terminate(mlx), NULL);
 	return (mlx);

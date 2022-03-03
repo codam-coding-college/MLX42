@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 14:27:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 13:09:44 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,12 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 		return ((void*)mlx_error(MLX_IMGTOSML));
 	if (nwidth != img->width || nheight != img->height)
 	{
-		uint8_t* tempbuff = realloc(img->pixels, (nwidth * nheight) * sizeof(int32_t));
+		uint8_t* tempbuff = realloc(img->pixels, (nwidth * nheight) * BPP);
 		if (!tempbuff)
 			return (mlx_error(MLX_MEMFAIL));
 		img->pixels = tempbuff;
 		(*(uint32_t*)&img->width) = nwidth;
 		(*(uint32_t*)&img->height) = nheight;
-		//memset(img->pixels, 0, (img->width * img->height) * sizeof(int32_t));
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nwidth, nheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img->pixels);
 	}
 	return (true);

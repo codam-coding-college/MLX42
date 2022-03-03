@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 16:46:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 13:05:23 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,16 @@ static int32_t mlx_get_texoffset(char c)
  */
 static void mlx_draw_font(mlx_image_t* image, const mlx_texture_t* texture, int32_t texoffset, int32_t imgoffset)
 {
-	uint32_t y = 0;
-	uint8_t* pixelx = NULL;
-	uint8_t* pixeli = NULL;
-	const uint32_t bpp = texture->bytes_per_pixel;
+	uint8_t* pixelx;
+	uint8_t* pixeli;
 
 	if (texoffset < 0)
 		return;
-
-	while (y < FONT_HEIGHT)
+	for (uint32_t y = 0; y < FONT_HEIGHT; y++)
 	{
-		pixelx = texture->pixels + ((y * texture->width + texoffset) * bpp);
-		pixeli = image->pixels + ((y * image->width + imgoffset) * bpp);
-		memcpy(pixeli, pixelx, FONT_WIDTH * bpp);
-		y++;
+		pixelx = texture->pixels + ((y * texture->width + texoffset) * BPP);
+		pixeli = image->pixels + ((y * image->width + imgoffset) * BPP);
+		memcpy(pixeli, pixelx, FONT_WIDTH * BPP);
 	}
 }
 
@@ -68,7 +64,6 @@ static void mlx_draw_font(mlx_image_t* image, const mlx_texture_t* texture, int3
  */
 static void mlx_draw_text(const char* str, mlx_image_t* image)
 {
-	size_t i = 0;
 	int32_t imgoffset = 0;
 
 	// We need to 'convert' it from one struct to another.
@@ -79,7 +74,7 @@ static void mlx_draw_text(const char* str, mlx_image_t* image)
 		font_atlas.bpp,
 	};
 
-	while (str[i])
+	for (size_t i = 0; str[i] != '\0'; i++)
 	{
 		mlx_draw_font(image, &atlas, mlx_get_texoffset(str[i++]), imgoffset);
 		imgoffset += FONT_WIDTH;

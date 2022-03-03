@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 03:46:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 12:54:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
+# define BPP sizeof(int32_t) /* Only support RGBA */
 
 /**
  * The shader code is extracted from the shader files

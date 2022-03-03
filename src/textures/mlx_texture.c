@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 14:28:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 12:59:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, int32
 	if (!(image = mlx_new_image(mlx, wh[0], wh[1])))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 
-	uint32_t bpp = texture->bytes_per_pixel;
 	while (y < wh[1])
 	{
-		pixelx = &texture->pixels[((xy[1] + y) * texture->width + xy[0]) * bpp];
-		pixeli = &image->pixels[y * wh[0] * bpp];
-		memmove(pixeli, pixelx, wh[0] * bpp);
+		pixelx = &texture->pixels[((xy[1] + y) * texture->width + xy[0]) * BPP];
+		pixeli = &image->pixels[y * wh[0] * BPP];
+		memmove(pixeli, pixelx, wh[0] * BPP);
 		y++;
 	}
 	return (image);
