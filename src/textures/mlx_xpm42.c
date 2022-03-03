@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 14:18:59 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 14:39:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
 		return (false);
 
 	int32_t index = mlx_fnv_hash(line, xpm->cpp) % s;
-	if (xpm->mode == 'c')
-		ctable[index] = mlx_atoi_base(&line[xpm->cpp], 16);
-	else
-		ctable[index] = mlx_rgba_to_mono(mlx_atoi_base(&line[xpm->cpp], 16));
+	uint32_t color = (uint32_t)strtol(line + xpm->cpp + 2, NULL, 16);
+	ctable[index] = xpm->mode == 'm' ? mlx_rgba_to_mono(color) : color;
 	return (true);
 }
 
