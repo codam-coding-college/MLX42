@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 13:05:23 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 15:53:09 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void mlx_draw_text(const char* str, mlx_image_t* image)
 
 	for (size_t i = 0; str[i] != '\0'; i++)
 	{
-		mlx_draw_font(image, &atlas, mlx_get_texoffset(str[i++]), imgoffset);
+		mlx_draw_font(image, &atlas, mlx_get_texoffset(str[i]), imgoffset);
 		imgoffset += FONT_WIDTH;
 	}
 }
