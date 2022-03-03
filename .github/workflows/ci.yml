@@ -35,7 +35,7 @@ jobs:
             echo "$RUNNER_OS not supported"
             exit 1
         fi
-  
+
     - name: Build
       run: make NOWARNING=1
 
@@ -50,7 +50,7 @@ jobs:
     - name: Install Cygwin, including gcc
       uses: egor-tensin/setup-cygwin@v3
       with:
-        packages: unzip gcc-g++
+        packages: unzip gcc-g++ dos2unix
 
     - name: Download GLFW binaries
       uses: carlosperate/download-file-action@v1.1.1
@@ -58,7 +58,7 @@ jobs:
         file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
         file-name: 'glfw.zip'
         location: '${{ github.workspace }}\lib'
-      
+
     - name: Unpack GLFW binaries
       run: |
         unzip 'lib/glfw.zip' -d 'lib'
@@ -67,4 +67,5 @@ jobs:
 
     - name: Build
       run: |
+        dos2unix tools/compile_shader.sh
         make HEADERS="-I lib/glfw/include" NOWARNING=1 CYGWIN=1
