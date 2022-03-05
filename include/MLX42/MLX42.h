@@ -160,7 +160,7 @@ typedef enum mlx_errno
 }	mlx_errno_t;
 
 // Global error code from the MLX42 library, 0 on no error.
-mlx_errno_t	mlx_errno;
+extern mlx_errno_t mlx_errno;
 
 /**
  * Callback function used to handle scrolling.
