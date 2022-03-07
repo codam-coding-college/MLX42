@@ -27,7 +27,7 @@ static bool mlx_create_buffers(mlx_t* mlx)
 	mlxctx->zdepth = 0;
 	glActiveTexture(GL_TEXTURE0);
 	glGenVertexArrays(1, &(mlxctx->vao));
-	glGenVertexArrays(1, &(mlxctx->vao));
+//	glGenVertexArrays(1, &(mlxctx->vao));
 	glGenBuffers(1, &(mlxctx->vbo));
 	glBindVertexArray(mlxctx->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, mlxctx->vbo);
@@ -40,10 +40,30 @@ static bool mlx_create_buffers(mlx_t* mlx)
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex_t), (void *)(sizeof(float) * 3));
 	glEnableVertexAttribArray(1);
 
+	// Texture index
+	glVertexAttribIPointer(2, 1, GL_BYTE, sizeof(vertex_t), (void *)(sizeof(float) * 5));
+	glEnableVertexAttribArray(2);
+
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "OutTexture"), 0);
+
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture0"), 0);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture1"), 1);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture2"), 2);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture3"), 3);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture4"), 4);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture5"), 5);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture6"), 6);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture7"), 7);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture8"), 8);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture9"), 9);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture10"), 10);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture11"), 11);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture12"), 12);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture13"), 13);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture14"), 14);
+	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture15"), 15);
 
 	// NOTE: Call manually once to calculate View Projection Matrix
 	glfwSetWindowSizeCallback(mlx->window, &mlx_on_resize);
@@ -119,6 +139,10 @@ static bool mlx_init_render(mlx_t* mlx)
 	glDeleteShader(vshader);
 	glDeleteShader(fshader);
 	glUseProgram(mlxctx->shaderprogram);
+
+	for (size_t i = 0; i < 16; i++)
+		mlxctx->bound_textures[i] = 0;
+
 	return (true);
 }
 
