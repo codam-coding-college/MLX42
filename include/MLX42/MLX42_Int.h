@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 14:15:51 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 20:01:57 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ typedef struct mlx_ctx
 	mlx_key_t		key_hook;
 	mlx_resize_t	resize_hook;
 	mlx_close_t		close_hook;
-	int32_t			zdepth;
 }	mlx_ctx_t;
 
 // Draw call queue entry.

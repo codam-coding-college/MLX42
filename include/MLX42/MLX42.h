@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 16:53:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 20:04:42 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -564,9 +564,10 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
  * @param[in] img The image to draw onto the screen.
  * @param[in] x The X position.
  * @param[in] y The Y position.
+ * @param[in] z The Z position, as in what is in the fore or background.
  * @return Pointer to the newly created instance or NULL on failure.
  */
-mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y);
+mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y, int32_t z);
 
 /**
  * Deleting an image will remove it from the render queue as well as any and all
@@ -601,8 +602,9 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
  * @param[in] str The string to draw.
  * @param[in] x The X location.
  * @param[in] y The Y location.
+ * @param[in] z The Z position, as in what is in the fore or background.
  * @return Image ptr to the string.
  */
-mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y);
+mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y, int32_t z);
 
 #endif
