@@ -207,7 +207,7 @@ void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance);
 
 // Utils Functions =//
 
-int32_t mlx_rgba_to_mono(int32_t color);
+uint32_t mlx_rgba_to_mono(uint32_t color);
 int32_t mlx_atoi_base(const char* str, int32_t base);
 uint64_t mlx_fnv_hash(char* str, size_t len);
 #endif

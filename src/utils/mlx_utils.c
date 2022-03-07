@@ -65,7 +65,7 @@ bool mlx_freen(int32_t count, ...)
  * @param color The input RGBA value.
  * @return The rgba value converted to a grayscale color.
  */
-int32_t	mlx_rgba_to_mono(int32_t color)
+uint32_t	mlx_rgba_to_mono(uint32_t color)
 {
 	const uint8_t r = 0.299f * ((color >> 24) & 0xFF);
 	const uint8_t g = 0.587f * ((color >> 16) & 0xFF);

@@ -123,6 +123,8 @@ static bool mlx_init_render(mlx_t* mlx)
 
 //= Public =//
 
+mlx_errno_t mlx_errno;
+
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
 	bool init;
