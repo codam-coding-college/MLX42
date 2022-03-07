@@ -6,14 +6,22 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/03/03 02:38:19 by fbes          #+#    #+#                  #
-#    Updated: 2022/03/03 04:05:03 by fbes          ########   odam.nl          #
+#    Updated: 2022/03/07 17:16:29 by fbes          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 #!/bin/bash
 
+# If no arguments have been given, exit with error code 1
 if [ "$#" -ne 1 ]; then
+	echo "ERROR: missing arguments, use as follows: $0 <ShaderFile>" 1>&2
 	exit 1
+fi
+
+# If file cannot be found, exit with error code 2
+if [ ! -f "$1" ]; then
+	echo "ERROR: shader file not found: $1" 1>&2
+	exit 2
 fi
 
 SHADERTYPE="${1##*.}"
@@ -34,13 +42,12 @@ echo "// If you wish to modify this file edit the .vert or .frag file!"
 echo ""
 echo "#include \"MLX42/MLX42_Int.h\""
 echo ""
-echo "const char* ${SHADERTYPE}_shader = \"$(head -n 2 $1 | sed -n 2p | tr -d '\r')\\n\""
+echo "const char* ${SHADERTYPE}_shader = \"$(head -n 2 $1 | sed -n 2p)\\n\""
 {
 	# Skip over first two lines
 	read
 	read
 	while IFS= read -r LINE; do
-		LINE=$(echo "$LINE" | tr -d '\r')
 		if [ ! "${LINE}" = "" ]; then
 			if [ "${LINE}" = "}" ]; then
 				echo "	\"${LINE}\";"

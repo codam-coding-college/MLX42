@@ -5,3 +5,4 @@
 
 # Declare files that will always have a certain EOL
 *.sh text eol=lf
+shaders/** text eol=lf
