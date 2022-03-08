@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 20:04:48 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/03 13:28:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static bool mlx_create_buffers(mlx_t* mlx)
 {
 	mlx_ctx_t* mlxctx = mlx->context;
 
+	mlxctx->zdepth = 0;
 	glActiveTexture(GL_TEXTURE0);
 	glGenVertexArrays(1, &(mlxctx->vao));
 	glGenVertexArrays(1, &(mlxctx->vao));

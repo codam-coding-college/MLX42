@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 20:01:36 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/08 20:39:51 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance)
 
 //= Public =//
 
-mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y, int32_t z)
+void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
+{
+	instance->z = zdepth;
+	// TODO: Sort the render queue...
+}
+
+int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 {
 	if (!mlx || !img)
 		return ((void*)mlx_error(MLX_NULLARG));
@@ -56,7 +62,10 @@ mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int
 	img->instances = temp;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
-	img->instances[index].z = z;
+
+	// NOTE: We keep updating the Z for the convenience of the user. 
+	// Always update Z depth to prevent overlapping images by default.
+	img->instances[index].z = ((mlx_ctx_t*)mlx->context)->zdepth++;
 	queue->image = img;
 	queue->instanceid = index;
 
@@ -65,7 +74,7 @@ mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int
 	if ((templst = mlx_lstnew(queue)))
 	{
 		mlx_lstadd_back(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
-		return (&img->instances[index]);
+		return (index);
 	}
 	return (mlx_freen(2, temp, queue), (void *)mlx_error(MLX_MEMFAIL));
 }
