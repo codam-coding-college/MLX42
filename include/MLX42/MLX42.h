@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/08 20:47:03 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/08 23:01:52 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -558,7 +558,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
  * pixel buffer as the image.
  * 
  * NOTE: Keep in mind that the instance array gets reallocated, try to
- * to store a pointer to an instance! It will become invalid!
+ * to store the return value to the instance! 
+ * NOT the pointer! It will become invalid!
  * 
  * WARNING: Try to display as few images onto the window as possible,
  * drawing too many images will cause a loss in peformance!
