@@ -72,7 +72,7 @@ mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 	for (size_t i = 0; str[i] != '\0'; i++, imgoffset += FONT_WIDTH)
 		mlx_draw_char(strimage, mlx_get_texoffset(str[i]), imgoffset);
 
-	if (!mlx_image_to_window(mlx, strimage, x, y))
+	if (mlx_image_to_window(mlx, strimage, x, y) == -1)
 		return (mlx_delete_image(mlx, strimage), NULL);
 	return (strimage);
 }
