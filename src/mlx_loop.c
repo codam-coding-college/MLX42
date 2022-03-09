@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/02 16:44:03 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/09 13:43:43 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ static void mlx_exec_loop_hooks(mlx_t* mlx)
 
 static void mlx_render_images(mlx_t* mlx)
 {
-	const mlx_ctx_t* mlxctx = mlx->context;
-	const mlx_list_t* imglst = mlxctx->images;
-	const mlx_list_t* render_queue = mlxctx->render_queue;
+	mlx_ctx_t* mlxctx = mlx->context;
+	mlx_list_t* imglst = mlxctx->images;
+
+	if (sort_queue)
+	{
+		sort_queue = false;
+		mlx_sort_renderqueue(&mlxctx->render_queue);
+	}
 
 	// Upload image textures to GPU
 	while (imglst)
@@ -43,6 +48,7 @@ static void mlx_render_images(mlx_t* mlx)
 	}
 
 	// Execute draw calls
+	mlx_list_t* render_queue = mlxctx->render_queue;
 	while (render_queue)
 	{
 		draw_queue_t* drawcall = render_queue->content;

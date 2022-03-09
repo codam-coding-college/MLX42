@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/08 20:46:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/09 13:36:41 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,21 @@ void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance)
 
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 {
+	if (!instance)
+	{
+		mlx_error(MLX_NULLARG);
+		return;
+	}
+	if (instance->z == zdepth)
+		return;
 	instance->z = zdepth;
-	// TODO: Sort the render queue...
+
+	/** 
+	 * NOTE: The reason why we don't sort directly is that
+	 * the user might call this function multiple times in a row and we don't
+	 * want to sort for every change. Pre-loop wise that is.
+	 */
+	sort_queue = true;
 }
 
 int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
@@ -58,7 +71,8 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 		return (mlx_freen(2, temp, queue), mlx_error(MLX_MEMFAIL), -1);
 
 	// Set data...
-	int32_t index = img->count - 1;
+	queue->image = img;
+	int32_t index = queue->instanceid = img->count - 1;
 	img->instances = temp;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
@@ -66,8 +80,6 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	// NOTE: We keep updating the Z for the convenience of the user. 
 	// Always update Z depth to prevent overlapping images by default.
 	img->instances[index].z = ((mlx_ctx_t*)mlx->context)->zdepth++;
-	queue->image = img;
-	queue->instanceid = index;
 
 	// Add draw call...
 	mlx_list_t* templst;

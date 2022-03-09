@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 14:15:51 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/09 13:07:38 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@
 
 extern const char* vert_shader;
 extern const char* frag_shader;
+
+// Flag to indicate if the render queue has to be sorted.
+extern bool sort_queue;
 
 //= Types =//
 
@@ -189,6 +192,7 @@ void mlx_lstclear(mlx_list_t** lst, void (*del)(void*));
 void mlx_lstadd_back(mlx_list_t** lst, mlx_list_t* new);
 void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new);
 mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, void*));
+void mlx_sort_renderqueue(mlx_list_t** lst);
 
 //= Misc functions =//
 
