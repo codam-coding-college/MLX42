@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 16:53:42 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/09 13:44:52 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ typedef struct xpm
 	char			mode;
 }	xpm_t;
 
-// BUG: Transparency breaks on z layer change, need to sort draw calls.
 /**
  * An image instance can be summarized as just a simple
  * x, y & z coordinate.
  * 
  * Coordinates start from the top left of the screen at 0,0 and increase
  * towards the bottom right.
+ * 
+ * NOTE: To change the z value, use mlx_set_instance_depth!
  * 
  * @param x The x location.
  * @param y The y location.
@@ -160,7 +161,7 @@ typedef enum mlx_errno
 }	mlx_errno_t;
 
 // Global error code from the MLX42 library, 0 on no error.
-mlx_errno_t	mlx_errno;
+extern mlx_errno_t mlx_errno;
 
 /**
  * Callback function used to handle scrolling.
@@ -557,6 +558,10 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
  * Draws a new instance of an image, it will then share the same
  * pixel buffer as the image.
  * 
+ * NOTE: Keep in mind that the instance array gets reallocated, try to
+ * to store the return value to the instance! 
+ * NOT the pointer! It will become invalid!
+ * 
  * WARNING: Try to display as few images onto the window as possible,
  * drawing too many images will cause a loss in peformance!
  * 
@@ -564,9 +569,9 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
  * @param[in] img The image to draw onto the screen.
  * @param[in] x The X position.
  * @param[in] y The Y position.
- * @return Pointer to the newly created instance or NULL on failure.
+ * @return Index to the instance, or -1 on failure.
  */
-mlx_instance_t* mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y);
+int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y);
 
 /**
  * Deleting an image will remove it from the render queue as well as any and all
@@ -591,6 +596,18 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
  * @return True if image was resize or false on error.
  */
 bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
+
+/**
+ * Sets the depth / Z axis value of an instance.
+ * 
+ * NOTE: Keep in mind that images that are on the same Z layer, cut each other off.
+ * so if you don't see your image anymore make sure its not conflicting by being on
+ * the same layer as another image.
+ * 
+ * @param instance The instane on which to change the depth.
+ * @param zdepth The new depth value.
+ */
+void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth);
 
 //= String Functions =//
 

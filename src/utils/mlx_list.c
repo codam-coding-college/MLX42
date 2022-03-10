@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 12:51:45 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/09 13:43:03 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,65 @@ mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, voi
 	if (lstcpy->prev != NULL)
 		lstcpy->prev->next = lstcpy->next;
 	return (lstcpy);
+}
+
+// Retrieve Z value from queue.
+static int32_t mlx_getdata(mlx_list_t* entry)
+{
+	const draw_queue_t* queue = entry->content;
+
+	return (queue->image->instances[queue->instanceid].z);
+}
+
+// Insert the entry back into head sorted.
+static void mlx_insertsort(mlx_list_t** head, mlx_list_t* new)
+{
+	mlx_list_t* current;
+ 
+	if (*head == NULL)
+		*head = new;
+	else if (mlx_getdata(*head) >= mlx_getdata(new))
+	{
+		new->next = *head;
+		new->next->prev = new;
+		*head = new;
+	}
+	else
+	{
+		current = *head;
+
+		// Find insertion location.
+		while (current->next != NULL && mlx_getdata(current->next) < mlx_getdata(new))
+			current = current->next;
+		new->next = current->next;
+ 
+		// Insert at the end
+		if (current->next != NULL)
+			new->next->prev = new; 
+		current->next = new;
+		new->prev = current;
+	}
+}
+
+/**
+ * Okay-ish sorting algorithm to sort the render queue / doubly linked list.
+ * We need to do this to fix transparency.
+ * 
+ * @param lst The render queue.
+ */
+void mlx_sort_renderqueue(mlx_list_t** lst)
+{
+	mlx_list_t* sorted = NULL;
+	mlx_list_t* lstcpy = *lst;
+
+	while (lstcpy != NULL) 
+	{
+		mlx_list_t* next = lstcpy->next;
+
+		// Separate entry out of list and insert it back but sorted.
+		lstcpy->prev = lstcpy->next = NULL;
+		mlx_insertsort(&sorted, lstcpy);
+		lstcpy = next;
+	}
+	*lst = sorted;
 }

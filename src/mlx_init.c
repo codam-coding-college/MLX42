@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 13:28:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/09 13:44:58 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static bool mlx_create_buffers(mlx_t* mlx)
 	mlxctx->zdepth = 0;
 	glActiveTexture(GL_TEXTURE0);
 	glGenVertexArrays(1, &(mlxctx->vao));
-//	glGenVertexArrays(1, &(mlxctx->vao));
 	glGenBuffers(1, &(mlxctx->vbo));
 	glBindVertexArray(mlxctx->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, mlxctx->vbo);
@@ -148,11 +147,15 @@ static bool mlx_init_render(mlx_t* mlx)
 
 //= Public =//
 
+bool sort_queue;
+mlx_errno_t mlx_errno;
+
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
 	bool init;
 	mlx_t* mlx;
 	mlx_errno = 0;
+	sort_queue = false;
 	if (width <= 0 || height <= 0 || !title)
 		return ((void*)mlx_error(MLX_NULLARG));
 	if (!(init = glfwInit()))
