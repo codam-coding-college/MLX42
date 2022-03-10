@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:32:49 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/02/28 17:55:05 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/03/10 12:27:54 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,19 @@ else
     ifeq ($(UNAME_S), Linux)
         include Makefile_Unix.mk
 	else ifeq ($(UNAME_S), Darwin)
+
+		# Default
 		DYLIB_EXISTS = test -e /usr/local/lib/libglfw.3.dylib || echo "false"
+
+		# Homebrew path
+		ifneq ($(DYLIB_EXISTS), false)
+			DYLIB_EXISTS = test -e /opt/homebrew/Cellar/glfw/3.3.6/lib/libglfw.3.dylib || echo "false"
+			ifneq ($(DYLIB_EXISTS), false)
+				HEADERS += -I /opt/homebrew/Cellar/glfw/3.3.6/include
+			endif
+		endif
+		
+		# Homebrew42 path
 		ifneq ($(DYLIB_EXISTS), false)
 			DYLIB_EXISTS = test -e /Users/$(USER)/.brew/opt/glfw/lib/libglfw.3.dylib || echo "false"
 			ifneq ($(DYLIB_EXISTS), false)
