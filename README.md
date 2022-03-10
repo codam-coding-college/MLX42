@@ -67,6 +67,11 @@ With the normal brew version you can now simply compile the program with:
 ➜  ~ gcc main.c libmlx42.a -lglfw ...
 ```
 
+You might have to specify the location explicitly:
+```bash
+➜  ~ gcc main.c libmlx42.a -lglfw -L /opt/homebrew/Cellar/glfw/3.3.6/lib/
+```
+
 However, with 42Homebrew you have additionally specify the location of the library like here:
 ```bash
 ➜  ~ gcc main.c libmlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
