@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/09 13:07:38 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/11 15:13:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
+# ifndef MLX_BATCH_SIZE
+#  define MLX_BATCH_SIZE 12000
+# endif
 # define BPP sizeof(int32_t) /* Only support RGBA */
 
 /**
@@ -45,7 +48,7 @@
  * and converted into a .c file as a single string at 
  * compile time. This keeps shader files external but 
  * still integrated into the program letting you use 
- * the executable anywhere without having to take the 
+ * the executable anywhere without having to take the
  * shaders with you.
  * 
  * Most modern frameworks like .NET do this by having resource files
@@ -70,6 +73,7 @@ typedef struct vertex
 	float	z;
 	float	u;
 	float	v;
+	int8_t	tex;
 }	vertex_t;
 
 // Layout for linked list.
@@ -162,6 +166,9 @@ typedef struct mlx_ctx
 	mlx_resize_t	resize_hook;
 	mlx_close_t		close_hook;
 	int32_t			zdepth;
+	GLint			bound_textures[16];
+	int32_t			batch_size;
+	vertex_t		batch_vertices[MLX_BATCH_SIZE];
 }	mlx_ctx_t;
 
 // Draw call queue entry.
@@ -208,7 +215,8 @@ bool mlx_freen(int32_t count, ...);
 //= OpenGL Functions =//
 
 void mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height);
-void mlx_draw_instance(mlx_image_t* img, mlx_instance_t* instance);
+void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instance);
+void mlx_flush_batch(mlx_ctx_t* mlx);
 
 // Utils Functions =//
 
