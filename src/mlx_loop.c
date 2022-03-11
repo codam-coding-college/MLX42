@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/09 13:43:43 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/11 15:26:34 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ static void mlx_render_images(mlx_t* mlx)
 	{
 		draw_queue_t* drawcall = render_queue->content;
 		if (drawcall && drawcall->image->enabled)
-			mlx_draw_instance(mlx->context, drawcall->image,
-							  &drawcall->image->instances[drawcall->instanceid]);
+			mlx_draw_instance(mlx->context, drawcall->image, &drawcall->image->instances[drawcall->instanceid]);
 		render_queue = render_queue->next;
 	}
 }

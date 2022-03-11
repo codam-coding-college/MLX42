@@ -6,13 +6,60 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/09 13:36:41 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/11 15:32:21 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
 
 //= Private =//
+
+void mlx_flush_batch(mlx_ctx_t* mlx)
+{
+	if (mlx->batch_size <= 0)
+		return;
+
+	GLint values[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	for (GLint i = 0; i < 16; i++)
+		if (mlx->bound_textures[i] != 0)
+			values[i] = i;
+
+	glBindBuffer(GL_ARRAY_BUFFER, mlx->vbo);
+	glBufferData(GL_ARRAY_BUFFER, mlx->batch_size * sizeof(vertex_t), mlx->batch_vertices, GL_STATIC_DRAW);
+	glDrawArrays(GL_TRIANGLES, 0, mlx->batch_size);
+
+	mlx->batch_size = 0;
+	memset(mlx->bound_textures, 0, sizeof(mlx->bound_textures));
+}
+
+static int8_t mlx_bind_texture(mlx_ctx_t* mlx, mlx_image_t* img)
+{
+	const GLint handle = (GLint)((mlx_image_ctx_t*)img->context)->texture;
+
+	// Attempt to bind the texture, or obtain the index if it is already bound.
+	for (int8_t i = 0; i < 16; i++)
+	{
+		if (mlx->bound_textures[i] == handle)
+			return (i);
+
+		if (mlx->bound_textures[i] == 0)
+		{
+			mlx->bound_textures[i] = handle;
+
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, handle);
+			return (i);
+		}
+	}
+
+	// If no free slot was found, flush the batch and assign the texture to the first available slot
+	mlx_flush_batch(mlx);
+
+	mlx->bound_textures[0] = handle;
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, handle);
+	return (0);
+}
 
 /**
  * Internal function to draw a single instance of an image
@@ -38,57 +85,9 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 	memmove(mlx->batch_vertices + mlx->batch_size, vertices, sizeof(vertices));
 	mlx->batch_size += 6;
 
+	sizeof(mlx_ctx_t);
 	if (mlx->batch_size >= MLX_BATCH_SIZE)
 		mlx_flush_batch(mlx);
-}
-
-void mlx_flush_batch(mlx_ctx_t* mlx)
-{
-	if (mlx->batch_size <= 0)
-		return ;
-
-	GLint values[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	for (GLint i = 0; i < 16; i++)
-		if (mlx->bound_textures[i] != 0)
-			values[i] = i;
-
-	glBindVertexArray(mlx->vao);
-	glBindBuffer(GL_ARRAY_BUFFER, mlx->vbo);
-	glBufferData(GL_ARRAY_BUFFER, mlx->batch_size * sizeof(vertex_t), mlx->batch_vertices, GL_STATIC_DRAW);
-	glDrawArrays(GL_TRIANGLES, 0, mlx->batch_size);
-
-	mlx->batch_size = 0;
-	for (size_t i = 0; i < 16; i++)
-		mlx->bound_textures[i] = 0;
-}
-
-int8_t mlx_bind_texture(mlx_ctx_t* mlx, mlx_image_t* img)
-{
-	const GLint handle = (GLint)((mlx_image_ctx_t*)img->context)->texture;
-
-	// Attempt to bind the texture, or obtain the index if it is already bound.
-	for (int8_t i = 0; i < 16; i++)
-	{
-		if (mlx->bound_textures[i] == handle)
-			return i;
-
-		if (mlx->bound_textures[i] == 0)
-		{
-			mlx->bound_textures[i] = handle;
-
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, handle);
-			return i;
-		}
-	}
-
-	// If no free slot was found, flush the batch and assign the texture to the first available slot
-	mlx_flush_batch(mlx);
-
-	mlx->bound_textures[0] = handle;
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, handle);
-	return 0;
 }
 
 //= Public =//
