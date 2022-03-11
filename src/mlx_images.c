@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/11 15:32:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/11 15:41:12 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 	memmove(mlx->batch_vertices + mlx->batch_size, vertices, sizeof(vertices));
 	mlx->batch_size += 6;
 
-	sizeof(mlx_ctx_t);
 	if (mlx->batch_size >= MLX_BATCH_SIZE)
 		mlx_flush_batch(mlx);
 }
