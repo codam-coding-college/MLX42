@@ -19,11 +19,6 @@ void mlx_flush_batch(mlx_ctx_t* mlx)
 	if (mlx->batch_size <= 0)
 		return;
 
-	GLint values[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	for (GLint i = 0; i < 16; i++)
-		if (mlx->bound_textures[i] != 0)
-			values[i] = i;
-
 	glBindBuffer(GL_ARRAY_BUFFER, mlx->vbo);
 	glBufferData(GL_ARRAY_BUFFER, mlx->batch_size * sizeof(vertex_t), mlx->batch_vertices, GL_STATIC_DRAW);
 	glDrawArrays(GL_TRIANGLES, 0, mlx->batch_size);
