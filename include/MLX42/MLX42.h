@@ -90,7 +90,7 @@ typedef struct mlx_instance
  * They may be consistent on different platforms.
  * @param modifier The modifier key that was pressed, 0 if none.
  */
-typedef struct mlx_key_cbdata
+typedef struct mlx_key_data
 {
 	keys_t			key;
 	action_t		action;
