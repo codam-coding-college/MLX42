@@ -198,7 +198,7 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 	if (imglst)
 	{
 		glDeleteTextures(1, &((mlx_image_ctx_t*)image->context)->texture);
-		mlx_freen(4, image->pixels, image->instances, image->context, imglst, image);
+		mlx_freen(5, image->pixels, image->instances, image->context, imglst, image);
 	}
 }
 
