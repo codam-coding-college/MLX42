@@ -6,7 +6,7 @@
 #    By: fbes <fbes@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/03/03 02:38:19 by fbes          #+#    #+#                  #
-#    Updated: 2022/03/07 17:16:29 by fbes          ########   odam.nl          #
+#    Updated: 2022/03/13 23:27:35 by w2wizard      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ echo "// If you wish to modify this file edit the .vert or .frag file!"
 echo ""
 echo "#include \"MLX42/MLX42_Int.h\""
 echo ""
-echo "const char* ${SHADERTYPE}_shader = \"$(head -n 2 $1 | sed -n 2p)\\n\""
+echo "const char* ${SHADERTYPE}_shader = \"$(cat $1 | sed -n 1p)\\n\""
 {
 	# Skip over first two lines
 	read

@@ -39,9 +39,9 @@ echo(
 echo #include "MLX42/MLX42_Int.h"
 echo(
 
-FOR /F "skip=1 delims=" %%A IN (%1) DO IF NOT DEFINED VERSIONLINE set "VERSIONLINE=%%A"
+FOR /F "delims=" %%A IN (%1) DO IF NOT DEFINED VERSIONLINE set "VERSIONLINE=%%A"
 echo const char* %SHADERTYPE%_shader = "%VERSIONLINE%\n"
-FOR /F "skip=2 delims=" %%A IN (%1) DO (
+FOR /F "skip=1 delims=" %%A IN (%1) DO (
 	IF "%%A" == "}" (echo 	"%%A";) ELSE (echo 	"%%A")
 )
 
