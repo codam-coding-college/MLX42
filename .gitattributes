@@ -1,0 +1,8 @@
+# See https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings
+
+# Set the default behavior, in case people don't have core.autocrlf set
+* text=auto
+
+# Declare files that will always have a certain EOL
+*.sh text eol=lf
+shaders/** text eol=lf

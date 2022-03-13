@@ -29,11 +29,11 @@ all: $(SHDR) $(NAME)
 # Convert our shaders to .c files
 src\mlx_vert.c: shaders\default.vert
 	@echo "Converting shader: $< -> $@"
-	@python3 tools\compile_shader.py $^ > $@
+	@.\tools\compile_shader.bat $< > $@
 
-src\mlx_frag.c: shaders\default.frag 
+src\mlx_frag.c: shaders\default.frag
 	@echo "Converting shader: $< -> $@"
-	@python3 tools\compile_shader.py $^ > $@
+	@.\tools\compile_shader.bat $< > $@
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS) && echo Compiling: $(notdir $<) [OK]

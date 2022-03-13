@@ -27,13 +27,13 @@ ifeq ($(OS), Windows_NT)
 		include Makefile_Unix.mk
 	else
 		HEADERS +=	-I include
-    	include Makefile_WindowsNT.mk
+		include Makefile_WindowsNT.mk
 	endif
 else
 	HEADERS +=	-I include
-    UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S), Linux)
-        include Makefile_Unix.mk
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S), Linux)
+		include Makefile_Unix.mk
 	else ifeq ($(UNAME_S), Darwin)
 
 		# Default
@@ -54,10 +54,10 @@ else
 				HEADERS += -I /Users/$(USER)/.brew/opt/glfw/include
 			endif
 		endif
-        include Makefile_Unix.mk
-    else
-        $(error OS: $(OS) - Is not supported!)
-    endif
+		include Makefile_Unix.mk
+	else
+		$(error OS: $(OS) - Is not supported!)
+	endif
 endif
 
 #//= Misc =//#

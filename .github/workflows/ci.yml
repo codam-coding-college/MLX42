@@ -35,7 +35,7 @@ jobs:
             echo "$RUNNER_OS not supported"
             exit 1
         fi
-  
+
     - name: Build
       run: make NOWARNING=1
 
@@ -58,7 +58,7 @@ jobs:
         file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
         file-name: 'glfw.zip'
         location: '${{ github.workspace }}\lib'
-      
+
     - name: Unpack GLFW binaries
       run: |
         unzip 'lib/glfw.zip' -d 'lib'
