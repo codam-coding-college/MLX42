@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/03 15:02:24 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/17 10:50:13 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, int32
 
 mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 {
+	if (!mlx || !texture)
+		return ((void*)mlx_error(MLX_NULLARG));
+
 	mlx_image_t* img;
 	const int32_t xy[] = {0, 0};
 	const uint32_t wh[] = {texture->width, texture->height};
 
-	if (!mlx || !texture)
-		return ((void*)mlx_error(MLX_NULLARG));
 	if (!(img = mlx_texture_area_to_image(mlx, texture, (int32_t*)xy, (uint32_t*)wh)))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 	return (img);
