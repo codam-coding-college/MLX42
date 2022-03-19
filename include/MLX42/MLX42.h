@@ -222,7 +222,7 @@ const char* mlx_strerror(mlx_errno_t val);
  * @param[in] resize Enable window resizing.
  * @returns Ptr to the MLX handle or null on failure.
  */
-mlx_t* mlx_init(int32_t width, int32_t height, const char* Tttle, bool resize);
+mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize);
 
 /**
  * Notifies MLX that it should stop rendering and exit the main loop.
