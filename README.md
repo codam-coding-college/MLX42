@@ -124,7 +124,7 @@ NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11`
 ➜  ~ cmake -G "Unix Makefiles"
 ➜  ~ make
 ➜  ~ sudo make install
-➜  ~ sudo apt-get install libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3
+➜  ~ sudo apt-get install libx11-dev libglfw3-dev libglfw3
 ```
 4. Download MLX42 & Build
 ```bash 
