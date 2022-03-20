@@ -109,32 +109,24 @@ There will be a pop-up at the bottom telling you that an application tried to ru
 
 NOTE: This will not run with Windows Subsystem for Linux (WSL)!!!
 
-1. Download GLFW: [Click Me!](https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.zip)
-2. Extract GLFW, and to install, run the following commands:
+1. Install the necessary packages:
 ```bash 
 ➜  ~ sudo apt update
-➜  ~ sudo apt install build-essential
-➜  ~ sudo apt install cmake
-➜  ~ sudo apt install xorg-dev
+➜  ~ sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 ```
-NOTE: For arch-linux you might also have to do ```sudo apt-get install glfw-x11``` if available.
 
-3. Navigate to the extracted GLFW directory and run:
-```bash 
-➜  ~ cmake -G "Unix Makefiles"
-➜  ~ make
-➜  ~ sudo make install
-➜  ~ sudo apt-get install libx11-dev libglfw3-dev libglfw3
-```
-4. Download MLX42 & Build
+NOTE: For arch-linux you might also have to do ```sudo apt install glfw-x11``` if available.
+
+2. Download MLX42 & Build
 ```bash 
 ➜  ~ git clone https://github.com/W2Codam/MLX42.git
 ➜  ~ cd MLX42
 ➜  ~ make
 ```
-5. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with:
- - ```-ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi```, make sure to also do ```-I <include_path>```. At the very least ```-ldl -lglfw``` are required.
-6. Run.
+
+3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw ```, make sure to also do ```-I <include_path>```.
+ 
+4. Run.
 
 The systems below have not been tested yet.
 
