@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/11 15:26:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/23 16:59:40 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,11 @@ static void mlx_exec_loop_hooks(mlx_t* mlx)
 static void mlx_render_images(mlx_t* mlx)
 {
 	mlx_ctx_t* mlxctx = mlx->context;
-	mlx_list_t* imglst = mlxctx->images;
 
 	if (sort_queue)
 	{
 		sort_queue = false;
 		mlx_sort_renderqueue(&mlxctx->render_queue);
-	}
-
-	// Upload image textures to GPU
-	while (imglst)
-	{
-		mlx_image_t* image = imglst->content;
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)image->context)->texture);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, image->width, image->height, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
-		imglst = imglst->next;
 	}
 
 	// Execute draw calls
