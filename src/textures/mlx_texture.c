@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/17 10:50:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/23 14:05:21 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //= Public =//
 
-mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, int32_t xy[2], uint32_t wh[2])
+mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint32_t xy[2], uint32_t wh[2])
 {
 	uint8_t* pixelx;
 	uint8_t* pixeli;
@@ -22,7 +22,7 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, int32
 
 	if (!mlx || !texture || !xy || !wh)
 		return ((void*)mlx_error(MLX_NULLARG));
-	if (xy[0] > (int32_t)texture->width || xy[1] > (int32_t)texture->height || \
+	if (xy[0] > texture->width || xy[1] > texture->height || \
 		wh[0] > texture->width || wh[1] > texture->height)
 		return ((void*)mlx_error(MLX_INVAREA));
 	if (!(image = mlx_new_image(mlx, wh[0], wh[1])))
@@ -46,7 +46,7 @@ mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 	const int32_t xy[] = {0, 0};
 	const uint32_t wh[] = {texture->width, texture->height};
 
-	if (!(img = mlx_texture_area_to_image(mlx, texture, (int32_t*)xy, (uint32_t*)wh)))
+	if (!(img = mlx_texture_area_to_image(mlx, texture, (uint32_t*)xy, (uint32_t*)wh)))
 		return ((void*)mlx_error(MLX_MEMFAIL));
 	return (img);
 }

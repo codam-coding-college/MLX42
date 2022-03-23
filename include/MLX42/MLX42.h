@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/09 13:44:52 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/23 14:12:56 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -500,7 +500,7 @@ void mlx_delete_xpm42(xpm_t* xpm);
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] texture The texture to use to create the image from.
- * @return t_mlx_image* 
+ * @return mlx_image_t* The image created from the texture.
  */
 mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture);
 
@@ -514,9 +514,9 @@ mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture);
  * @param[in] texture The texture to use to create the image from.
  * @param[in] xy The X & Y location.
  * @param[in] wh The Width & Height.
- * @return t_mlx_image* 
+ * @return mlx_image_t* The image created from the texture area.
  */
-mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, int32_t xy[2], uint32_t wh[2]);
+mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint32_t xy[2], uint32_t wh[2]);
 
 /**
  * Draws the texture on an already existing image.
