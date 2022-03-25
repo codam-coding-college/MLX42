@@ -189,6 +189,6 @@ void mlx_delete_xpm42(xpm_t* xpm)
 		mlx_error(MLX_NULLARG);
 		return;
 	}
-	mlx_delete_texture(&xpm->texture);
+	free(xpm->texture.pixels);
 	free(xpm);
 }
