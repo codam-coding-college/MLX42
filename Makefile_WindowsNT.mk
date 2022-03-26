@@ -16,12 +16,12 @@
 #//= Colors =//#
 # Nope :(
 
-CC		= gcc # We need to explicitly mention GCC/CC here.
-WINSTFU	= > NUL 2>&1 # In some cases we want windows to just stfu
-SHDR	= src\mlx_vert.c src\mlx_frag.c
-SHDRSRC	= shaders\default.frag shaders\default.vert
-SRCS	= $(shell dir /S/B "*.c") $(SHDR)
-OBJS	= $(SRCS:.c=.o)
+CC		:= gcc # We need to explicitly mention GCC/CC here.
+WINSTFU	:= > NUL 2>&1 # In some cases we want windows to just stfu
+SHDR	:= src\mlx_vert.c src\mlx_frag.c
+SHDRSRC	:= shaders\default.frag shaders\default.vert
+SRCS	:= $(shell dir /S/B "*.c") $(SHDR)
+OBJS	:= $(SRCS:.c=.o)
 
 #//= Make Rules =//#
 all: $(SHDR) $(NAME)
