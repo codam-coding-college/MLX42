@@ -13,12 +13,12 @@
 NAME	:= libmlx42.a
 CFLAGS	:= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
 ifndef NOWARNING
-CFLAGS	+= -Werror
+	CFLAGS += -Werror
 endif
 ifdef DEBUG
-CFLAGS	+= -g
+	CFLAGS += -g
 else
-CFLAGS	+= -Ofast -D NDEBUG
+	CFLAGS	+= -Ofast -D NDEBUG
 endif
 
 override HEADERS += -I include
