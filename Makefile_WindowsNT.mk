@@ -49,5 +49,3 @@ fclean: clean
 	@del /Q $(NAME) $(WINSTFU)
 
 re: clean all
-
-.PHONY : all clean re fclean
