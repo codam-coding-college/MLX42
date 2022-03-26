@@ -33,11 +33,11 @@ echo /*   Created: 2022/02/17 22:34:59 by W2wizard      #+#    #+#              
 echo /*   Updated: 2022/02/17 22:34:59 by W2wizard      ########   odam.nl         */
 echo /*                                                                            */
 echo /* ************************************************************************** */
-echo(
+echo.
 echo // If you wish to modify this file edit the .vert or .frag file!
-echo(
+echo.
 echo #include "MLX42/MLX42_Int.h"
-echo(
+echo.
 
 FOR /F "delims=" %%A IN (%1) DO IF NOT DEFINED VERSIONLINE set "VERSIONLINE=%%A"
 echo const char* %SHADERTYPE%_shader = "%VERSIONLINE%\n"
