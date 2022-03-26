@@ -33,7 +33,6 @@ else
 	ifeq ($(UNAME_S), Linux)
 		include Makefile_Unix.mk
 	else ifeq ($(UNAME_S), Darwin)
-
 		# Default
 		DYLIB_EXISTS := test -e /usr/local/lib/libglfw.3.dylib || echo "false"
 
@@ -41,10 +40,11 @@ else
 		ifneq ($(DYLIB_EXISTS), false)
 			BREW_GLFW_PREFIX := $(shell brew --prefix glfw)
 			DYLIB_EXISTS := test -e $(BREW_GLFW_PREFIX)/lib/libglfw.3.dylib || echo "false"
-			ifneq ($($DYLIB_EXISTS), false)
+			ifneq ($(DYLIB_EXISTS), false)
 				HEADERS += -I $(BREW_GLFW_PREFIX)/include
 			endif
 		endif
+
 		include Makefile_Unix.mk
 	else
 		$(error OS: $(OS) - Is not supported!)
