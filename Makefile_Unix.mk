@@ -56,4 +56,6 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 
-re:	fclean all
+# Run make as part of the recipe to allow for multi-threading to be used (-j)
+re: fclean
+	@$(MAKE) -e

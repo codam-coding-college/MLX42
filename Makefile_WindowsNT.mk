@@ -48,4 +48,6 @@ clean:
 fclean: clean
 	@del /Q $(NAME) $(WINSTFU)
 
-re: clean all
+# Run make as part of the recipe to allow for multi-threading to be used (-j)
+re: fclean
+	@$(MAKE) -e
