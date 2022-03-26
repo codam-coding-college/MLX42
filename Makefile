@@ -21,16 +21,14 @@ else
 CFLAGS	+= -Ofast -D NDEBUG
 endif
 
+override HEADERS += -I include
 ifeq ($(OS), Windows_NT)
 	ifdef CYGWIN
-		override HEADERS +=	-I include
 		include Makefile_Unix.mk
 	else
-		HEADERS +=	-I include
 		include Makefile_WindowsNT.mk
 	endif
 else
-	HEADERS +=	-I include
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Linux)
 		include Makefile_Unix.mk
