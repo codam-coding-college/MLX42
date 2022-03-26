@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-# While windows does have support for nmake it offers nowhere near the amount of
+# While windows does have support for make it offers nowhere near the amount of
 # features GnuWin does.
 
 #//= Colors =//#
