@@ -30,7 +30,7 @@ LIBS	=	$(shell /usr/bin/find ./lib -iname "*.c")
 SRCS	=	$(shell /usr/bin/find ./src -iname "*.c") $(SHDR) $(LIBS)
 OBJS	=	${SRCS:.c=.o}
 
-#//= Recipes =//#
+#//= Make Rules =//#
 all: $(SHDR) $(NAME)
 
 # Convert our shaders to .c files

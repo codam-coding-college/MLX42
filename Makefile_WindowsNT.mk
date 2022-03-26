@@ -23,7 +23,7 @@ SHDRSRC	= shaders\default.frag shaders\default.vert
 SRCS	= $(shell dir /S/B "*.c") $(SHDR)
 OBJS	= $(SRCS:.c=.o)
 
-#//= Recipes =//#
+#//= Make Rules =//#
 all: $(SHDR) $(NAME)
 
 # Convert our shaders to .c files
