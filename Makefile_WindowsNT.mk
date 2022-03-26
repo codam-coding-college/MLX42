@@ -18,36 +18,30 @@
 
 CC		:= gcc # We need to explicitly mention GCC/CC here.
 WINSTFU	:= > NUL 2>&1 # In some cases we want windows to just stfu
-SHDR	:= src\mlx_vert.c src\mlx_frag.c
-SHDRSRC	:= shaders\default.frag shaders\default.vert
-SRCS	:= $(shell dir /S/B "*.c") $(SHDR)
-OBJS	:= $(SRCS:.c=.o)
+
+# Switch file paths to windows \ delimiter
+SHDR	:= $(subst /,\,$(SHDR))
+LIB		:= $(subst /,\,$(LIB))
+SRCS	:= $(subst /,\,$(SRCS))
+OBJS	:= $(subst /,\,$(OBJS))
 
 #//= Make Rules =//#
-all: $(SHDR) $(NAME)
-
-# Convert our shaders to .c files
-src\mlx_vert.c: shaders\default.vert
-	@echo "Converting shader: $< -> $@"
-	@.\tools\compile_shader.bat $< > $@
-
-src\mlx_frag.c: shaders\default.frag
-	@echo "Converting shader: $< -> $@"
-	@.\tools\compile_shader.bat $< > $@
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS) && echo Compiling: $(notdir $<) [OK]
-
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@echo Done
 
+%.o: %.c
+	@echo Compiling: $(notdir $<)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+
+# Convert shaders to .c files
+$(SRC_DIR)\mlx_%_shader.c: $(SHADER_DIR)\default.%
+	@echo Shader to C: $< -^> $@
+	@.\tools\compile_shader.bat $< > $@
+
 clean:
+	@echo Cleaning
 	@del /F /Q $(OBJS) $(SHDR) $(WINSTFU)
 
 fclean: clean
-	@del /Q $(NAME) $(WINSTFU)
-
-# Run make as part of the recipe to allow for multi-threading to be used (-j)
-re: fclean
-	@$(MAKE) -e
+	@del /F /Q $(NAME) $(WINSTFU)

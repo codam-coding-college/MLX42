@@ -10,8 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= libmlx42.a
-CFLAGS	:= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
+NAME		:= libmlx42.a
+LIB_DIR		:= lib
+SRC_DIR		:= src
+SHADER_DIR	:= shaders
+INCLUDE_DIR	:= include
+
+override HEADERS += -I $(INCLUDE_DIR)
+
+CFLAGS := -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
 ifndef NOWARNING
 	CFLAGS += -Werror
 endif
@@ -21,7 +28,15 @@ else
 	CFLAGS	+= -Ofast -D NDEBUG
 endif
 
-override HEADERS += -I include
+# Recursive wildcard/find function
+rwildcard = $(sort $(foreach d,$(wildcard $1/*),$(call rwildcard,$d,$2) $(wildcard $1/$2)))
+
+SHDR	:= $(call rwildcard,$(SHADER_DIR),default.*)
+SHDR	:= $(SHDR:$(SHADER_DIR)/default.%=$(SRC_DIR)/mlx_%_shader.c)
+LIB		:= $(call rwildcard,$(LIB_DIR),*.c)
+SRCS	:= $(call rwildcard,$(SRC_DIR),*.c) $(LIB) $(SHDR)
+OBJS	:= $(SRCS:%.c=%.o)
+
 ifeq ($(OS), Windows_NT)
 	ifdef CYGWIN
 		include Makefile_Unix.mk
@@ -51,5 +66,13 @@ else
 	endif
 endif
 
+#//= Make Rules =//#
+all: $(SHDR) $(NAME)
+
+# Run make as part of the recipe to allow for multi-threading to be used (-j)
+re: fclean
+	@$(MAKE) -e
+
 #//= Misc =//#
+.DEFAULT_GOAL := all
 .PHONY: all clean fclean re

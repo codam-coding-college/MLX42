@@ -22,32 +22,19 @@ CYAN	:= \033[36;1m
 WHITE	:= \033[37;1m
 RESET	:= \033[0m
 
-#//= Files =//#
-# /usr/bin/find is explicitly mentioned here for Windows compilation under Cygwin
-SHDR	:=	src/mlx_vert.c src/mlx_frag.c
-SHDRSRC	:=	shaders/default.frag shaders/default.vert
-LIBS	:=	$(shell /usr/bin/find ./lib -iname "*.c")
-SRCS	:=	$(shell /usr/bin/find ./src -iname "*.c") $(SHDR) $(LIBS)
-OBJS	:=	${SRCS:.c=.o}
-
 #//= Make Rules =//#
-all: $(SHDR) $(NAME)
-
-# Convert our shaders to .c files
-src/mlx_vert.c: shaders/default.vert
-	@echo "$(GREEN)$(BOLD)Converting shader: $< -> $@ $(RESET)"
-	@bash tools/compile_shader.sh $< > $@
-
-src/mlx_frag.c: shaders/default.frag
-	@echo "$(GREEN)$(BOLD)Converting shader: $< -> $@ $(RESET)"
-	@bash tools/compile_shader.sh $< > $@
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
-
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
-	@printf "$(GREEN)$(BOLD)Done\n$(RESET)"
+	@echo "$(GREEN)$(BOLD)Done$(RESET)"
+
+%.o: %.c
+	@echo "$(GREEN)$(BOLD)Compiling: $(notdir $<)$(RESET)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+
+# Convert shaders to .c files
+$(SRC_DIR)/mlx_%_shader.c: $(SHADER_DIR)/default.%
+	@echo "$(GREEN)$(BOLD)Shader to C: $< -> $@$(RESET)"
+	@bash tools/compile_shader.sh $< > $@
 
 clean:
 	@echo "$(RED)Cleaning$(RESET)"
@@ -55,7 +42,3 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-
-# Run make as part of the recipe to allow for multi-threading to be used (-j)
-re: fclean
-	@$(MAKE) -e
