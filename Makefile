@@ -34,8 +34,8 @@ rwildcard = $(sort $(foreach d,$(wildcard $1/*),$(call rwildcard,$d,$2) $(wildca
 SHDR	:= $(call rwildcard,$(SHADER_DIR),default.*)
 SHDR	:= $(SHDR:$(SHADER_DIR)/default.%=$(SRC_DIR)/mlx_%_shader.c)
 LIB		:= $(call rwildcard,$(LIB_DIR),*.c)
-SRCS	:= $(call rwildcard,$(SRC_DIR),*.c) $(LIB) $(SHDR)
-OBJS	:= $(SRCS:%.c=%.o)
+SRCS	:= $(call rwildcard,$(SRC_DIR),*.c)
+OBJS	:= $(sort $(patsubst %.c,%.o,$(SRCS) $(LIB) $(SHDR)))
 
 ifeq ($(OS), Windows_NT)
 	ifdef CYGWIN
