@@ -66,10 +66,6 @@ else
 	endif
 endif
 
-$(info "CC:" $(shell where $(CC)))
-$(info "MAKE:" $(MAKE))
-$(info "PATH:" $(PATH))
-
 #//= Make Rules =//#
 all: $(SHDR) $(NAME)
 
