@@ -25,8 +25,8 @@ else
 	CFLAGS	+= -Ofast -D NDEBUG
 endif
 
-# Recursive wildcard/find function
-rwildcard = $(sort $(foreach d,$(wildcard $1/*),$(call rwildcard,$d,$2) $(wildcard $1/$2)))
+# Recursive wildcard/find function, the subst is to guarantee unix file paths
+rwildcard = $(subst \,/,$(sort $(foreach d,$(wildcard $1/*),$(call rwildcard,$d,$2) $(wildcard $1/$2))))
 
 SHDR	:= $(call rwildcard,$(SHADER_DIR),default.*)
 SHDR	:= $(SHDR:$(SHADER_DIR)/default.%=$(SRC_DIR)/mlx_%_shader.c)
