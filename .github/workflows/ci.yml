@@ -62,4 +62,4 @@ jobs:
         mv 'lib\glfw*' 'lib\glfw'
 
     - name: Build
-      run: make HEADERS="-I lib/glfw/include"
+      run: make HEADERS="-I lib/glfw/include" CYGWIN=1
