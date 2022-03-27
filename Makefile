@@ -18,10 +18,7 @@ INCLUDE_DIR	:= include
 
 override HEADERS += -I $(INCLUDE_DIR)
 
-CFLAGS := -Wextra -Wall -Wunreachable-code -Wno-char-subscripts
-ifndef NOWARNING
-	CFLAGS += -Werror
-endif
+CFLAGS := -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts
 ifdef DEBUG
 	CFLAGS += -g
 else
