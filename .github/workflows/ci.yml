@@ -65,4 +65,4 @@ jobs:
 
     - name: Build
       run: |
-        make HEADERS="-I lib/glfw/include" NOWARNING=1 CYGWIN=1
+        make HEADERS="-I lib/glfw/include" NOWARNING=1
