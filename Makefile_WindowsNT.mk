@@ -30,14 +30,14 @@ $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@echo Done
 
+%.o: %.c
+	@echo Compiling: $(notdir $<)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+
 # Convert shaders to .c files
 $(SRC_DIR)\mlx_%_shader.c: $(SHADER_DIR)\default.%
 	@echo Shader to C: $< -^> $@
 	@cmd /C .\tools\compile_shader.bat $< > $@
-
-%.o: %.c
-	@echo Compiling: $(notdir $<)
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 clean:
 	@echo Cleaning

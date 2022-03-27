@@ -27,15 +27,14 @@ $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@echo "$(GREEN)$(BOLD)Done$(RESET)"
 
-# Convert shaders to .c files
-$(SRC_DIR)/mlx_%_shader.c: $(SHADER_DIR)/default.%
-	@echo "$(GREEN)$(BOLD)Shader to C: $< -> $@$(RESET)"
-	@bash tools/compile_shader.sh $< > $@
-
 %.o: %.c
 	@echo "$(GREEN)$(BOLD)Compiling: $(notdir $<)$(RESET)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
+# Convert shaders to .c files
+$(SRC_DIR)/mlx_%_shader.c: $(SHADER_DIR)/default.%
+	@echo "$(GREEN)$(BOLD)Shader to C: $< -> $@$(RESET)"
+	@bash tools/compile_shader.sh $< > $@
 
 clean:
 	@echo "$(RED)Cleaning$(RESET)"
