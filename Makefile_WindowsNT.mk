@@ -37,8 +37,7 @@ $(NAME): $(OBJS)
 # Convert shaders to .c files
 $(SRC_DIR)\mlx_%_shader.c: $(SHADER_DIR)\default.%
 	@echo Shader to C: $< -^> $@
-	-@.\tools\compile_shader.bat $< > $@
-	-@./tools/compile_shader.bat $< > $@
+	@.\tools\compile_shader.bat $< > $@
 
 clean:
 	@echo Cleaning
