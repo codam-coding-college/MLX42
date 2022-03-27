@@ -9,7 +9,8 @@ on:
     - cron: '0 0 * * FRI'
 
 jobs:
-  build-unix    timeout-minutes: 10
+  build-unix:
+    timeout-minutes: 10
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
