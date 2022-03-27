@@ -47,10 +47,8 @@ jobs:
     - name: Clone repository
       uses: actions/checkout@v2
 
-    - name: Install Cygwin, including gcc
-      uses: egor-tensin/setup-cygwin@v3
-      with:
-        packages: unzip gcc-g++
+    - name: Install MinGW
+      uses: egor-tensin/setup-mingw@v2
 
     - name: Download GLFW binaries
       uses: carlosperate/download-file-action@v1.1.1
