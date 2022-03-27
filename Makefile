@@ -63,6 +63,11 @@ else
 	endif
 endif
 
+$(info "SHDR:" $(SHDR))
+$(info "LIB:" $(LIB))
+$(info "SRCS:" $(SRCS))
+$(info "OBJS:" $(OBJS))
+
 #//= Make Rules =//#
 all: $(SHDR) $(NAME)
 
