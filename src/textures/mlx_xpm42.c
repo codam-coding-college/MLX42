@@ -87,8 +87,6 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
  * Retrieves the pixel data line by line and then processes each pixel
  * by hashing the characters and looking it up from the color table.
  * 
- * TODO: Use ssize_t as specified by getline.
- * 
  * @param xpm The XPM.
  * @param file The filepath to the XPM42 file.
  * @param ctable The color hash table.
@@ -97,14 +95,14 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
  */
 static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 {
-	int64_t bread;
-	size_t buffsize;
+	size_t bread;
 	char* line = NULL;
 
 	for (int64_t y_xpm = 0; y_xpm < xpm->texture.height; y_xpm++)
 	{
-		if ((bread = getline(&line, &buffsize, file)) == -1)
-			return (free(line), false);
+		if ((line = mlx_getline(file)) == NULL)
+			return (false);
+		bread = strlen(line);
 		if (line[bread - 1] == '\n')
 			bread--;
 		if (bread != xpm->texture.width * xpm->cpp)
@@ -116,8 +114,8 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 			uint8_t* pixelstart = &xpm->texture.pixels[(y_xpm * xpm->texture.width + x_xpm) * BPP];
 			mlx_draw_pixel(pixelstart, ctable[mlx_fnv_hash(&line[x_line], xpm->cpp) % s]);
 		}
+		free(line);
 	}
-	free(line);
 	return (true);
 }
 
@@ -134,18 +132,17 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
  */
 static bool mlx_read_table(xpm_t* xpm, FILE* file)
 {
-	size_t buffsize;
 	char* line = NULL;
-	int64_t bread = 0;
 	uint32_t ctable[UINT16_MAX] = {0};
 
 	for (int32_t i = 0; i < xpm->color_count; i++)
 	{
-		if ((bread = getline(&line, &buffsize, file)) == -1 || \
-		!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / BPP)))
+		if ((line = mlx_getline(file)) == NULL)
+			return (false);
+		if (!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / BPP)))
 			return (free(line), false);
+		free(line);
 	}
-	free(line);
 	return (mlx_read_data(xpm, file, ctable, (sizeof(ctable) / BPP)));
 }
 

@@ -14,6 +14,46 @@
 
 //= Privae =//
 
+#define GETLINE_BUFF 1280
+/**
+ * Function to read a file stream line by line.
+ * Since getline is not a c standard function it does not exist on windows.
+ * There for I created this function which is somewhat similarly to getline.
+ * 
+ * @param file File stream to read from.
+ * @return Result string or NULL if the EOF is encountered and no characters
+ * have been read. If an error occurs, NULL is returned.
+ */
+char* mlx_getline(FILE *file)
+{
+	if (file == NULL)
+		return (NULL);
+
+	char* str;
+	size_t size = 1;
+	if (!(str = calloc(1, sizeof(char) * size)))
+		return (NULL);
+
+	char BUFF[GETLINE_BUFF + 1];
+	while (fgets(BUFF, sizeof(BUFF), file))
+	{
+		char* new_str;
+		size += sizeof(BUFF) - 1; // Dont need to account for BUFF's '\0'
+		if (!(new_str = realloc(str, sizeof(char) * size)))
+			return (free(str), NULL);
+		str = new_str;
+
+		strcat(str, BUFF);
+		if (strrchr(BUFF, '\n'))
+			return (str);
+		memset(BUFF, 0, sizeof(BUFF));
+	}
+	if (size != 1)
+		return (str);
+	free(str);
+	return (NULL);
+}
+
 /**
  * String hashing algorithm using FNV-1a.
  * Source: https://bit.ly/3JcRGHa

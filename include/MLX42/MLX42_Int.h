@@ -223,6 +223,7 @@ void mlx_flush_batch(mlx_ctx_t* mlx);
 
 // Utils Functions =//
 
+char* mlx_getline(FILE *file);
 uint32_t mlx_rgba_to_mono(uint32_t color);
 int32_t mlx_atoi_base(const char* str, int32_t base);
 uint64_t mlx_fnv_hash(char* str, size_t len);
