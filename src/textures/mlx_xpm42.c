@@ -45,7 +45,7 @@
  * @param channel The 2 character string to parse.
  * @return Int value of the channel.
  */
-static uint8_t mlx_parse_hex_channel(char *channel) 
+static uint8_t mlx_parse_hex_channel(char* channel) 
 {
 	char temp_chan[] = {channel[0], channel[1], '\0'};
 	return (strtol(temp_chan, NULL, 16));
