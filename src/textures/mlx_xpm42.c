@@ -38,6 +38,17 @@
  */
 
 /**
+ * Parses HEX color channel e.g: "0F"
+ * 
+ * @param channel The 2 character string to parse.
+ * @return Int value of the channel.
+ */
+static uint8_t parse_hex_channel(char *channel) {
+	char temp_chan[] = {channel[0], channel[1], '\0'};
+	return (uint8_t)strtol(temp_chan, NULL, 16);
+}
+
+/**
  * Parses the XPM coolor value entry e.g: ".X #00FF00FF"
  * into the color table while also verifying the format.
  * 
@@ -57,8 +68,14 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
 	if (!isspace(line[xpm->cpp]) || line[xpm->cpp + 1] != '#' || !isalnum(line[xpm->cpp + 2]))
 		return (false);
 
+	uint32_t color = 0;
+	size_t start_offset = xpm->cpp + 2;
+	color |= parse_hex_channel(line + start_offset) << 24;
+	color |= parse_hex_channel(line + start_offset + 2) << 16;
+	color |= parse_hex_channel(line + start_offset + 4) << 8;
+	color |= parse_hex_channel(line + start_offset + 6);
+	
 	int32_t index = mlx_fnv_hash(line, xpm->cpp) % s;
-	uint32_t color = (uint32_t)strtol(line + xpm->cpp + 2, NULL, 16);
 	ctable[index] = xpm->mode == 'm' ? mlx_rgba_to_mono(color) : color;
 	return (true);
 }
