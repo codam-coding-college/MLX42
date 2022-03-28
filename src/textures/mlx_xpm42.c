@@ -52,7 +52,7 @@ static uint8_t mlx_parse_hex_channel(char *channel)
 }
 
 /**
- * Parses the XPM coolor value entry e.g: ".X #00FF00FF"
+ * Parses the XPM color value entry e.g: ".X #00FF00FF"
  * into the color table while also verifying the format.
  * 
  * @param xpm The XPM.
