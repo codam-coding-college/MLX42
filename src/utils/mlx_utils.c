@@ -21,7 +21,7 @@
  * There for I created this function which is somewhat similarly to getline.
  * 
  * @param file File stream to read from.
- * @return Result string or NULL if the EOF is encountered and no characters
+ * @return Allocated result string or NULL if the EOF is encountered and no characters
  * have been read. If an error occurs, NULL is returned.
  */
 char* mlx_getline(FILE *file)
@@ -34,7 +34,7 @@ char* mlx_getline(FILE *file)
 	if (!(str = calloc(1, sizeof(char) * size)))
 		return (NULL);
 
-	char BUFF[GETLINE_BUFF + 1];
+	char BUFF[GETLINE_BUFF + 1]; // Add space for '\0'
 	while (fgets(BUFF, sizeof(BUFF), file))
 	{
 		char* new_str;
