@@ -73,10 +73,10 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
 
 	uint32_t color = 0;
 	size_t start_offset = xpm->cpp + 2;
-	color |= parse_hex_channel(line + start_offset) << 24;
-	color |= parse_hex_channel(line + start_offset + 2) << 16;
-	color |= parse_hex_channel(line + start_offset + 4) << 8;
-	color |= parse_hex_channel(line + start_offset + 6);
+	color |= mlx_parse_hex_channel(line + start_offset) << 24;
+	color |= mlx_parse_hex_channel(line + start_offset + 2) << 16;
+	color |= mlx_parse_hex_channel(line + start_offset + 4) << 8;
+	color |= mlx_parse_hex_channel(line + start_offset + 6);
 	
 	int32_t index = mlx_fnv_hash(line, xpm->cpp) % s;
 	ctable[index] = xpm->mode == 'm' ? mlx_rgba_to_mono(color) : color;
