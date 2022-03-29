@@ -10,7 +10,7 @@
 	<img src="https://svgshare.com/i/Zhy.svg" alt="Linux">
 	<img src="https://svgshare.com/i/ZjP.svg" alt="MacOS">
 	<img src="https://svgshare.com/i/ZhY.sv" alt="Windows">
-	<img src="https://github.com/W2Codam/MLX42/actions/workflows/ci.yml/badge.svg" alt="Build">
+	<img src="https://github.com/codam-coding-college/MLX42/actions/workflows/ci.yml/badge.svg" alt="Build">
 	<img src="https://img.shields.io/github/forks/W2Codam/MLX42" alt="Forks">
     </div>
 </div>
