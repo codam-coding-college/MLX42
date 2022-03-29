@@ -15,7 +15,7 @@
     </div>
 </div>
 
-My own recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL.
+A recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL.
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 For information and documentation about MLX42 check the wiki.
