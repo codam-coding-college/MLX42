@@ -6,12 +6,12 @@
   <sub>Written by <a href="https://w2wizard.github.io/">W2.Wizard</a> for the 42 Network</sub>
     <div align="center">
 	</br>
-	<img src="https://img.shields.io/github/license/W2Codam/MLX42" alt="License GPL2.0"> 
+	<img src="https://img.shields.io/github/license/codam-coding-college/MLX42" alt="License GPL2.0"> 
 	<img src="https://svgshare.com/i/Zhy.svg" alt="Linux">
 	<img src="https://svgshare.com/i/ZjP.svg" alt="MacOS">
 	<img src="https://svgshare.com/i/ZhY.sv" alt="Windows">
 	<img src="https://github.com/codam-coding-college/MLX42/actions/workflows/ci.yml/badge.svg" alt="Build">
-	<img src="https://img.shields.io/github/forks/W2Codam/MLX42" alt="Forks">
+	<img src="https://img.shields.io/github/forks/codam-coding-college/MLX42" alt="Forks">
     </div>
 </div>
 
