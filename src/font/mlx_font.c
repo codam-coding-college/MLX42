@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/08 20:43:23 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/29 12:37:34 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 {
 	mlx_image_t* strimage;
 
-	if (!mlx || !str)
-		return ((void *)mlx_error(MLX_NULLARG));
+	MLX_ASSERT(!mlx || !str);
 	if (!(strimage = mlx_new_image(mlx, strlen(str) * FONT_WIDTH, FONT_HEIGHT)))
 		return (NULL);
 
