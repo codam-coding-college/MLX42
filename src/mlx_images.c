@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/23 17:02:13 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/29 18:03:00 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,8 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 {
-	if (!instance)
-	{
-		mlx_error(MLX_NULLARG);
-		return;
-	}
+	MLX_ASSERT(!instance);
+
 	if (instance->z == zdepth)
 		return;
 	instance->z = zdepth;
@@ -110,8 +107,7 @@ void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 
 int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 {
-	if (!mlx || !img)
-		return (mlx_error(MLX_NULLARG), -1);
+	MLX_ASSERT(!mlx || !img);
 	
 	// Allocate buffers...
 	mlx_instance_t* temp = realloc(img->instances, (++img->count) * sizeof(mlx_instance_t));
@@ -142,8 +138,8 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 
 mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 {
-	if (!mlx)
-		return ((void*)mlx_error(MLX_NULLARG));
+	MLX_ASSERT(!mlx);
+
 	if (width > INT16_MAX || height > INT16_MAX)
 		return ((void*)mlx_error(MLX_IMGTOBIG));
 	if (!width || !height)
@@ -187,11 +183,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 
 void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 {
-	if (!mlx || !image)
-	{
-		mlx_error(MLX_NULLARG);
-		return;
-	}
+	MLX_ASSERT(!mlx || !image);
+
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlx_list_t* imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
 	mlx_list_t* quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
@@ -206,8 +199,8 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 
 bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 {
-	if (!img)
-		return (mlx_error(MLX_NULLARG));
+	MLX_ASSERT(!img);
+
 	if (nwidth > INT16_MAX || nheight > INT16_MAX)
 		return (mlx_error(MLX_IMGTOBIG));
 	if (!nwidth || !nheight)

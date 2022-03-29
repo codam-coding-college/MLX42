@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:32:49 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/03/13 16:58:14 by vvissche      ########   odam.nl          #
+#    Updated: 2022/03/29 18:08:51 by W2Wizard      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ endif
 ifdef DEBUG
 CFLAGS	+= -g
 else
-CFLAGS	+= -Ofast
+CFLAGS	+= -Ofast -D NDEBUG
 endif
 
 ifeq ($(OS), Windows_NT)

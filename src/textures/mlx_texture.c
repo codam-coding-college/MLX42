@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/23 14:05:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/29 16:36:02 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint3
 	uint8_t* pixeli;
 	mlx_image_t* image;
 
-	if (!mlx || !texture || !xy || !wh)
-		return ((void*)mlx_error(MLX_NULLARG));
+	MLX_ASSERT(!mlx || !texture || !xy || !wh);
 	if (xy[0] > texture->width || xy[1] > texture->height || \
 		wh[0] > texture->width || wh[1] > texture->height)
 		return ((void*)mlx_error(MLX_INVAREA));
@@ -39,8 +38,7 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint3
 
 mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 {
-	if (!mlx || !texture)
-		return ((void*)mlx_error(MLX_NULLARG));
+	MLX_ASSERT(!mlx || !texture);
 
 	mlx_image_t* img;
 	const int32_t xy[] = {0, 0};
@@ -57,10 +55,7 @@ bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int
 	uint8_t* pixelx;
 	uint8_t* pixeli;
 
-	if (!texture || !image)
-		return (mlx_error(MLX_NULLARG));
-	if (x < 0 || y < 0)
-		return (mlx_error(MLX_NULLARG));
+	MLX_ASSERT(!image || !texture || x < 0 || y < 0);
 	if (texture->width > image->width || texture->height > image->height)
 		return (mlx_error(MLX_TEXTOBIG));
 	while (i < texture->height)
@@ -75,10 +70,6 @@ bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int
 
 void mlx_delete_texture(mlx_texture_t* texture)
 {
-	if (!texture)
-	{
-		mlx_error(MLX_NULLARG);
-		return;
-	}
+	MLX_ASSERT(!texture);
 	mlx_freen(2, texture->pixels, texture);
 }

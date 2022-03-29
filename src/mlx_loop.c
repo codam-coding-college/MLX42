@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/23 16:59:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/29 18:03:26 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ static void mlx_render_images(mlx_t* mlx)
 
 bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
 {
-	if (!mlx || !f)
-		return (mlx_error(MLX_NULLARG));
+	MLX_ASSERT(!mlx || !f);
 
 	mlx_hook_t* hook;
 	if (!(hook = malloc(sizeof(mlx_hook_t))))
@@ -77,6 +76,7 @@ void mlx_loop(mlx_t* mlx)
 {
 	double start, oldstart = 0;
 
+	MLX_ASSERT(!mlx);
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		start = glfwGetTime();
