@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/23 16:59:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/29 03:06:59 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void mlx_loop(mlx_t* mlx)
 {
 	double start, oldstart = 0;
 
+	MLX_ASSERT(!mlx);
 	while (!glfwWindowShouldClose(mlx->window))
 	{
 		start = glfwGetTime();

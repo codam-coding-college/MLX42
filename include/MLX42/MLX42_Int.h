@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/11 15:13:40 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/03/29 02:58:58 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # include <ctype.h> /* isspace, isprint, ... */
 # include <string.h> /* strlen, memmove, ... */
 # include <stdarg.h> /* va_arg, va_end, ... */
+// TODO: Add NDEBUG if we don't compile in debug mode via Makefile
+# include <assert.h> /* assert, static_assert, ... */
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
 # endif
@@ -42,6 +44,7 @@
 #  define MLX_BATCH_SIZE 12000
 # endif
 # define BPP sizeof(int32_t) /* Only support RGBA */
+# define MLX_ASSERT(cond) assert(!(cond));
 
 /**
  * The shader code is extracted from the shader files
