@@ -44,7 +44,7 @@ In the very end a library is generated, compile your program with this library!
 
 1. Download MLX42
 ```bash 
-➜  ~ git clone https://github.com/W2Codam/MLX42.git
+➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
 ```
 
 ### Via [Homebrew](https://brew.sh/) / [Homebrew42](https://github.com/kube/42homebrew) by building from source.
@@ -119,7 +119,7 @@ NOTE: For arch-linux you might also have to do ```sudo apt install glfw-x11``` i
 
 2. Download MLX42 & Build
 ```bash 
-➜  ~ git clone https://github.com/W2Codam/MLX42.git
+➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
 ➜  ~ cd MLX42
 ➜  ~ make
 ```
