@@ -25,7 +25,7 @@
  * @param file File stream to read from.
  * @return True if line was read, false if EOF was reached or an error ocurred.
  */
-bool mlx_getline(char **out, size_t *out_size, FILE *file)
+bool mlx_getline(char** out, size_t* out_size, FILE* file)
 {
 	MLX_ASSERT(!out || !out_size || !file);
 
@@ -48,9 +48,7 @@ bool mlx_getline(char **out, size_t *out_size, FILE *file)
 			return (true);
 		memset(BUFF, 0, sizeof(BUFF));
 	}
-	if (size)
-		return (true);
-	return (false);
+	return (size);
 }
 
 /**
@@ -104,7 +102,7 @@ bool mlx_freen(int32_t count, ...)
  * @param color The input RGBA value.
  * @return The rgba value converted to a grayscale color.
  */
-uint32_t	mlx_rgba_to_mono(uint32_t color)
+uint32_t mlx_rgba_to_mono(uint32_t color)
 {
 	const uint8_t r = 0.299f * ((color >> 24) & 0xFF);
 	const uint8_t g = 0.587f * ((color >> 16) & 0xFF);
