@@ -87,8 +87,6 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
  * Retrieves the pixel data line by line and then processes each pixel
  * by hashing the characters and looking it up from the color table.
  * 
- * TODO: Use ssize_t as specified by getline.
- * 
  * @param xpm The XPM.
  * @param file The filepath to the XPM42 file.
  * @param ctable The color hash table.
@@ -97,17 +95,16 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
  */
 static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 {
-	int64_t bread;
-	size_t buffsize;
+	size_t line_len;
 	char* line = NULL;
 
 	for (int64_t y_xpm = 0; y_xpm < xpm->texture.height; y_xpm++)
 	{
-		if ((bread = getline(&line, &buffsize, file)) == -1)
+		if (!mlx_getline(&line, &line_len, file))
 			return (free(line), false);
-		if (line[bread - 1] == '\n')
-			bread--;
-		if (bread != xpm->texture.width * xpm->cpp)
+		if (line[line_len - 1] == '\n')
+			line_len--;
+		if (line_len != xpm->texture.width * xpm->cpp)
 			return (free(line), false);
 
 		// NOTE: Copy pixel by pixel as we need to retrieve the hash table.
@@ -134,15 +131,15 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
  */
 static bool mlx_read_table(xpm_t* xpm, FILE* file)
 {
-	size_t buffsize;
 	char* line = NULL;
-	int64_t bread = 0;
+	size_t line_len;
 	uint32_t ctable[UINT16_MAX] = {0};
 
 	for (int32_t i = 0; i < xpm->color_count; i++)
 	{
-		if ((bread = getline(&line, &buffsize, file)) == -1 || \
-		!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / BPP)))
+		if (!mlx_getline(&line, &line_len, file))
+			return (free(line), false);
+		if (!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / BPP)))
 			return (free(line), false);
 	}
 	free(line);

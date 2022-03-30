@@ -35,7 +35,6 @@
 # include <ctype.h> /* isspace, isprint, ... */
 # include <string.h> /* strlen, memmove, ... */
 # include <stdarg.h> /* va_arg, va_end, ... */
-// TODO: Add NDEBUG if we don't compile in debug mode via Makefile
 # include <assert.h> /* assert, static_assert, ... */
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
@@ -45,6 +44,7 @@
 # endif
 # define BPP sizeof(int32_t) /* Only support RGBA */
 # define MLX_ASSERT(cond) assert(!(cond));
+# define GETLINE_BUFF 1280
 
 /**
  * The shader code is extracted from the shader files
@@ -223,6 +223,7 @@ void mlx_flush_batch(mlx_ctx_t* mlx);
 
 // Utils Functions =//
 
+bool mlx_getline(char** out, size_t* out_size, FILE* file);
 uint32_t mlx_rgba_to_mono(uint32_t color);
 int32_t mlx_atoi_base(const char* str, int32_t base);
 uint64_t mlx_fnv_hash(char* str, size_t len);

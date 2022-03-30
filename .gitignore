@@ -61,5 +61,4 @@ main.c
 lib/glfw/
 
 # Special shader files
-mlx_vert.c
-mlx_frag.c
+mlx_*_shader.c
