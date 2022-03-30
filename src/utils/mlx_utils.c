@@ -14,7 +14,6 @@
 
 //= Private =//
 
-#define GETLINE_BUFF 1280
 /**
  * Function to read a file stream line by line.
  * Since getline is not a c standard function it does not exist on windows.

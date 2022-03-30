@@ -45,6 +45,7 @@
 # endif
 # define BPP sizeof(int32_t) /* Only support RGBA */
 # define MLX_ASSERT(cond) assert(!(cond));
+# define GETLINE_BUFF 1280
 
 /**
  * The shader code is extracted from the shader files
