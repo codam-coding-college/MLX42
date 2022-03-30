@@ -35,7 +35,6 @@
 # include <ctype.h> /* isspace, isprint, ... */
 # include <string.h> /* strlen, memmove, ... */
 # include <stdarg.h> /* va_arg, va_end, ... */
-// TODO: Add NDEBUG if we don't compile in debug mode via Makefile
 # include <assert.h> /* assert, static_assert, ... */
 # ifndef MLX_SWAP_INTERVAL
 #  define MLX_SWAP_INTERVAL 1
