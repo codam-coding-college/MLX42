@@ -12,7 +12,7 @@
 
 #include "MLX42/MLX42_Int.h"
 
-//= Privae =//
+//= Private =//
 
 #define GETLINE_BUFF 1280
 /**
