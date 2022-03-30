@@ -35,7 +35,7 @@ SRCS	:= $(call rwildcard,$(SRC_DIR),*.c)
 OBJS	:= $(sort $(patsubst %.c,%.o,$(SRCS) $(LIB) $(SHDR)))
 
 ifeq ($(OS), Windows_NT)
-	ifdef CYGWIN
+	ifdef WIN_UNIX
 		include Makefile_Unix.mk
 	else
 		include Makefile_WindowsNT.mk
