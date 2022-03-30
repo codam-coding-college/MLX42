@@ -95,17 +95,16 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
  */
 static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 {
-	size_t bread;
+	size_t line_len;
 	char* line = NULL;
 
 	for (int64_t y_xpm = 0; y_xpm < xpm->texture.height; y_xpm++)
 	{
-		if ((line = mlx_getline(file)) == NULL)
-			return (false);
-		bread = strlen(line);
-		if (line[bread - 1] == '\n')
-			bread--;
-		if (bread != xpm->texture.width * xpm->cpp)
+		if (!mlx_getline(&line, &line_len, file))
+			return (free(line), false);
+		if (line[line_len - 1] == '\n')
+			line_len--;
+		if (line_len != xpm->texture.width * xpm->cpp)
 			return (free(line), false);
 
 		// NOTE: Copy pixel by pixel as we need to retrieve the hash table.
@@ -114,8 +113,8 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 			uint8_t* pixelstart = &xpm->texture.pixels[(y_xpm * xpm->texture.width + x_xpm) * BPP];
 			mlx_draw_pixel(pixelstart, ctable[mlx_fnv_hash(&line[x_line], xpm->cpp) % s]);
 		}
-		free(line);
 	}
+	free(line);
 	return (true);
 }
 
@@ -133,16 +132,17 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 static bool mlx_read_table(xpm_t* xpm, FILE* file)
 {
 	char* line = NULL;
+	size_t line_len;
 	uint32_t ctable[UINT16_MAX] = {0};
 
 	for (int32_t i = 0; i < xpm->color_count; i++)
 	{
-		if ((line = mlx_getline(file)) == NULL)
-			return (false);
+		if (!mlx_getline(&line, &line_len, file))
+			return (free(line), false);
 		if (!mlx_insert_xpm_entry(xpm, line, ctable, (sizeof(ctable) / BPP)))
 			return (free(line), false);
-		free(line);
 	}
+	free(line);
 	return (mlx_read_data(xpm, file, ctable, (sizeof(ctable) / BPP)));
 }
 

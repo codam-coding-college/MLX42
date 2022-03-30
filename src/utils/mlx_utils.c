@@ -15,42 +15,42 @@
 //= Private =//
 
 /**
- * Function to read a file stream line by line.
- * Since getline is not a c standard function it does not exist on windows.
- * There for I created this function which is somewhat similarly to getline.
- * 
+ * Function to read a file stream line by line, reusing the same output pointer.
+ * Since the same output pointer is reused it should only be freed once, either on success or failure.
+ * This function is made to be somewhat similar to getline.
+ * Getline cant be used directly since its not standard and there for not available on all platforms.
+ *
+ * @param out Pointer to store output string.
+ * @param out_size Pointer to store output strings length.
  * @param file File stream to read from.
- * @return Allocated result string or NULL if the EOF is encountered and no characters
- * have been read. If an error occurs, NULL is returned.
+ * @return True if line was read, false if EOF was reached or an error ocurred.
  */
-char* mlx_getline(FILE* file)
+bool mlx_getline(char **out, size_t *out_size, FILE *file)
 {
-	if (file == NULL)
-		return (NULL);
+	MLX_ASSERT(!out || !out_size || !file);
 
-	char* str;
-	size_t size = 1;
-	if (!(str = calloc(1, sizeof(char) * size)))
-		return (NULL);
+	if (*out)
+		*out[0] = '\0';
 
+	char *new_str;
+	size_t size = 0;
 	char BUFF[GETLINE_BUFF + 1]; // Add space for '\0'
 	while (fgets(BUFF, sizeof(BUFF), file))
 	{
-		char* new_str;
-		size += sizeof(BUFF) - 1; // Dont need to account for BUFF's '\0'
-		if (!(new_str = realloc(str, sizeof(char) * size)))
-			return (free(str), NULL);
-		str = new_str;
+		size += strlen(BUFF);
+		if (!(new_str = realloc(*out, sizeof(char) * size)))
+			return (false);
+		*out = new_str;
+		*out_size = size;
 
-		strcat(str, BUFF);
+		strcat(*out, BUFF);
 		if (strrchr(BUFF, '\n'))
-			return (str);
+			return (true);
 		memset(BUFF, 0, sizeof(BUFF));
 	}
-	if (size != 1)
-		return (str);
-	free(str);
-	return (NULL);
+	if (size)
+		return (true);
+	return (false);
 }
 
 /**
