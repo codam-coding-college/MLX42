@@ -24,7 +24,7 @@
  * @return Allocated result string or NULL if the EOF is encountered and no characters
  * have been read. If an error occurs, NULL is returned.
  */
-char* mlx_getline(FILE *file)
+char* mlx_getline(FILE* file)
 {
 	if (file == NULL)
 		return (NULL);
