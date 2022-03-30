@@ -59,7 +59,7 @@ else
 
 		include Makefile_Unix.mk
 	else
-		$(error OS: $(OS) - Is not supported!)
+$(error OS: $(OS) - Is not supported!)
 	endif
 endif
 
