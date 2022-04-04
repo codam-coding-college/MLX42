@@ -627,19 +627,6 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
  */
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth);
 
-
-/**
- * Sets the depth / Z axis value of an instance.
- * 
- * NOTE: Keep in mind that images that are on the same Z layer, cut each other off.
- * so if you don't see your image anymore make sure its not conflicting by being on
- * the same layer as another image.
- * 
- * @param[in] instance The instane on which to change the depth.
- * @param[in] zdepth The new depth value.
- */
-void mlx_set_instance_pos(mlx_instance_t* instance, int32_t x, int32_t y, int32_t z);
-
 //= String Functions =//
 
 /**
