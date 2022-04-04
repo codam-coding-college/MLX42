@@ -24,7 +24,7 @@
 # define MLX42_H
 # include <stdint.h>
 # include <stdbool.h>
-# include "MLX42_Keys.h"
+# include "MLX42_Input.h"
 
 /**
  * Base object for disk loaded textures.
@@ -170,6 +170,25 @@ extern mlx_errno_t mlx_errno;
  * @param[in] param Additional parameter to pass onto the function.
  */
 typedef void (*mlx_scrollfunc)(double xdelta, double ydelta, void* param);
+
+/**
+ * Callback function used to handle mouse actions.
+ * 
+ * @param[in] button The mouse button/key pressed.
+ * @param[in] action The mouse action that took place.
+ * @param[in] mods The modifier keys pressed during the mouse key.
+ * @param[in] param Additional parameter to pass onto the function.
+ */
+typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+
+/**
+ * Callback function used to handle raw mouse movement.
+ * 
+ * @param[in] xdelta The mouse x position.
+ * @param[in] ydelta The mouse y position.
+ * @param[in] param Additional parameter to pass onto the function.
+ */
+typedef void (*mlx_cursorfunc)(double xpos, double ypos, void* param);
 
 /**
  * Callback function used to handle key presses.
@@ -603,10 +622,23 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
  * so if you don't see your image anymore make sure its not conflicting by being on
  * the same layer as another image.
  * 
- * @param instance The instane on which to change the depth.
- * @param zdepth The new depth value.
+ * @param[in] instance The instane on which to change the depth.
+ * @param[in] zdepth The new depth value.
  */
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth);
+
+
+/**
+ * Sets the depth / Z axis value of an instance.
+ * 
+ * NOTE: Keep in mind that images that are on the same Z layer, cut each other off.
+ * so if you don't see your image anymore make sure its not conflicting by being on
+ * the same layer as another image.
+ * 
+ * @param[in] instance The instane on which to change the depth.
+ * @param[in] zdepth The new depth value.
+ */
+void mlx_set_instance_pos(mlx_instance_t* instance, int32_t x, int32_t y, int32_t z);
 
 //= String Functions =//
 

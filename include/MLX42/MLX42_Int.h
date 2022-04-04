@@ -115,7 +115,19 @@ typedef struct mlx_srcoll
 	mlx_scrollfunc	func;
 }	mlx_scroll_t;
 
-typedef struct s_mlx_close
+typedef struct mlx_mouse
+{
+	void*			param;
+	mlx_mousefunc	func;
+}	mlx_mouse_t;
+
+typedef struct mlx_cursor
+{
+	void*			param;
+	mlx_cursorfunc	func;
+}	mlx_cursor_t;
+
+typedef struct mlx_close
 {
 	void*			param;
 	mlx_closefunc	func;
@@ -152,7 +164,7 @@ typedef struct mlx_hook
  * 
  * Texture contexts are kept in a struct purely for convience of
  * expanding the variables in potential later updates. As well as
- * having had more variables before now just one.
+ * having had more variables before, now just one.
  */
 
 // MLX instance context.
@@ -161,15 +173,20 @@ typedef struct mlx_ctx
 	GLuint			vao;
 	GLuint			vbo;
 	GLuint			shaderprogram;
+
 	mlx_list_t*		hooks;
 	mlx_list_t*		images;
 	mlx_list_t*		render_queue;
+
 	mlx_scroll_t	scroll_hook;
+	mlx_mouse_t		mouse_hook;
+	mlx_cursor_t	cursor_hook;
 	mlx_key_t		key_hook;
 	mlx_resize_t	resize_hook;
 	mlx_close_t		close_hook;
+
 	int32_t			zdepth;
-	GLint			bound_textures[16];
+	int32_t			bound_textures[16];
 	int32_t			batch_size;
 	vertex_t		batch_vertices[MLX_BATCH_SIZE];
 }	mlx_ctx_t;

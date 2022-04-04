@@ -17,8 +17,8 @@
  * over in the glfw3.h file.
  */
 
-#ifndef MLX42_KEYS_H
-# define MLX42_KEYS_H
+#ifndef MLX42_INPUT_H
+# define MLX42_INPUT_H
 
 /**
  * A key action such as pressing or releasing a key.
