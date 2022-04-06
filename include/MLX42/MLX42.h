@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 18:19:16 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/06 11:35:39 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,6 +433,26 @@ void mlx_set_cursor(mlx_t* mlx, void* cursor);
  * @param[in] param An additional optional parameter.
  */
 void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param);
+
+/**
+ * This function sets the mouse callback, which is called when a mouse
+ * does any sort of action such as pressing a key.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The mouse callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param);
+
+/**
+ * This function sets the cursor callback, which is called when a the
+ * mouse position changes. Position is relative to the window.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The cursor callback function.
+ * @param[in] param An additional optional parameter.
+ */
+void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param);
 
 /**
  * This function sets the key callback, which is called when a key is pressed
