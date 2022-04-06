@@ -1,5 +1,7 @@
 # How to contribute to MLX42
 
+## Read the wiki for repo codestyle!
+
 For any questions, suggestions or help [Contact Me](mailto:lde-la-h@student.codam.nl)
 
 ## **Found a bug?**
