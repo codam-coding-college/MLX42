@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 18:03:26 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/10 01:58:12 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,22 @@ static void mlx_exec_loop_hooks(mlx_t* mlx)
 static void mlx_render_images(mlx_t* mlx)
 {
 	mlx_ctx_t* mlxctx = mlx->context;
+	mlx_list_t* imglst = mlxctx->images;
 
 	if (sort_queue)
 	{
 		sort_queue = false;
 		mlx_sort_renderqueue(&mlxctx->render_queue);
+	}
+
+	// Upload image textures to GPU
+	while (imglst)
+	{
+		mlx_image_t* image = imglst->content;
+		glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)image->context)->texture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+		imglst = imglst->next;
+		// TODO: Remove this later, for now this fixes my issues.
 	}
 
 	// Execute draw calls
