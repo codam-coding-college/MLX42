@@ -500,9 +500,6 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
 /**
  * Decode/load a PNG file onto a buffer. BPP will always be 4.
  * 
- * NOTE: The output type is just a t_mlx_texture *, it only has this typedef
- * because of norme.
- * 
  * @param[in] path Path to the PNG file.
  * @return If successful the texture data is returned, else NULL.
  */
