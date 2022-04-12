@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 02:46:51 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:35:57 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,12 @@ mlx_errno_t mlx_errno = MLX_SUCCESS;
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
+	MLX_ASSERT(width <= 0);
+	MLX_ASSERT(height <= 0);
+	MLX_ASSERT(!title);
+
 	bool init;
 	mlx_t* mlx;
-
-	MLX_ASSERT(width <= 0 || height <= 0 || !title);
 	if (!(init = glfwInit()))
 		return ((void*)mlx_error(MLX_GLFWFAIL));
 	if (!(mlx = calloc(1, sizeof(mlx_t))))

@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 02:53:52 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:12:17 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void mlx_close_callback(GLFWwindow* window)
 
 void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param)
 {
-	MLX_ASSERT(!mlx || !func);
+	MLX_ASSERT(!mlx);
+	MLX_ASSERT(!func);
 
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlxctx->close_hook.func = func;
@@ -67,7 +68,8 @@ void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param)
 
 void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
 {
-	MLX_ASSERT(!mlx || !func);
+	MLX_ASSERT(!mlx);
+	MLX_ASSERT(!func);
 
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlxctx->resize_hook.func = func;
@@ -77,19 +79,25 @@ void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
 
 void mlx_set_icon(mlx_t* mlx, mlx_texture_t* image)
 {
-	MLX_ASSERT(!mlx || !image);
+	MLX_ASSERT(!mlx);
+	MLX_ASSERT(!image);
+
 	glfwSetWindowIcon(mlx->window, 1, (const GLFWimage*)image);
 }
 
 void mlx_set_window_pos(mlx_t* mlx, int32_t xpos, int32_t ypos)
 {
 	MLX_ASSERT(!mlx);
+
 	glfwSetWindowPos(mlx->window, xpos, ypos);
 }
 
 void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos)
 {
-	MLX_ASSERT(!mlx || !xpos || !ypos);
+	MLX_ASSERT(!mlx);
+	MLX_ASSERT(!xpos);
+	MLX_ASSERT(!ypos);
+
 	glfwGetWindowPos(mlx->window, xpos, ypos);
 }
 
@@ -105,5 +113,6 @@ void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height)
 void mlx_set_window_limit(mlx_t* mlx, int32_t min_w, int32_t min_h, int32_t max_w, int32_t max_h)
 {
 	MLX_ASSERT(!mlx);
+
 	glfwSetWindowSizeLimits(mlx->window, min_w, min_h, max_w, max_h);
 }

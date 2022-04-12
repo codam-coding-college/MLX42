@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 18:20:48 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:16:51 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static const char* mlx_errors[] = {
 	"Texture is larger than image",
 };
 
-//= Public =//
 
 /**
  * Functions to set the error number, simply for convenience.
@@ -47,7 +46,12 @@ bool mlx_error(mlx_errno_t val)
 	return (false);
 }
 
+//= Public =//
+
 const char* mlx_strerror(mlx_errno_t val)
 {
+	MLX_ASSERT(val < 0);
+	MLX_ASSERT(val >= MLX_ERRMAX);
+
 	return (mlx_errors[val]);
 }

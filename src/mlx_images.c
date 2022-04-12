@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/10 01:58:28 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:23:02 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 
 int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 {
-	MLX_ASSERT(!mlx || !img);
+	MLX_ASSERT(!mlx);
+	MLX_ASSERT(!img);
 	
 	// Allocate buffers...
 	mlx_instance_t* temp = realloc(img->instances, (++img->count) * sizeof(mlx_instance_t));
@@ -183,7 +184,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 
 void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 {
-	MLX_ASSERT(!mlx || !image);
+	MLX_ASSERT(!mlx);
+	MLX_ASSERT(!image);
 
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlx_list_t* imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/12 20:54:22 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:34:10 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 /**
  * Retrieves the X offset of the given char in the font texture strip.
  * 
- * NOTE: Cheesy branchless operation :D
- * 
  * @param c The char to find.
  * @return Non-negative if found or -1 if not found.
  */
@@ -27,6 +25,7 @@ static int32_t mlx_get_texoffset(char c)
 {
 	const bool _isprint = isprint(c);
 
+	// NOTE: Cheesy branchless operation :D
 	return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
 }
 
@@ -43,11 +42,11 @@ static int32_t mlx_get_texoffset(char c)
  */
 static void mlx_draw_char(mlx_image_t* image, int32_t texoffset, int32_t imgoffset)
 {
-	uint8_t* pixelx;
-	uint8_t* pixeli;
-
 	if (texoffset < 0)
 		return;
+
+	uint8_t* pixelx;
+	uint8_t* pixeli;
 	for (uint32_t y = 0; y < FONT_HEIGHT; y++)
 	{
 		pixelx = &font_atlas.pixels[(y * font_atlas.width + texoffset) * BPP];
@@ -60,7 +59,8 @@ static void mlx_draw_char(mlx_image_t* image, int32_t texoffset, int32_t imgoffs
 
 mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 {
-	MLX_ASSERT(!mlx || !str);
+	MLX_ASSERT(!mlx);
+	MLX_ASSERT(!str);
 
 	mlx_image_t* strimage;
 	if (!(strimage = mlx_new_image(mlx, strlen(str) * FONT_WIDTH, FONT_HEIGHT)))

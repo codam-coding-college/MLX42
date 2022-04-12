@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/12 22:07:15 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:15:02 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,22 @@ bool mlx_getline(char** out, size_t* out_size, FILE* file)
 {
 	MLX_ASSERT(!out || !out_size || !file);
 
-	if (*out) 
-		*out[0] = '\0';
-
 	size_t size = 0;
-	char *new_str = NULL;
-	char BUFF[GETLINE_BUFF + 1]; // Add space for '\0'
+	char* temp = NULL;
+	static char BUFF[GETLINE_BUFF + 1]; // Add space for '\0'
+
+	if (*out) *out[0] = '\0';
 
 	while (fgets(BUFF, sizeof(BUFF), file))
 	{
 		size += strlen(BUFF);
-		if (!(new_str = realloc(*out, sizeof(char) * size + 1)))
+		if (!(temp = realloc(*out, sizeof(char) * size + 1)))
 			return (false);
-		new_str[size] = '\0';
 		if (*out == NULL)
-			memset(new_str, '\0', size);
+			memset(temp, '\0', size);
+		temp[size] = '\0';
 
-		*out = new_str;
+		*out = temp;
 		*out_size = size;
 
 		strncat(*out, BUFF, sizeof(BUFF));
@@ -66,15 +65,13 @@ bool mlx_getline(char** out, size_t* out_size, FILE* file)
  */
 uint64_t mlx_fnv_hash(char* str, size_t len)
 {
-	size_t i = 0;
-	uint64_t hash;
 	const uint64_t fnv_prime = 0x100000001b3;
 	const uint64_t fnv_offset = 0xcbf29ce484222325;
+	uint64_t hash = fnv_offset;
 
-	hash = fnv_offset;
-	while (i < len)
+	for (size_t i = 0; i < len; i++)
 	{
-		hash ^= str[i++];
+		hash ^= str[i];
 		hash *= fnv_prime;
 	}
 	return (hash);
@@ -127,5 +124,6 @@ int32_t mlx_get_time(void)
 void mlx_focus(mlx_t* mlx)
 {
 	MLX_ASSERT(!mlx);
+
 	glfwFocusWindow(mlx->window);
 }

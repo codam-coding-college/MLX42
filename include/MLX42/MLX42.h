@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/06 11:35:39 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:40:18 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
  * 
  * @param width The width of the texture.
  * @param height The height of the texture.
- * @param bytes_per_pixel The amount of bytes in a pixel, always 4.
  * @param pixels The literal pixel data.
+ * @param bytes_per_pixel The amount of bytes in a pixel, always 4.
  */
 typedef struct mlx_texture
 {
@@ -157,6 +157,7 @@ typedef enum mlx_errno
 	MLX_IMGTOBIG,
 	MLX_IMGTOSML,
 	MLX_TEXTOBIG,
+	MLX_ERRMAX,
 }	mlx_errno_t;
 
 // Global error code from the MLX42 library, 0 on no error.

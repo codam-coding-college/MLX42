@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 17:18:59 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 02:49:20 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 00:25:43 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 
 void mlx_get_monitor_size(int32_t index, int32_t* width, int32_t* height)
 {
-	if (!width || !height)
-		return;
+	MLX_ASSERT(index < 0);
+	MLX_ASSERT(!width);
+	MLX_ASSERT(!height);
+
 	*width = 0;
 	*height = 0;
 	
