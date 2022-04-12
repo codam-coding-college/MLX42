@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 18:01:45 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/12 22:07:15 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,29 @@ bool mlx_getline(char** out, size_t* out_size, FILE* file)
 {
 	MLX_ASSERT(!out || !out_size || !file);
 
-	if (*out)
+	if (*out) 
 		*out[0] = '\0';
 
-	char *new_str;
 	size_t size = 0;
+	char *new_str = NULL;
 	char BUFF[GETLINE_BUFF + 1]; // Add space for '\0'
+
 	while (fgets(BUFF, sizeof(BUFF), file))
 	{
 		size += strlen(BUFF);
-		if (!(new_str = realloc(*out, sizeof(char) * size)))
+		if (!(new_str = realloc(*out, sizeof(char) * size + 1)))
 			return (false);
+		new_str[size] = '\0';
+		if (*out == NULL)
+			memset(new_str, '\0', size);
+
 		*out = new_str;
 		*out_size = size;
 
-		strcat(*out, BUFF);
+		strncat(*out, BUFF, sizeof(BUFF));
 		if (strrchr(BUFF, '\n'))
 			return (true);
-		memset(BUFF, 0, sizeof(BUFF));
+		memset(BUFF, '\0', sizeof(BUFF));
 	}
 	return (size);
 }
