@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:15:02 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/13 12:07:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool mlx_getline(char** out, size_t* out_size, FILE* file)
 		*out = temp;
 		*out_size = size;
 
-		strncat(*out, BUFF, sizeof(BUFF));
+		strncat(*out, BUFF, size);
 		if (strrchr(BUFF, '\n'))
 			return (true);
 		memset(BUFF, '\0', sizeof(BUFF));
