@@ -169,6 +169,15 @@ extern mlx_errno_t mlx_errno;
 /** Toggle whether images resize with the window as its being resized or not. Default: false */
 extern bool mlx_stretch_imgs;
 
+/** Should the window be in Fullscreen, note it will fullscreen at the given resolution. Default: false */
+extern bool mlx_fullscreen;
+
+/** Start the window in a maximized state, overwrites the fullscreen state if this is true. Default: false */
+extern bool mlx_maximized;
+
+/** Have the window be decorated with a window bar. Default: true */
+extern bool mlx_decorated;
+
 /**
  * Callback function used to handle scrolling.
  * 

@@ -151,6 +151,9 @@ bool sort_queue = false;
 mlx_errno_t mlx_errno = MLX_SUCCESS;
 
 bool mlx_stretch_imgs = false;
+bool mlx_fullscreen = false;
+bool mlx_maximized = false;
+bool mlx_decorated = true;
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
@@ -169,7 +172,8 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 
 	mlx->width = width;
 	mlx->height = height;
-	glfwWindowHint(GLFW_DECORATED, GL_TRUE);
+	glfwWindowHint(GLFW_MAXIMIZED, mlx_maximized);
+	glfwWindowHint(GLFW_DECORATED, mlx_decorated);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -177,7 +181,7 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 	glfwWindowHint(GLFW_RESIZABLE, resize);
-	if (!(mlx->window = glfwCreateWindow(width, height, title, NULL, NULL)))
+	if (!(mlx->window = glfwCreateWindow(width, height, title, mlx_fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL)))
 		return (mlx_terminate(mlx), (void*)mlx_error(MLX_WINFAIL));
 	if (!mlx_init_render(mlx) || !mlx_create_buffers(mlx))
 		return (mlx_terminate(mlx), NULL);
