@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:12:17 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/20 09:50:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
  * Recalculate the view projection matrix, used by images for screen pos
  * Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
  */
-static void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
+void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 {
 	// NOTE: The depth should technically be the zdepth in the mlx context.
-	// but that would require us to re-calculate the matrix for each new image.
 	const float depth = 10000.f;
 	const float matrix[16] = {
 		2.f / width, 0, 0, 0,
@@ -41,7 +40,7 @@ void mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height)
 
 	if (mlxctx->resize_hook.func)
 		mlxctx->resize_hook.func(width, height, mlxctx->resize_hook.param);
-	if (width > 1 || height > 1)
+	if (!mlx_stretch_imgs && (width > 1 || height > 1))
 		mlx_update_matrix(mlx, width, height);
 }
 

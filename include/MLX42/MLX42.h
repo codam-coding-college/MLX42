@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:40:18 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/20 09:46:11 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,12 @@ typedef enum mlx_errno
 // Global error code from the MLX42 library, 0 on no error.
 extern mlx_errno_t mlx_errno;
 
+//= Global Settings =//
+// Set these values, if necessary, before calling `mlx_init` as they define the behaviour of MLX42.
+
+/** Toggle whether images resize with the window as its being resized or not. Default: false */
+extern bool mlx_stretch_imgs;
+
 /**
  * Callback function used to handle scrolling.
  * 
@@ -264,7 +270,8 @@ void mlx_loop(mlx_t* mlx);
  * Lets you set a custom image as the program icon.
  * 
  * NOTE: In MacOS this function does nothing, you should use the bundles icon to set the dock bar icon.
- * @link: https://9to5mac.com/2021/11/08/change-mac-icons/
+ * @see: https://9to5mac.com/2021/11/08/change-mac-icons/
+ * @see: https://github.com/glfw/glfw/issues/2041
  *
  * @param[in] mlx The MLX instance handle.
  * @param[in] image The image to use as icon.

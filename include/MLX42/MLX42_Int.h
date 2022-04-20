@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/03/29 02:58:58 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/04/20 09:44:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ bool mlx_freen(int32_t count, ...);
 //= OpenGL Functions =//
 
 void mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height);
+void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height);
 void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instance);
 void mlx_flush_batch(mlx_ctx_t* mlx);
 

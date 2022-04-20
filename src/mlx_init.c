@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:35:57 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/20 09:44:58 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static bool mlx_create_buffers(mlx_t* mlx)
 
 	// NOTE: Call manually once to calculate View Projection Matrix
 	glfwSetWindowSizeCallback(mlx->window, &mlx_on_resize);
-	mlx_on_resize(mlx->window, mlx->width, mlx->height);
+	mlx_update_matrix(mlx, mlx->width, mlx->height);
 	return (true);
 }
 
@@ -149,6 +149,8 @@ static bool mlx_init_render(mlx_t* mlx)
 
 bool sort_queue = false;
 mlx_errno_t mlx_errno = MLX_SUCCESS;
+
+bool mlx_stretch_imgs = false;
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
