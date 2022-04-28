@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:23:02 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/28 14:44:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 {
 	MLX_ASSERT(!mlx);
 
-	if (width > INT16_MAX || height > INT16_MAX)
-		return ((void*)mlx_error(MLX_IMGTOBIG));
-	if (!width || !height)
-		return ((void*)mlx_error(MLX_IMGTOSML));
+	if (!width || !height || width > INT16_MAX || height > INT16_MAX)
+		return ((void*)mlx_error(MLX_INVDIM));
 
 	const mlx_ctx_t* mlxctx = mlx->context;
 	mlx_image_t* newimg = calloc(1, sizeof(mlx_image_t));
@@ -203,10 +201,8 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 {
 	MLX_ASSERT(!img);
 
-	if (nwidth > INT16_MAX || nheight > INT16_MAX)
-		return (mlx_error(MLX_IMGTOBIG));
-	if (!nwidth || !nheight)
-		return ((void*)mlx_error(MLX_IMGTOSML));
+	if (!nwidth || !nheight || nwidth > INT16_MAX || nheight > INT16_MAX)
+		return (mlx_error(MLX_INVDIM));
 	if (nwidth != img->width || nheight != img->height)
 	{
 		uint8_t* tempbuff = realloc(img->pixels, (nwidth * nheight) * BPP);

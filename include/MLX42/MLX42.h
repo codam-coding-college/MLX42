@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:00:35 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/28 14:46:54 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,22 +142,20 @@ typedef struct mlx
 // The error codes used to idenfity the correct error message.
 typedef enum mlx_errno
 {
-	MLX_SUCCESS = 0,
-	MLX_INVEXT,
-	MLX_INVFILE,
-	MLX_INVPNG,
-	MLX_INVXPM,
-	MLX_INVFONT,
-	MLX_INVAREA,
-	MLX_SHDRFAIL,
-	MLX_MEMFAIL,
-	MLX_GLADFAIL,
-	MLX_GLFWFAIL,
-	MLX_WINFAIL,
-	MLX_IMGTOBIG,
-	MLX_IMGTOSML,
-	MLX_TEXTOBIG,
-	MLX_ERRMAX,
+	MLX_SUCCESS = 0,	// No Errors
+	MLX_INVEXT,			// File has an invalid extension
+	MLX_INVFILE,		// File was invalid / does not exist.
+	MLX_INVPNG,			// Something is wrong the given PNG file.
+	MLX_INVXPM,			// Something is wrong the given XPM file.
+	MLX_INVPOS,			// The specified X/Y positions are out of bounds.
+	MLX_INVDIM,			// The specified W/H dimensions are out of bounds.
+	MLX_SHDRFAIL,		// Failed to compile a shader.
+	MLX_MEMFAIL,		// Dynamic memory allocation has failed.
+	MLX_GLADFAIL,		// OpenGL loader has failed.
+	MLX_GLFWFAIL,		// GLFW failed to initialize.
+	MLX_WINFAIL,		// Failed to create a window.
+	MLX_STRTOBIG,		// The string is too big to be drawn.
+	MLX_ERRMAX,			// Error count
 }	mlx_errno_t;
 
 // Global error code from the MLX42 library, 0 on no error.
@@ -579,7 +577,7 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint3
  * @param[in] y Y position relative to the image.
  * @return In-case of any issues, false else true.
  */
-bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int32_t y);
+bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, uint32_t x, uint32_t y);
 
 //= Image Functions =//
 

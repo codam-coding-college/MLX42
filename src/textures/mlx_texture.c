@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:37:53 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/04/28 14:48:13 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint3
 	MLX_ASSERT(!xy);
 	MLX_ASSERT(!wh);
 
-	if (xy[0] > texture->width || xy[1] > texture->height || \
-		wh[0] > texture->width || wh[1] > texture->height)
-		return ((void*)mlx_error(MLX_INVAREA));
+	if (wh[0] > texture->width || wh[1] > texture->height)
+		return ((void*)mlx_error(MLX_INVDIM));
+	if (xy[0] > texture->width || xy[1] > texture->height)
+		return ((void*)mlx_error(MLX_INVPOS));
 
 	mlx_image_t* image;
 	if (!(image = mlx_new_image(mlx, wh[0], wh[1])))
@@ -54,15 +55,15 @@ mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 	return (img);
 }
 
-bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, int32_t x, int32_t y)
+bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, uint32_t x, uint32_t y)
 {
 	MLX_ASSERT(!image);
 	MLX_ASSERT(!texture);
-	MLX_ASSERT(x < 0);
-	MLX_ASSERT(y < 0);	
 
 	if (texture->width > image->width || texture->height > image->height)
-		return (mlx_error(MLX_TEXTOBIG));
+		return (mlx_error(MLX_INVDIM));
+	if (x > image->width || y > image->height)
+		return (mlx_error(MLX_INVPOS));
 
 	uint8_t* pixelx;
 	uint8_t* pixeli;

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/20 09:44:28 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/04/28 14:43:22 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define BPP sizeof(int32_t) /* Only support RGBA */
 # define MLX_ASSERT(cond) assert(!(cond));
 # define GETLINE_BUFF 1280
+# define MLX_MAX_STRING 512 /* Arbitrary string limit */
 
 /**
  * The shader code is extracted from the shader files
