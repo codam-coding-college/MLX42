@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:46:54 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/01 21:06:00 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@
  * 
  * @param width The width of the texture.
  * @param height The height of the texture.
+ * @param bytes_per_pixel The amounst of bytes in a pixel, always 4.
  * @param pixels The literal pixel data.
- * @param bytes_per_pixel The amount of bytes in a pixel, always 4.
  */
 typedef struct mlx_texture
 {
 	uint32_t	width;
 	uint32_t	height;
-	uint8_t*	pixels;
 	uint8_t		bytes_per_pixel;
+	uint8_t*	pixels;
 }	mlx_texture_t;
 
 /**
@@ -671,5 +671,23 @@ void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth);
  * @return Image ptr to the string.
  */
 mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y);
+
+/**
+ * Retrieve the texture data for the built-in font.
+ * 
+ * @return Pointer to the built-in font texture.
+ */
+const mlx_texture_t* mlx_get_font(void);
+
+/**
+ * This function lets you retrieve the X offset 
+ * of the given char in the font texture.
+ * 
+ * NOTE: A single character is 10 * 20 in pixels!
+ * 
+ * @param[in] c The character to get the offset from.
+ * @return Non-negative if found or -1 if not found.
+ */
+int32_t mlx_get_texoffset(char c);
 
 #endif
