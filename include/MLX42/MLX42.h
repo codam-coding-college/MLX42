@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/05/01 21:06:00 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2022/05/10 10:23:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include "MLX42_Input.h"
+# ifdef __cplusplus
+extern "C" {
+# endif
 
 /**
  * Base object for disk loaded textures.
@@ -162,19 +165,16 @@ typedef enum mlx_errno
 extern mlx_errno_t mlx_errno;
 
 //= Global Settings =//
+
 // Set these values, if necessary, before calling `mlx_init` as they define the behaviour of MLX42.
-
-/** Toggle whether images resize with the window as its being resized or not. Default: false */
-extern bool mlx_stretch_imgs;
-
-/** Should the window be in Fullscreen, note it will fullscreen at the given resolution. Default: false */
-extern bool mlx_fullscreen;
-
-/** Start the window in a maximized state, overwrites the fullscreen state if this is true. Default: false */
-extern bool mlx_maximized;
-
-/** Have the window be decorated with a window bar. Default: true */
-extern bool mlx_decorated;
+typedef enum mlx_settings
+{
+	MLX_STRETCH_IMAGE = 0,	// Should images resize with the window as its being resized or not. Default: false
+	MLX_FULLSCREEN,			// Should the window be in Fullscreen, note it will fullscreen at the given resolution. Default: false
+	MLX_MAXIMIZED,			// Start the window in a maximized state, overwrites the fullscreen state if this is true. Default: false
+	MLX_DECORATED,			// Have the window be decorated with a window bar. Default: true
+	MLX_SETTINGS_MAX,		// Setting count.
+}	mlx_settings_t;
 
 /**
  * Callback function used to handle scrolling.
@@ -238,7 +238,7 @@ typedef void (*mlx_closefunc)(void* param);
 /**
  * Gets the english description of the error code.
  * 
- * @param val The error code.
+ * @param[in] val The error code.
  * @return The error string that describes the error code.
  */
 const char* mlx_strerror(mlx_errno_t val);
@@ -255,6 +255,15 @@ const char* mlx_strerror(mlx_errno_t val);
  * @returns Ptr to the MLX handle or null on failure.
  */
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize);
+
+/**
+ * Set a setting for MLX42.
+ * Settings can manipulate the core behaviour of the engine.
+ * 
+ * @param[in] setting The settings value, See mlx_settings_t type.
+ * @param[in] value Settings value to determine the state of the setting. Can be a boolean or a enum / macro.
+ */
+void mlx_set_setting(mlx_settings_t setting, int32_t value);
 
 /**
  * Notifies MLX that it should stop rendering and exit the main loop.
@@ -690,4 +699,7 @@ const mlx_texture_t* mlx_get_font(void);
  */
 int32_t mlx_get_texoffset(char c);
 
+# ifdef __cplusplus
+}
+# endif
 #endif

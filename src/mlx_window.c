@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/04/20 09:50:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:11:35 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height)
 
 	if (mlxctx->resize_hook.func)
 		mlxctx->resize_hook.func(width, height, mlxctx->resize_hook.param);
-	if (!mlx_stretch_imgs && (width > 1 || height > 1))
+	if (!mlx_settings[MLX_STRETCH_IMAGE] && (width > 1 || height > 1))
 		mlx_update_matrix(mlx, width, height);
 }
 

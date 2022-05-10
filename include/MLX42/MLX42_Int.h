@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:43:22 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/10 10:24:39 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ extern const char* frag_shader;
 
 // Flag to indicate if the render queue has to be sorted.
 extern bool sort_queue;
+
+// Settings array, use the enum 'key' to get the value.
+extern int32_t mlx_settings[MLX_SETTINGS_MAX];
 
 //= Types =//
 

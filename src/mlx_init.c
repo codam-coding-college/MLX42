@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/20 09:44:58 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/10 10:23:55 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,8 @@ static bool mlx_init_render(mlx_t* mlx)
 bool sort_queue = false;
 mlx_errno_t mlx_errno = MLX_SUCCESS;
 
-bool mlx_stretch_imgs = false;
-bool mlx_fullscreen = false;
-bool mlx_maximized = false;
-bool mlx_decorated = true;
+// Default settings
+int32_t mlx_settings[MLX_SETTINGS_MAX] = {false, false, false, true};
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
@@ -172,8 +170,8 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 
 	mlx->width = width;
 	mlx->height = height;
-	glfwWindowHint(GLFW_MAXIMIZED, mlx_maximized);
-	glfwWindowHint(GLFW_DECORATED, mlx_decorated);
+	glfwWindowHint(GLFW_MAXIMIZED, mlx_settings[MLX_MAXIMIZED]);
+	glfwWindowHint(GLFW_DECORATED, mlx_settings[MLX_DECORATED]);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -181,9 +179,16 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 	glfwWindowHint(GLFW_RESIZABLE, resize);
-	if (!(mlx->window = glfwCreateWindow(width, height, title, mlx_fullscreen ? glfwGetPrimaryMonitor() : NULL, NULL)))
+	if (!(mlx->window = glfwCreateWindow(width, height, title, mlx_settings[MLX_FULLSCREEN] ? glfwGetPrimaryMonitor() : NULL, NULL)))
 		return (mlx_terminate(mlx), (void*)mlx_error(MLX_WINFAIL));
 	if (!mlx_init_render(mlx) || !mlx_create_buffers(mlx))
 		return (mlx_terminate(mlx), NULL);
 	return (mlx);
+}
+
+void mlx_set_setting(mlx_settings_t setting, int32_t value)
+{
+	MLX_ASSERT(setting >= MLX_SETTINGS_MAX);
+	MLX_ASSERT(setting < 0);
+	mlx_settings[setting] = value;
 }
