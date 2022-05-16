@@ -188,16 +188,12 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 	mlx_ctx_t* mlxctx = mlx->context;
 
 	// Delete all instances in the render queue
-	while (true)
-	{
-		mlx_list_t* quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
-		if (!quelst)
-			break;
+	mlx_list_t* quelst;
+	while ((quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst)))
 		mlx_freen(2, quelst->content, quelst);
-	}
 
-	mlx_list_t* imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
-	if (imglst)
+	mlx_list_t* imglst;
+	if ((imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image)))
 	{
 		glDeleteTextures(1, &((mlx_image_ctx_t*)image->context)->texture);
 		mlx_freen(5, image->pixels, image->instances, image->context, imglst, image);
