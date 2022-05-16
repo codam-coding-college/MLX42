@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:44:28 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/15 20:57:16 by jsimonis      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 		return;
 	instance->z = zdepth;
 
-	/** 
+	/**
 	 * NOTE: The reason why we don't sort directly is that
 	 * the user might call this function multiple times in a row and we don't
 	 * want to sort for every change. Pre-loop wise that is.
@@ -109,7 +109,7 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 {
 	MLX_ASSERT(!mlx);
 	MLX_ASSERT(!img);
-	
+
 	// Allocate buffers...
 	mlx_instance_t* temp = realloc(img->instances, (++img->count) * sizeof(mlx_instance_t));
 	draw_queue_t* queue = calloc(1, sizeof(draw_queue_t));
@@ -123,7 +123,7 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	img->instances[index].x = x;
 	img->instances[index].y = y;
 
-	// NOTE: We keep updating the Z for the convenience of the user. 
+	// NOTE: We keep updating the Z for the convenience of the user.
 	// Always update Z depth to prevent overlapping images by default.
 	img->instances[index].z = ((mlx_ctx_t*)mlx->context)->zdepth++;
 
@@ -186,11 +186,14 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 	MLX_ASSERT(!image);
 
 	mlx_ctx_t* mlxctx = mlx->context;
-	mlx_list_t* imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image);
-	mlx_list_t* quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst);
-	if (quelst)
+
+	// Delete all instances in the render queue
+	mlx_list_t* quelst;
+	while ((quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst)))
 		mlx_freen(2, quelst->content, quelst);
-	if (imglst)
+
+	mlx_list_t* imglst;
+	if ((imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image)))
 	{
 		glDeleteTextures(1, &((mlx_image_ctx_t*)image->context)->texture);
 		mlx_freen(5, image->pixels, image->instances, image->context, imglst, image);
