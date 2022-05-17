@@ -50,10 +50,14 @@ In the very end a library is generated, compile your program with this library!
 ### Via [Homebrew](https://brew.sh/) / [Homebrew42](https://github.com/kube/42homebrew) by building from source.
 
 2. Install GLFW
+
+Through brew:
 ```bash
 ➜  ~ brew update
 ➜  ~ brew install glfw
 ```
+
+Or, if studying at Codam, you can find GLFW in the [Managed Software Center](munki://detail-GLFW).
 
 3. Compile MLX42
 ```bash 
@@ -62,6 +66,7 @@ In the very end a library is generated, compile your program with this library!
 ```
 
 4. Compile Program
+
 With the normal brew version you can now simply compile the program with:
 ```bash
 ➜  ~ gcc main.c libmlx42.a -lglfw ...
@@ -77,15 +82,22 @@ However, with 42Homebrew you have additionally specify the location of the libra
 ➜  ~ gcc main.c libmlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
 ```
 
+Or, if studying at Codam, compile using the following flags:
+```bash
+➜  ~ gcc main.c libmlx42.a -I include -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+```
+
+5. Run!
+
 ### Pre-compiled libraries
 
-1. Download the binaries directly [here.](https://www.glfw.org/download.html)
+2. Download the binaries directly [here.](https://www.glfw.org/download.html)
 
-2. If possible move the contents of `lib` and `include` of GLFW to `/usr/local/lib` and `/usr/local/include` respectively.
+3. If possible move the contents of `lib` and `include` of GLFW to `/usr/local/lib` and `/usr/local/include` respectively.
    If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
    NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your architecture.
 
-3. Compile MLX42
+4. Compile MLX42
 ```bash 
 ➜  ~ cd MLX42
 ➜  ~ make
@@ -100,7 +112,7 @@ Else, simply compile like this:
 ➜  ~ gcc main.c libmlx42.a -lglfw ...
 ```
 
-4. Run
+5. Run
 
 In case of any security warnings or MacOS telling you it can't verify the author/developer, go to ```Settings > Security & Privacy```.
 There will be a pop-up at the bottom telling you that an application tried to run, click the option to let it run.
