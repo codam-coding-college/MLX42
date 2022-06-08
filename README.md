@@ -122,12 +122,22 @@ There will be a pop-up at the bottom telling you that an application tried to ru
 NOTE: This will not run with Windows Subsystem for Linux (WSL)!!!
 
 1. Install the necessary packages:
+
+For Debian like (Ubuntu, Mint, Pop OS...):
 ```bash 
 ➜  ~ sudo apt update
 ➜  ~ sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 ```
 
-NOTE: For arch-linux you might also have to do ```sudo apt install glfw-x11``` if available.
+For Arch-linux (Manjaro, Endeavor, Garuda):
+```bash
+➜  ~ sudo pacman -S glfw-x11
+```
+OR (if you use sway/wlroots compositor or other wayland compositor)
+
+```bash
+➜  ~ sudo pacman -S glfw-wayland
+```
 
 2. Download MLX42 & Build
 ```bash 
