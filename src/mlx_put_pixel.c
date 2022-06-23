@@ -12,13 +12,9 @@
 
 #include "MLX42/MLX42_Int.h"
 
-// BUG: Linux may experience a red hue instead due to endiannes
 void mlx_draw_pixel(uint8_t* pixel, uint32_t color)
 {
-	*(pixel++) = (uint8_t)(color >> 24);
-	*(pixel++) = (uint8_t)(color >> 16);
-	*(pixel++) = (uint8_t)(color >> 8);
-	*(pixel++) = (uint8_t)(color & 0xFF);
+	*((uint32_t *)pixel) = color;
 }
 
 //= Public =//
