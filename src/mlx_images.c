@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 14:10:21 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 19:54:49 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 {
-	MLX_ASSERT(!instance);
+	MLX_NONNULL(instance);
 
 	if (instance->z == zdepth)
 		return;
@@ -104,8 +104,8 @@ void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 
 int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!img);
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(img);
 
 	// Allocate buffers...
 	mlx_instance_t* temp = realloc(img->instances, (++img->count) * sizeof(mlx_instance_t));
@@ -137,7 +137,7 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 
 mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 {
-	MLX_ASSERT(!mlx);
+	MLX_NONNULL(mlx);
 
 	if (!width || !height || width > INT16_MAX || height > INT16_MAX)
 		return ((void*)mlx_error(MLX_INVDIM));
@@ -180,8 +180,8 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 
 void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!image);
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(image);
 
 	mlx_ctx_t* mlxctx = mlx->context;
 
@@ -200,7 +200,7 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 
 bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 {
-	MLX_ASSERT(!img);
+	MLX_NONNULL(img);
 
 	if (!nwidth || !nheight || nwidth > INT16_MAX || nheight > INT16_MAX)
 		return (mlx_error(MLX_INVDIM));

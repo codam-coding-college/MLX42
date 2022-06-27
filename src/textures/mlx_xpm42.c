@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/12 22:25:23 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/06/27 19:58:33 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ xpm_t* mlx_load_xpm42(const char* path)
 	FILE* file;
 	xpm_t* xpm = NULL;
 
-	MLX_ASSERT(!path);
+	MLX_NONNULL(path);
 	if (!strstr(path, ".xpm42"))
 		return ((void*)mlx_error(MLX_INVEXT));
 	if (!(file = fopen(path, "r")))
@@ -202,7 +202,7 @@ xpm_t* mlx_load_xpm42(const char* path)
 
 void mlx_delete_xpm42(xpm_t* xpm)
 {
-	MLX_ASSERT(!xpm);
+	MLX_NONNULL(xpm);
 	mlx_delete_texture(&xpm->texture);
 	free(xpm);
 }

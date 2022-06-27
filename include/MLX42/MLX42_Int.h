@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 12:52:06 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:37:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@
 #  define MLX_BATCH_SIZE 12000
 # endif
 # define BPP sizeof(int32_t) /* Only support RGBA */
-# define MLX_ASSERT(cond) assert(!(cond));
 # define GETLINE_BUFF 1280
 # define MLX_MAX_STRING 512 /* Arbitrary string limit */
+# define MLX_ASSERT(cond, msg) assert(cond && msg);
+# define MLX_NONNULL(var) MLX_ASSERT(var, "Value can't be null"); /* Assert instead of attribute */
 
 /**
  * The shader code is extracted from the shader files

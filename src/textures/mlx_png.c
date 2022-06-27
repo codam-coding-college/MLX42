@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/16 23:11:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:32:31 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/06/27 19:55:06 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 mlx_texture_t* mlx_load_png(const char* path)
 {
-	MLX_ASSERT(!path);
+	MLX_NONNULL(path);
 
 	mlx_texture_t* image;
 	if (!(image = malloc(sizeof(mlx_texture_t))))

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 14:05:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 18:07:04 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,25 @@ static void mlx_render_images(mlx_t* mlx)
 		mlx_sort_renderqueue(&mlxctx->render_queue);
 	}
 
-	// Upload to GPU
-	for (mlx_image_t* image = imglst->content; imglst; imglst = imglst->next)
+	// Upload image textures to GPU
+	while (imglst)
 	{
+		mlx_image_t* image = imglst->content;
 		glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)image->context)->texture);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+		imglst = imglst->next;
 	}
 
 	// Execute draw calls
-	for (mlx_list_t* render_queue = mlxctx->render_queue; render_queue; render_queue = render_queue->next)
+	mlx_list_t* render_queue = mlxctx->render_queue;
+	while (render_queue)
 	{
 		draw_queue_t* drawcall = render_queue->content;
 		mlx_instance_t* instance =  &drawcall->image->instances[drawcall->instanceid];
 
 		if (drawcall && drawcall->image->enabled && instance->enabled)
 			mlx_draw_instance(mlx->context, drawcall->image, instance);
+		render_queue = render_queue->next;
 	}
 }
 
@@ -60,8 +64,8 @@ static void mlx_render_images(mlx_t* mlx)
 
 bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!f);
+	MLX_ASSERT(mlx, "Parameter can't be null");
+	MLX_ASSERT(f, "Parameter can't be null");
 
 	mlx_hook_t* hook;
 	if (!(hook = malloc(sizeof(mlx_hook_t))))
@@ -83,7 +87,7 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
 // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 void mlx_loop(mlx_t* mlx)
 {
-	MLX_ASSERT(!mlx);
+	MLX_ASSERT(mlx, "Parameter can't be null");
 
 	double start, oldstart = 0;
 	while (!glfwWindowShouldClose(mlx->window))

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 12:50:33 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 20:05:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ int32_t mlx_settings[MLX_SETTINGS_MAX] = {false, false, false, true};
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
-	MLX_ASSERT(width <= 0);
-	MLX_ASSERT(height <= 0);
-	MLX_ASSERT(!title);
+	MLX_ASSERT(width > 0, "Window width must be positive");
+	MLX_ASSERT(height > 0, "Window height must be positive");
+	MLX_ASSERT(title, "Window title can't be null");
 
 	bool init;
 	mlx_t* mlx;
@@ -164,6 +164,8 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 		return ((void*)mlx_error(MLX_MEMFAIL));
 	if (!(mlx->context = calloc(1, sizeof(mlx_ctx_t))))
 		return (free(mlx), (void*)mlx_error(MLX_MEMFAIL));
+
+	mlx_error(MLX_MEMFAIL);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
 	mlx->width = width;
@@ -189,7 +191,6 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 
 void mlx_set_setting(mlx_settings_t setting, int32_t value)
 {
-	MLX_ASSERT(setting >= MLX_SETTINGS_MAX);
-	MLX_ASSERT(setting < 0);
+	MLX_ASSERT(setting > 0 && setting < MLX_SETTINGS_MAX, "Invalid settings value");
 	mlx_settings[setting] = value;
 }

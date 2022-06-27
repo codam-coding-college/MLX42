@@ -6,10 +6,11 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:57:00 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 20:29:44 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <err.h>
 #include "MLX42/MLX42_Int.h"
 
 //= Private =//
@@ -41,6 +42,9 @@ static const char* mlx_errors[] = {
 bool mlx_error(mlx_errno_t val)
 {
 	mlx_errno = val;
+#ifndef NDEBUG
+	warnx("MLX42: %s", mlx_strerror(mlx_errno));
+#endif
 	return (false);
 }
 
@@ -48,8 +52,8 @@ bool mlx_error(mlx_errno_t val)
 
 const char* mlx_strerror(mlx_errno_t val)
 {
-	MLX_ASSERT(val < 0);
-	MLX_ASSERT(val >= MLX_ERRMAX);
+	MLX_ASSERT(val > 0, "Index must be positive");
+	MLX_ASSERT(val < MLX_ERRMAX, "Index out of bounds");
 
 	return (mlx_errors[val]);
 }

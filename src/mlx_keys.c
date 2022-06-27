@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:24:08 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:28:01 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void mlx_key_callback(GLFWwindow* window, int32_t key, int32_t scancode, 
 
 void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param)
 {
-	MLX_ASSERT(!mlx );
-	MLX_ASSERT(!func);
+	MLX_ASSERT(mlx, "Parameter can't be null");
+	MLX_ASSERT(func, "Parameter can't be null");
 
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlxctx->key_hook.func = func;
@@ -43,7 +43,7 @@ void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param)
 
 bool mlx_is_key_down(mlx_t* mlx, keys_t key)
 {
-	MLX_ASSERT(!mlx);
+	MLX_ASSERT(mlx, "Parameter can't be null");
 
 	return (glfwGetKey(mlx->window, key) == GLFW_PRESS);
 }
