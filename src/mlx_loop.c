@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:24:53 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/06/27 12:48:53 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void mlx_render_images(mlx_t* mlx)
 		glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)image->context)->texture);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 		imglst = imglst->next;
-		// TODO: Remove this later, for now this fixes my issues.
 	}
 
 	// Execute draw calls
@@ -98,6 +97,9 @@ void mlx_loop(mlx_t* mlx)
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
+
+		if ((mlx->width > 1 || mlx->height > 1))
+			mlx_update_matrix(mlx, mlx->width, mlx->height);
 
 		mlx_exec_loop_hooks(mlx);
 		mlx_render_images(mlx);
