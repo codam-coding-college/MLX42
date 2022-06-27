@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 13:44:34 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:10:21 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	// NOTE: We keep updating the Z for the convenience of the user.
 	// Always update Z depth to prevent overlapping images by default.
 	img->instances[index].z = ((mlx_ctx_t*)mlx->context)->zdepth++;
-	img->enabled = true;
+	img->instances[index].enabled = true;
 
 	// Add draw call...
 	mlx_list_t* templst;
