@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 12:46:59 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 13:55:39 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,14 @@ typedef struct xpm
  * @param x The x location.
  * @param y The y location.
  * @param z The z depth, controls if the image is on the fore or background.
+ * @param enabled If true, the instance is drawn else its not.
  */
 typedef struct mlx_instance
 {
 	int32_t	x;
 	int32_t	y;
 	int32_t	z;
+	bool	enabled;
 }	mlx_instance_t;
 
 /**
