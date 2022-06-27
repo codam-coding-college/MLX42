@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 12:48:10 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 12:50:33 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static bool mlx_create_buffers(mlx_t* mlx)
 	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture14"), 14);
 	glUniform1i(glGetUniformLocation(mlxctx->shaderprogram, "Texture15"), 15);
 
-	glfwSetWindowSizeCallback(mlx->window, &mlx_on_resize);
 	return (true);
 }
 

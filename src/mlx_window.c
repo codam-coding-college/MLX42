@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 12:44:22 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/27 12:51:18 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 	glUniformMatrix4fv(glGetUniformLocation(mlxctx->shaderprogram, "ProjMatrix"), 1, GL_FALSE, matrix);
 }
 
-void mlx_on_resize(GLFWwindow* window, int32_t width, int32_t height)
+static void mlx_resize_callback(GLFWwindow* window, int32_t width, int32_t height)
 {
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_ctx_t* mlxctx = mlx->context;
@@ -79,7 +79,7 @@ void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param)
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlxctx->resize_hook.func = func;
 	mlxctx->resize_hook.param = param;
-	//NOTE: Callback is set just above because MLX needs to hook onto it.
+	glfwSetWindowSizeCallback(mlx->window, mlx_resize_callback);
 }
 
 void mlx_set_icon(mlx_t* mlx, mlx_texture_t* image)
