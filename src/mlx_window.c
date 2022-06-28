@@ -6,7 +6,7 @@
 /*   By: W2wizard <w2wizzard@gmail.com>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/08 01:14:59 by W2wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:55:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/28 12:31:50 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 	 * Incase of this setting we just don't update the widht and height but allow the Z
 	 * to keep updating.
 	 */
-	width = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialWidth : mlx->width;
-	height = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialHeight : mlx->height;
+	width = mlx_settings[MLX_STRETCH_IMAGE] ? (int32_t)mlxctx->initialWidth : mlx->width;
+	height = mlx_settings[MLX_STRETCH_IMAGE] ? (int32_t)mlxctx->initialHeight : mlx->height;
 
 	const float matrix[16] = {
 		2.f / width, 0, 0, 0,
