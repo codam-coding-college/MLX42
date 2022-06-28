@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 13:55:39 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/28 10:24:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ extern "C" {
  * 
  * @param width The width of the texture.
  * @param height The height of the texture.
- * @param bytes_per_pixel The amounst of bytes in a pixel, always 4.
  * @param pixels The literal pixel data.
+ * @param bytes_per_pixel The amounst of bytes in a pixel, always 4.
  */
 typedef struct mlx_texture
 {
 	uint32_t	width;
 	uint32_t	height;
-	uint8_t		bytes_per_pixel;
 	uint8_t*	pixels;
+	uint8_t		bytes_per_pixel;
 }	mlx_texture_t;
 
 /**
@@ -525,7 +525,7 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
 //= Texture Functions =//
 
 /**
- * Decode/load a PNG file onto a buffer. BPP will always be 4.
+ * Decode/load a PNG file onto a buffer.
  * 
  * @param[in] path Path to the PNG file.
  * @return If successful the texture data is returned, else NULL.
