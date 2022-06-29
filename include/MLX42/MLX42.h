@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/28 10:24:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/29 15:34:58 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -429,23 +429,21 @@ void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y);
 void mlx_set_cursor_mode(mlx_t* mlx, mouse_mode_t mode);
 
 /**
- * Allows for the creation of custom cursors with a given
- * XPM image.
+ * Allows for the creation of custom cursors with a given texture.
  * 
  * Use mlx_set_cursor to select the specific cursor.
  * Cursors are destroyed at mlx_terminate().
  * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] image The XPM image to use as cursor.
- * @returns The cursor pointer.
+ * @param[in] texture The texture to use as cursor.
+ * @returns The cursor object.
  */
-void* mlx_create_cursor(mlx_t* mlx, mlx_texture_t* image);
+void* mlx_create_cursor(mlx_texture_t* texture);
 
 /**
  * Sets the current cursor to the given custom cursor.
  * 
  * @param[in] mlx The MLX instance handle.
- * @param[in] cursor The cursor to display.
+ * @param[in] cursor The cursor object to display.
  */
 void mlx_set_cursor(mlx_t* mlx, void* cursor);
 

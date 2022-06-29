@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:54:19 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void mlx_free_image(void* content)
 
 void mlx_close_window(mlx_t* mlx)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 	glfwSetWindowShouldClose(mlx->window, true);
 }
 
@@ -35,7 +35,7 @@ void mlx_close_window(mlx_t* mlx)
  */
 void mlx_terminate(mlx_t* mlx)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 
 	mlx_ctx_t *const mlxctx = mlx->context;
 

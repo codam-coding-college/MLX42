@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:54:55 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void mlx_cursor_cb(GLFWwindow* window, double xpos, double ypos)
 
 void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
@@ -53,7 +53,7 @@ void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param)
 
 void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
@@ -64,7 +64,7 @@ void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param)
 
 void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
@@ -75,21 +75,21 @@ void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param)
 
 bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 
 	return (glfwGetMouseButton(mlx->window, key) == GLFW_PRESS);
 }
 
 void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 
 	glfwSetCursorPos(mlx->window, (double)x, (double)y);
 }
 
 void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x_out, int32_t* y_out)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 	MLX_NONNULL(x_out);
 	MLX_NONNULL(y_out);
 

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:59:30 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int32_t mlx_get_time(void)
 
 void mlx_focus(mlx_t* mlx)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 
 	glfwFocusWindow(mlx->window);
 }

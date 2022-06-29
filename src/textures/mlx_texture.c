@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/17 01:02:24 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:58:16 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint32_t xy[2], uint32_t wh[2])
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 	MLX_NONNULL(texture);
 	MLX_NONNULL(xy);
 	MLX_NONNULL(wh);
@@ -43,7 +43,7 @@ mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint3
 
 mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 {
-	MLX_NONNULL(mlx);;
+	MLX_NONNULL(mlx);
 	MLX_NONNULL(texture);
 
 	mlx_image_t* img;
