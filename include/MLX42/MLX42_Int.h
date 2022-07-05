@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/29 19:02:24 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:37:37 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,8 +179,8 @@ typedef struct mlx_ctx
 	GLuint			vbo;
 	GLuint			shaderprogram;
 
-	int32_t			initialWidth;
-	int32_t			initialHeight;
+	uint32_t		initialWidth;
+	uint32_t		initialHeight;
 
 	mlx_list_t*		hooks;
 	mlx_list_t*		images;
