@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/29 15:34:58 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/07/05 15:12:05 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ typedef struct mlx
 {
 	void*		window;
 	void*		context;
-	int32_t		width;
-	int32_t		height;
+	uint32_t	width;
+	uint32_t	height;
 	double		delta_time;
 }	mlx_t;
 
@@ -256,7 +256,7 @@ const char* mlx_strerror(mlx_errno_t val);
  * @param[in] resize Enable window resizing.
  * @returns Ptr to the MLX handle or null on failure.
  */
-mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize);
+mlx_t* mlx_init(uint32_t width, uint32_t height, const char* title, bool resize);
 
 /**
  * Set a setting for MLX42.
@@ -332,7 +332,7 @@ void mlx_focus(mlx_t* mlx);
  * @param[in] width The width of the window.
  * @param[in] height The height of the window.
  */
-void mlx_get_monitor_size(int32_t index, int32_t* width, int32_t* height);
+void mlx_get_monitor_size(int32_t index, uint32_t* width, uint32_t* height);
 
 /**
  * Sets the windows position.
@@ -363,7 +363,7 @@ void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos);
  * @param new_width The new desired width.
  * @param new_height The new desired height.
  */
-void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height);
+void mlx_set_window_size(mlx_t* mlx, uint32_t new_width, uint32_t new_height);
 
 /**
  * Sets the size limits of the specified window.
