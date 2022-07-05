@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/05 15:12:05 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/07/05 16:15:57 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ typedef void (*mlx_keyfunc)(mlx_key_data_t keydata, void* param);
  * @param[in] height The new height of the window. 
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*mlx_resizefunc)(int32_t width, int32_t height, void* param);
+typedef void (*mlx_resizefunc)(uint32_t width, uint32_t height, void* param);
 
 /**
  * Callback function used to handle window closing which is called when 
