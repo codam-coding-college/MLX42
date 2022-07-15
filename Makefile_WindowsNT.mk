@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:32:00 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/02/26 21:32:00 by W2Wizard      ########   odam.nl          #
+#    Updated: 2022/07/05 14:55:05 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,14 @@ SHDR	:= $(subst /,\,$(SHDR))
 LIB		:= $(subst /,\,$(LIB))
 SRCS	:= $(subst /,\,$(SRCS))
 OBJS	:= $(subst /,\,$(OBJS))
+MLX_HEADER_FILES := $(subst /,\,$(MLX_HEADER_FILES))
 
 #//= Make Rules =//#
 $(NAME): $(OBJS)
-	@ar rc $(NAME) $(OBJS)
+	@ar rc $@ $^
 	@echo Done
 
-%.o: %.c
+%.o: %.c $(MLX_HEADER_FILES)
 	@echo Compiling: $(notdir $<)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 

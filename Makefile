@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:32:49 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/03/29 18:08:51 by W2Wizard      ########   odam.nl          #
+#    Updated: 2022/07/05 14:55:30 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SHDR	:= $(SHDR:$(SHADER_DIR)/default.%=$(SRC_DIR)/mlx_%_shader.c)
 LIB		:= $(call rwildcard,$(LIB_DIR),*.c)
 SRCS	:= $(call rwildcard,$(SRC_DIR),*.c)
 OBJS	:= $(sort $(patsubst %.c,%.o,$(SRCS) $(LIB) $(SHDR)))
+MLX_HEADER_FILES := $(call rwildcard,$(INCLUDE_DIR),*.h)
 
 ifeq ($(OS), Windows_NT)
 	ifdef WIN_UNIX
