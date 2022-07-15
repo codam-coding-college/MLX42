@@ -16,7 +16,7 @@
 
 void mlx_get_monitor_size(int32_t index, uint32_t* width, uint32_t* height)
 {
-	MLX_ASSERT(index < 0, "Index out of bounds");
+	MLX_ASSERT(index >= 0, "Index out of bounds");
 	MLX_NONNULL(width);
 	MLX_NONNULL(height);
 
