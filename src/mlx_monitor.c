@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 17:18:59 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/05 15:12:43 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/06/27 20:02:38 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //= Public =//
 
-void mlx_get_monitor_size(int32_t index, uint32_t* width, uint32_t* height)
+void mlx_get_monitor_size(int32_t index, int32_t* width, int32_t* height)
 {
 	MLX_ASSERT(index >= 0, "Index out of bounds");
 	MLX_NONNULL(width);
@@ -31,7 +31,7 @@ void mlx_get_monitor_size(int32_t index, uint32_t* width, uint32_t* height)
 	const GLFWvidmode* vidmode;
 	if ((vidmode = glfwGetVideoMode(monitors[index])))
 	{
-		*width = (uint32_t)vidmode->width;
-		*height = (uint32_t)vidmode->height;
+		*width = vidmode->width;
+		*height = vidmode->height;
 	}
 }

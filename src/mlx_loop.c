@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/05 15:05:17 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/06/27 18:07:04 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void mlx_loop(mlx_t* mlx)
 	
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glfwGetWindowSize(mlx->window, (int*)&(mlx->width), (int*)&(mlx->height));
+		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
 
 		if ((mlx->width > 1 || mlx->height > 1))
 			mlx_update_matrix(mlx, mlx->width, mlx->height);

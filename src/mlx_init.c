@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/05 15:11:07 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/06/28 10:10:26 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,10 @@ mlx_errno_t mlx_errno = MLX_SUCCESS;
 // Default settings
 int32_t mlx_settings[MLX_SETTINGS_MAX] = {false, false, false, true};
 
-mlx_t* mlx_init(uint32_t width, uint32_t height, const char* title, bool resize)
+mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
-	MLX_ASSERT(width > 0, "Window width must be greater than zero");
-	MLX_ASSERT(height > 0, "Window height must be greater than zero");
+	MLX_ASSERT(width > 0, "Window width must be positive");
+	MLX_ASSERT(height > 0, "Window height must be positive");
 	MLX_ASSERT(title, "Window title can't be null");
 
 	bool init;
