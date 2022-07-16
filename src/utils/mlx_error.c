@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <err.h>
 #include "MLX42/MLX42_Int.h"
 
 //= Private =//
@@ -32,7 +31,6 @@ static const char* mlx_errors[] = {
 	"String is to big to be drawn",
 };
 
-
 /**
  * Functions to set the error number, simply for convenience.
  * 
@@ -43,7 +41,11 @@ bool mlx_error(mlx_errno_t val)
 {
 	mlx_errno = val;
 #ifndef NDEBUG
+# ifdef _WIN32
+	fprintf(stderr, "MLX42: %s", mlx_strerror(mlx_errno));
+# else
 	warnx("MLX42: %s", mlx_strerror(mlx_errno));
+# endif
 #endif
 	return (false);
 }
