@@ -176,6 +176,7 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 	glfwWindowHint(GLFW_MAXIMIZED, mlx_settings[MLX_MAXIMIZED]);
 	glfwWindowHint(GLFW_DECORATED, mlx_settings[MLX_DECORATED]);
 	glfwWindowHint(GLFW_VISIBLE, !mlx_settings[MLX_HEADLESS]);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
