@@ -33,7 +33,7 @@ SHDR	:= $(SHDR:$(SHADER_DIR)/default.%=$(SRC_DIR)/mlx_%_shader.c)
 LIB		:= $(call rwildcard,$(LIB_DIR),*.c)
 SRCS	:= $(call rwildcard,$(SRC_DIR),*.c)
 OBJS	:= $(sort $(patsubst %.c,%.o,$(SRCS) $(LIB) $(SHDR)))
-MLX_HEADER_FILES := $(call rwildcard,$(INCLUDE_DIR),*.h)
+HDRS	:= $(call rwildcard,$(INCLUDE_DIR),*.h)
 
 ifeq ($(OS), Windows_NT)
 	ifdef WIN_UNIX

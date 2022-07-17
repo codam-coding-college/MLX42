@@ -27,7 +27,7 @@ $(NAME): $(OBJS)
 	@ar rc $@ $^
 	@echo "$(GREEN)$(BOLD)Done$(RESET)"
 
-%.o: %.c $(MLX_HEADER_FILES)
+%.o: %.c $(HDRS)
 	@echo "$(GREEN)$(BOLD)Compiling: $(notdir $<)$(RESET)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 

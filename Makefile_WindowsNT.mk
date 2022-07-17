@@ -24,14 +24,15 @@ SHDR	:= $(subst /,\,$(SHDR))
 LIB		:= $(subst /,\,$(LIB))
 SRCS	:= $(subst /,\,$(SRCS))
 OBJS	:= $(subst /,\,$(OBJS))
-MLX_HEADER_FILES := $(subst /,\,$(MLX_HEADER_FILES))
+HDRS 	:= $(subst /,\,$(HDRS))
 
 #//= Make Rules =//#
+
 $(NAME): $(OBJS)
 	@ar rc $@ $^
 	@echo Done
 
-%.o: %.c $(MLX_HEADER_FILES)
+%.o: %.c $(HDRS)
 	@echo Compiling: $(notdir $<)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
