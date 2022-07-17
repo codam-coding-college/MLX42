@@ -148,7 +148,7 @@ bool sort_queue = false;
 mlx_errno_t mlx_errno = MLX_SUCCESS;
 
 // Default settings
-int32_t mlx_settings[MLX_SETTINGS_MAX] = {false, false, false, true};
+int32_t mlx_settings[MLX_SETTINGS_MAX] = {false, false, false, true, false};
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
@@ -171,11 +171,11 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 	mlxctx->initialWidth = width;
 	mlxctx->initialHeight = height;
 
-	glfwWindowHint(GLFW_MAXIMIZED, mlx_settings[MLX_MAXIMIZED]);
-	glfwWindowHint(GLFW_DECORATED, mlx_settings[MLX_DECORATED]);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_MAXIMIZED, mlx_settings[MLX_MAXIMIZED]);
+	glfwWindowHint(GLFW_DECORATED, mlx_settings[MLX_DECORATED]);
+	glfwWindowHint(GLFW_VISIBLE, !mlx_settings[MLX_HEADLESS]);
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif

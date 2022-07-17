@@ -175,6 +175,7 @@ typedef enum mlx_settings
 	MLX_FULLSCREEN,			// Should the window be in Fullscreen, note it will fullscreen at the given resolution. Default: false
 	MLX_MAXIMIZED,			// Start the window in a maximized state, overwrites the fullscreen state if this is true. Default: false
 	MLX_DECORATED,			// Have the window be decorated with a window bar. Default: true
+	MLX_HEADLESS,			// Run in headless mode, no window is created.
 	MLX_SETTINGS_MAX,		// Setting count.
 }	mlx_settings_t;
 
