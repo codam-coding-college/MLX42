@@ -24,8 +24,8 @@ void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 	const float depth = mlxctx->zdepth;
 
 	/**
-	 * Incase of this setting we just don't update the widht and height but allow the Z
-	 * to keep updating.
+	 * Incase the setting to stretch the image is set, we maintain the width and height but not
+	 * the depth.
 	 */
 	width = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialWidth : mlx->width;
 	height = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialHeight : mlx->height;
