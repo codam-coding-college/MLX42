@@ -28,7 +28,7 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)$(BOLD)Done$(RESET)"
 
 %.o: %.c $(HDRS)
-	@echo "$(GREEN)$(BOLD)Compiling: $(notdir $<)$(RESET)"
+	@echo "$(GREEN)$(BOLD)Compiling:$(RESET) $(notdir $<)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 # Convert shaders to .c files
