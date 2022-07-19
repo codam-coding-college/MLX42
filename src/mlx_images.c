@@ -84,6 +84,22 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 		mlx_flush_batch(mlx);
 }
 
+mlx_instance_t	*mlx_grow_instances(mlx_image_t *img, bool *did_realloc)
+{
+	mlx_image_ctx_t* ctx = img->context;
+	if (img->count >= ctx->instances_size)
+	{
+		if (ctx->instances_size == 0)
+			ctx->instances_size = img->count;
+		else
+			ctx->instances_size *= 2;
+		*did_realloc = true;
+		return realloc(img->instances, ctx->instances_size * sizeof(mlx_instance_t));
+	}
+	*did_realloc = false;
+	return img->instances;
+}
+
 //= Public =//
 
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
@@ -108,10 +124,16 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	MLX_NONNULL(img);
 
 	// Allocate buffers...
-	mlx_instance_t* temp = realloc(img->instances, (++img->count) * sizeof(mlx_instance_t));
+	img->count++;
+	bool did_realloc;
+	mlx_instance_t* temp = mlx_grow_instances(img, &did_realloc);
 	draw_queue_t* queue = calloc(1, sizeof(draw_queue_t));
 	if (!queue || !temp)
-		return (mlx_freen(2, temp, queue), mlx_error(MLX_MEMFAIL), -1);
+	{
+		if (did_realloc)
+			mlx_freen(1, temp);
+		return (mlx_freen(1, queue), mlx_error(MLX_MEMFAIL), -1);
+	}
 
 	// Set data...
 	queue->image = img;

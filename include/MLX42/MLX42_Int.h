@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 14:37:37 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/07/18 17:13:54 by sbos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@
 
 /**
  * The shader code is extracted from the shader files
- * and converted into a .c file as a single string at 
- * compile time. This keeps shader files external but 
- * still integrated into the program letting you use 
+ * and converted into a .c file as a single string at
+ * compile time. This keeps shader files external but
+ * still integrated into the program letting you use
  * the executable anywhere without having to take the
  * shaders with you.
- * 
+ *
  * Most modern frameworks like .NET do this by having resource files
  * instead.
- * 
+ *
  * See: https://bit.ly/3LJYG0r
  */
 
@@ -97,21 +97,21 @@ typedef struct mlx_list
 //= Hook structs =//
 /**
  * There are 2 types of hooks, special and generics.
- * 
+ *
  * Specials: Are specific callback functions to a specific action
  * such as window resizing or key presses. These are attached to the
  * callbacks of glfw. In case MLX itself needs the callback we call
  * the specials in that callback since there can only ever be a single
  * callback.
- * 
+ *
  * Generics: Generics are MLX42 specific hooks and can have multiple
  * hooks at the same time, these are executed every frame and can be
  * used as an alternative for key presses or animations for instance.
- * 
+ *
  * NOTE: Hooks could be achieved with va_args to have any amount
  * of args sized functor but we can't/don't want to let the user
  * deal with va_args and having to look up what args are what, etc...
- * 
+ *
  * We want to keep it straight forward with functors already describing
  * what params they have.
  */
@@ -163,12 +163,12 @@ typedef struct mlx_hook
  * For rendering we need to store most of OpenGLs stuff
  * such as the vertex array object, vertex buffer object &
  * the shader program. As well as hooks and the zdepth level.
- * 
+ *
  * Additionally we represent draw calls with a linked list
  * queue that point to the image and the index of which instance.
  * Again, instances only carry xyz data so coupled with the image it
  * lets us know which image and where to draw a copy.
- * 
+ *
  * Texture contexts are kept in a struct purely for convience of
  * expanding the variables in potential later updates. As well as
  * having had more variables before, now just one.
@@ -212,6 +212,7 @@ typedef struct draw_queue
 typedef struct mlx_image_ctx
 {
 	GLuint	texture;
+	int32_t	instances_size;
 }	mlx_image_ctx_t;
 
 //= Functions =//
