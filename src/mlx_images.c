@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:54:49 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/07/19 17:12:13 by sbos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	mlx_list_t* templst;
 	if ((templst = mlx_lstnew(queue)))
 	{
-		mlx_lstadd_back(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
+		mlx_lstadd_front(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
 		return (index);
 	}
 	return (mlx_freen(2, temp, queue), mlx_error(MLX_MEMFAIL), -1);
@@ -196,7 +196,7 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	mlx_lstadd_back((mlx_list_t**)(&mlxctx->images), newentry);
+	mlx_lstadd_front((mlx_list_t**)(&mlxctx->images), newentry);
 	return (newimg);
 }
 
