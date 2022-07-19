@@ -84,7 +84,7 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 		mlx_flush_batch(mlx);
 }
 
-mlx_instance_t	*mlx_grow_instances(mlx_image_t *img, bool *did_realloc)
+mlx_instance_t* mlx_grow_instances(mlx_image_t* img, bool* did_realloc)
 {
 	mlx_image_ctx_t* ctx = img->context;
 	if (img->count >= ctx->instances_size)
@@ -131,8 +131,8 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	if (!queue || !temp)
 	{
 		if (did_realloc)
-			mlx_freen(1, temp);
-		return (mlx_freen(1, queue), mlx_error(MLX_MEMFAIL), -1);
+			free(temp);
+		return (free(queue), mlx_error(MLX_MEMFAIL), -1);
 	}
 
 	// Set data...
