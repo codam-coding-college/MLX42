@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/18 12:41:32 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/07/18 14:59:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/07/20 10:05:28 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,44 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-static int32_t _fds[2];			// stderr pipe
-static int32_t _expected;		// Expected test result
-static int32_t _result = -1;	// The test result, -1 is not set.
-static const char* _name;		// Test name
+// TODO: Clean this up ...
+
+static int32_t _fds[2];
+static int32_t _expected;
+static int32_t _result = -1;
+static bool _normalExit;
+static const char* _name;
+
+int32_t resolveExitCode(void)
+{
+	return (_result == _expected ? EXIT_SUCCESS : EXIT_FAILURE);
+}
 
 void handle(void)
 {
-	// If we reached this, it means we exited normally
-	if (_result < 0)
-		_result = (_expected == PASS ? EXIT_SUCCESS : EXIT_FAILURE);
-
 	static char buff[256] = {0};
-	ssize_t bread = read(_fds[READ], buff, sizeof(buff));
-	printf("%s\n", _result == 0 ? "PASS" : "FAIL");
+
+	// Something went wrong
+	if (_result != _expected)
+	{
+		// Signal
+		if (!_normalExit)
+		{
+			ssize_t bread;
+			if ((bread = read(_fds[READ], buff, sizeof(buff))) < 0)
+			{
+				perror("read");
+				return;
+			}
+		}
+		else // Exit code did not match
+			_result = FAIL;
+	}
+	else
+		_result = PASS;
+	
+	// Print result
+	printf("%s\n", _result == PASS ? "[OK]" : "[FAIL]");
 	printf("%s", buff);
 }
 
@@ -50,12 +74,15 @@ void handle(void)
 	{ _expected = expect; }		\
 
 #define TEST_EXIT(code)	\
-	{ _result = code; exit(code); }		\
+	{ _result = code; _normalExit = true; exit(resolveExitCode()); }		\
 
 void sighandle(int32_t sig) 
 {
+	(void)sig;
+
 	_result = (_expected == PASS ? EXIT_FAILURE : EXIT_SUCCESS);
-	exit(_result); 
+	_normalExit = false;
+	exit(resolveExitCode()); 
 }
 
 // Initialize the function as a test.
