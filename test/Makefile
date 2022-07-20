@@ -6,7 +6,7 @@
 #    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/19 08:43:31 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/07/20 10:28:37 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/07/20 12:02:14 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ NAME		:= test
 SRC_DIR		:= .
 SRCS		:= $(call rwildcard,$(SRC_DIR),*.c)
 OBJS		:= $(sort $(patsubst %.c,%.o,$(SRCS)))
+CFLAGS		:= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -Wno-unused-variable
+MLX_FLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 
 #//= Recipes =//#
 # TODO: Check if any failed and only at the end error!
@@ -38,8 +40,12 @@ OBJS		:= $(sort $(patsubst %.c,%.o,$(SRCS)))
 all: # Redirect to run target
 	@$(MAKE) -si run
 
-run: $(OBJS)
+run: mlx $(OBJS)
+
+mlx:
+	@echo "\033[30;1mRunning...\033[0m"
+	@$(MAKE) -s re DEBUG=1 -C ../ > /dev/null
 
 %.o: %.c
-	@gcc $< -o $(NAME) -g -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -I . -I ../include && ./$(NAME)
+	@gcc $< -o $(NAME) $(CFLAGS) $(MLX_FLAGS) -I . -I ../include ../libmlx42.a && ./$(NAME)
 	@rm -rf $(NAME)
