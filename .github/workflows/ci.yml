@@ -8,6 +8,28 @@ on:
     - cron: '0 0 * * FRI'
 
 jobs:
+
+  unit-test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3 xvfb
+    
+    - name: Create Display
+      run: |
+        export DISPLAY=:99
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1
+  
+    - name: Run tests
+      run: make -C test
+
   build-unix:
     timeout-minutes: 10
     runs-on: ${{ matrix.os }}
@@ -35,9 +57,6 @@ jobs:
 
     - name: Build
       run: make
-
-    - name: Run tests
-      run: make -C test
 
   build-win:
     timeout-minutes: 20
