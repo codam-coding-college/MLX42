@@ -12,6 +12,8 @@ jobs:
   unit-test:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    env:
+      DISPLAY: ":99"
 
     steps:
     - name: Clone repository
@@ -20,13 +22,11 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update -qq
-        sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3 xvfb
+        sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3 xvfb xdotool valgrind
     
-    - name: Create Display
-      run: |
-        export DISPLAY=:99
-        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1
-  
+    - name: Setup x11
+      run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
+
     - name: Run tests
       run: make -C test
 
