@@ -36,6 +36,9 @@ jobs:
     - name: Build
       run: make
 
+    - name: Run tests
+      run: make -C test
+
   build-win:
     timeout-minutes: 20
     runs-on: windows-latest
