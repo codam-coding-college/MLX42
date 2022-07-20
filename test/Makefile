@@ -54,7 +54,7 @@ run: mlx $(OBJS)
 
 mlx:
 	@echo "\033[30;1mRunning...\033[0m"
-	@$(MAKE) -s re DEBUG=1 -C ../ > /dev/null
+	@$(MAKE) -s re DEBUG=1 -C ../
 
 %.o: %.c
 	@gcc $< -o $(NAME) $(CFLAGS) $(MLX_FLAGS) -I . -I ../include ../libmlx42.a && ./$(NAME)
