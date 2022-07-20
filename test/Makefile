@@ -6,7 +6,7 @@
 #    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/19 08:43:31 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/07/20 10:14:23 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/07/20 10:28:37 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,18 +27,19 @@ CYAN	:= \033[36;1m
 WHITE	:= \033[37;1m
 RESET	:= \033[0m
 
+NAME		:= test
 SRC_DIR		:= .
 SRCS		:= $(call rwildcard,$(SRC_DIR),*.c)
 OBJS		:= $(sort $(patsubst %.c,%.o,$(SRCS)))
 
 #//= Recipes =//#
-
-all: $(OBJS)
-
 # TODO: Check if any failed and only at the end error!
 
-%.o: %.c
-	@gcc $< -o test -g -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -I . -I ../include && ./test
+all: # Redirect to run target
+	@$(MAKE) -si run
 
-re:
-	@echo "$(RED)Restaring tests...$(RESET)"
+run: $(OBJS)
+
+%.o: %.c
+	@gcc $< -o $(NAME) -g -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -I . -I ../include && ./$(NAME)
+	@rm -rf $(NAME)
