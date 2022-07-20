@@ -6,7 +6,7 @@
 #    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/19 08:43:31 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/07/20 12:02:14 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/07/20 13:13:49 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,16 @@ SRC_DIR		:= .
 SRCS		:= $(call rwildcard,$(SRC_DIR),*.c)
 OBJS		:= $(sort $(patsubst %.c,%.o,$(SRCS)))
 CFLAGS		:= -Wextra -Wall -Wunreachable-code -Wno-char-subscripts -Wno-unused-variable
-MLX_FLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+
+ifeq ($(OS), Windows_NT)
+	$(error Not supported)
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S), Linux)
+		MLX_FLAGS := -ldl -lglfw3
+	else ifeq ($(UNAME_S), Darwin)
+		MLX_FLAGS := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+endif
 
 #//= Recipes =//#
 # TODO: Check if any failed and only at the end error!
