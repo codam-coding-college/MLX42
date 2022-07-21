@@ -146,7 +146,7 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 ➜  ~ make
 ```
 
-3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw ```, make sure to also do ```-I <include_path>```.
+3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw3 -pthread -lm ```, make sure to also do ```-I <include_path>```.
  
 4. Run.
 
