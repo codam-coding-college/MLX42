@@ -6,7 +6,7 @@
 #    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/19 08:43:31 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/07/21 10:31:12 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/07/21 10:34:17 by lde-la-h      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ ifeq ($(OS), Windows_NT)
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Linux)
-		MLX_FLAGS := -ldl -lglfw3 -pthread -lm
+		MLX_FLAGS := -ldl -lglfw -pthread -lm
 	else ifeq ($(UNAME_S), Darwin)
 		MLX_FLAGS := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 	endif
