@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/21 10:40:12 by sbos          ########   odam.nl         */
+/*   Updated: 2022/07/21 10:52:02 by sbos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 
 mlx_instance_t* mlx_grow_instances(mlx_image_t* img, bool* did_realloc)
 {
-	mlx_image_ctx_t* ctx = img->context;
+	mlx_image_ctx_t* const ctx = img->context;
 	if (img->count >= ctx->instances_capacity)
 	{
 		if (ctx->instances_capacity == 0)
