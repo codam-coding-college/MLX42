@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/18 17:13:54 by sbos          ########   odam.nl         */
+/*   Updated: 2022/07/21 10:46:43 by sbos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,12 +166,11 @@ typedef struct mlx_hook
  *
  * Additionally we represent draw calls with a linked list
  * queue that point to the image and the index of which instance.
- * Again, instances only carry xyz data so coupled with the image it
- * lets us know which image and where to draw a copy.
+ * Again, instances only carry xyz data, so coupled with the image it
+ * lets us know where to draw a copy of the image.
  *
- * Texture contexts are kept in a struct purely for convience of
- * expanding the variables in potential later updates. As well as
- * having had more variables before, now just one.
+ * Texture contexts are kept in a struct alongside the capacity
+ * of the array of instances, since the array is realloced like a vector.
  */
 
 // MLX instance context.
@@ -212,7 +211,7 @@ typedef struct draw_queue
 typedef struct mlx_image_ctx
 {
 	GLuint	texture;
-	int32_t	instances_size;
+	size_t	instances_capacity;
 }	mlx_image_ctx_t;
 
 //= Functions =//
