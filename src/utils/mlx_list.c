@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/19 16:40:21 by sbos          ########   odam.nl         */
+/*   Updated: 2022/07/21 10:34:36 by sbos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int32_t mlx_lstsize(mlx_list_t* lst)
 	return (i);
 }
 
-void	ft_lstdelone(mlx_list_t *lst, void (*del)(void *))
+static void mlx_lstdelone(mlx_list_t* lst, void (*del)(void *))
 {
 	if (del != NULL)
 		del(lst->content);
@@ -37,12 +37,12 @@ void	ft_lstdelone(mlx_list_t *lst, void (*del)(void *))
 
 void mlx_lstclear(mlx_list_t** lst, void (*del)(void*))
 {
-	mlx_list_t	*next_lst;
+	mlx_list_t* next_lst;
 
 	while (*lst != NULL)
 	{
 		next_lst = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		mlx_lstdelone(*lst, del);
 		*lst = next_lst;
 	}
 }
