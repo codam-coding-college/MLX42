@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:54:49 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/07/21 10:52:02 by sbos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,22 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 		mlx_flush_batch(mlx);
 }
 
+mlx_instance_t* mlx_grow_instances(mlx_image_t* img, bool* did_realloc)
+{
+	mlx_image_ctx_t* const ctx = img->context;
+	if (img->count >= ctx->instances_capacity)
+	{
+		if (ctx->instances_capacity == 0)
+			ctx->instances_capacity = img->count;
+		else
+			ctx->instances_capacity *= 2;
+		*did_realloc = true;
+		return realloc(img->instances, ctx->instances_capacity * sizeof(mlx_instance_t));
+	}
+	*did_realloc = false;
+	return img->instances;
+}
+
 //= Public =//
 
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
@@ -108,15 +124,21 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	MLX_NONNULL(img);
 
 	// Allocate buffers...
-	mlx_instance_t* temp = realloc(img->instances, (++img->count) * sizeof(mlx_instance_t));
+	img->count++;
+	bool did_realloc;
+	mlx_instance_t* instances = mlx_grow_instances(img, &did_realloc);
 	draw_queue_t* queue = calloc(1, sizeof(draw_queue_t));
-	if (!queue || !temp)
-		return (mlx_freen(2, temp, queue), mlx_error(MLX_MEMFAIL), -1);
+	if (!instances || !queue)
+	{
+		if (did_realloc)
+			free(instances);
+		return (free(queue), mlx_error(MLX_MEMFAIL), -1);
+	}
 
 	// Set data...
 	queue->image = img;
 	int32_t index = queue->instanceid = img->count - 1;
-	img->instances = temp;
+	img->instances = instances;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
 
@@ -129,10 +151,10 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	mlx_list_t* templst;
 	if ((templst = mlx_lstnew(queue)))
 	{
-		mlx_lstadd_back(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
+		mlx_lstadd_front(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
 		return (index);
 	}
-	return (mlx_freen(2, temp, queue), mlx_error(MLX_MEMFAIL), -1);
+	return (mlx_freen(2, instances, queue), mlx_error(MLX_MEMFAIL), -1);
 }
 
 mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
@@ -174,7 +196,7 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	mlx_lstadd_back((mlx_list_t**)(&mlxctx->images), newentry);
+	mlx_lstadd_front((mlx_list_t**)(&mlxctx->images), newentry);
 	return (newimg);
 }
 
