@@ -6,7 +6,7 @@
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/07/18 12:41:32 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/07/20 11:15:20 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/07/21 10:41:26 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void sighandle(int32_t sig)
 // Initialize the function as a test.
 #define TEST_DECLARE(Name)							\
 	_name = Name;									\
-	printf("\033[30;1mTesting: %s\033[0m", _name);	\
+	printf("Testing: %s", _name);	\
 	if (pipe(_fds) < 0) { 							\
 		printError();								\
 		exit(EXIT_FAILURE);							\
