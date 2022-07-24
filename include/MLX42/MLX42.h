@@ -175,7 +175,7 @@ typedef enum mlx_settings
 	MLX_FULLSCREEN,			// Should the window be in Fullscreen, note it will fullscreen at the given resolution. Default: false
 	MLX_MAXIMIZED,			// Start the window in a maximized state, overwrites the fullscreen state if this is true. Default: false
 	MLX_DECORATED,			// Have the window be decorated with a window bar. Default: true
-	MLX_HEADLESS,			// Run in headless mode, no window is created.
+	MLX_HEADLESS,			// Run in headless mode, no window is created. (NOTE: Still requires some form of window manager such as xvfb)
 	MLX_SETTINGS_MAX,		// Setting count.
 }	mlx_settings_t;
 
@@ -351,8 +351,8 @@ void mlx_set_window_pos(mlx_t* mlx, int32_t xpos, int32_t ypos);
  * Gets the windows position.
  * 
  * @param[in] mlx The MLX instance handle.
- * @param[in] xpos The x position.
- * @param[in] ypos The y position.
+ * @param[out] xpos The x position.
+ * @param[out] ypos The y position.
  */
 void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos);
 
@@ -360,9 +360,9 @@ void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos);
  * Changes the window size to the newly specified values.
  * Use this to update the the window width and heigth values in the mlx ptr.
  * 
- * @param mlx The MLX instance handle.
- * @param new_width The new desired width.
- * @param new_height The new desired height.
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] new_width The new desired width.
+ * @param[in] new_height The new desired height.
  */
 void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height);
 
@@ -370,13 +370,21 @@ void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height);
  * Sets the size limits of the specified window.
  * Will force the window to not be resizable past or below the given values.
  * 
- * @param mlx The MLX instance handle.
- * @param min_w The min width of the window.
- * @param max_w The max width of the window.
- * @param min_h The min height of the window.
- * @param max_h The max height of the window.
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] min_w The min width of the window.
+ * @param[in] max_w The max width of the window.
+ * @param[in] min_h The min height of the window.
+ * @param[in] max_h The max height of the window.
  */
 void mlx_set_window_limit(mlx_t* mlx, int32_t min_w, int32_t min_h, int32_t max_w, int32_t max_h);
+
+/**
+ * Sets the title of the window.
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] title The window title.
+ */
+void mlx_set_window_title(mlx_t* mlx, const char* title);
 
 //= Input Functions =//
 
@@ -406,9 +414,10 @@ bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key);
  * indicate that it is outside the window.
  * 
  * @param[in] mlx The MLX instance handle. 
- * @param[in] pos_out The position.
+ * @param[out] x The position.
+ * @param[out] x The position.
  */
-void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x_out, int32_t* y_out);
+void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x, int32_t* y);
 
 /**
  * Sets the mouse position.

@@ -87,14 +87,14 @@ void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y)
 	glfwSetCursorPos(mlx->window, (double)x, (double)y);
 }
 
-void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x_out, int32_t* y_out)
+void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x, int32_t* y)
 {
 	MLX_NONNULL(mlx);
-	MLX_NONNULL(x_out);
-	MLX_NONNULL(y_out);
+	MLX_NONNULL(x);
+	MLX_NONNULL(y);
 
-	double	x, y;
-	glfwGetCursorPos(mlx->window, &x, &y);
-	*x_out = (int32_t)x;
-	*y_out = (int32_t)y;
+	double xd, yd;
+	glfwGetCursorPos(mlx->window, &xd, &yd);
+	*x = (int32_t)x;
+	*y = (int32_t)y;
 }

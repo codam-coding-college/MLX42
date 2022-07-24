@@ -121,3 +121,11 @@ void mlx_set_window_limit(mlx_t* mlx, int32_t min_w, int32_t min_h, int32_t max_
 
 	glfwSetWindowSizeLimits(mlx->window, min_w, min_h, max_w, max_h);
 }
+
+void mlx_set_window_title(mlx_t* mlx, const char* title)
+{
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(title);
+
+	glfwSetWindowTitle(mlx->window, title);
+}
