@@ -95,6 +95,6 @@ void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x, int32_t* y)
 
 	double xd, yd;
 	glfwGetCursorPos(mlx->window, &xd, &yd);
-	*x = (int32_t)x;
-	*y = (int32_t)y;
+	*x = (int32_t)xd;
+	*y = (int32_t)yd;
 }
