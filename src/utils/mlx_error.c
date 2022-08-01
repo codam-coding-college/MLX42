@@ -15,7 +15,7 @@
 //= Private =//
 
 // English description of the error codes.
-static const char* mlx_errors[] = {
+static const char* mlx_errors[MLX_ERRMAX] = {
 	"No Errors",
 	"File has invalid extension",
 	"Failed to open the file",
@@ -23,6 +23,7 @@ static const char* mlx_errors[] = {
 	"XPM42 file is invalid or corrupted",
 	"The specified X or Y positions are out of bounds",
 	"The specified Width or Height dimensions are out of bounds",
+	"The provided image is invalid, might indicate mismanagement of images",
 	"Failed to compile shader",
 	"Failed to allocate memory",
 	"Failed to initialize GLAD",
@@ -54,7 +55,7 @@ bool mlx_error(mlx_errno_t val)
 
 const char* mlx_strerror(mlx_errno_t val)
 {
-	MLX_ASSERT(val > 0, "Index must be positive");
+	MLX_ASSERT(val >= 0, "Index must be positive");
 	MLX_ASSERT(val < MLX_ERRMAX, "Index out of bounds");
 
 	return (mlx_errors[val]);

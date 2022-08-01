@@ -190,6 +190,6 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 
 void mlx_set_setting(mlx_settings_t setting, int32_t value)
 {
-	MLX_ASSERT(setting > 0 && setting < MLX_SETTINGS_MAX, "Invalid settings value");
+	MLX_ASSERT(setting >= 0 && setting < MLX_SETTINGS_MAX, "Invalid settings value");
 	mlx_settings[setting] = value;
 }

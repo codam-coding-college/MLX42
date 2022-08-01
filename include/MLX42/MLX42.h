@@ -154,6 +154,7 @@ typedef enum mlx_errno
 	MLX_INVXPM,			// Something is wrong the given XPM file.
 	MLX_INVPOS,			// The specified X/Y positions are out of bounds.
 	MLX_INVDIM,			// The specified W/H dimensions are out of bounds.
+	MLX_INVIMG,			// The provided image is invalid, might indicate mismanagement of images.
 	MLX_SHDRFAIL,		// Failed to compile a shader.
 	MLX_MEMFAIL,		// Dynamic memory allocation has failed.
 	MLX_GLADFAIL,		// OpenGL loader has failed.

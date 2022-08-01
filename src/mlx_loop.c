@@ -41,7 +41,9 @@ static void mlx_render_images(mlx_t* mlx)
 	// Upload image textures to GPU
 	while (imglst)
 	{
-		mlx_image_t* image = imglst->content;
+		mlx_image_t* image;
+		if (!(image = imglst->content))
+			return ((void)mlx_error(MLX_INVIMG));
 		glBindTexture(GL_TEXTURE_2D, ((mlx_image_ctx_t*)image->context)->texture);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->width, image->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 		imglst = imglst->next;
