@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/28 16:40:17 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/07/28 18:26:59 by sbos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,11 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	img->instances[index].enabled = true;
 
 	// Add draw call...
+	sort_queue = true;
 	mlx_list_t* templst;
 	if ((templst = mlx_lstnew(queue)))
 	{
-		mlx_lstadd_back(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
+		mlx_lstadd_front(&((mlx_ctx_t*)mlx->context)->render_queue, templst);
 		return (index);
 	}
 	return (mlx_freen(2, instances, queue), mlx_error(MLX_MEMFAIL), -1);
