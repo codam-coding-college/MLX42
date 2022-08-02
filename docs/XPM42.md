@@ -1,3 +1,8 @@
+<!----------------------------------------------------------------------------
+Copyright @ 2021-2022 Codam Coding College. All rights reserved.
+See copyright and license notice in the root project for more information.
+----------------------------------------------------------------------------->
+
 # XPM42
 
 XPM42 is a custom file format made for MLX42 to provide a easy to use and understand image file format to learn how 

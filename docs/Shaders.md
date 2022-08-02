@@ -1,3 +1,8 @@
+<!----------------------------------------------------------------------------
+Copyright @ 2021-2022 Codam Coding College. All rights reserved.
+See copyright and license notice in the root project for more information.
+----------------------------------------------------------------------------->
+
 # Shaders
 
 In computer graphics, a shader is a type of computer program used for shading in 3D/2D scenes (the production of appropriate levels of light, darkness, and color in a rendered image). MLX42 does expose the shaders and compiles them into the library for portability.

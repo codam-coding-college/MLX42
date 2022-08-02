@@ -1,3 +1,8 @@
+<!----------------------------------------------------------------------------
+Copyright @ 2021-2022 Codam Coding College. All rights reserved.
+See copyright and license notice in the root project for more information.
+----------------------------------------------------------------------------->
+
 # Colors
 Colors are a fundamental concept in graphics programming. A common color model is RGBA, which MLX uses for storing and displaying images.
 

@@ -1,3 +1,8 @@
+<!----------------------------------------------------------------------------
+Copyright @ 2021-2022 Codam Coding College. All rights reserved.
+See copyright and license notice in the root project for more information.
+----------------------------------------------------------------------------->
+
 # Images
 
 Images are like a canvas for a painting, they are used to display pixel information onto the window and work with something called instances.
@@ -101,7 +106,7 @@ and after that feel free to modify it without having re-put it onto the window. 
 Internally this is via a render queue, anytime the `mlx_image_to_window` function is used, a new entry is added into a linked list.
 Every frame MLX will iterate over this linked list and execute a drawcall to draw that image onto the window.
 
-## Functions
+## Common functions
 
 ```c
 // Creates a whole new image.

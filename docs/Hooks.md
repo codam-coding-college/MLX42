@@ -1,3 +1,8 @@
+<!----------------------------------------------------------------------------
+Copyright @ 2021-2022 Codam Coding College. All rights reserved.
+See copyright and license notice in the root project for more information.
+----------------------------------------------------------------------------->
+
 # Hooks in MLX42
 
 Hooks allow you to add your own functions to the main loop execution of the program, aka these functions get executed every frame.
