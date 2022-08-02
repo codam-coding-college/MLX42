@@ -1,23 +1,77 @@
 # Textures
 
-Textures on their own simply hold a buffer of pixel data and that buffers width, height and Bytes per pixel. Textures on their own aren't directly displayed to the end user, instead they can be drawn via a function `mlx_texture_to_image` that turns them into an image which can be displayed.
+Textures are disk loaded images stored in memory and hold a buffer of pixel data along with information 
+about the image such as width, height, and bytes per pixel.
+
+Textures on their own are not displayed to the screen but have to be displayed using [Images](./Images.md).
+To do so you can use the `mlx_texture_to_image` function that creates an image large enough to store the 
+texture which then can be displayed.
 
 ## Textures vs Images
 
+There might be a bit of confusing at first between what an image and a texture is.
+
 Textures:
 * Can be interpreted as a painters "color palette".
-* Created by loading an image file FROM disk
-* Simply contains Pixels, width, height and BPP.
+* Created by loading an image file FROM disk.
+* Simply contains the pixels, width, height and bytes per pixel information.
+* Do not get displayed on the window. directly
 
 Images:
-* Can be interpreted as a painters "canvas".
-* Can be created FROM a texture!
-* Carries instance data, that is, copies of itself.
-* Also holds pixel data but is shared among its instances, not loaded from disk!
+* Can be interpreted as a painter's "canvas".
+* Can be created FROM a texture or an empty buffer!
+* Carries more information besides what the image buffer is such as instance count.
+* Also holds pixel data but is shared among its instances, it is not loaded from disk but stored in memory.
 
-## How to delete textures
+## Example
 
-```
-png -> t_mlx_texture : Use mlx_delete_texture
-xpm -> t_xpm (t_mlx_texture wrapper) : Use mlx_delete_xpm42
+So to summarize, in order to display a sprite image onto our window we would first load the texture from 
+disk onto our memory and store the information onto `mlx_texture_t*`. After that we create a new `mlx_image_t*` 
+based on the information given by the texture and then can display our image onto the window.
+
+Below is a small code example of how this would be achieved:
+
+```C
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include "MLX42/MLX42.h"
+#define WIDTH 512
+#define HEIGHT 512
+
+static void error(void)
+{
+	puts(mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
+}
+
+int32_t	main(void)
+{
+	// Start mlx
+	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
+	if (!mlx)
+        error();
+
+	// Try to load the file
+	mlx_texture_t* texture = mlx_load_png("./temp/sus.png");
+	if (!texture)
+        error();
+	
+	// Convert texture to a displayable image
+	mlx_image_t* img = mlx_texture_to_image(mlx, texture);
+	if (!img)
+        error();
+
+	// Display the image
+	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
+        error();
+
+	mlx_loop(mlx);
+
+	// Optional, terminate will clean up any left overs, this is just to demonstrate.
+	mlx_delete_image(mlx, img);
+	mlx_delete_texture(texture);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
+}
 ```
