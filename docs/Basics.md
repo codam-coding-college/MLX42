@@ -7,7 +7,7 @@ See copyright and license notice in the root project for more information.
 
 Before starting please read the [index page](./index.md).
 Starting with MLX42 is very straight forward. Here we will do a simple program that will use a makefile and compile
-MLX42. Below you can find a r
+MLX42.
 
 ## Makefile Example
 
