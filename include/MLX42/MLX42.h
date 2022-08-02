@@ -42,8 +42,8 @@ typedef struct mlx_texture
 {
 	uint32_t	width;
 	uint32_t	height;
-	uint8_t*	pixels;
 	uint8_t		bytes_per_pixel;
+	uint8_t*	pixels;
 }	mlx_texture_t;
 
 /**
