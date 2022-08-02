@@ -53,10 +53,7 @@ dkms.conf
 
 # Misc
 main.c
-*.xpm
-*.png
-*.xpm42
-*.png
+temp/
 .vscode/
 lib/glfw/
 
