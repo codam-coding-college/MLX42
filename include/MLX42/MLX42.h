@@ -570,7 +570,7 @@ void mlx_delete_texture(mlx_texture_t* texture);
  * This will not remove any already drawn XPMs, it simply
  * deletes the XPM buffer.
  * 
- * @param xpm[in] The xpm texture to delete.
+ * @param[in] xpm The xpm texture to delete.
  */
 void mlx_delete_xpm42(xpm_t* xpm);
 
