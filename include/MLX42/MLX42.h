@@ -440,21 +440,29 @@ void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y);
 void mlx_set_cursor_mode(mlx_t* mlx, mouse_mode_t mode);
 
 /**
+ * Retrieves the system standart cursor.
+ * 
+ * @param[in] type The standart cursor type to create.
+ * @return The cursor object or null on failure.
+ */
+void* mlx_create_std_cursor(cursor_t type);
+
+/**
  * Allows for the creation of custom cursors with a given texture.
  * 
  * Use mlx_set_cursor to select the specific cursor.
  * Cursors are destroyed at mlx_terminate().
  * 
  * @param[in] texture The texture to use as cursor.
- * @returns The cursor object.
+ * @returns The cursor object or null on failure.
  */
 void* mlx_create_cursor(mlx_texture_t* texture);
 
 /**
- * Sets the current cursor to the given custom cursor.
+ * Sets the current cursor to the given custom cursor. 
  * 
  * @param[in] mlx The MLX instance handle.
- * @param[in] cursor The cursor object to display.
+ * @param[in] cursor The cursor object to display, if null default cursor is selected.
  */
 void mlx_set_cursor(mlx_t* mlx, void* cursor);
 

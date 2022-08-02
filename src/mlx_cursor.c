@@ -14,6 +14,16 @@
 
 //= Public =//
 
+void* mlx_create_std_cursor(cursor_t type)
+{
+	MLX_ASSERT(type >= MLX_CURSOR_ARROW && type < MLX_CURSOR_VRESIZE, "Invalid standart cursor type");
+
+	GLFWcursor* cursor;
+	if ((cursor = glfwCreateStandardCursor(type)))
+		return (cursor);
+	return ((void *)mlx_error(MLX_MEMFAIL));
+}
+
 void* mlx_create_cursor(mlx_texture_t* texture)
 {
 	MLX_NONNULL(texture);

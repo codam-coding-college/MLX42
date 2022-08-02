@@ -144,11 +144,12 @@ static bool mlx_init_render(mlx_t* mlx)
 
 //= Public =//
 
-bool sort_queue = false;
-mlx_errno_t mlx_errno = MLX_SUCCESS;
+// NOTE: https://www.glfw.org/docs/3.3/group__window.html
 
 // Default settings
 int32_t mlx_settings[MLX_SETTINGS_MAX] = {false, false, false, true, false};
+mlx_errno_t mlx_errno = MLX_SUCCESS;
+bool sort_queue = false;
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
