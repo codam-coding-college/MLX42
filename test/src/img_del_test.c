@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   put_pixel_test.c                                   :+:    :+:            */
+/*   img_del_test.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lde-la-h <lde-la-h@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/07/18 10:19:40 by lde-la-h      #+#    #+#                 */
-/*   Updated: 2022/08/03 10:28:45 by lde-la-h      ########   odam.nl         */
+/*   Created: 2022/08/03 09:30:25 by lde-la-h      #+#    #+#                 */
+/*   Updated: 2022/08/03 10:28:27 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,28 @@
 
 int32_t main(void)
 {
-	TEST_DECLARE("put_pixel");
+	TEST_DECLARE("img_del");
+	TEST_EXPECT(PASS);
 
 	mlx_set_setting(MLX_HEADLESS, true);
 	mlx_t* mlx = mlx_init(32, 32, "TEST", false);
-	mlx_image_t* img = mlx_new_image(mlx, 32, 32);
+	assert(mlx);
 
+	mlx_image_t* img = mlx_new_image(mlx, 32, 32);
+	assert(img);
+	mlx_image_t* img2 = mlx_new_image(mlx, 32, 32);
+	assert(img2);
+	
+	// Display then delete
+	mlx_image_to_window(mlx, img, 0, 0);
+	mlx_delete_image(mlx, img);
+
+	// Delete
+	mlx_delete_image(mlx, img2);
+
+	// Check errno just to make absolutely sure
 	assert(mlx_errno == MLX_SUCCESS);
 
-	// Test within bounds.
-	TEST_EXPECT(PASS);
-	mlx_put_pixel(img, 0, 0, 0xFFFFFFFF);
-
-	// Test out of bounds.
-	TEST_EXPECT(FAIL);
-	mlx_put_pixel(img, 69, 69, 0xFFFFFFFF);
-
-	// Put pixel passed when it should have failed...
 	mlx_terminate(mlx);
-	TEST_EXIT(EXIT_FAILURE);
+	TEST_EXIT(EXIT_SUCCESS);
 }
