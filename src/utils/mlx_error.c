@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 20:29:44 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/08/08 21:26:29 by tbruinem      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 
 // English description of the error codes.
 static const char* mlx_errors[MLX_ERRMAX] = {
-	"No Errors",
-	"File has invalid extension",
-	"Failed to open the file",
-	"PNG file is invalid or corrupted",
-	"XPM42 file is invalid or corrupted",
-	"The specified X or Y positions are out of bounds",
-	"The specified Width or Height dimensions are out of bounds",
-	"The provided image is invalid, might indicate mismanagement of images",
-	"Failed to compile shader",
-	"Failed to allocate memory",
-	"Failed to initialize GLAD",
-	"Failed to initialize GLFW",
-	"Failed to create window",
-	"String is to big to be drawn",
+	[MLX_SUCCESS] = "No Errors",
+	[MLX_INVEXT] = "File has invalid extension",
+	[MLX_INVFILE] = "Failed to open the file",
+	[MLX_INVPNG] = "PNG file is invalid or corrupted",
+	[MLX_INVXPM] = "XPM42 file is invalid or corrupted",
+	[MLX_INVPOS] = "The specified X or Y positions are out of bounds",
+	[MLX_INVDIM] = "The specified Width or Height dimensions are out of bounds",
+	[MLX_INVIMG] = "The provided image is invalid, might indicate mismanagement of images",
+	[MLX_SHDRFAIL] = "Failed to compile shader",
+	[MLX_MEMFAIL] = "Failed to allocate memory",
+	[MLX_GLADFAIL] = "Failed to initialize GLAD",
+	[MLX_GLFWFAIL] = "Failed to initialize GLFW",
+	[MLX_WINFAIL] = "Failed to create window",
+	[MLX_STRTOBIG] = "String is to big to be drawn",
 };
 
 /**
