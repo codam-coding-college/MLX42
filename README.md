@@ -177,8 +177,6 @@ and they might not even show up in the list until the first time you start the a
 
 5. Probably all the other steps for Linux apply, just clone, build and run.
 
-The systems below have not been tested yet.
-
 ### For Windows:
 
 1. Download & Install MinGW: [Here!](https://sourceforge.net/projects/mingw/)
