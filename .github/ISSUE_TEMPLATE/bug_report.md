@@ -7,6 +7,9 @@ assignees: ''
 
 ---
 
+**NOTE**
+Before creating a bug report! Make sure you git pull from master and check if the bug still exists!
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
