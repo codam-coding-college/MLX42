@@ -119,8 +119,6 @@ There will be a pop-up at the bottom telling you that an application tried to ru
 
 ### For Linux:
 
-NOTE: This will not run with Windows Subsystem for Linux (WSL)!!!
-
 1. Install the necessary packages:
 
 For Debian like (Ubuntu, Mint, Pop OS...):
@@ -150,7 +148,34 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
  
 4. Run.
 
-The systems below have not been tested yet.
+### For Windows (with Windows Subsystem for Linux 2 (WSL2))
+
+1. Set these variables in your `.zshrc` or `.bashrc`:
+```bash
+export DISPLAY=$(ip route list default | awk '{print $3}'):0
+export LIBGL_ALWAYS_INDIRECT=0
+```
+(If the DISPLAY export command is failing, see this [StackOverflow](https://stackoverflow.com/a/61110604) post for alternatives)
+
+2. Download and install an XServer application with extended configuration (XMing does not qualify)
+VcXsrv works: https://sourceforge.net/projects/vcxsrv/
+
+3. Open Windows Defender Firewall, and follow these steps:
+- Go to 'Allow an app or feature through Windows Defender Firewall'
+- Change Settings
+- Find the installed XServer, for VcXsrv that's 'VcXsrv windows server'
+- Enable communication over Private **and** Public network
+Optionally you might be able to provide these settings on first launch of the XServer application,
+and they might not even show up in the list until the first time you start the app.
+
+4. Start the XLaunch application (for VcXsrv) and provide these configuration settings:
+- Leave Display number on auto
+- Start no client
+- **UNTICK** `Native opengl` option
+- **TICK** `Disable access control`
+- Finish starting the server
+
+5. Probably all the other steps for Linux apply, just clone, build and run.
 
 ### For Windows:
 
