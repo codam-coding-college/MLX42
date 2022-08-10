@@ -16,12 +16,12 @@ Use this as a guide on how to compile MLX42 and use it in your application.
 
 Before anything we need a makefile that can compile our program, below you can see a sample makefile:
 
-```make
+```makefile
 NAME	:= Game
 CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ./lib/MLX42
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
+HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= -ldl -lglfw3 -pthread -lm $(LIBMLX)/libmlx42.a
 SRCS	:= $(shell find ./src -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
