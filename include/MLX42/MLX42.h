@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/29 15:34:58 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/08/10 13:00:48 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,9 @@ typedef enum mlx_errno
 	MLX_INVPOS,			// The specified X/Y positions are out of bounds.
 	MLX_INVDIM,			// The specified W/H dimensions are out of bounds.
 	MLX_INVIMG,			// The provided image is invalid, might indicate mismanagement of images.
-	MLX_SHDRFAIL,		// Failed to compile a shader.
+	MLX_VERTFAIL,		// Failed to compile the vertex shader.
+	MLX_FRAGFAIL,		// Failed to compile the fragment shader.
+	MLX_SHDRFAIL,		// Failed to compile the shaders.
 	MLX_MEMFAIL,		// Dynamic memory allocation has failed.
 	MLX_GLADFAIL,		// OpenGL loader has failed.
 	MLX_GLFWFAIL,		// GLFW failed to initialize.

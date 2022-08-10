@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 20:29:44 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/08/10 13:01:50 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ static const char* mlx_errors[MLX_ERRMAX] = {
 	"The specified X or Y positions are out of bounds",
 	"The specified Width or Height dimensions are out of bounds",
 	"The provided image is invalid, might indicate mismanagement of images",
-	"Failed to compile shader",
+	"Failed to compile the vertex shader.",
+	"Failed to compile the fragment shader.",
+	"Failed to compile the shaders.",
 	"Failed to allocate memory",
 	"Failed to initialize GLAD",
 	"Failed to initialize GLFW",
