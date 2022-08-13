@@ -36,6 +36,8 @@ A custom simple to use XPM-like format which has some minor differences to the X
 #### Almost identical usage to MiniLibX
 Switching to MLX42 from MiniLibX is not a lot of work, most features present in MiniLibX are also present in MLX42, albeit with different prototypes.
 
+---
+
 ## Installation
 
 In the very end a library is generated, compile your program with this library!
