@@ -59,7 +59,7 @@ Through brew:
 
 Or, if studying at Codam, you can find GLFW in the [Managed Software Center](munki://detail-GLFW).
 
-3. [Download MLX42 & Build](#download-mlx42--build) 
+3. [Download and build MLX42](#download-and-build---mlx42) 
 
 4. Compile Program
 
@@ -87,7 +87,7 @@ Or, if studying at Codam, compile using the following flags:
 
 ----
 
-### Pre-compiled libraries
+### Pre-compiled libraries (GLFW)
 
 2. Download the binaries directly [here.](https://www.glfw.org/download.html)
 
@@ -95,11 +95,7 @@ Or, if studying at Codam, compile using the following flags:
    If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
    NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your architecture.
 
-4. Compile MLX42
-```bash 
-➜  ~ cd MLX42
-➜  ~ make
-```
+4. [Download and build MLX42](#download-and-build---mlx42) 
 
 When compiling with the static library, directly you should compile your program like this:
 ```bash
@@ -137,7 +133,7 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 ➜  ~ sudo pacman -S glfw-wayland
 ```
 
-2. [Download MLX42 & Build](#download-mlx42--build) 
+2. [Download and build MLX42](#download-and-build---mlx42) 
 
 3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw (or -lglfw3) -pthread -lm```, make sure to also do ```-I <include_path>```.
  
@@ -220,7 +216,7 @@ and they might not even show up in the list until the first time you start the a
 
 13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to `C:\MinGW\include` & copy the .a file in the lib folder to `C:\MinGW\lib`.
 
-14. [Download MLX42 & Build](#download-mlx42--build) 
+14. [Download and build MLX42](#download-and-build---mlx42) 
 
 15. Compile your program with these flags:
  - `-lglfw3`
@@ -234,7 +230,7 @@ and they might not even show up in the list until the first time you start the a
 
 15. Run.
 
-## Download MLX42 & Build
+## Download and build - MLX42
 
 ```bash 
 ➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
