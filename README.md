@@ -89,7 +89,7 @@ Or, if studying at Codam, compile using the following flags:
 
 ### Pre-compiled libraries (GLFW)
 
-2. Download the binaries directly [here.](https://www.glfw.org/download.html)
+2. Download the binaries directly [here](https://www.glfw.org/download.html).
 
 3. If possible move the contents of `lib` and `include` of GLFW to `/usr/local/lib` and `/usr/local/include` respectively.
    If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
