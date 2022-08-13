@@ -15,7 +15,7 @@
     </div>
 </div>
 
-A recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL.
+A recreation of the MiniLibX library used by 42, using GLFW & glad, running on OpenGL.
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 For information and documentation about MLX42 check the wiki.
@@ -59,11 +59,7 @@ Through brew:
 
 Or, if studying at Codam, you can find GLFW in the [Managed Software Center](munki://detail-GLFW).
 
-3. Compile MLX42
-```bash 
-➜  ~ cd MLX42
-➜  ~ make
-```
+3. [Download MLX42 & Build](#Download-MLX42-&-Build) 
 
 4. Compile Program
 
@@ -137,12 +133,7 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 ➜  ~ sudo pacman -S glfw-wayland
 ```
 
-2. Download MLX42 & Build
-```bash 
-➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
-➜  ~ cd MLX42
-➜  ~ make
-```
+2. [Download MLX42 & Build](#Download-MLX42-&-Build) 
 
 3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw (or -lglfw3) -pthread -lm```, make sure to also do ```-I <include_path>```.
  
@@ -190,14 +181,21 @@ and they might not even show up in the list until the first time you start the a
 
 4. Download & Install CMake: [Here!](https://cmake.org/download/), use the installer. Simply select all default options.
 
-5. Download & Install GnuWin: [Here!](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download?use_mirror=altushost-swe&download=)
+5. Windows does not have the `make` command, so we need to install an additional component to **make** the command available. 
+
+	- Using the [chocolatey package manager](https://chocolatey.org/)
+		```bash 
+		➜  ~ choco install make
+		```
+	
+	-  Using GnuWin (download & install): [Here!](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download?use_mirror=altushost-swe&download=)
 
 6. If you used all default options, add these paths to your SYSTEM Environment variables:
   - C:\MinGW\bin
   - C:\Program Files\CMake\bin
   - C:\Program Files (x86)\GnuWin32\bin
 
-7. Download GLFW: https://www.glfw.org/download.html
+7. Download the GLFW source package: https://www.glfw.org/download.html
 
 8. Open the terminal and type `cmake-gui`, select the downloaded/extracted
    source folder, select any place you want the build output to be.
@@ -214,7 +212,9 @@ and they might not even show up in the list until the first time you start the a
 
 13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to `C:\MinGW\include` & copy the .a file in the lib folder to `C:\MinGW\lib`.
 
-14. Compile your program with these flags:
+14. [Download MLX42 & Build](#Download-MLX42-&-Build) 
+
+15. Compile your program with these flags:
  - `-lglfw3`
  - `-lopengl32`
  - `-lgdi32`
@@ -225,6 +225,16 @@ and they might not even show up in the list until the first time you start the a
 ```
 
 15. Run.
+
+## Download MLX42 & Build
+
+```bash 
+➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
+➜  ~ cd MLX42
+➜  ~ make
+```
+
+The output library file is called `libmlx42.a`.
 
 ## Example
 
