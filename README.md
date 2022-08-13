@@ -174,7 +174,7 @@ and they might not even show up in the list until the first time you start the a
 
 ### For Windows:
 
-1. Download & Install MinGW: [Here!](https://sourceforge.net/projects/mingw/)
+1. Download & Install [MinGW](https://sourceforge.net/projects/mingw/)
 
 2. Simply click continue, select whatever your choice is. 
    Once reaching the MinGW Installation Manager select:
@@ -183,23 +183,24 @@ and they might not even show up in the list until the first time you start the a
 
 3. Apply by going to `Installation > Apply Changes`, after it's done, you may close the window.
 
-4. Download & Install CMake: [Here!](https://cmake.org/download/), use the installer. Simply select all default options.
+4. Download & Install [CMake](https://cmake.org/download/). 
+	- Use the installer and select all default options.
 
-5. Windows does not have the `make` command, so we need to install an additional component to **make** the command available. 
+5. For Windows we need to install an additional component to **make** the **make** command available. 
 
 	- Using the [chocolatey package manager](https://chocolatey.org/)
 		```bash 
 		➜  ~ choco install make
 		```
 	
-	-  Using GnuWin (download & install): [Here!](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download?use_mirror=altushost-swe&download=)
+	-  Using [GnuWin](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download) (download & install)
 
 6. If you used all default options, add these paths to your SYSTEM Environment variables:
   - C:\MinGW\bin
   - C:\Program Files\CMake\bin
   - C:\Program Files (x86)\GnuWin32\bin
 
-7. Download the GLFW source package: https://www.glfw.org/download.html
+7. Download the [GLFW source package](https://www.glfw.org/download.html) and extract it somewhere.
 
 8. Open the terminal and type `cmake-gui`, select the downloaded/extracted
    source folder, select any place you want the build output to be.
