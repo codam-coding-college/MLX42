@@ -85,6 +85,8 @@ Or, if studying at Codam, compile using the following flags:
 
 5. Run!
 
+----
+
 ### Pre-compiled libraries
 
 2. Download the binaries directly [here.](https://www.glfw.org/download.html)
@@ -113,6 +115,8 @@ Else, simply compile like this:
 In case of any security warnings or MacOS telling you it can't verify the author/developer, go to ```Settings > Security & Privacy```.
 There will be a pop-up at the bottom telling you that an application tried to run, click the option to let it run.
 
+----
+
 ### For Linux:
 
 1. Install the necessary packages:
@@ -138,6 +142,8 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw (or -lglfw3) -pthread -lm```, make sure to also do ```-I <include_path>```.
  
 4. Run.
+
+----
 
 ### For Windows (with Windows Subsystem for Linux 2 (WSL2))
 
@@ -167,6 +173,8 @@ and they might not even show up in the list until the first time you start the a
 - Finish starting the server
 
 5. Probably all the other steps for Linux apply, just clone, build and run.
+
+----
 
 ### For Windows:
 
