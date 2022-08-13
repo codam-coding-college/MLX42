@@ -59,7 +59,7 @@ Through brew:
 
 Or, if studying at Codam, you can find GLFW in the [Managed Software Center](munki://detail-GLFW).
 
-3. [Download MLX42 & Build](#Download-MLX42-&-Build) 
+3. [Download MLX42 & Build](#download-mlx42--build) 
 
 4. Compile Program
 
@@ -133,7 +133,7 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 ➜  ~ sudo pacman -S glfw-wayland
 ```
 
-2. [Download MLX42 & Build](#Download-MLX42-&-Build) 
+2. [Download MLX42 & Build](#download-mlx42--build) 
 
 3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw (or -lglfw3) -pthread -lm```, make sure to also do ```-I <include_path>```.
  
@@ -212,7 +212,7 @@ and they might not even show up in the list until the first time you start the a
 
 13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to `C:\MinGW\include` & copy the .a file in the lib folder to `C:\MinGW\lib`.
 
-14. [Download MLX42 & Build](#Download-MLX42-&-Build) 
+14. [Download MLX42 & Build](#download-mlx42--build) 
 
 15. Compile your program with these flags:
  - `-lglfw3`
