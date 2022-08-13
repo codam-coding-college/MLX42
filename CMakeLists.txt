@@ -1,0 +1,74 @@
+# ************************************************************************** #
+#                                                                            #
+#                                                        ::::::::            #
+#   CmakeLists.txt                                     :+:    :+:            #
+#                                                     +:+                    #
+#   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     #
+#                                                   +#+                      #
+#   Created: 2022/08/13 16:33:42 by W2Wizard      #+#    #+#                 #
+#   Updated: 2022/08/13 16:33:42 by W2Wizard      ########   odam.nl         #
+#                                                                            #
+# ************************************************************************** #
+
+###########################
+# Initialize CMake
+###########################
+
+cmake_minimum_required (VERSION 3.15.0)
+project(MLX42 VERSION 2.2.0)
+
+# Set configuration file
+configure_file(config/mlx42.pc.in mlx42.pc @ONLY)
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED 11)
+
+###########################
+# Build MLX42
+###########################
+
+message(STATUS "Compiling fragment shader")
+execute_process (
+	COMMAND ${CMAKE_SOURCE_DIR}/tools/compile_shader.bat ${CMAKE_SOURCE_DIR}/shaders/default.frag
+	OUTPUT_FILE ${CMAKE_SOURCE_DIR}/src/mlx_frag_shader.c
+	COMMAND_ERROR_IS_FATAL ANY
+	)
+
+message(STATUS "Compiling vertex shader")
+execute_process (
+	COMMAND ${CMAKE_SOURCE_DIR}/tools/compile_shader.bat ${CMAKE_SOURCE_DIR}/shaders/default.vert
+	OUTPUT_FILE ${CMAKE_SOURCE_DIR}/src/mlx_vert_shader.c
+	COMMAND_ERROR_IS_FATAL ANY
+	)
+
+# Create static library
+add_library(mlx42 STATIC
+	# Root
+	src/mlx_cursor.c
+	src/mlx_exit.c
+	src/mlx_images.c
+	src/mlx_init.c
+	src/mlx_keys.c
+	src/mlx_loop.c
+	src/mlx_monitor.c
+	src/mlx_mouse.c
+	src/mlx_put_pixel.c
+	src/mlx_window.c
+	# Utils
+	src/utils/mlx_error.c
+	src/utils/mlx_list.c
+	src/utils/mlx_utils.c
+	# Textures
+	src/textures/mlx_png.c
+	src/textures/mlx_texture.c
+	src/textures/mlx_xpm42.c
+	# Shader
+	src/mlx_vert_shader.c
+	src/mlx_frag_shader.c
+	# Libs
+	lib/png/lodepng.c
+	lib/glad/glad.c
+)
+
+# Define include directory
+target_include_directories(mlx42 PRIVATE ./include)
