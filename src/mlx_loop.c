@@ -32,11 +32,7 @@ static void mlx_render_images(mlx_t* mlx)
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlx_list_t* imglst = mlxctx->images;
 
-	if (sort_queue)
-	{
-		sort_queue = false;
-		mlx_sort_renderqueue(&mlxctx->render_queue);
-	}
+	// Sort queue!
 
 	// Upload image textures to GPU
 	while (imglst)
@@ -50,14 +46,18 @@ static void mlx_render_images(mlx_t* mlx)
 	}
 
 	// Execute draw calls
+	int32_t depth = 0;
 	mlx_list_t* render_queue = mlxctx->render_queue;
 	while (render_queue)
 	{
 		draw_queue_t* drawcall = render_queue->content;
 		mlx_instance_t* instance =  &drawcall->image->instances[drawcall->instanceid];
 
+		int32_t instanceDepth = instance->custom_depth > 0 ? instance->custom_depth : depth++;
+
 		if (drawcall && drawcall->image->enabled && instance->enabled)
-			mlx_draw_instance(mlx->context, drawcall->image, instance);
+			mlx_draw_instance(mlx->context, drawcall->image, instance, instanceDepth);
+		
 		render_queue = render_queue->next;
 	}
 }

@@ -21,7 +21,22 @@
 void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 {
 	const mlx_ctx_t* mlxctx = mlx->context;
-	const float depth = mlxctx->zdepth;
+	const mlx_list_t* imglst = mlxctx->images;
+
+	int32_t maxDepth = 1;
+	while (imglst)
+	{
+		mlx_image_t *image;
+		if (!(image = imglst->content))
+		{
+			imglst = imglst->next;
+			continue;
+		}
+
+		maxDepth += mlx_image_calculate_max_depth(image);
+
+		imglst = imglst->next;
+	}
 
 	/**
 	 * Incase the setting to stretch the image is set, we maintain the width and height but not
@@ -33,9 +48,9 @@ void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
 	const float matrix[16] = {
 		2.f / width, 0, 0, 0,
 		0, 2.f / -(height), 0, 0,
-		0, 0, -2.f / (depth - -depth), 0,
+		0, 0, -2.f / (maxDepth - -maxDepth), 0,
 		-1, -(height / -height),
-		-((depth + -depth) / (depth - -depth)), 1
+		-((maxDepth + -maxDepth) / (maxDepth - -maxDepth)), 1
 	};
 
 	glUniformMatrix4fv(glGetUniformLocation(mlxctx->shaderprogram, "ProjMatrix"), 1, GL_FALSE, matrix);

@@ -215,6 +215,7 @@ typedef struct mlx_image_ctx
 }	mlx_image_ctx_t;
 
 //= Functions =//
+
 /**
  * All sorts of internal functions shared in the library that
  * should not be accessible to the user! No touch!
@@ -229,7 +230,6 @@ void mlx_lstclear(mlx_list_t** lst, void (*del)(void*));
 void mlx_lstadd_back(mlx_list_t** lst, mlx_list_t* new);
 void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new);
 mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, void*));
-void mlx_sort_renderqueue(mlx_list_t** lst);
 
 //= Misc functions =//
 
@@ -245,13 +245,17 @@ bool mlx_freen(int32_t count, ...);
 //= OpenGL Functions =//
 
 void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height);
-void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instance);
+void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instance, int32_t instanceDepth);
 void mlx_flush_batch(mlx_ctx_t* mlx);
 
-// Utils Functions =//
+//= Utils Functions =//
 
 bool mlx_getline(char** out, size_t* out_size, FILE* file);
 uint32_t mlx_rgba_to_mono(uint32_t color);
 int32_t mlx_atoi_base(const char* str, int32_t base);
 uint64_t mlx_fnv_hash(char* str, size_t len);
+
+//= Image Helper Functions =//
+int32_t mlx_image_calculate_max_depth(mlx_image_t *image);
+
 #endif
