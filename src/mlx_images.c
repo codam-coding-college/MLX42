@@ -84,20 +84,29 @@ void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instanc
 		mlx_flush_batch(mlx);
 }
 
-mlx_instance_t* mlx_grow_instances(mlx_image_t* img, bool* did_realloc)
+static mlx_instance_t* mlx_grow_instances(mlx_image_t* img)
 {
+	size_t new_size = 0;
 	mlx_image_ctx_t* const ctx = img->context;
-	if (img->count >= ctx->instances_capacity)
+	mlx_instance_t* temp = NULL;
+
+	// Do we need to grow ?
+	if (img->count + 1 >= ctx->instances_capacity)
 	{
 		if (ctx->instances_capacity == 0)
-			ctx->instances_capacity = img->count;
+			new_size++;
 		else
-			ctx->instances_capacity *= 2;
-		*did_realloc = true;
-		return realloc(img->instances, ctx->instances_capacity * sizeof(mlx_instance_t));
+		{
+			new_size = ctx->instances_capacity * 2;
+		}
+
+		if (!(temp = realloc(img->instances, new_size * sizeof(mlx_instance_t))))
+			return (NULL);
+		ctx->instances_capacity = new_size;
+		img->instances = temp;
 	}
-	*did_realloc = false;
-	return img->instances;
+	img->count++;
+	return (img->instances);
 }
 
 //= Public =//
@@ -109,37 +118,29 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 
 	mlx_ctx_t* mlxctx = mlx->context;
 
-	// Allocate buffers...
-	img->count++;
-	bool did_realloc;
-	mlx_instance_t* instances = mlx_grow_instances(img, &did_realloc);
-	draw_queue_t* queue = calloc(1, sizeof(draw_queue_t));
-	if (!instances || !queue)
+	// Grow instances to fit new instance.
+	mlx_instance_t* instances;
+
+	if (!(instances = mlx_grow_instances(img)))
 	{
-		if (did_realloc)
-			free(instances);
-		return (free(queue), mlx_error(MLX_MEMFAIL), -1);
+		mlx_error(MLX_MEMFAIL);
+		return (-1);
 	}
 
-	// Set data...
-	queue->image = img;
-	int32_t index = queue->instanceid = img->count - 1;
-
+	const int32_t index = img->count - 1;
 	img->instances = instances;
 	img->instances[index].x = x;
 	img->instances[index].y = y;
 	img->instances[index].custom_depth = -1;
 	img->instances[index].enabled = true;
 
-	// Add draw call...
-	mlx_list_t* templst;
-	if ((templst = mlx_lstnew(queue)))
-	{
-		mlx_lstadd_back(&(mlxctx->render_queue), templst);
-		mlxctx->instance_count++;
-		return (index);
-	}
-	return (mlx_freen(2, instances, queue), mlx_error(MLX_MEMFAIL), -1);
+	// Add drawcall
+	draw_queue_t queue = (draw_queue_t){ img, img->count - 1, 0};
+	if (!mlx_vector_push_back(&(mlxctx->render_queue), &queue))
+		return (-1);
+
+	mlxctx->instance_count++;
+	return (index);
 }
 
 mlx_image_t *mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height)
@@ -193,9 +194,13 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 	mlx_ctx_t* mlxctx = mlx->context;
 
 	// Delete all instances in the render queue
-	mlx_list_t* quelst;
-	while ((quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst)))
-		mlx_freen(2, quelst->content, quelst);
+	for(int32_t i = mlxctx->render_queue.count - 1; i >= 0 ; i--)
+	{
+		draw_queue_t* element = mlx_vector_get(&mlxctx->render_queue, i);
+
+		if (element->image == image)
+			mlx_vector_delete(&mlxctx->render_queue, i);
+	}
 
 	mlxctx->instance_count -= image->count;
 

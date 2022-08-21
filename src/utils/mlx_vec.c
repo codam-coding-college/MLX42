@@ -14,7 +14,7 @@
 
 //= Private =//
 
-static void mlx_vector_resize(mlx_vec_t* v, int32_t capacity)
+static bool mlx_vector_resize(mlx_vec_t* v, int32_t capacity)
 {
 	MLX_NONNULL(v);
 
@@ -23,11 +23,12 @@ static void mlx_vector_resize(mlx_vec_t* v, int32_t capacity)
 	{
 		v->data = data;
 		v->capacity = capacity;
+		return (true);
 	}
-	return ((void)mlx_error(MLX_MEMFAIL));
+	return (mlx_error(MLX_MEMFAIL));
 }
 
-void mlx_vector_init(mlx_vec_t* v, size_t elementSize)
+bool mlx_vector_init(mlx_vec_t* v, size_t elementSize)
 {
 	MLX_NONNULL(v);
 
@@ -36,19 +37,21 @@ void mlx_vector_init(mlx_vec_t* v, size_t elementSize)
     v->position = 0;
     v->elementSize = elementSize;
 	if (!(v->data = malloc(elementSize * v->capacity)))
-		return ((void)mlx_error(MLX_MEMFAIL));
+		return (mlx_error(MLX_MEMFAIL));
+	return (true);
 }
 
-void mlx_vector_push_back(mlx_vec_t* v, void* item)
+bool mlx_vector_push_back(mlx_vec_t* v, void* item)
 {
 	MLX_NONNULL(v);
 
-	if (v->capacity == v->count)
-		mlx_vector_resize(v, v->capacity * 2);
+	if (v->capacity == v->count && !mlx_vector_resize(v, v->capacity * 2))
+		return (false);
 		
 	memcpy(v->data + v->position, item, v->elementSize);
     v->position += v->elementSize;
     v->count++;
+	return (true);
 }
 
 void mlx_vector_set(mlx_vec_t* v, int32_t index, void* item)
@@ -83,7 +86,7 @@ void mlx_vector_swap(mlx_vec_t* v, int32_t srcIndex, int32_t dstIndex)
 	memcpy(v->data + dstPosition, temp, v->elementSize);
 }
 
-void mlx_vector_delete(mlx_vec_t* v, int32_t index)
+bool mlx_vector_delete(mlx_vec_t* v, int32_t index)
 {
 	MLX_NONNULL(v);
 	MLX_ASSERT(index >= 0 && index < v->count, "Out of bounds");
@@ -109,7 +112,8 @@ void mlx_vector_delete(mlx_vec_t* v, int32_t index)
     v->count--;
 
 	if (v->count > 0 && v->count == v->capacity / 4)
-		mlx_vector_resize(v, v->capacity / 2);
+		return (mlx_vector_resize(v, v->capacity / 2));
+	return (true);
 }
 
 void mlx_vector_clear(mlx_vec_t* v)

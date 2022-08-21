@@ -195,7 +195,7 @@ typedef struct mlx_ctx
 
 	mlx_list_t*		hooks;
 	mlx_list_t*		images;
-	mlx_list_t*		render_queue;
+	mlx_vec_t		render_queue;
 	int32_t 		instance_count;
 
 	mlx_scroll_t	scroll_hook;
@@ -216,6 +216,7 @@ typedef struct draw_queue
 {
 	mlx_image_t*	image;
 	int32_t			instanceid;
+	int32_t 		caluclatedDepth;
 }	draw_queue_t;
 
 // Image context.
@@ -266,15 +267,18 @@ uint32_t mlx_rgba_to_mono(uint32_t color);
 int32_t mlx_atoi_base(const char* str, int32_t base);
 uint64_t mlx_fnv_hash(char* str, size_t len);
 
+void mlx_render_queue_sort(mlx_vec_t *render_queue);
+
 //= Image Helper Functions =//
 int32_t mlx_image_calculate_max_depth(mlx_image_t *image);
 
 //= Vector Functions =//
 
-void mlx_vector_init(mlx_vec_t* v, size_t elementSize);
-void mlx_vector_push_back(mlx_vec_t* v, void* item);
-void mlx_vector_set(mlx_vec_t* v, size_t index, void* item);
-void* mlx_vector_get(mlx_vec_t* v, size_t index);
-void mlx_vector_delete(mlx_vec_t* v, size_t index);
+bool mlx_vector_init(mlx_vec_t* v, size_t elementSize);
+bool mlx_vector_push_back(mlx_vec_t* v, void* item);
+void mlx_vector_set(mlx_vec_t* v, int32_t index, void* item);
+void* mlx_vector_get(mlx_vec_t* v, int32_t index);
+bool mlx_vector_delete(mlx_vec_t* v, int32_t index);
 void mlx_vector_free(mlx_vec_t* v);
+void mlx_vector_swap(mlx_vec_t* v, int32_t srcIndex, int32_t dstIndex);
 #endif

@@ -41,7 +41,7 @@ void mlx_terminate(mlx_t* mlx)
 
 	glfwTerminate();
 	mlx_lstclear((mlx_list_t**)(&mlxctx->hooks), &free);
-	mlx_lstclear((mlx_list_t**)(&mlxctx->render_queue), &free);
 	mlx_lstclear((mlx_list_t**)(&mlxctx->images), &mlx_free_image);
+	mlx_vector_free(&mlxctx->render_queue);
 	mlx_freen(2, mlxctx, mlx);
 }

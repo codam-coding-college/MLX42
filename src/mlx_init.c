@@ -170,6 +170,7 @@ mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 	mlx->height = height;
 	mlxctx->initialWidth = width;
 	mlxctx->initialHeight = height;
+	mlx_vector_init(&mlxctx->render_queue, sizeof(draw_queue_t));
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
