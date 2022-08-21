@@ -107,6 +107,8 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	MLX_NONNULL(mlx);
 	MLX_NONNULL(img);
 
+	mlx_ctx_t* mlxctx = mlx->context;
+
 	// Allocate buffers...
 	img->count++;
 	bool did_realloc;
@@ -133,7 +135,8 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y)
 	mlx_list_t* templst;
 	if ((templst = mlx_lstnew(queue)))
 	{
-		mlx_lstadd_back(&((mlx_ctx_t *)mlx->context)->render_queue, templst);
+		mlx_lstadd_back(&(mlxctx->render_queue), templst);
+		mlxctx->instance_count++;
 		return (index);
 	}
 	return (mlx_freen(2, instances, queue), mlx_error(MLX_MEMFAIL), -1);
@@ -193,6 +196,8 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image)
 	mlx_list_t* quelst;
 	while ((quelst = mlx_lstremove(&mlxctx->render_queue, image, &mlx_equal_inst)))
 		mlx_freen(2, quelst->content, quelst);
+
+	mlxctx->instance_count -= image->count;
 
 	mlx_list_t* imglst;
 	if ((imglst = mlx_lstremove(&mlxctx->images, image, &mlx_equal_image)))

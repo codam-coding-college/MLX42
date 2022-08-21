@@ -94,6 +94,16 @@ typedef struct mlx_list
 	struct mlx_list*	prev;
 }	mlx_list_t;
 
+typedef struct mlx_vec
+{
+	void* data;
+	int32_t count;
+	
+	size_t capacity;
+	size_t elementSize;
+	int32_t position;
+}	mlx_vec_t;
+
 //= Hook structs =//
 /**
  * There are 2 types of hooks, special and generics.
@@ -186,6 +196,7 @@ typedef struct mlx_ctx
 	mlx_list_t*		hooks;
 	mlx_list_t*		images;
 	mlx_list_t*		render_queue;
+	int32_t 		instance_count;
 
 	mlx_scroll_t	scroll_hook;
 	mlx_mouse_t		mouse_hook;
@@ -258,4 +269,12 @@ uint64_t mlx_fnv_hash(char* str, size_t len);
 //= Image Helper Functions =//
 int32_t mlx_image_calculate_max_depth(mlx_image_t *image);
 
+//= Vector Functions =//
+
+void mlx_vector_init(mlx_vec_t* v, size_t elementSize);
+void mlx_vector_push_back(mlx_vec_t* v, void* item);
+void mlx_vector_set(mlx_vec_t* v, size_t index, void* item);
+void* mlx_vector_get(mlx_vec_t* v, size_t index);
+void mlx_vector_delete(mlx_vec_t* v, size_t index);
+void mlx_vector_free(mlx_vec_t* v);
 #endif
