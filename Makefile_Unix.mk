@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/07/05 14:53:23 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/08/24 16:29:24 by swofferh      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,22 +22,32 @@ CYAN	:= \033[36;1m
 WHITE	:= \033[37;1m
 RESET	:= \033[0m
 
+# Just a colorful message to be printed out on screen:
+MLX42 = $(BLUE)MLX$(YELLOW)42$(RESET)
+
+start:
+	@echo "$(CYAN)--------------------\n  Now making MLX42 \n--------------------$(RESET)"
+
 #//= Make Rules =//#
 $(NAME): $(OBJS)
 	@ar rc $@ $^
-	@echo "$(GREEN)$(BOLD)Done$(RESET)"
+	@echo "$(CYAN)Compiling$(RESET) with flags $(RED)-> $(RESET)$(CFLAGS)"
+	@echo "$(CYAN)---------"
+	@echo "$(CYAN)Compiling$(RESET) DONE."
+	@echo "$(CYAN)---------"
+	@echo "$(RESET)\n$(MLX42) powered by W2Wizard."
 
 %.o: %.c $(HDRS)
-	@echo "$(GREEN)$(BOLD)Compiling: $(notdir $<)$(RESET)"
+	@echo "$(CYAN)Compiling$(RESET) $(notdir $<)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
-# Convert shaders to .c files
+# Converting shaders to .c files
 $(SRC_DIR)/mlx_%_shader.c: $(SHADER_DIR)/default.%
-	@echo "$(GREEN)$(BOLD)Shader to C: $< -> $@$(RESET)"
+	@echo "$(BLUE)Converting$(RESET) $< $(RED)->$(RESET) $@"
 	@bash tools/compile_shader.sh $< > $@
 
 clean:
-	@echo "$(RED)Cleaning$(RESET)"
+	@echo "$(RED)Cleaning $(PROJECT)"
 	@rm -f $(OBJS) $(SHDR)
 
 fclean: clean

@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:32:00 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/07/05 14:55:05 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/08/24 16:30:30 by swofferh      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,13 @@ OBJS	:= $(subst /,\,$(OBJS))
 HDRS 	:= $(subst /,\,$(HDRS))
 
 #//= Make Rules =//#
+
+start:
+	@echo " IT IS TIME TO START "
+	@echo "___  __ __    _  _ 42"
+	@echo "|| \/ | ||    \\//   "
+	@echo "||    | ||__| //\\   "
+	@echo "_____________________"
 
 $(NAME): $(OBJS)
 	@ar rc $@ $^
