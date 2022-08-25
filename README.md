@@ -3,7 +3,7 @@
   <img src="https://user-images.githubusercontent.com/63303990/150698103-7e908ff3-abf8-4b0f-ad54-07a76b6c45e2.png" alt="42MLX_Logo">
 </div>
 <div align="center">
-  <sub>Written by <a href="https://w2wizard.github.io/">W2.Wizard</a> for the 42 Network</sub>
+  <sub>Written by <a href="https://portfolio.w2wizard.dev/">W2.Wizard</a> for the 42 Network</sub>
     <div align="center">
 	</br>
 	<img src="https://img.shields.io/github/license/codam-coding-college/MLX42" alt="License GPL2.0"> 
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-A recreation of the MiniLibX library used by 42, using GLFW &amp; glad, running on OpenGL.
+A recreation of the MiniLibX library used by 42, using GLFW & glad, running on OpenGL.
 The goal of MLX42 is to replace the outdated and stale MiniLibX library.
 
 For information and documentation about MLX42 check the wiki.
@@ -35,6 +35,8 @@ A custom simple to use XPM-like format which has some minor differences to the X
 
 #### Almost identical usage to MiniLibX
 Switching to MLX42 from MiniLibX is not a lot of work, most features present in MiniLibX are also present in MLX42, albeit with different prototypes.
+
+---
 
 ## Installation
 
@@ -59,11 +61,7 @@ Through brew:
 
 Or, if studying at Codam, you can find GLFW in the [Managed Software Center](munki://detail-GLFW).
 
-3. Compile MLX42
-```bash 
-➜  ~ cd MLX42
-➜  ~ make
-```
+3. [Download and build MLX42](#download-and-build---mlx42) 
 
 4. Compile Program
 
@@ -89,19 +87,17 @@ Or, if studying at Codam, compile using the following flags:
 
 5. Run!
 
-### Pre-compiled libraries
+----
 
-2. Download the binaries directly [here.](https://www.glfw.org/download.html)
+### Pre-compiled libraries (GLFW)
+
+2. Download the binaries directly [here](https://www.glfw.org/download.html).
 
 3. If possible move the contents of `lib` and `include` of GLFW to `/usr/local/lib` and `/usr/local/include` respectively.
    If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
    NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your architecture.
 
-4. Compile MLX42
-```bash 
-➜  ~ cd MLX42
-➜  ~ make
-```
+4. [Download and build MLX42](#download-and-build---mlx42) 
 
 When compiling with the static library, directly you should compile your program like this:
 ```bash
@@ -117,9 +113,9 @@ Else, simply compile like this:
 In case of any security warnings or MacOS telling you it can't verify the author/developer, go to ```Settings > Security & Privacy```.
 There will be a pop-up at the bottom telling you that an application tried to run, click the option to let it run.
 
-### For Linux:
+----
 
-NOTE: This will not run with Windows Subsystem for Linux (WSL)!!!
+### For Linux:
 
 1. Install the necessary packages:
 
@@ -139,22 +135,48 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 ➜  ~ sudo pacman -S glfw-wayland
 ```
 
-2. Download MLX42 & Build
-```bash 
-➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
-➜  ~ cd MLX42
-➜  ~ make
-```
+2. [Download and build MLX42](#download-and-build---mlx42) 
 
-3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw ```, make sure to also do ```-I <include_path>```.
+3. Create a ```main.c``` file, include ```MLX42/MLX42.h```, compile with ```-ldl -lglfw (or -lglfw3) -pthread -lm```, make sure to also do ```-I <include_path>```.
  
 4. Run.
 
-The systems below have not been tested yet.
+----
+
+### For Windows (with Windows Subsystem for Linux 2 (WSL2))
+
+1. Set these variables in your `.zshrc` or `.bashrc`:
+```bash
+export DISPLAY=$(ip route list default | awk '{print $3}'):0
+export LIBGL_ALWAYS_INDIRECT=0
+```
+(If the DISPLAY export command is failing, see this [StackOverflow](https://stackoverflow.com/a/61110604) post for alternatives)
+
+2. Download and install an XServer application with extended configuration (XMing does not qualify)
+VcXsrv works: https://sourceforge.net/projects/vcxsrv/
+
+3. Open Windows Defender Firewall, and follow these steps:
+- Go to 'Allow an app or feature through Windows Defender Firewall'
+- Change Settings
+- Find the installed XServer, for VcXsrv that's 'VcXsrv windows server'
+- Enable communication over Private **and** Public network
+Optionally you might be able to provide these settings on first launch of the XServer application,
+and they might not even show up in the list until the first time you start the app.
+
+4. Start the XLaunch application (for VcXsrv) and provide these configuration settings:
+- Leave Display number on auto
+- Start no client
+- **UNTICK** `Native opengl` option
+- **TICK** `Disable access control`
+- Finish starting the server
+
+5. Probably all the other steps for Linux apply, just clone, build and run.
+
+----
 
 ### For Windows:
 
-1. Download & Install MinGW: [Here!](https://sourceforge.net/projects/mingw/)
+1. Download & Install [MinGW](https://sourceforge.net/projects/mingw/)
 
 2. Simply click continue, select whatever your choice is. 
    Once reaching the MinGW Installation Manager select:
@@ -163,16 +185,24 @@ The systems below have not been tested yet.
 
 3. Apply by going to `Installation > Apply Changes`, after it's done, you may close the window.
 
-4. Download & Install CMake: [Here!](https://cmake.org/download/), use the installer. Simply select all default options.
+4. Download & Install [CMake](https://cmake.org/download/). 
+	- Use the installer and select all default options.
 
-5. Download & Install GnuWin: [Here!](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download?use_mirror=altushost-swe&download=)
+5. For Windows we need to install an additional component to **make** the **make** command available. 
+
+	- Using the [chocolatey package manager](https://chocolatey.org/)
+		```bash 
+		➜  ~ choco install make
+		```
+	
+	-  Using [GnuWin](https://sourceforge.net/projects/gnuwin32/files/make/3.81/make-3.81.exe/download) (download & install)
 
 6. If you used all default options, add these paths to your SYSTEM Environment variables:
   - C:\MinGW\bin
   - C:\Program Files\CMake\bin
   - C:\Program Files (x86)\GnuWin32\bin
 
-7. Download GLFW: https://www.glfw.org/download.html
+7. Download the [GLFW source package](https://www.glfw.org/download.html) and extract it somewhere.
 
 8. Open the terminal and type `cmake-gui`, select the downloaded/extracted
    source folder, select any place you want the build output to be.
@@ -189,7 +219,9 @@ The systems below have not been tested yet.
 
 13. Go to the directory you assigned in Step 10. Copy the GLFW folder in the include folder to `C:\MinGW\include` & copy the .a file in the lib folder to `C:\MinGW\lib`.
 
-14. Compile your program with these flags:
+14. [Download and build MLX42](#download-and-build---mlx42) 
+
+15. Compile your program with these flags:
  - `-lglfw3`
  - `-lopengl32`
  - `-lgdi32`
@@ -200,6 +232,16 @@ The systems below have not been tested yet.
 ```
 
 15. Run.
+
+## Download and build - MLX42
+
+```bash 
+➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
+➜  ~ cd MLX42
+➜  ~ make
+```
+
+The output library file is called `libmlx42.a`.
 
 ## Example
 

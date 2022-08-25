@@ -18,7 +18,8 @@ INCLUDE_DIR	:= include
 
 override HEADERS += -I $(INCLUDE_DIR)
 
-CFLAGS := -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Wno-sign-compare
+CFLAGS :=	-Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Wno-sign-compare \
+			-DLODEPNG_NO_COMPILE_ANCILLARY_CHUNKS -DLODEPNG_NO_COMPILE_ENCODER
 ifdef DEBUG
 	CFLAGS += -g
 else
