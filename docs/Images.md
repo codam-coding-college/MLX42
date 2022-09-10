@@ -97,8 +97,6 @@ The z value determines the depth of the image, as in, is it in the foreground or
 If two instances are on the same z layer and are transparent, the transparency breaks and the instances cut off each other.
 To prevent this by default any new instances put onto window will be on their own layer.
 
-Keep in mind that after roughly 10K images that are being put on the window, they start to not appear anymore.
-
 ## Internals
 A noticeable feature of MLX42 is that it partly takes care of the rendering for you, that is, after you created your image you just display it 
 and after that feel free to modify it without having re-put it onto the window. In short MLX takes care of updating your images at all times.
