@@ -8,7 +8,8 @@ See copyright and license notice in the root project for more information.
 Hooks allow you to add your own functions to the main loop execution of the program, aka these functions get executed every frame.
 They also serve to intercept certain key presses such as scrolling or pressing enter.
 
-Only one hook can be set at a time! You cannot attach/have multiple hooks for the same thing such as key presses.
+Only one hook can be set at a time! You cannot attach/have multiple hooks for specialized hooks.
+You can however have multiple generic hooks.
 
 ## Specialized Hooks
 
