@@ -14,7 +14,7 @@ texture which then can be displayed.
 
 ## Textures vs Images
 
-There might be a bit of confusing at first between what an image and a texture is.
+There might be a bit of confusion at first between what an image and a texture is.
 
 Textures:
 * Can be interpreted as a painters "color palette".
@@ -31,8 +31,8 @@ Images:
 ## Example
 
 So to summarize, in order to display a sprite image onto our window we would first load the texture from 
-disk onto our memory and store the information onto `mlx_texture_t*`. After that we create a new `mlx_image_t*` 
-based on the information given by the texture and then can display our image onto the window.
+disk onto our memory and store the information onto a `mlx_texture_t*`. After that we create a new `mlx_image_t*` 
+based on the information given by the texture and then we can display our image onto the window.
 
 Below is a small code example of how this would be achieved:
 
