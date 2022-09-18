@@ -22,11 +22,11 @@ CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= -ldl -lglfw3 -pthread -lm $(LIBMLX)/libmlx42.a
+LIBS	:= $(LIBMLX)/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS	:= $(shell find ./src -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
-all: libmlx $(HEADERS) $(NAME)
+all: libmlx $(NAME)
 
 libmlx:
 	@$(MAKE) -C $(LIBMLX)
