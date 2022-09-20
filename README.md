@@ -59,7 +59,7 @@ Through brew:
 ➜  ~ brew install glfw
 ```
 
-Or, if studying at Codam, you can find GLFW in the [Managed Software Center](munki://detail-GLFW).
+If you're studying at Codam you can simply link GLFW normally since its now installed on the macs.
 
 3. [Download and build MLX42](#download-and-build---mlx42) 
 
