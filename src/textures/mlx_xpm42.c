@@ -203,5 +203,6 @@ xpm_t* mlx_load_xpm42(const char* path)
 void mlx_delete_xpm42(xpm_t* xpm)
 {
 	MLX_NONNULL(xpm);
+	free(xpm->texture.pixels);
 	free(xpm);
 }
