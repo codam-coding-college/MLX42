@@ -118,7 +118,7 @@ uint32_t mlx_rgba_to_mono(uint32_t color)
 
 //= Public =//
 
-int32_t mlx_get_time(void)
+double mlx_get_time(void)
 {
 	return (glfwGetTime());
 }
