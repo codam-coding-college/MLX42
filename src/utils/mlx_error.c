@@ -34,6 +34,8 @@ static const char* mlx_errors[MLX_ERRMAX] = {
 	"String is to big to be drawn",
 };
 
+//= Public =//
+
 /**
  * Functions to set the error number, simply for convenience.
  * 
@@ -52,8 +54,6 @@ bool mlx_error(mlx_errno_t val)
 #endif
 	return (false);
 }
-
-//= Public =//
 
 const char* mlx_strerror(mlx_errno_t val)
 {
