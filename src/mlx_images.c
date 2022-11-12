@@ -11,21 +11,9 @@
 /* ************************************************************************** */
 
 #include "MLX42/MLX42_Int.h"
+void mlx_flush_batch(mlx_ctx_t* mlx);
 
 //= Private =//
-
-void mlx_flush_batch(mlx_ctx_t* mlx)
-{
-	if (mlx->batch_size <= 0)
-		return;
-
-	glBindBuffer(GL_ARRAY_BUFFER, mlx->vbo);
-	glBufferData(GL_ARRAY_BUFFER, mlx->batch_size * sizeof(vertex_t), mlx->batch_vertices, GL_STATIC_DRAW);
-	glDrawArrays(GL_TRIANGLES, 0, mlx->batch_size);
-
-	mlx->batch_size = 0;
-	memset(mlx->bound_textures, 0, sizeof(mlx->bound_textures));
-}
 
 static int8_t mlx_bind_texture(mlx_ctx_t* mlx, mlx_image_t* img)
 {
@@ -54,6 +42,21 @@ static int8_t mlx_bind_texture(mlx_ctx_t* mlx, mlx_image_t* img)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, handle);
 	return (0);
+}
+
+//= Public =//
+
+void mlx_flush_batch(mlx_ctx_t* mlx)
+{
+	if (mlx->batch_size <= 0)
+		return;
+
+	glBindBuffer(GL_ARRAY_BUFFER, mlx->vbo);
+	glBufferData(GL_ARRAY_BUFFER, mlx->batch_size * sizeof(vertex_t), mlx->batch_vertices, GL_STATIC_DRAW);
+	glDrawArrays(GL_TRIANGLES, 0, mlx->batch_size);
+
+	mlx->batch_size = 0;
+	memset(mlx->bound_textures, 0, sizeof(mlx->bound_textures));
 }
 
 /**
@@ -99,8 +102,6 @@ mlx_instance_t* mlx_grow_instances(mlx_image_t* img, bool* did_realloc)
 	*did_realloc = false;
 	return img->instances;
 }
-
-//= Public =//
 
 void mlx_set_instance_depth(mlx_instance_t* instance, int32_t zdepth)
 {

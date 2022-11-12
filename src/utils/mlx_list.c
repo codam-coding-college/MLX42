@@ -14,12 +14,60 @@
 
 //= Private =//
 
+static void mlx_lstdelone(mlx_list_t* lst, void (*del)(void *))
+{
+	if (del != NULL)
+		del(lst->content);
+	free(lst);
+}
+
+// Retrieve Z value from queue.
+static int32_t mlx_getdata(mlx_list_t* entry)
+{
+	const draw_queue_t* queue = entry->content;
+
+	return (queue->image->instances[queue->instanceid].z);
+}
+
+// Insert the entry back into head sorted.
+static void mlx_insertsort(mlx_list_t** head, mlx_list_t* new)
+{
+	mlx_list_t* current;
+
+	if (*head == NULL)
+		*head = new;
+	else if (mlx_getdata(*head) >= mlx_getdata(new))
+	{
+		new->next = *head;
+		new->next->prev = new;
+		*head = new;
+	}
+	else
+	{
+		current = *head;
+
+		// Find insertion location.
+		while (current->next != NULL && mlx_getdata(current->next) < mlx_getdata(new))
+			current = current->next;
+		new->next = current->next;
+
+		// Insert at the end
+		if (current->next != NULL)
+			new->next->prev = new;
+		current->next = new;
+		new->prev = current;
+	}
+}
+
+//= Public =//
+
 int32_t mlx_lstsize(mlx_list_t* lst)
 {
 	int32_t	i = 0;
 
-	if (!lst)
+	/*if (!lst)
 		return (i);
+	this check isn't necessary since the while condition also checks if lst doesn't equal NULL*/
 	while (lst)
 	{
 		i++;
@@ -28,12 +76,6 @@ int32_t mlx_lstsize(mlx_list_t* lst)
 	return (i);
 }
 
-static void mlx_lstdelone(mlx_list_t* lst, void (*del)(void *))
-{
-	if (del != NULL)
-		del(lst->content);
-	free(lst);
-}
 
 void mlx_lstclear(mlx_list_t** lst, void (*del)(void*))
 {
@@ -62,12 +104,18 @@ mlx_list_t* mlx_lstnew(void* content)
 
 mlx_list_t* mlx_lstlast(mlx_list_t* lst)
 {
-	while (lst)
+	/*while (lst)
 	{
 		if (!lst->next)
 			break;
 		lst = lst->next;
 	}
+	like this the if condition gets checked every iteration
+	by taking that if statement out of the while loop the functions can be sped up a bit*/
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
 	return (lst);
 }
 
@@ -136,44 +184,6 @@ mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, voi
 	if (lstcpy->prev != NULL)
 		lstcpy->prev->next = lstcpy->next;
 	return (lstcpy);
-}
-
-// Retrieve Z value from queue.
-static int32_t mlx_getdata(mlx_list_t* entry)
-{
-	const draw_queue_t* queue = entry->content;
-
-	return (queue->image->instances[queue->instanceid].z);
-}
-
-// Insert the entry back into head sorted.
-static void mlx_insertsort(mlx_list_t** head, mlx_list_t* new)
-{
-	mlx_list_t* current;
-
-	if (*head == NULL)
-		*head = new;
-	else if (mlx_getdata(*head) >= mlx_getdata(new))
-	{
-		new->next = *head;
-		new->next->prev = new;
-		*head = new;
-	}
-	else
-	{
-		current = *head;
-
-		// Find insertion location.
-		while (current->next != NULL && mlx_getdata(current->next) < mlx_getdata(new))
-			current = current->next;
-		new->next = current->next;
-
-		// Insert at the end
-		if (current->next != NULL)
-			new->next->prev = new;
-		current->next = new;
-		new->prev = current;
-	}
 }
 
 /**

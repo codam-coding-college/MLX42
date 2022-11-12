@@ -12,7 +12,7 @@
 
 #include "MLX42/MLX42_Int.h"
 
-//= Private =//
+//= Public =//
 
 /**
  * Function to read a file stream line by line, reusing the same output pointer.
@@ -115,8 +115,6 @@ uint32_t mlx_rgba_to_mono(uint32_t color)
 
 	return (y << 24 | y << 16 | y << 8 | (color & 0xFF));
 }
-
-//= Public =//
 
 double mlx_get_time(void)
 {
