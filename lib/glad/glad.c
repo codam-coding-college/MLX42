@@ -24,6 +24,8 @@
 #include <string.h>
 #include <glad/glad.h>
 
+//= Private =//
+
 static void* get_proc(const char *namez);
 
 #if defined(_WIN32) || defined(__CYGWIN__)
@@ -53,8 +55,7 @@ static PFNWGLGETPROCADDRESSPROC_PRIVATE gladGetProcAddressPtr;
   #endif
 #endif
 
-static
-int open_gl(void) {
+static int open_gl(void) {
 #ifndef IS_UWP
     libGL = LoadLibraryW(L"opengl32.dll");
     if(libGL != NULL) {
@@ -68,8 +69,7 @@ int open_gl(void) {
     return 0;
 }
 
-static
-void close_gl(void) {
+static void close_gl(void) {
     if(libGL != NULL) {
         FreeLibrary((HMODULE) libGL);
         libGL = NULL;
@@ -84,8 +84,7 @@ typedef void* (APIENTRYP PFNGLXGETPROCADDRESSPROC_PRIVATE)(const char*);
 static PFNGLXGETPROCADDRESSPROC_PRIVATE gladGetProcAddressPtr;
 #endif
 
-static
-int open_gl(void) {
+static int open_gl(void) {
 #ifdef __APPLE__
     static const char *NAMES[] = {
         "../Frameworks/OpenGL.framework/OpenGL",
@@ -115,8 +114,7 @@ int open_gl(void) {
     return 0;
 }
 
-static
-void close_gl(void) {
+static void close_gl(void) {
     if(libGL != NULL) {
         dlclose(libGL);
         libGL = NULL;
@@ -124,8 +122,7 @@ void close_gl(void) {
 }
 #endif
 
-static
-void* get_proc(const char *namez) {
+static void* get_proc(const char *namez) {
     void* result = NULL;
     if(libGL == NULL) return NULL;
 
@@ -145,6 +142,8 @@ void* get_proc(const char *namez) {
     return result;
 }
 
+//= Public =//
+
 int gladLoadGL(void) {
     int status = 0;
 
@@ -161,6 +160,8 @@ struct gladGLversionStruct GLVersion = { 0, 0 };
 #if defined(GL_ES_VERSION_3_0) || defined(GL_VERSION_3_0)
 #define _GLAD_IS_SOME_NEW_VERSION 1
 #endif
+
+//= Private =//
 
 static int max_loaded_major;
 static int max_loaded_minor;
@@ -1322,6 +1323,7 @@ PFNGLWINDOWPOS3IPROC glad_glWindowPos3i = NULL;
 PFNGLWINDOWPOS3IVPROC glad_glWindowPos3iv = NULL;
 PFNGLWINDOWPOS3SPROC glad_glWindowPos3s = NULL;
 PFNGLWINDOWPOS3SVPROC glad_glWindowPos3sv = NULL;
+
 static void load_GL_VERSION_1_0(GLADloadproc load) {
 	if(!GLAD_GL_VERSION_1_0) return;
 	glad_glCullFace = (PFNGLCULLFACEPROC)load("glCullFace");
@@ -2500,6 +2502,8 @@ static void find_coreGL(void) {
 	}
 }
 
+//= Public =//
+
 int gladLoadGLLoader(GLADloadproc load) {
 	GLVersion.major = 0; GLVersion.minor = 0;
 	glGetString = (PFNGLGETSTRINGPROC)load("glGetString");
@@ -2529,4 +2533,3 @@ int gladLoadGLLoader(GLADloadproc load) {
 	if (!find_extensionsGL()) return 0;
 	return GLVersion.major != 0 || GLVersion.minor != 0;
 }
-
