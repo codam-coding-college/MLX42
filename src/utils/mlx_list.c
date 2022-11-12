@@ -67,7 +67,7 @@ int32_t mlx_lstsize(mlx_list_t* lst)
 
 	/*if (!lst)
 		return (i);
-	this check isn't necessary since the while also checks if lst doesn't equal NULL*/
+	this check isn't necessary since the while condition also checks if lst doesn't equal NULL*/
 	while (lst)
 	{
 		i++;
@@ -110,7 +110,7 @@ mlx_list_t* mlx_lstlast(mlx_list_t* lst)
 			break;
 		lst = lst->next;
 	}
-	like this the if conditions gets checked every iteration
+	like this the if condition gets checked every iteration
 	by taking that if statement out of the while loop the functions can be sped up a bit*/
 	if (!lst)
 		return (NULL);
