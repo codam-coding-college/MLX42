@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/11/22 08:57:24 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * Function to read a file stream line by line, reusing the same output pointer.
  * Since the same output pointer is reused it should only be freed once, either on success or failure.
  * This function is made to be somewhat similar to getline.
- * Getline cant be used directly since its not standard and there for not available on all platforms.
+ * Getline can't be used directly since its not standard and therefore not available on all platforms.
  *
  * @param out Pointer to store output string.
  * @param out_size Pointer to store output strings length.
@@ -84,7 +84,7 @@ uint64_t mlx_fnv_hash(char* str, size_t len)
  * 
  * @param count The amount of args provided.
  * @param ... Any form of pointer.
- * @return False, this is simply for convinience when necessary.
+ * @return False, this is simply for convenience when necessary.
  */
 bool mlx_freen(int32_t count, ...)
 {
