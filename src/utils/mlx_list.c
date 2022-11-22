@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 08:40:05 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2022/11/22 10:49:19 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int32_t mlx_lstsize(mlx_list_t* lst)
 {
 	int32_t	i = 0;
 
-	/*if (!lst)
-		return (i);
-	this check isn't necessary since the while loop won't execute when lst is NULL*/
 	while (lst)
 	{
 		i++;
