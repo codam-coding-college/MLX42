@@ -5,7 +5,7 @@ See copyright and license notice in the root project for more information.
 
 # Basics
 
-Before starting please read the [Index page](./Index.md).
+Before starting please read the [index page](./index.md).
 Starting with MLX42 is very straightforward. Here we will make a simple program that will use a makefile and compile
 MLX42.
 
