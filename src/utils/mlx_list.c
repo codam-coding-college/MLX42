@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 08:35:42 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2022/11/22 08:40:05 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ bool mlx_equal_inst(void* lstcontent, void* value)
 }
 
 /**
- * Removes the specified content form the list, if found.
+ * Removes the specified content from the list, if found.
  * Also fixes any relinking that might be needed.
  *
  * @param[in] lst The list
