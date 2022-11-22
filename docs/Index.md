@@ -52,7 +52,7 @@ Currently supported operating systems:
 ## Initialization
 
 The very first step for initialization is to execute the mlx_init function.
-It is responsible to setup the GLFW windowing library which 
+It is responsible for setting up the GLFW windowing library which 
 creates a connection between your software and the display. It also loads the 
 OpenGL function pointers, compiling the shaders and more.
 
@@ -86,7 +86,7 @@ To do this, simply add the following arguments at the linking stage:
 
 ## Debugging
 
-MLX was designed with ease of debugging in mind, therefor if the project is build with
+MLX was designed with ease of debugging in mind, therefore if the project is built with
 **make DEBUG=1** it will keep in the assertion macros and notify you of any bad input 
 given to functions. Additionally it comes with its own runtime error checking via
 **mlx_errno** and **mlx_strerror** to properly identify what went wrong during the runtime 
@@ -94,7 +94,7 @@ of the library.
 
 ## Notes
 
-Keep in mind while technically MLX42
+Keep in mind that while technically MLX42
 does support multiple window instances it currently has no functional support for
 it. That is, no proper way of handling multiple windows.
 
@@ -104,15 +104,15 @@ it. That is, no proper way of handling multiple windows.
 
 Q: **_"ItS NoT In ThE SuBjeCt!"_**
 
-A: So what ? Subjects can change and so if something is not working correctly it should be replaced. Sure you can argue this point but you can also be the reason that it CAN be in the subject instead. Have an open mind :)
+A: So what? Subjects can change and so if something is not working correctly it should be replaced. Sure you can argue this point but you can also be the reason that it CAN be in the subject instead. Have an open mind :)
 
 Q: **_"Ok, so, can I use it ?"_**
 
-A: Officially, _no_. However, ask your head of studies first before about using it, see what they think. Some students might be evangelical enthusiasts about what is stated in the subject and are technically in every right to fail you as long as this library is not endorsed, if you were to ask me (W2) then yes why not?
+A: Officially, _no_. However, ask your head of studies first about using it, see what they think. Some students might be evangelical enthusiasts about what is stated in the subject and are technically in every right to fail you as long as this library is not endorsed, if you were to ask me (W2) then yes why not?
 
 Q: **_"Is it faster?"_**
 
-A: From my personal projects there was a considerable peformance gain, especially when compiled with `-Ofast`. Projects such as FDF could rotate their maps mind blowingly smooth and even larger maps with a width and height of 1000+ points moved rotated relatively smooth, in short, yes.
+A: From my personal projects there was a considerable peformance gain, especially when compiled with `-Ofast`. Projects such as FDF could rotate their maps mindblowingly smooth and even larger maps with a width and height of 1000+ points moved/rotated relatively smooth, in short, yes.
 
 Q: **_"Can I just drag and drop it into my old project and just not do anything?"_**
 
@@ -120,7 +120,7 @@ A: Well, um uh, no ?? That's not how libraries work. Sure they target and do sor
 
 Q: **_"We should be able to deal with the fact that MiniLibX is not perfect, it is by design and makes us better programmers."_**
 
-A: Struggle does bring out the best in most people but it is also not ideal in this case. I think so at least, that its really expected that libraries that are publicly available should be usable, stable, easy to use and well documented. Nobody uses a library because it is annoying to work with it and afterwards think to themselves they have learned something after they are done struggling. The only thing people learn from this is how to navigate around the short comings instead.
+A: Struggle does bring out the best in most people but it is also not ideal in this case. I think so at least, that it's really expected that libraries that are publicly available should be usable, stable, easy to use and well documented. Nobody uses a library because it is annoying to work with and afterwards think to themselves they have learned something after they are done struggling. The only thing people learn from this is how to navigate around the shortcomings instead.
 
 Q: **_"Why not use some other library? Why this one and not any other library."_**
 
