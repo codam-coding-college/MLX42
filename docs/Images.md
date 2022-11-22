@@ -23,7 +23,7 @@ An image on its own is very simple:
  * @param pixels The literal pixel data.
  * @param instances An instance carries the X, Y, Z location data.
  * @param count The element count of the instances array.
- * @param enabled If true the image is drawn onto the screen, else its not.
+ * @param enabled If true the image is drawn onto the screen, else it's not.
  * @param context Abstracted OpenGL data.
  */
 typedef struct mlx_image
@@ -82,7 +82,7 @@ int32_t	main(void)
 }
 ```
 
-After we have put an instance of an image onto the window we can simply the change the position of the image at any time
+After we have put an instance of an image onto the window we can simply change the position of the image at any time
 we want it to be moved:
 ```c
 // Modify the x & y position of an already existing instance.
@@ -99,9 +99,9 @@ To prevent this by default any new instances put onto window will be on their ow
 
 ## Internals
 A noticeable feature of MLX42 is that it partly takes care of the rendering for you, that is, after you created your image you just display it 
-and after that feel free to modify it without having re-put it onto the window. In short MLX takes care of updating your images at all times.
+and after that feel free to modify it without having to re-put it onto the window. In short MLX takes care of updating your images at all times.
 
-Internally this is via a render queue, anytime the `mlx_image_to_window` function is used, a new entry is added into a linked list.
+Internally this is done via a render queue, anytime the `mlx_image_to_window` function is used, a new entry is added to a linked list.
 Every frame MLX will iterate over this linked list and execute a drawcall to draw that image onto the window.
 
 ## Common functions
