@@ -76,7 +76,7 @@ typedef struct mlx
 }	mlx_t;
 ```
 
-Between initlizations you can everything that is required such as drawing your image or opening files.
+Between initlizations you can do everything that is required such as drawing your image or opening files.
 Once `mlx_loop()` is reached the program remains open until a shutdown is somehow requested, e.g: closing the window.
 
 Because we want programs do be interactive and do stuff its very useful to hook into the looping process of `mlx_loop()`.
