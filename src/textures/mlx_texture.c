@@ -51,7 +51,7 @@ mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture)
 	const uint32_t wh[] = {texture->width, texture->height};
 
 	if (!(img = mlx_texture_area_to_image(mlx, texture, (uint32_t*)xy, (uint32_t*)wh)))
-		return ((void*)mlx_error(MLX_MEMFAIL));
+		return (NULL);
 	return (img);
 }
 
