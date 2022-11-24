@@ -11,8 +11,8 @@ MLX42 provides various ways of detecting input, you can read about all the avail
 
 ### Generic Hook + function
 
-The easiest way of detecting continous key pressing is via a generic hook and then checking if the specific key is down.
-This is the 'traditional' way of detecting if a key is down even in modern game engines. It provides the quickest feedback and if its used to, say move a character, the smoothest result.
+The easiest way of detecting continuous keypressing is via a generic hook and then checking if the specific key is down.
+This is the 'traditional' way of detecting if a key is down even in modern game engines. It provides the quickest feedback and if it's used to, say, move a character, the smoothest result.
 
 ```c
 void	hook(void *param)
@@ -35,7 +35,7 @@ void	hook(void *param)
 
 ### Hook Function
 
-For more exact input detection such as checking if the key was pressed with `Alt` or `ctrl` you should use a the actual Key hook.
+For more exact input detection such as checking if the key was pressed with `Alt` or `ctrl` you should use the actual Key hook.
 Keep in mind that using a keyhook results in a slower feedback compared to using a generic hook but grants you more control in key detection.
 
 ```c

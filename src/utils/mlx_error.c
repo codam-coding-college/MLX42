@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/08/10 13:01:50 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/11/22 08:50:15 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static const char* mlx_errors[MLX_ERRMAX] = {
 	"Failed to initialize GLAD",
 	"Failed to initialize GLFW",
 	"Failed to create window",
-	"String is to big to be drawn",
+	"String is too big to be drawn",
 };
 
 /**

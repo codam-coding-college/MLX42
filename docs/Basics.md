@@ -6,7 +6,7 @@ See copyright and license notice in the root project for more information.
 # Basics
 
 Before starting please read the [index page](./index.md).
-Starting with MLX42 is very straight forward. Here we will do a simple program that will use a makefile and compile
+Starting with MLX42 is very straightforward. Here we will make a simple program that will use a makefile and compile
 MLX42.
 
 ## Makefile Example
@@ -76,10 +76,10 @@ typedef struct mlx
 }	mlx_t;
 ```
 
-Between initlizations you can do everything that is required such as drawing your image or opening files.
+Between initializations you can do everything that is required such as drawing your image or opening files.
 Once `mlx_loop()` is reached the program remains open until a shutdown is somehow requested, e.g: closing the window.
 
-Because we want programs do be interactive and do stuff its very useful to hook into the looping process of `mlx_loop()`.
+Because we want programs to be interactive and do stuff it's very useful to hook into the looping process of `mlx_loop()`.
 In order to achieve this we use [hooks](./Hooks.md).
 
 `NOTE: Compile MLX42 with DEBUG=1 to see assertions and to add debug flags. This can help you finding critical mistakes during development!`
