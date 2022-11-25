@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/25 15:53:19 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2022/11/25 18:55:34 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new)
 // TODO: Move this somewhere else...
 bool mlx_equal_image(void* lstcontent, void* value)
 {
-	
 	return (lstcontent == value);
 }
 

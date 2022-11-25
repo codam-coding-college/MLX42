@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 08:59:26 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2022/11/25 18:57:03 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 
 static void mlx_free_image(void* content)
 {
-	mlx_image_t* img = content;
-
-	mlx_freen(4, img->context, img->pixels, img->instances, img);
+	mlx_freen(4, ((mlx_image_t *)img)->context, ((mlx_image_t *)img)->pixels, ((mlx_image_t *)img)->instances, img);
 }
 
 //= Public =//
