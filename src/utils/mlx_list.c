@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/26 14:13:15 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2022/11/26 14:26:23 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,18 @@ void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new)
 // TODO: Move this somewhere else...
 bool mlx_equal_image(void* lstcontent, void* value)
 {
-	return (lstcontent == value);
+	const mlx_image_t* lcontent = lstcontent;
+	const mlx_image_t* lvalue = value;
+
+	return (lcontent == lvalue);
 }
 
 bool mlx_equal_inst(void* lstcontent, void* value)
 {
-	return (((draw_queue_t *)lstcontent)->image == value);
+	const draw_queue_t* lcontent = lstcontent;
+	const mlx_image_t* lvalue = value;
+
+	return (lcontent->image == lvalue);
 }
 
 /**
@@ -131,7 +137,9 @@ mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, voi
 // Retrieve Z value from queue.
 static int32_t mlx_getzdata(mlx_list_t* entry)
 {
-	return (entry->content->image->instances[queue->instanceid].z);
+	const draw_queue_t* queue = entry->content;
+
+	return (queue->image->instances[queue->instanceid].z);
 }
 
 // Insert the entry back into head sorted.
