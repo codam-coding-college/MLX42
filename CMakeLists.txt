@@ -1,74 +1,109 @@
-# ************************************************************************** #
-#                                                                            #
-#                                                        ::::::::            #
-#   CmakeLists.txt                                     :+:    :+:            #
-#                                                     +:+                    #
-#   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     #
-#                                                   +#+                      #
-#   Created: 2022/08/13 16:33:42 by W2Wizard      #+#    #+#                 #
-#   Updated: 2022/08/13 16:33:42 by W2Wizard      ########   odam.nl         #
-#                                                                            #
-# ************************************************************************** #
+# -----------------------------------------------------------------------------
+# Codam Coding College, Amsterdam @ 2022 by W2Wizard.
+# See README in the root project for more information.
+# -----------------------------------------------------------------------------
 
-###########################
-# Initialize CMake
-###########################
+# CMake specifications
+# -----------------------------------------------------------------------------
 
-cmake_minimum_required (VERSION 3.15.0)
-project(MLX42 VERSION 2.2.0)
+cmake_minimum_required (VERSION 3.15.0 FATAL_ERROR)
+project(mlx42 VERSION 2.3.0)
 
-# Set configuration file
-configure_file(config/mlx42.pc.in mlx42.pc @ONLY)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(CMAKE_C_STANDARD 17)
-set(CMAKE_C_STANDARD_REQUIRED 11)
+# Variables
+# -----------------------------------------------------------------------------
 
-###########################
-# Build MLX42
-###########################
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(TOOLS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tools)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_CXX_STANDARD 11) 
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED ON) 
 
-message(STATUS "Compiling fragment shader")
-execute_process (
-	COMMAND ${CMAKE_SOURCE_DIR}/tools/compile_shader.bat ${CMAKE_SOURCE_DIR}/shaders/default.frag
-	OUTPUT_FILE ${CMAKE_SOURCE_DIR}/src/mlx_frag_shader.c
-	COMMAND_ERROR_IS_FATAL ANY
+# Compile Options
+# -----------------------------------------------------------------------------
+
+# Reduce the size of LodePNG, we don't need these things.
+add_definitions(-D LODEPNG_NO_COMPILE_ENCODER)
+add_definitions(-D LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS)
+
+if(UNIX)
+	set(CCSHADER ${TOOLS_DIR}/compile_shader.sh)
+	add_compile_options(
+		-Wextra
+		-Wall
+		-Werror
+		-Wunreachable-code
+		-Wno-char-subscripts
+		-Wno-sign-compare
 	)
-
-message(STATUS "Compiling vertex shader")
-execute_process (
-	COMMAND ${CMAKE_SOURCE_DIR}/tools/compile_shader.bat ${CMAKE_SOURCE_DIR}/shaders/default.vert
-	OUTPUT_FILE ${CMAKE_SOURCE_DIR}/src/mlx_vert_shader.c
-	COMMAND_ERROR_IS_FATAL ANY
+else()
+	set(CCSHADER ${TOOLS_DIR}/compile_shader.bat)
+	# Add CMake compiler flags for Windows
+	add_compile_options(
+		/W4
+		/WX
 	)
+endif()
 
-# Create static library
+# Sources
+# -----------------------------------------------------------------------------
 add_library(mlx42 STATIC
 	# Root
-	src/mlx_cursor.c
-	src/mlx_exit.c
-	src/mlx_images.c
-	src/mlx_init.c
-	src/mlx_keys.c
-	src/mlx_loop.c
-	src/mlx_monitor.c
-	src/mlx_mouse.c
-	src/mlx_put_pixel.c
-	src/mlx_window.c
+	${SOURCE_DIR}/mlx_cursor.c
+	${SOURCE_DIR}/mlx_exit.c
+	${SOURCE_DIR}/mlx_images.c
+	${SOURCE_DIR}/mlx_init.c
+	${SOURCE_DIR}/mlx_keys.c
+	${SOURCE_DIR}/mlx_loop.c
+	${SOURCE_DIR}/mlx_monitor.c
+	${SOURCE_DIR}/mlx_mouse.c
+	${SOURCE_DIR}/mlx_put_pixel.c
+	${SOURCE_DIR}/mlx_window.c
+
 	# Utils
-	src/utils/mlx_error.c
-	src/utils/mlx_list.c
-	src/utils/mlx_utils.c
+	${SOURCE_DIR}/utils/mlx_error.c
+	${SOURCE_DIR}/utils/mlx_list.c
+	${SOURCE_DIR}/utils/mlx_utils.c
+
 	# Textures
-	src/textures/mlx_png.c
-	src/textures/mlx_texture.c
-	src/textures/mlx_xpm42.c
+	${SOURCE_DIR}/textures/mlx_png.c
+	${SOURCE_DIR}/textures/mlx_texture.c
+	${SOURCE_DIR}/textures/mlx_xpm42.c
+
 	# Shader
-	src/mlx_vert_shader.c
-	src/mlx_frag_shader.c
+	${SOURCE_DIR}/mlx_vert_shader.c
+	${SOURCE_DIR}/mlx_frag_shader.c
+
 	# Libs
 	lib/png/lodepng.c
 	lib/glad/glad.c
 )
 
-# Define include directory
-target_include_directories(mlx42 PRIVATE ./include)
+# Build
+# -----------------------------------------------------------------------------
+
+message(STATUS "Compiling fragment shader")
+execute_process (
+	COMMAND ${CCSHADER} ${CMAKE_SOURCE_DIR}/shaders/default.frag
+	OUTPUT_FILE ${CMAKE_SOURCE_DIR}/src/mlx_frag_shader.c
+)
+
+message(STATUS "Compiling vertex shader")
+execute_process (
+	COMMAND ${CCSHADER} ${CMAKE_SOURCE_DIR}/shaders/default.vert
+	OUTPUT_FILE ${CMAKE_SOURCE_DIR}/src/mlx_vert_shader.c
+)
+
+# Dependencies
+# -----------------------------------------------------------------------------
+
+target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+find_package(glfw3 3.3 REQUIRED)
+target_link_libraries(mlx42 glfw)
+
+find_package(OpenGL REQUIRED)
+target_link_libraries(mlx42 OpenGL::GL)
