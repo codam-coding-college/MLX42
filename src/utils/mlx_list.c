@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 10:49:19 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2022/11/26 14:26:23 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ mlx_list_t* mlx_lstremove(mlx_list_t** lst, void* value, bool (*comp)(void*, voi
 }
 
 // Retrieve Z value from queue.
-static int32_t mlx_getdata(mlx_list_t* entry)
+static int32_t mlx_getzdata(mlx_list_t* entry)
 {
 	const draw_queue_t* queue = entry->content;
 
@@ -149,7 +149,7 @@ static void mlx_insertsort(mlx_list_t** head, mlx_list_t* new)
 
 	if (*head == NULL)
 		*head = new;
-	else if (mlx_getdata(*head) >= mlx_getdata(new))
+	else if (mlx_getzdata(*head) >= mlx_getzdata(new))
 	{
 		new->next = *head;
 		new->next->prev = new;
@@ -160,7 +160,7 @@ static void mlx_insertsort(mlx_list_t** head, mlx_list_t* new)
 		current = *head;
 
 		// Find insertion location.
-		while (current->next != NULL && mlx_getdata(current->next) < mlx_getdata(new))
+		while (current->next != NULL && mlx_getzdata(current->next) < mlx_getzdata(new))
 			current = current->next;
 		new->next = current->next;
 
