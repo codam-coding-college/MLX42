@@ -1,15 +1,8 @@
 #!/bin/bash
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    compile_shader.sh                                  :+:    :+:             #
-#                                                      +:+                     #
-#    By: fbes <fbes@student.codam.nl>                 +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/03/03 02:38:19 by fbes          #+#    #+#                  #
-#    Updated: 2022/03/15 20:34:51 by lde-la-h      ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
+# -----------------------------------------------------------------------------
+# Codam Coding College, Amsterdam @ 2022 by W2Wizard.
+# See README in the root project for more information.
+# -----------------------------------------------------------------------------
 
 # If no arguments have been given, exit with error code 1
 if [ "$#" -ne 1 ]; then
@@ -25,17 +18,10 @@ fi
 
 SHADERTYPE="${1##*.}"
 
-echo "/* ************************************************************************** */"
-echo "/*                                                                            */"
-echo "/*                                                        ::::::::            */"
-echo "/*   lol.c                                              :+:    :+:            */"
-echo "/*                                                     +:+                    */"
-echo "/*   By: W2wizard <lde-la-h@student.codam.nl>         +#+                     */"
-echo "/*                                                   +#+                      */"
-echo "/*   Created: 2022/02/17 22:34:59 by W2wizard      #+#    #+#                 */"
-echo "/*   Updated: 2022/02/17 22:34:59 by W2wizard      ########   odam.nl         */"
-echo "/*                                                                            */"
-echo "/* ************************************************************************** */"
+echo "// -----------------------------------------------------------------------------"
+echo "// Codam Coding College, Amsterdam @ 2022 by W2Wizard.						  "
+echo "// See README in the root project for more information.					  	  "	
+echo "// -----------------------------------------------------------------------------"
 echo ""
 echo "// If you wish to modify this file edit the .vert or .frag file!"
 echo ""

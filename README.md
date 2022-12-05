@@ -15,102 +15,73 @@
     </div>
 </div>
 
-A recreation of the MiniLibX library used by 42, using GLFW & glad, running on OpenGL.
-The goal of MLX42 is to replace the outdated and stale MiniLibX library.
+MLX42 is a performant, easy to use, cross-platform windowing library to create
+graphical applications without having to work directly with the native Windowing 
+Framework of the given operating system.
 
-For information and documentation about MLX42 check the wiki.
+Additionally it provides primitive tools for drawing onto the window such as
+displaying images from disk or creating a drawing surface to draw pixels on.
 
-## Differences to MiniLibX
+# Features
 
-#### Cross-Platform
-The main idea of MLX42 is to be a cross-platform graphics interface. In 42 everything runs (currently) on MacOS, but it's
-very useful to be able to work remotely on different machines. With MiniLibX this is not possible.
+MLX42 comes with a plethora of feature that make using it an actual joy instead of a chore.
 
-#### Documented
-Almost all functions and types are fully documented giving you a clue as to how to approach and use the library.
+## Cross-Platform 🖥️
+
+Run it on your grandma's WindowsXP, on your uncle's debian or on a hipster's MacOS!
+No matter what the platform, if MLX42 can build on it, it will run on its native windowing system. 
+
+This allows you to work on your graphics project no matter which machine it is on.
+
+## Documentation 📄
+
+Clean code? Actual documentation and open source ? This library has all kinds of crazy concepts which apparently were never done before!
 No more guessing and searching how something functions or is supposed to work.
 
-#### Custom XPM (XPM42) format
-A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
+## Performance 🚀
 
-#### Almost identical usage to MiniLibX
-Switching to MLX42 from MiniLibX is not a lot of work, most features present in MiniLibX are also present in MLX42, albeit with different prototypes.
+MLX42 features a few simple technique to improve the rendering performance such as batched rendering.
+Compared to [other](https://github.com/42Paris/minilibx-linux) su libraries, MLX42 is roughly 30-50% faster in rendering.
+
+## OpenGL, GLFW && CMake 📙
+MLX42 uses the latest and greates versions of OpenGL 4.6, GLFW 3.3 && CMake 3.25.
+Granted OpenGL is old, all this library really do is render simple quads with textures.
+
+However with CMake the build system should just work with whatever setup you have on your system
+
+- OpenGL 4.6 for the rendering
+- GLFW 3.3 for the native window management.
+- CMake 3.25 for the build system.
 
 ---
 
 ## Installation
 
-In the very end a library is generated, compile your program with this library!
+A library file is generated in the `build` folder. Compile your program with this library!
 
-### For MacOS:
+### General compilation.
+
+Overall the building of this project is as follows for ALL systems. As long as CMake can make sense of it.
 
 1. Download MLX42
-```bash 
-➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
-```
+	```bash 
+	➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
+	```
 
-### Via [Homebrew](https://brew.sh/) / [Homebrew42](https://github.com/kube/42homebrew) by building from source.
+2. Run `cmake -B build` to build the library. No need to have GLFW installed, CMake will fetch it.
 
-2. Install GLFW
+3. Compile your program with the library.
+	```bash
+	➜  ~ gcc main.c libmlx42.a -I include -framework Cocoa -framework OpenGL -framework IOKit
+	```
 
-Through brew:
-```bash
-➜  ~ brew update
-➜  ~ brew install glfw
-```
+4. Run!
 
-If you're studying at Codam you can simply link GLFW normally since its now installed on the macs.
+### MacOS Security:
 
-3. [Download and build MLX42](#download-and-build---mlx42) 
-
-4. Compile Program
-
-With the normal brew version you can now simply compile the program with:
-```bash
-➜  ~ gcc main.c libmlx42.a -lglfw ...
-```
-
-You might have to specify the location explicitly:
-```bash
-➜  ~ gcc main.c libmlx42.a -lglfw -L /opt/homebrew/Cellar/glfw/3.3.6/lib/
-```
-
-However, with 42Homebrew you have additionally specify the location of the library like here:
-```bash
-➜  ~ gcc main.c libmlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
-```
-
-Or, if studying at Codam, compile using the following flags:
-```bash
-➜  ~ gcc main.c libmlx42.a -I include -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
-```
-
-5. Run!
-
-----
-
-### Pre-compiled libraries (GLFW)
-
-2. Download the binaries directly [here](https://www.glfw.org/download.html).
-
-3. If possible move the contents of `lib` and `include` of GLFW to `/usr/local/lib` and `/usr/local/include` respectively.
-   If not possible, move the lib file to the root of MLX42 and move the GLFW directory in include to the include of MLX42.
-   NOTE: For the lib choose the appropriate `.a` & `.dylib` file depending on your architecture.
-
-4. [Download and build MLX42](#download-and-build---mlx42) 
-
-When compiling with the static library, directly you should compile your program like this:
-```bash
-➜  ~ gcc main.c libmlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
-```
-Else, simply compile like this:
-```bash
-➜  ~ gcc main.c libmlx42.a -lglfw ...
-```
-
-5. Run
-
+When running your program in MacOS it may complain, because with Macs you just gotta think different.
 In case of any security warnings or MacOS telling you it can't verify the author/developer, go to ```Settings > Security & Privacy```.
+
 There will be a pop-up at the bottom telling you that an application tried to run, click the option to let it run.
 
 ----
@@ -248,23 +219,16 @@ The output library file is called `libmlx42.a`.
 ![MLX42](https://user-images.githubusercontent.com/63303990/150696516-95b3cd7b-2740-43c5-bdcd-112193d59e14.gif)
 
 ```c
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/31 00:40:08 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/01/31 00:41:56 by W2Wizard      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+// -----------------------------------------------------------------------------
+// Codam Coding College, Amsterdam @ 2022 by W2Wizard.
+// See README in the root project for more information.
+// -----------------------------------------------------------------------------
 
-#include "MLX42/MLX42.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <memory.h>
+#include "MLX42/MLX42.h"
 #define WIDTH 256
 #define HEIGHT 256
 
@@ -272,9 +236,8 @@ mlx_image_t	*g_img;
 
 void	hook(void *param)
 {
-	mlx_t	*mlx;
+	const mlx_t	*mlx = param;
 
-	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
@@ -291,14 +254,16 @@ int32_t	main(void)
 {
 	mlx_t	*mlx;
 
-	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	if (!mlx)
-		exit(EXIT_FAILURE);
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+		return(EXIT_FAILURE);
+
 	g_img = mlx_new_image(mlx, 128, 128);
 	memset(g_img->pixels, 255, g_img->width * g_img->height * sizeof(int));
 	mlx_image_to_window(mlx, g_img, 0, 0);
+
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
+
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }

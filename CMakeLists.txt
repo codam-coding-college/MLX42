@@ -28,21 +28,29 @@ add_definitions(-D LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS)
 if(UNIX)
     set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.sh)
     add_compile_options(
-        # -Wextra
-        # -Wall
-        # -Werror
-        # -Wunreachable-code
-        # -Wno-char-subscripts
-        # -Wno-sign-compare
+        -Wextra
+        -Wall
+        # -Werror # Uncomment this when im sure which warnings are important.
+        -Wunreachable-code
+		# Some low priority warnings that are annoying.
+        -Wno-char-subscripts
+        -Wno-sign-compare
+		-Wno-unused-parameter
+		-Wno-missing-field-initializers
     )
 else()
     set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.bat)
-    # Add CMake compiler flags for Windows
     add_compile_options(
-        /W4
+        /W4 # TODO: Figure out the different flags for windows.
         /WX
     )
 endif()
+
+# Build specific files
+# @see https://cmake.org/cmake/help/latest/command/add_custom_command.html
+# -----------------------------------------------------------------------------
+
+message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
 
 add_custom_command(
     COMMENT "Building fragment shader"
@@ -67,6 +75,7 @@ add_custom_command(
 # Sources
 # -----------------------------------------------------------------------------
 add_library(mlx42 STATIC
+
     # Root
     ${SOURCE_DIR}/mlx_cursor.c
     ${SOURCE_DIR}/mlx_exit.c
@@ -78,14 +87,17 @@ add_library(mlx42 STATIC
     ${SOURCE_DIR}/mlx_mouse.c
     ${SOURCE_DIR}/mlx_put_pixel.c
     ${SOURCE_DIR}/mlx_window.c
+
     # Utils
     ${SOURCE_DIR}/utils/mlx_error.c
     ${SOURCE_DIR}/utils/mlx_list.c
     ${SOURCE_DIR}/utils/mlx_utils.c
+
     # Textures
     ${SOURCE_DIR}/textures/mlx_png.c
     ${SOURCE_DIR}/textures/mlx_texture.c
     ${SOURCE_DIR}/textures/mlx_xpm42.c
+
     # Libs
     lib/png/lodepng.c
     lib/glad/glad.c
@@ -95,30 +107,12 @@ add_library(mlx42 STATIC
 )
 target_include_directories(mlx42 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-
-# Build specific files
-# @see https://cmake.org/cmake/help/latest/command/add_custom_command.html
-# -----------------------------------------------------------------------------
-
-# add_custom_command(
-#     COMMENT "Building fragment shader"
-#     DEPENDS "${CMAKE_SOURCE_DIR}/shaders/default.frag"
-#     COMMAND "${CCSHADER} ${CMAKE_SOURCE_DIR}/shaders/default.frag"
-#     OUTPUT "${SOURCE_DIR}/mlx_frag_shader.c"
-#     VERBATIM
-#     PRE_BUILD
-#     USES_TERMINAL
-# )
-# target_sources(mlx42 PRIVATE "${SOURCE_DIR}/mlx_frag_shader.c")
-
-
-
-
 # Dependencies
 # -----------------------------------------------------------------------------
 
+# TODO: Maybe try and find locally first.
 include(${CMAKE_DIR}/LinkGLFW.cmake)
-LinkGLFW(${CMAKE_PROJECT_NAME})
+LinkGLFW(mlx42)
 
 find_package(OpenGL REQUIRED)
 target_link_libraries(mlx42 OpenGL::GL)
