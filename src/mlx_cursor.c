@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/18 20:10:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/11/22 08:58:23 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void* mlx_create_std_cursor(cursor_t type)
 {
-	MLX_ASSERT(type >= MLX_CURSOR_ARROW && type < MLX_CURSOR_VRESIZE, "Invalid standart cursor type");
+	MLX_ASSERT(type >= MLX_CURSOR_ARROW && type < MLX_CURSOR_VRESIZE, "Invalid standard cursor type");
 
 	GLFWcursor* cursor;
 	if ((cursor = glfwCreateStandardCursor(type)))

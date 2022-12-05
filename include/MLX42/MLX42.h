@@ -314,7 +314,7 @@ void mlx_terminate(mlx_t* mlx);
  * 
  * @return The amount of time elapsed in seconds.
  */
-int32_t mlx_get_time(void);
+double mlx_get_time(void);
 
 //= Window/Monitor Functions
 

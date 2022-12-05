@@ -6,7 +6,7 @@ See copyright and license notice in the root project for more information.
 # Basics
 
 Before starting please read the [index page](./index.md).
-Starting with MLX42 is very straight forward. Here we will do a simple program that will use a makefile and compile
+Starting with MLX42 is very straightforward. Here we will make a simple program that will use a makefile and compile
 MLX42.
 
 ## Makefile Example
@@ -14,7 +14,7 @@ MLX42.
 If you're curious as to how to configure a makefile with MLX42 here is a Makefile example from a project.
 Use this as a guide on how to compile MLX42 and use it in your application.
 
-Before anything we need a makefile that can compile our program, below you can see a sample makefile:
+First of all we need a makefile that can compile our program, below you can see a sample makefile:
 
 ```makefile
 NAME	:= Game
@@ -22,11 +22,11 @@ CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= -ldl -lglfw3 -pthread -lm $(LIBMLX)/libmlx42.a
+LIBS	:= $(LIBMLX)/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS	:= $(shell find ./src -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
-all: libmlx $(HEADERS) $(NAME)
+all: libmlx $(NAME)
 
 libmlx:
 	@$(MAKE) -C $(LIBMLX)
@@ -52,7 +52,7 @@ re: clean all
 
 ## Main
 
-Below is a simple main into starting a window. MLX42 has several nice features that allow you to predefine how it should behave during runtime such as `MLX_HEADLESS` running it without opening a window or `MLX_STRETCH_IMAGE` that stretches the window content with the window size.
+Below is a simple main into starting a window. MLX42 has several nice features that allow you to predefine how it should behave during runtime such as `MLX_HEADLESS` running it without opening a window or `MLX_STRETCH_IMAGE` which stretches the window content with the window size.
 
 The exact structure `mlx_init()` is basically a handle that stores important information
 regarding the window and looks as follows:
@@ -76,13 +76,13 @@ typedef struct mlx
 }	mlx_t;
 ```
 
-Between initlizations you can everything that is required such as drawing your image or opening files.
+Between initializations you can do everything that is required such as drawing your image or opening files.
 Once `mlx_loop()` is reached the program remains open until a shutdown is somehow requested, e.g: closing the window.
 
-Because we want programs do be interactive and do stuff its very useful to hook into the looping process of `mlx_loop()`.
+Because we want programs to be interactive and do stuff it's very useful to hook into the looping process of `mlx_loop()`.
 In order to achieve this we use [hooks](./Hooks.md).
 
-`NOTE: Compile MLX42 with DEBUG=1 to see assertions and to add debug flags. This can help you finding critical mistakes during development!`
+`NOTE: Compile MLX42 with DEBUG=1 to see assertions and to add debug flags. This can help you find critical mistakes during development!`
 
 ```c
 // Written by Bruh

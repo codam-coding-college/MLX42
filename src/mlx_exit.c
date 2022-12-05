@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/11/26 14:23:55 by jvan-hal      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void mlx_close_window(mlx_t* mlx)
 
 /**
  * All of glfw & glads resources are cleaned up by the terminate function.
- * Now its time to cleanup our own mess.
+ * Now it's time to cleanup our own mess.
  */
 void mlx_terminate(mlx_t* mlx)
 {
