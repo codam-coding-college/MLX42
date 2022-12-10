@@ -18,12 +18,12 @@
  * Function to read a file stream line by line, reusing the same output pointer.
  * Since the same output pointer is reused it should only be freed once, either on success or failure.
  * This function is made to be somewhat similar to getline.
- * Getline can't be used directly since its not standard and therefore not available on all platforms.
+ * Getline can't be used directly since it's not standard and therefore not available on all platforms.
  *
  * @param out Pointer to store output string.
  * @param out_size Pointer to store output strings length.
  * @param file File stream to read from.
- * @return True if line was read, false if EOF was reached or an error ocurred.
+ * @return True if line was read, false if EOF was reached or an error occurred.
  */
 bool mlx_getline(char** out, size_t* out_size, FILE* file)
 {
