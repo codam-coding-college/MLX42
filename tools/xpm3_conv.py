@@ -12,7 +12,7 @@
 
 import sys
 
-# This script takes an XPM3 as argument and outputs it to XPM42.
+# This script takes an XPM3 as argument and converts it to XPM42.
 
 # This is a generated dictionary from the XFree86 distribution.
 colours = {
@@ -810,7 +810,6 @@ def main():
 			break
 		temp = l[1:-3] + "\n"
 		newxpm42.write(temp)
-
 
 if __name__ == "__main__":
 	main()

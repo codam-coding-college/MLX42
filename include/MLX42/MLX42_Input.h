@@ -71,8 +71,8 @@ typedef enum mouse_key
 
 /**
  * Various mouse/cursor states.
- * @param NORMAL Simple visibile default cursor.
- * @param HIDDEN The cursor is not rendered, still functions however.
+ * @param NORMAL Simple visible default cursor.
+ * @param HIDDEN The cursor is not rendered but still functions.
  * @param DISABLED The cursor is not rendered, nor is it functional.
  */
 typedef enum mouse_mode
@@ -83,11 +83,11 @@ typedef enum mouse_mode
 }	mouse_mode_t;
 
 /**
- * Various cursors that are standart.
+ * Various cursors that are standard.
  * @param ARROW The regular arrow cursor.
  * @param IBEAM The text input I-beam cursor shape.
  * @param CROSSHAIR The crosshair shape cursor.
- * @param HAND The hand shape cursos.
+ * @param HAND The hand shape cursor.
  * @param HRESIZE The horizontal resize arrow shape.
  * @param VRESIZE The vertical resize arrow shape.
  */

@@ -49,7 +49,7 @@ In the very end a library is generated, compile your program with this library!
 ➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
 ```
 
-### Via [Homebrew](https://brew.sh/) / [Homebrew42](https://github.com/kube/42homebrew) by building from source.
+### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew) by building from source.
 
 2. Install GLFW
 
@@ -59,7 +59,7 @@ Through brew:
 ➜  ~ brew install glfw
 ```
 
-If you're studying at Codam you can simply link GLFW normally since its now installed on the macs.
+If you're studying at Codam you can simply link GLFW normally since it's now installed on the macs.
 
 3. [Download and build MLX42](#download-and-build---mlx42) 
 
@@ -75,7 +75,7 @@ You might have to specify the location explicitly:
 ➜  ~ gcc main.c libmlx42.a -lglfw -L /opt/homebrew/Cellar/glfw/3.3.6/lib/
 ```
 
-However, with 42Homebrew you have additionally specify the location of the library like here:
+However, with 42Homebrew you have to additionally specify the location of the library like this:
 ```bash
 ➜  ~ gcc main.c libmlx42.a -I include -lglfw -L "/Users/$USER/.brew/opt/glfw/lib/"
 ```
@@ -99,7 +99,7 @@ Or, if studying at Codam, compile using the following flags:
 
 4. [Download and build MLX42](#download-and-build---mlx42) 
 
-When compiling with the static library, directly you should compile your program like this:
+When compiling with the static library directly you should compile your program like this:
 ```bash
 ➜  ~ gcc main.c libmlx42.a libglfw3.a ... -framework Cocoa -framework OpenGL -framework IOKit
 ```
