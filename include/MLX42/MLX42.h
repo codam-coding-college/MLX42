@@ -239,6 +239,15 @@ typedef void (*mlx_resizefunc)(int32_t width, int32_t height, void* param);
  */
 typedef void (*mlx_closefunc)(void* param);
 
+/** 
+ * Typedef for a window cursor object, these eventually expand to
+ * the native cursor object, but are hidden from the user.
+ * 
+ * Under GLFW they are named GLFWcursor and have a wrapper for each implementation.
+ * You can find the ACTUAL cursor in the following files at GLFW named under *_platform.h
+ */
+typedef void mlx_win_cursor_t;
+
 //= Error Functions =//
 
 /**
@@ -447,7 +456,7 @@ void mlx_set_cursor_mode(mlx_t* mlx, mouse_mode_t mode);
  * @param[in] type The standard cursor type to create.
  * @return The cursor object or null on failure.
  */
-void* mlx_create_std_cursor(cursor_t type);
+mlx_win_cursor_t* mlx_create_std_cursor(cursor_t type);
 
 /**
  * Allows for the creation of custom cursors with a given texture.
@@ -458,7 +467,7 @@ void* mlx_create_std_cursor(cursor_t type);
  * @param[in] texture The texture to use as cursor.
  * @returns The cursor object or null on failure.
  */
-void* mlx_create_cursor(mlx_texture_t* texture);
+mlx_win_cursor_t* mlx_create_cursor(mlx_texture_t* texture);
 
 /**
  * Sets the current cursor to the given custom cursor. 
@@ -466,7 +475,7 @@ void* mlx_create_cursor(mlx_texture_t* texture);
  * @param[in] mlx The MLX instance handle.
  * @param[in] cursor The cursor object to display, if null default cursor is selected.
  */
-void mlx_set_cursor(mlx_t* mlx, void* cursor);
+void mlx_set_cursor(mlx_t* mlx, mlx_win_cursor_t* cursor);
 
 //= Hooks =//
 

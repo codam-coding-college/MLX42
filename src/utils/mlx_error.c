@@ -43,13 +43,7 @@ static const char* mlx_errors[MLX_ERRMAX] = {
 bool mlx_error(mlx_errno_t val)
 {
 	mlx_errno = val;
-#ifndef NDEBUG
-# ifdef _WIN32
 	fprintf(stderr, "MLX42: %s", mlx_strerror(mlx_errno));
-# else
-	warnx("MLX42: %s", mlx_strerror(mlx_errno));
-# endif
-#endif
 	return (false);
 }
 
