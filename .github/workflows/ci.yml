@@ -22,7 +22,7 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y gcc make libglfw3-dev libglfw3 xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev xvfb
+        sudo apt-get install -y gcc make libglfw3-dev libglfw3 xorg build-essential cmake xorg-dev libx11-dev xvfb
     
     - name: Install GLFW
       uses: RpxdYTX/install-glfw-deps@v2
@@ -49,7 +49,7 @@ jobs:
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get update -qq
-            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3
+            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libglfw3-dev libglfw3
         elif [ "$RUNNER_OS" == "macOS" ]; then
             brew update
             brew install glfw
