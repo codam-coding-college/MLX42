@@ -5,7 +5,7 @@
 
 # CMake specifications
 # -----------------------------------------------------------------------------
-cmake_minimum_required (VERSION 3.23.0 FATAL_ERROR)
+cmake_minimum_required (VERSION 3.18.0)
 project(mlx42 VERSION 2.3.0)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -21,6 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Compile Options
 # -----------------------------------------------------------------------------
+
 # Reduce the size of LodePNG, we don't need these things.
 add_definitions(-D LODEPNG_NO_COMPILE_ENCODER)
 add_definitions(-D LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS)
@@ -40,10 +41,6 @@ if(UNIX)
     )
 else()
     set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.bat)
-    add_compile_options(
-        /W4 # TODO: Figure out the different flags for windows.
-        /WX
-    )
 endif()
 
 # Build specific files
@@ -54,9 +51,9 @@ message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
 
 add_custom_command(
     COMMENT "Building fragment shader"
-    DEPENDS ${CMAKE_SOURCE_DIR}/shaders/default.frag
+    DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.frag
     OUTPUT mlx_frag_shader.c
-    COMMAND ${CCSHADER} ${CMAKE_SOURCE_DIR}/shaders/default.frag > mlx_frag_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.frag > mlx_frag_shader.c
     VERBATIM
     PRE_BUILD
     USES_TERMINAL
@@ -64,9 +61,9 @@ add_custom_command(
 
 add_custom_command(
     COMMENT "Building vertex shader"
-    DEPENDS ${CMAKE_SOURCE_DIR}/shaders/default.vert
+    DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.vert
     OUTPUT mlx_vert_shader.c
-    COMMAND ${CCSHADER} ${CMAKE_SOURCE_DIR}/shaders/default.vert > mlx_vert_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.vert > mlx_vert_shader.c
     VERBATIM
     PRE_BUILD
     USES_TERMINAL
@@ -105,14 +102,24 @@ add_library(mlx42 STATIC
 	mlx_vert_shader.c
 	mlx_frag_shader.c
 )
-target_include_directories(mlx42 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Dependencies
 # -----------------------------------------------------------------------------
 
-# TODO: Maybe try and find locally first.
+# TODO: Check if GLFW is installed, if not clone, build and install it.
+# Run post build to install the glfw lib on the system.
+
+# What we really want is for this to be so automated that even the laziest
+# person can just clone the repo, run the build script and it will just work.
+
+# Ideally we want to pass in an option to build it in such a way that sysadmins
+# can just install it on their system instead of having the user install it.
+# E.g: For 42 Clusters and such.
+
 include(${CMAKE_DIR}/LinkGLFW.cmake)
 LinkGLFW(mlx42)
 
+# find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
-target_link_libraries(mlx42 OpenGL::GL)
+target_link_libraries(mlx42 OpenGL::GL glfw)

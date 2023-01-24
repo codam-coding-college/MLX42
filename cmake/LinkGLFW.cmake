@@ -16,7 +16,7 @@ macro(LinkGLFW TARGET)
         set(GLFW_BUILD_EXAMPLES     OFF CACHE BOOL "Build Examples" FORCE)
         set(GLFW_BUILD_TESTS        OFF CACHE BOOL "Build tests" FORCE)
         set(GLFW_BUILD_DOCS         OFF CACHE BOOL "Build docs" FORCE)
-        set(GLFW_INSTALL            OFF CACHE BOOL "Configure an install" FORCE)
+        set(GLFW_INSTALL            ON CACHE BOOL "Configure an install" FORCE)
 
         # This excludes glfw from being rebuilt when ALL_BUILD is built
         # it will only be built when a target is built that has a dependency on glfw
