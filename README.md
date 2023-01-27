@@ -57,9 +57,9 @@ Overall the building of this project is as follows for ALL systems. As long as C
 	Either ask your local sysadmin to install it or do it yourself via `apt` or `brew`.
 
 2. Compile your program with the library:
-	- For: [MacOS](#for-macos)
-	- For: [Linux](#for-linux)
-	- For: [Windows](#for-windows)
+	- For: [MacOS](#for-macos-🍎)
+	- For: [Linux](#for-linux-🐧)
+	- For: [Windows](#for-windows-🖥️)
 
 3. Profit!
 
