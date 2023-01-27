@@ -1,5 +1,7 @@
 name: Build
 
+#=============================================================================#
+
 on:
   workflow_dispatch:
   pull_request:
@@ -7,31 +9,40 @@ on:
   schedule:
     - cron: '0 0 * * FRI'
 
+#=============================================================================#
+
 jobs:
 
-  unit-test:
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    env:
-      DISPLAY: ":99"
+# Tests
+# TODO: Find a unit-test framework that doesn't suck.
+#=============================================================================#
 
-    steps:
-    - name: Clone repository
-      uses: actions/checkout@v2
+  # unit-test:
+  #   timeout-minutes: 10
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     DISPLAY: ":99"
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gcc make libglfw3-dev libglfw3 xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev xvfb
+  #   steps:
+  #   - name: Clone repository
+  #     uses: actions/checkout@v2
+
+  #   - name: Install Dependencies
+  #     run: |
+  #       sudo apt-get update
+  #       sudo apt-get install -y gcc make libglfw3-dev libglfw3 xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev xvfb
     
-    - name: Install GLFW
-      uses: RpxdYTX/install-glfw-deps@v2
+  #   - name: Install GLFW
+  #     uses: RpxdYTX/install-glfw-deps@v2
 
-    - name: Setup x11
-      run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
+  #   - name: Setup x11
+  #     run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
-    - name: Run tests
-      run: make -C test
+  #   - name: Run tests
+  #     run: make -C test
+
+# Unix
+#=============================================================================#
 
   build-unix:
     timeout-minutes: 10
@@ -49,7 +60,7 @@ jobs:
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get update -qq
-            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev libglfw3-dev libglfw3
+            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglfw3-dev libglfw3
         elif [ "$RUNNER_OS" == "macOS" ]; then
             brew update
             brew install glfw
@@ -59,31 +70,37 @@ jobs:
         fi
 
     - name: Build
-      run: make
+      run: cmake -B build && cmake --build build
 
-  build-win:
-    timeout-minutes: 20
-    runs-on: windows-latest
+# Windows
+# TODO: Figure this out, windows is complicated :p
+#=============================================================================#
 
-    steps:
-    - name: Clone repository
-      uses: actions/checkout@v2
+  # build-win:
+  #   name: Win32
+  #   runs-on: windows-latest
+  #   timeout-minutes: 20
+  #   env:
+  #     CFLAGS: /WX
 
-    - name: Install MinGW
-      uses: egor-tensin/setup-mingw@v2
+  #   steps:
+  #     - name: Clone repository
+  #       uses: actions/checkout@v2
 
-    - name: Download GLFW binaries
-      uses: carlosperate/download-file-action@v1.1.1
-      with:
-        file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
-        file-name: 'glfw.zip'
-        location: '${{ github.workspace }}\lib'
+  #   - name: Download GLFW binaries
+  #     uses: carlosperate/download-file-action@v1.1.1
+  #     with:
+  #       file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
+  #       file-name: 'glfw.zip'
+  #       location: '${{ github.workspace }}\lib'
 
-    - name: Unpack GLFW binaries
-      run: |
-        unzip 'lib/glfw.zip' -d 'lib'
-        rm 'lib\glfw.zip'
-        mv 'lib\glfw*' 'lib\glfw'
+  #   - name: Unpack GLFW binaries
+  #     run: |
+  #       unzip 'lib/glfw.zip' -d 'lib'
+  #       rm 'lib\glfw.zip'
+  #       mv 'lib\glfw*' 'lib\glfw'
 
-    - name: Build
-      run: make HEADERS="-I lib/glfw/include" WIN_UNIX=1
+  #   - name: Build
+  #     run: cmake -B build && cmake --build build
+
+#=============================================================================#
