@@ -30,7 +30,7 @@ jobs:
   #   - name: Install Dependencies
   #     run: |
   #       sudo apt-get update
-  #       sudo apt-get install -y gcc make libglfw3-dev libglfw3 xorg build-essential cmake xorg-dev libx11-dev libglu1-mesa-dev freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libgl1-mesa-glx libgl1-mesa-dev xvfb
+  #       sudo apt-get install -y gcc make libglfw3-dev libglfw3 xorg build-essential cmake xorg-dev libx11-dev xvfb
     
   #   - name: Install GLFW
   #     uses: RpxdYTX/install-glfw-deps@v2

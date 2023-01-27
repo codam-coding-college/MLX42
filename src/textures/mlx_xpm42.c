@@ -14,7 +14,7 @@
 
 /**
  * XPM is an obscure image format which can't seem to make up its mind
- * wether it wants to be written in C code or not.
+ * whether it wants to be written in C code or not.
  * 
  * https://en.wikipedia.org/wiki/X_PixMap
  * 
@@ -30,11 +30,11 @@
  * as to what does what.
  * 
  * Additionally with the C style format, the idea is that you simply include
- * it directly into the compilation of the program (since its just c).
+ * it directly into the compilation of the program (since it's just C).
  * 
  * As convenient as this is, I just find it hideous especially the XPM3 variant.
  * By sticking to the XPM style format, conversion should be very easy and 
- * straight forward to this format however.
+ * straightforward to this format however.
  */
 
 //= Private =//
@@ -123,8 +123,8 @@ static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
  * table with every ascii character in it. This should help avoid a O(n)
  * case and give us a O(1) for very fast look ups.
  * 
- * Downside is we still need to iterate of each pixel to solve its color.
- * So I hope this makes it atleast a bit faster.
+ * Downside is we still need to iterate over each pixel to solve its color.
+ * So I hope this makes it at least a bit faster.
  * 
  * TODO: This buffer might be way to big! Do actual collision checks, 
  * for now just straight up raw dog this.

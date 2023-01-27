@@ -68,7 +68,7 @@ static bool mlx_create_buffers(mlx_t* mlx)
 }
 
 /**
- * Compiles the given shader source code, of a given shader type.
+ * Compiles the given shader source code of a given shader type.
  * Returns shader object via param.
  * 
  * @param code The shader source code.

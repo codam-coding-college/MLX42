@@ -40,7 +40,6 @@ are documented! No more guessing and searching how something functions or is sup
 It is build on OpenGL and uses batched rendering to speed up the rendering process compared to other libraries. We are planning on creating a version in Vulkan in the near future.
 
 ## Open source && Community driven 🌐
-
 This project is being actively maintained by Codam as well as students from the 42 Network. This gives students the direct oppertunity to learn more about the library itself as well as fix any potential bugs instead of merely accepting them.
 
 ---
@@ -75,12 +74,11 @@ You should use the following flags to link the program with the right frameworks
 
 Normally if you simply installed / build `glfw` from source or already have it installed
 the compilation should be:
-
 ```bash
 ➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw
 ```
 
-#### Via Homebrew
+#### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew)
 ```bash
 # Homebrew
 # NOTE: Last `-L` might not be necessary.
