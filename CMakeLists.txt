@@ -117,9 +117,14 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # can just install it on their system instead of having the user install it.
 # E.g: For 42 Clusters and such.
 
-include(${CMAKE_DIR}/LinkGLFW.cmake)
-LinkGLFW(mlx42)
+# You can uncomment this line to download and build glfw for you.
+# However the linking to the lib might be a bit akward but you can just move
+# the static lib out of deps directory. Keep in mind that you need comment out the 
+# find_package function below.
 
-# find_package(glfw3 REQUIRED)
+# include(${CMAKE_DIR}/LinkGLFW.cmake)
+# LinkGLFW(mlx42)
+
+find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 target_link_libraries(mlx42 OpenGL::GL glfw)
