@@ -75,7 +75,7 @@ int32_t	main(void)
 
 	mlx_loop(mlx);
 
-	// Optional, terminate will clean up any left overs, this is just to demonstrate.
+	// Optional, terminate will clean up any leftovers, this is just to demonstrate.
 	mlx_delete_image(mlx, img);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
@@ -98,7 +98,7 @@ If two instances are on the same z layer and are transparent, the transparency b
 To prevent this by default any new instances put onto window will be on their own layer.
 
 ## Internals
-A noticeable feature of MLX42 is that it partly takes care of the rendering for you, that is, after you created your image you just display it 
+A noticeable feature of MLX42 is that it partly takes care of the rendering for you, that is, after you've created your image you just display it 
 and after that feel free to modify it without having to re-put it onto the window. In short MLX takes care of updating your images at all times.
 
 Internally this is done via a render queue, anytime the `mlx_image_to_window` function is used, a new entry is added to a linked list.
