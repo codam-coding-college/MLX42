@@ -1,6 +1,6 @@
 #!/bin/bash
 # -----------------------------------------------------------------------------
-# Codam Coding College, Amsterdam @ 2022 by W2Wizard.
+# Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
 # See README in the root project for more information.
 # -----------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ fi
 SHADERTYPE="${1##*.}"
 
 echo "// -----------------------------------------------------------------------------"
-echo "// Codam Coding College, Amsterdam @ 2022 by W2Wizard.						  "
+echo "// Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.						  "
 echo "// See README in the root project for more information.					  	  "	
 echo "// -----------------------------------------------------------------------------"
 echo ""

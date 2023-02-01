@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# Codam Coding College, Amsterdam @ 2022 by W2Wizard.
+# Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
 # See README in the root project for more information.
 # -----------------------------------------------------------------------------
 
@@ -99,6 +99,7 @@ add_library(mlx42 STATIC
 	${SOURCE_DIR}/utils/mlx_error.c
 	${SOURCE_DIR}/utils/mlx_list.c
 	${SOURCE_DIR}/utils/mlx_utils.c
+	${SOURCE_DIR}/utils/mlx_compare.c
 
 	# Textures
 	${SOURCE_DIR}/textures/mlx_png.c
