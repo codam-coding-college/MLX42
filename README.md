@@ -23,12 +23,12 @@ For information and documentation about MLX42 check the wiki.
 ## Differences to MiniLibX
 
 #### Cross-Platform
-The main idea of MLX42 is to be a cross-platform graphics interface. In 42 everything runs (currently) on MacOS, but it's
+The main idea of MLX42 is to be a cross-platform graphics interface. In 42 everything (currently) runs on MacOS, but it's
 very useful to be able to work remotely on different machines. With MiniLibX this is not possible.
 
 #### Documented
 Almost all functions and types are fully documented giving you a clue as to how to approach and use the library.
-No more guessing and searching how something functions or is supposed to work.
+No more guessing and searching how something works or is supposed to work.
 
 #### Custom XPM (XPM42) format
 A custom simple to use XPM-like format which has some minor differences to the XPM3 format.
