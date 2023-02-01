@@ -56,15 +56,15 @@ Overall the building of this project is as follows for ALL systems. As long as C
 	Either ask your local sysadmin to install it or do it yourself via `apt` or `brew`.
 
 2. Compile your program with the library:
-	- For: [MacOS](#for-macos-🍎)
-	- For: [Linux](#for-linux-🐧)
-	- For: [Windows](#for-windows-🖥️)
+	- For: [MacOS](#for-macos)
+	- For: [Linux](#for-linux)
+	- For: [Windows](#for-windows)
 
 3. Profit!
 
 ----
 
-## For MacOS 🍎:
+## For MacOS:
 
 For MacOS you need to use the following flags to compile your program with the library.
 You should use the following flags to link the program with the right frameworks:
@@ -97,7 +97,7 @@ There will be a pop-up at the bottom telling you that an application tried to ru
 
 ----
 
-## For Linux 🐧:
+## For Linux:
 
 1. Install the necessary packages:
 
@@ -160,7 +160,7 @@ and they might not even show up in the list until the first time you start the a
 
 ----
 
-## For Windows 🖥️:
+## For Windows:
 
 We highly recommend you simply use [WSL2](#for-windows-with-windows-subsystem-for-linux-2-wsl2) to make this as non-painful as possible.
 However if you insist on building for windows natively than all you need in terms of dependencies is:
