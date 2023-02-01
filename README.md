@@ -32,8 +32,8 @@ This allows you to work on your project no matter which machine it is on.
 
 ## Documented 📚
 
-MLX42 is cares about good documentation, every function, usage and even some internal workings
-are documented! No more guessing and searching how something functions or is supposed to work.
+MLX42 cares about good documentation, every function, usage and even some internal workings are documented!
+No more guessing and searching how something functions or is supposed to work.
 
 ## Performance 🚀
 
