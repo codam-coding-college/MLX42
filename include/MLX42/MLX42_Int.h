@@ -29,11 +29,6 @@
 # else
 #  include <limits.h>
 # endif
-# if defined(_WIN32)
-#  include <windows.h>
-# else
-#  include <err.h>
-# endif
 # include <ctype.h> /* isspace, isprint, ... */
 # include <string.h> /* strlen, memmove, ... */
 # include <stdarg.h> /* va_arg, va_end, ... */

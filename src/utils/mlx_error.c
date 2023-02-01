@@ -43,7 +43,9 @@ static const char* mlx_errors[MLX_ERRMAX] = {
 bool mlx_error(mlx_errno_t val)
 {
 	mlx_errno = val;
+#ifndef NDEBUG
 	fprintf(stderr, "MLX42: %s", mlx_strerror(mlx_errno));
+#endif
 	return (false);
 }
 

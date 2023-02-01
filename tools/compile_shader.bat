@@ -1,14 +1,7 @@
-:: ************************************************************************** ::
-::                                                                            ::
-::                                                        ::::::::            ::
-::   compile_shader.bat                                 :+:    :+:            ::
-::                                                     +:+                    ::
-::   By: fbes <fbes@student.codam.nl>                 +#+                     ::
-::                                                   +#+                      ::
-::   Created: 2022/03/07 16:24:06 by fbes          #+#    #+#                 ::
-::   Updated: 2022/03/07 18:12:51 by fbes          ########   odam.nl         ::
-::                                                                            ::
-:: ************************************************************************** ::
+:: -----------------------------------------------------------------------------
+:: Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
+:: See README in the root project for more information.
+:: -----------------------------------------------------------------------------
 
 @echo off
 SETLOCAL DisableDelayedExpansion
@@ -22,17 +15,10 @@ IF NOT EXIST %1 GOTO fnotfound
 SET SHADERTYPE=%~x1
 SET SHADERTYPE=%SHADERTYPE:~1%
 
-echo /* ************************************************************************** */
-echo /*                                                                            */
-echo /*                                                        ::::::::            */
-echo /*   lol.c                                              :+:    :+:            */
-echo /*                                                     +:+                    */
-echo /*   By: W2wizard ^<lde-la-h@student.codam.nl^>         +#+                     */
-echo /*                                                   +#+                      */
-echo /*   Created: 2022/02/17 22:34:59 by W2wizard      #+#    #+#                 */
-echo /*   Updated: 2022/02/17 22:34:59 by W2wizard      ########   odam.nl         */
-echo /*                                                                            */
-echo /* ************************************************************************** */
+echo // -----------------------------------------------------------------------------
+echo // Codam Coding College, Amsterdam @ <2022-2023> by W2Wizard.
+echo // See README in the root project for more information.
+echo // -----------------------------------------------------------------------------
 echo.
 echo // If you wish to modify this file edit the .vert or .frag file!
 echo.

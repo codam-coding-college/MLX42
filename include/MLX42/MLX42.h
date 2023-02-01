@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   MLX42.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/08/10 13:00:48 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2023/02/01 11:33:26 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,8 +204,8 @@ typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_
 /**
  * Callback function used to handle raw mouse movement.
  * 
- * @param[in] xdelta The mouse x position.
- * @param[in] ydelta The mouse y position.
+ * @param[in] xpos The mouse x position.
+ * @param[in] ypos The mouse y position.
  * @param[in] param Additional parameter to pass on to the function.
  */
 typedef void (*mlx_cursorfunc)(double xpos, double ypos, void* param);
@@ -427,7 +427,7 @@ bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key);
  * 
  * @param[in] mlx The MLX instance handle. 
  * @param[out] x The position.
- * @param[out] x The position.
+ * @param[out] y The position.
  */
 void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x, int32_t* y);
 

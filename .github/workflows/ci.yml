@@ -1,4 +1,11 @@
+# -----------------------------------------------------------------------------
+# Codam Coding College, Amsterdam @ 2022-2023-2023 by W2Wizard.
+# See README in the root project for more information.
+# -----------------------------------------------------------------------------
+
 name: Build
+
+#=============================================================================#
 
 on:
   workflow_dispatch:
@@ -7,7 +14,12 @@ on:
   schedule:
     - cron: '0 0 * * FRI'
 
+#=============================================================================#
+
 jobs:
+
+# Tests
+#=============================================================================#
 
   unit-test:
     timeout-minutes: 10
@@ -31,7 +43,10 @@ jobs:
       run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
     - name: Run tests
-      run: make -C test
+      run: make -C tests run
+
+# Unix
+#=============================================================================#
 
   build-unix:
     timeout-minutes: 10
@@ -49,7 +64,7 @@ jobs:
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get update -qq
-            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libglfw3-dev libglfw3
+            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglfw3-dev libglfw3
         elif [ "$RUNNER_OS" == "macOS" ]; then
             brew update
             brew install glfw
@@ -59,31 +74,37 @@ jobs:
         fi
 
     - name: Build
-      run: make
+      run: cmake -B build && cmake --build build
 
-  build-win:
-    timeout-minutes: 20
-    runs-on: windows-latest
+# Windows
+# TODO: Figure this out, windows is complicated :p
+#=============================================================================#
 
-    steps:
-    - name: Clone repository
-      uses: actions/checkout@v2
+  # build-win:
+  #   name: Win32
+  #   runs-on: windows-latest
+  #   timeout-minutes: 20
+  #   env:
+  #     CFLAGS: /WX
 
-    - name: Install MinGW
-      uses: egor-tensin/setup-mingw@v2
+  #   steps:
+  #     - name: Clone repository
+  #       uses: actions/checkout@v2
 
-    - name: Download GLFW binaries
-      uses: carlosperate/download-file-action@v1.1.1
-      with:
-        file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
-        file-name: 'glfw.zip'
-        location: '${{ github.workspace }}\lib'
+  #   - name: Download GLFW binaries
+  #     uses: carlosperate/download-file-action@v1.1.1
+  #     with:
+  #       file-url: 'https://github.com/glfw/glfw/releases/download/3.3.6/glfw-3.3.6.bin.WIN64.zip'
+  #       file-name: 'glfw.zip'
+  #       location: '${{ github.workspace }}\lib'
 
-    - name: Unpack GLFW binaries
-      run: |
-        unzip 'lib/glfw.zip' -d 'lib'
-        rm 'lib\glfw.zip'
-        mv 'lib\glfw*' 'lib\glfw'
+  #   - name: Unpack GLFW binaries
+  #     run: |
+  #       unzip 'lib/glfw.zip' -d 'lib'
+  #       rm 'lib\glfw.zip'
+  #       mv 'lib\glfw*' 'lib\glfw'
 
-    - name: Build
-      run: make HEADERS="-I lib/glfw/include" WIN_UNIX=1
+  #   - name: Build
+  #     run: cmake -B build && cmake --build build
+
+#=============================================================================#

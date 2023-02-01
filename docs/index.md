@@ -88,7 +88,7 @@ To do this, simply add the following arguments at the linking stage:
 ## Debugging
 
 MLX was designed with ease of debugging in mind, therefore if the project is built with
-**make DEBUG=1** it will keep in the assertion macros and notify you of any bad input 
+**cmake -DDEBUG=1** it will keep in the assertion macros and notify you of any bad input 
 given to functions. Additionally it comes with its own runtime error checking via
 **mlx_errno** and **mlx_strerror** to properly identify what went wrong during the runtime 
 of the library.
