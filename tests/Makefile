@@ -22,6 +22,9 @@ $(NAME): libmlx $(OBJS)
 	@echo "Compiling: $(notdir $<)"
 	@$(CC) $(CFLAGS) -I ../include -o $@ -c $<
 
+test:
+	./test
+
 clean:
 	@rm -f $(OBJS)
 

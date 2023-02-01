@@ -43,7 +43,7 @@ jobs:
       run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
     - name: Run tests
-      run: make -C tests && ./test
+      run: make -C tests && make -C tests test
 
 # Unix
 #=============================================================================#
