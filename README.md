@@ -66,8 +66,8 @@ Overall the building of this project is as follows for ALL systems. As long as C
 
 ## For MacOS:
 
-For MacOS you need to use the following flags to compile your program with the library.
-You should use the following flags to link the program with the right frameworks:
+For MacOS you need to use the following flags to compile your program with the library
+in order to link the program with the right frameworks:
 ```bash
 -framework Cocoa -framework OpenGL -framework IOKit
 ```
@@ -174,7 +174,7 @@ move them to you actual project and install them as you would with any other lib
 
 Just in case here's a [video](https://youtu.be/or1dAmUO8k0?t=494) showing you how this can be done. Conveniently this video also covers how you can link `glfw`.
 
-Of course its up to you to make sure that the code you write is portable. Things that exist on `Unix` don't necessarily exist no `Win32`.
+Of course its up to you to make sure that the code you write is portable. Things that exist on `Unix` don't necessarily exist on `Win32`.
 
 ## Download and build - MLX42
 
