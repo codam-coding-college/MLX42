@@ -4,7 +4,7 @@
 # -----------------------------------------------------------------------------
 
 NAME	:= test
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Wunreachable-code -Wno-unused-parameter -O3
 SRCS	:= unit.c tests.c
 OBJS	:= ${SRCS:.c=.o}
 LIBMLX	:= ../
