@@ -5,7 +5,7 @@ See copyright and license notice in the root project for more information.
 
 # Input methods
 
-MLX42 provides various ways of detecting input, you can read about all the available hooks on the hooks page.
+MLX42 provides various ways of detecting input, you can read about all the available hooks on the [Hooks](./Hooks.md) page.
 
 ## Key Detection
 

@@ -31,6 +31,7 @@ displaying images from disk or creating a drawing surface to draw pixels on.
 
 * [Basics](./Basics.md)
 * [Colors](./Colors.md)
+* [Functions](./Functions.md)
 * [Hooks](./Hooks.md)
 * [Images](./Images.md)
 * [Input](./Input.md)
@@ -58,7 +59,7 @@ OpenGL function pointers, compiling the shaders and more.
 
 It returns a mlx_t* which is a structure containing the current window instance.
 With this instance you can manipulate, hook onto and control what happens inside 
-your window instance. For example you would use it to send graphical orders such as 
+your window instance. For example you would use it to send graphical instructions such as 
 creating an image, which is used to display pixel data. You can also detect key
 interactions such as checking if the W, A, S or D key is currently being pressed.
 
@@ -66,7 +67,7 @@ interactions such as checking if the W, A, S or D key is currently being pressed
 |-------------------|--------------------------------------------------------------|
 | `mlx_init()`      | Initialize and run a new window instance.                    |
 | `mlx_loop()`      | Keep the window open as long as a shutdown is not requested. |
-| `mlx_terminate()` | Destroy and cleanup all images and mlx resources.            |
+| `mlx_terminate()` | Destroy and clean up all images and mlx resources.            |
 
 If mlx_init() fails to set up the connection to the graphical system, it will
 return NULL, otherwise a non-null pointer is returned as a handle for the window.

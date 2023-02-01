@@ -22,7 +22,7 @@ uniform mat4 ProjMatrix;
 void main()
 {
 	gl_Position = ProjMatrix * vec4(aPos, 1.0);
-    TexCoord = aTexCoord;
+	TexCoord = aTexCoord;
 }
 
 ```
