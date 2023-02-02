@@ -118,24 +118,11 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Dependencies
 # -----------------------------------------------------------------------------
 
-# TODO: Check if GLFW is installed, if not clone, build and install it.
-# Run post build to install the glfw lib on the system.
-
-# What we really want is for this to be so automated that even the laziest
-# person can just clone the repo, run the build script and it will just work.
-
-# Ideally we want to pass in an option to build it in such a way that sysadmins
-# can just install it on their system instead of having the user install it.
-# E.g: For 42 Clusters and such.
-
-# You can uncomment this line to download and build glfw for you.
-# However the linking to the lib might be a bit akward but you can just move
-# the static lib out of deps directory. Keep in mind that you need comment out the 
-# find_package function below.
-
-# include(${CMAKE_DIR}/LinkGLFW.cmake)
-# LinkGLFW(mlx42)
-
-find_package(glfw3 REQUIRED)
+find_package(glfw3)
+if(NOT glfw3_FOUND)
+	message("-- Please wait, fetching GLFW ...")
+	include(${CMAKE_DIR}/LinkGLFW.cmake)
+	LinkGLFW(mlx42)
+endif()
 find_package(OpenGL REQUIRED)
 target_link_libraries(mlx42 OpenGL::GL glfw)
