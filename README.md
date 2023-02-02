@@ -182,7 +182,7 @@ Of course its up to you to make sure that the code you write is portable. Things
 ➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
 ➜  ~ cd MLX42
 ➜  ~ cmake -B build
-➜  ~ cmake --build build
+➜  ~ cmake --build build -j4
 ```
 
 The output library file is called `libmlx42.a`.
