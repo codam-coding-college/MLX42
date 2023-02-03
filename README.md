@@ -37,7 +37,7 @@ No more guessing and searching how something functions or is supposed to work.
 
 ## Performance 🚀
 
-It is build on OpenGL and uses batched rendering to speed up the rendering process compared to other libraries. We are planning on creating a version in Vulkan in the near future.
+It is build on OpenGL and uses batched rendering to speed up the rendering process compared to other libraries.
 
 ## Open source && Community driven 🌐
 This project is being actively maintained by Codam as well as students from the 42 Network. This gives students the direct oppertunity to learn more about the library itself as well as fix any potential bugs instead of merely accepting them.
@@ -181,11 +181,11 @@ Of course its up to you to make sure that the code you write is portable. Things
 ```bash 
 ➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
 ➜  ~ cd MLX42
-➜  ~ cmake -B build
-➜  ~ cmake --build build -j4
+➜  ~ cmake -B build # build here refers to the folder where its outputed.
+➜  ~ cmake --build build -j4 # or do make -C build -j4
 ```
 
-The output library file is called `libmlx42.a`.
+The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.
 
 ## Example
 
