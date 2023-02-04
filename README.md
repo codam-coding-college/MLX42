@@ -15,7 +15,7 @@
     </div>
 </div>
 
-MLX42 is a performant, easy to use, cross-platform, minimal windowin graphics library to create graphical applications without having to work directly with the native windowing framework of the given operating system.
+MLX42 is a performant, easy to use, cross-platform, minimal windowing graphics library to create graphical applications without having to work directly with the native windowing framework of the given operating system.
 
 It provides primitive tools to draw textures onto the window as well as well as modifying them at runtime as they get displayed on the window.
 
@@ -37,10 +37,10 @@ No more guessing and searching how something functions or is supposed to work.
 
 ## Performance 🚀
 
-It is build on OpenGL and uses batched rendering to speed up the rendering process compared to other libraries.
+It is built on OpenGL and uses batched rendering to speed up the rendering process compared to other libraries.
 
 ## Open source && Community driven 🌐
-This project is being actively maintained by Codam as well as students from the 42 Network. This gives students the direct oppertunity to learn more about the library itself as well as fix any potential bugs instead of merely accepting them.
+This project is being actively maintained by Codam as well as students from the 42 Network. This gives students the direct opportunity to learn more about the library itself as well as fix any potential bugs instead of merely accepting them.
 
 ---
 
@@ -67,12 +67,12 @@ Overall the building of this project is as follows for ALL systems. As long as C
 ## For MacOS:
 
 For MacOS you need to use the following flags to compile your program with the library
-in order to link the program with the right frameworks:
+in order to link the program with the correct frameworks:
 ```bash
 -framework Cocoa -framework OpenGL -framework IOKit
 ```
 
-Normally if you simply installed / build `glfw` from source or already have it installed
+Normally if you simply installed / built `glfw` from source or already have it installed
 the compilation should be:
 ```bash
 ➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw
@@ -90,7 +90,7 @@ the compilation should be:
 
 #### MacOS Security:
 
-When running your program in MacOS it may complain, because with Macs you just gotta think different.
+When running your program in MacOS it may complain, because with Macs you just gotta think differently.
 In case of any security warnings or MacOS telling you it can't verify the author/developer, go to ```Settings > Security & Privacy```.
 
 There will be a pop-up at the bottom telling you that an application tried to run, click the option to let it run.
@@ -162,26 +162,26 @@ and they might not even show up in the list until the first time you start the a
 
 ## For Windows:
 
-We highly recommend you simply use [WSL2](#for-windows-with-windows-subsystem-for-linux-2-wsl2) to make this as non-painful as possible.
-However if you insist on building for windows natively than all you need in terms of dependencies is:
+We highly recommend you simply use [WSL2](#for-windows-with-windows-subsystem-for-linux-2-wsl2) to make this as painless as possible.
+However if you insist on building for windows natively then all you need in terms of dependencies is:
 
 - [CMake](https://cmake.org/download/)
 - [GLFW](https://www.glfw.org/download.html)
 
 Once you have all the dependencies correctly installed `CMake` will generate
 the visual studio project files. Simply build it and once you have a `.lib` file
-move them to you actual project and install them as you would with any other library.
+move them to your actual project and install them as you would with any other library.
 
 Just in case here's a [video](https://youtu.be/or1dAmUO8k0?t=494) showing you how this can be done. Conveniently this video also covers how you can link `glfw`.
 
-Of course its up to you to make sure that the code you write is portable. Things that exist on `Unix` don't necessarily exist on `Win32`.
+Of course it's up to you to make sure that the code you write is portable. Things that exist on `Unix` don't necessarily exist on `Win32`.
 
 ## Download and build - MLX42
 
 ```bash 
 ➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
 ➜  ~ cd MLX42
-➜  ~ cmake -B build # build here refers to the folder where its outputed.
+➜  ~ cmake -B build # build here refers to the outputfolder.
 ➜  ~ cmake --build build -j4 # or do make -C build -j4
 ```
 
