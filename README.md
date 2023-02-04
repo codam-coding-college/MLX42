@@ -51,9 +51,7 @@ Overall the building of this project is as follows for ALL systems. As long as C
 
 1. [Download and build MLX42](#download-and-build---mlx42) 
 
-	In case of any errors CMake will notify you if you're missing any dependencies.
-	You should make sure that the system has [glfw](https://github.com/glfw/glfw) installed!
-	Either ask your local sysadmin to install it or do it yourself via `apt` or `brew`.
+	In case your system doesn't have [glfw](https://github.com/glfw/glfw) installed cmake will detect this and install it for you.
 
 2. Compile your program with the library:
 	- For: [MacOS](#for-macos)
