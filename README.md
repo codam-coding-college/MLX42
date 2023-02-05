@@ -17,11 +17,11 @@
 
 MLX42 is a performant, easy to use, cross-platform, minimal windowing graphics library to create graphical applications without having to work directly with the native windowing framework of the given operating system.
 
-It provides primitive tools to draw textures onto the window as well as well as modifying them at runtime as they get displayed on the window.
+It provides primitive tools to draw textures onto the window as well as modifying them at runtime as they get displayed on the window.
 
 # Features ✨
 
-MLX42 comes with a plethora of features that make using it an actual joy instead of a chore.
+MLX42 comes with a plethora of features that make using it actually a joy instead of a chore.
 
 ## Cross-Platform 🖥️
 
