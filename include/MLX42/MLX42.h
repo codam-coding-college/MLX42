@@ -162,7 +162,7 @@ typedef enum mlx_errno
 	MLX_GLADFAIL,		// OpenGL loader has failed.
 	MLX_GLFWFAIL,		// GLFW failed to initialize.
 	MLX_WINFAIL,		// Failed to create a window.
-	MLX_STRTOBIG,		// The string is too big to be drawn.
+	MLX_STRTOOBIG,		// The string is too big to be drawn.
 	MLX_ERRMAX,			// Error count
 }	mlx_errno_t;
 
