@@ -68,6 +68,19 @@ Same goes for CMake.
 
 ----
 
+## Download and build - MLX42
+
+```bash 
+➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
+➜  ~ cd MLX42
+➜  ~ cmake -B build # build here refers to the outputfolder.
+➜  ~ cmake --build build -j4 # or do make -C build -j4
+```
+
+The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.
+
+----
+
 ## For MacOS:
 
 For MacOS you need to use the following flags to compile your program with the library
@@ -181,17 +194,6 @@ move them to your actual project and install them as you would with any other li
 Just in case here's a [video](https://youtu.be/or1dAmUO8k0?t=494) showing you how this can be done. Conveniently this video also covers how you can link `glfw`.
 
 Of course it's up to you to make sure that the code you write is portable. Things that exist on `Unix` don't necessarily exist on `Win32`.
-
-## Download and build - MLX42
-
-```bash 
-➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
-➜  ~ cd MLX42
-➜  ~ cmake -B build # build here refers to the outputfolder.
-➜  ~ cmake --build build -j4 # or do make -C build -j4
-```
-
-The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.
 
 ## Example
 
