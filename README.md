@@ -64,6 +64,8 @@ Same goes for CMake.
 
 3. Profit!
 
+> **Note**: You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
+
 ----
 
 ## For MacOS:
@@ -163,6 +165,8 @@ and they might not even show up in the list until the first time you start the a
 ----
 
 ## For Windows:
+
+> **Warning**: Be aware that Visual Studio (2022) is required for this. Developing on Windows can be somewhat frustrating.
 
 We highly recommend you simply use [WSL2](#for-windows-with-windows-subsystem-for-linux-2-wsl2) to make this as painless as possible.
 However if you insist on building for windows natively then all you need in terms of dependencies is:
