@@ -4,6 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // See README.md for details
+
 #define CTEST_MAIN
 #define CTEST_SEGFAULT
 #define CTEST_COLOR_OK

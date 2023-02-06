@@ -51,7 +51,11 @@ Overall the building of this project is as follows for ALL systems. As long as C
 
 1. [Download and build MLX42](#download-and-build---mlx42) 
 
-	In case your system doesn't have [glfw](https://github.com/glfw/glfw) installed cmake will detect this and install it for you.
+In case your system doesn't have [glfw](https://github.com/glfw/glfw) installed cmake will detect this and download it for you.
+You can then run `sudo make install` in the `_deps` directory of glfw. If you're using a 42 Computer (MacOS, Linux), ask your favorite sysadmin to install it.
+Same goes for CMake.
+
+> **Note**: For Codam, GLFW is already installed on the IMacs.
 
 2. Compile your program with the library:
 	- For: [MacOS](#for-macos)
@@ -59,6 +63,8 @@ Overall the building of this project is as follows for ALL systems. As long as C
 	- For: [Windows](#for-windows)
 
 3. Profit!
+
+> **Note**: You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
 
 ----
 
@@ -73,17 +79,17 @@ in order to link the program with the correct frameworks:
 Normally if you simply installed / built `glfw` from source or already have it installed
 the compilation should be:
 ```bash
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3
 ```
 
 #### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew)
 ```bash
 # Homebrew
 # NOTE: Last `-L` might not be necessary.
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L/opt/homebrew/Cellar/glfw/3.3.6/lib/
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3 -L/opt/homebrew/Cellar/glfw/3.3.8/lib/
 
 # 42Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$USER/.brew/opt/glfw/lib/"
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3 -L"/Users/$USER/.brew/opt/glfw/lib/"
 ```
 
 #### MacOS Security:
@@ -159,6 +165,8 @@ and they might not even show up in the list until the first time you start the a
 ----
 
 ## For Windows:
+
+> **Warning**: Be aware that Visual Studio (2022) is required for this. Developing on Windows can be somewhat frustrating.
 
 We highly recommend you simply use [WSL2](#for-windows-with-windows-subsystem-for-linux-2-wsl2) to make this as painless as possible.
 However if you insist on building for windows natively then all you need in terms of dependencies is:
