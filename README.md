@@ -214,7 +214,7 @@ static mlx_image_t* img;
 
 void hook(void* param)
 {
-	const mlx_t* mlx = param;
+	mlx_t* mlx = param;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
