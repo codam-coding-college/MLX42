@@ -102,6 +102,7 @@ add_library(mlx42 STATIC
 	${SOURCE_DIR}/utils/mlx_compare.c
 
 	# Textures
+	${SOURCE_DIR}/font/mlx_font.c
 	${SOURCE_DIR}/textures/mlx_png.c
 	${SOURCE_DIR}/textures/mlx_texture.c
 	${SOURCE_DIR}/textures/mlx_xpm42.c
