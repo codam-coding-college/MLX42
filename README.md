@@ -52,8 +52,8 @@ Overall the building of this project is as follows for ALL systems. As long as C
 1. [Download and build MLX42](#download-and-build---mlx42) 
 
 In case your system doesn't have [glfw](https://github.com/glfw/glfw) installed cmake will detect this and download it for you.
-You can then run `sudo make install` in the `_deps` directory of glfw. If you're using a 42 Computer (MacOS, Linux), ask your favorite sysadmin to install it.
-Same goes for CMake.
+You can then run `sudo make install` in the `_deps` directory of glfw. If you're using a 42 Computer (MacOS, Linux), ask your favourite sysadmin to install it.
+Same goes for CMake or any other dependencies you might need for your system.
 
 > **Note**: For Codam, GLFW is already installed on the IMacs.
 
