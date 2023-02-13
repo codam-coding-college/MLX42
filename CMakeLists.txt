@@ -131,7 +131,7 @@ if (NOT glfw3_FOUND AND GLFW_FETCH)
 	message(STATUS "Please wait, fetching GLFW ...")
 	include(${CMAKE_DIR}/LinkGLFW.cmake)
 	LinkGLFW(mlx42)
-else()
+elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
 	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
 
