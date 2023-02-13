@@ -65,7 +65,7 @@ mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 	mlx_image_t* strimage;
 	const size_t len = strlen(str);
 	if (len > MLX_MAX_STRING)
-		return ((void*)mlx_error(MLX_STRTOBIG));	
+		return ((void*)mlx_error(MLX_STRTOOBIG));	
 	if (!(strimage = mlx_new_image(mlx, len * FONT_WIDTH, FONT_HEIGHT)))
 		return (NULL);
 

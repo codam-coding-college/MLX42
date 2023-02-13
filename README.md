@@ -17,11 +17,11 @@
 
 MLX42 is a performant, easy to use, cross-platform, minimal windowing graphics library to create graphical applications without having to work directly with the native windowing framework of the given operating system.
 
-It provides primitive tools to draw textures onto the window as well as well as modifying them at runtime as they get displayed on the window.
+It provides primitive tools to draw textures onto the window as well as modifying them at runtime as they get displayed on the window.
 
 # Features ✨
 
-MLX42 comes with a plethora of features that make using it an actual joy instead of a chore.
+MLX42 comes with a plethora of features that make using it actually a joy instead of a chore.
 
 ## Cross-Platform 🖥️
 
@@ -51,7 +51,11 @@ Overall the building of this project is as follows for ALL systems. As long as C
 
 1. [Download and build MLX42](#download-and-build---mlx42) 
 
-	In case your system doesn't have [glfw](https://github.com/glfw/glfw) installed cmake will detect this and install it for you.
+In case your system doesn't have [glfw](https://github.com/glfw/glfw) installed cmake will detect this and download it for you.
+You can then run `sudo make install` in the `_deps` directory of glfw. If you're using a 42 Computer (MacOS, Linux), ask your favourite sysadmin to install it.
+Same goes for CMake or any other dependencies you might need for your system.
+
+> **Note**: For Codam, GLFW is already installed on the IMacs.
 
 2. Compile your program with the library:
 	- For: [MacOS](#for-macos)
@@ -59,6 +63,21 @@ Overall the building of this project is as follows for ALL systems. As long as C
 	- For: [Windows](#for-windows)
 
 3. Profit!
+
+> **Note**: You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
+
+----
+
+## Download and build - MLX42
+
+```bash 
+➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
+➜  ~ cd MLX42
+➜  ~ cmake -B build # build here refers to the outputfolder.
+➜  ~ cmake --build build -j4 # or do make -C build -j4
+```
+
+The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.
 
 ----
 
@@ -73,17 +92,17 @@ in order to link the program with the correct frameworks:
 Normally if you simply installed / built `glfw` from source or already have it installed
 the compilation should be:
 ```bash
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3
 ```
 
 #### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew)
 ```bash
 # Homebrew
 # NOTE: Last `-L` might not be necessary.
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L/opt/homebrew/Cellar/glfw/3.3.6/lib/
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3 -L/opt/homebrew/Cellar/glfw/3.3.8/lib/
 
 # 42Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$USER/.brew/opt/glfw/lib/"
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3 -L"/Users/$USER/.brew/opt/glfw/lib/"
 ```
 
 #### MacOS Security:
@@ -160,6 +179,8 @@ and they might not even show up in the list until the first time you start the a
 
 ## For Windows:
 
+> **Warning**: Be aware that Visual Studio (2022) is required for this. Developing on Windows can be somewhat frustrating.
+
 We highly recommend you simply use [WSL2](#for-windows-with-windows-subsystem-for-linux-2-wsl2) to make this as painless as possible.
 However if you insist on building for windows natively then all you need in terms of dependencies is:
 
@@ -173,17 +194,6 @@ move them to your actual project and install them as you would with any other li
 Just in case here's a [video](https://youtu.be/or1dAmUO8k0?t=494) showing you how this can be done. Conveniently this video also covers how you can link `glfw`.
 
 Of course it's up to you to make sure that the code you write is portable. Things that exist on `Unix` don't necessarily exist on `Win32`.
-
-## Download and build - MLX42
-
-```bash 
-➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
-➜  ~ cd MLX42
-➜  ~ cmake -B build # build here refers to the outputfolder.
-➜  ~ cmake --build build -j4 # or do make -C build -j4
-```
-
-The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.
 
 ## Example
 
@@ -206,7 +216,7 @@ static mlx_image_t* img;
 
 void hook(void* param)
 {
-	const mlx_t* mlx = param;
+	mlx_t* mlx = param;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);

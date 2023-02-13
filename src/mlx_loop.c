@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_loop.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:24:36 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 18:07:04 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2023/02/13 12:26:17 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ static void mlx_render_images(mlx_t* mlx)
 
 bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
 {
-	MLX_ASSERT(mlx, "Parameter can't be null");
-	MLX_ASSERT(f, "Parameter can't be null");
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(f);
 
 	mlx_hook_t* hook;
 	if (!(hook = malloc(sizeof(mlx_hook_t))))
@@ -89,7 +89,7 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
 // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 void mlx_loop(mlx_t* mlx)
 {
-	MLX_ASSERT(mlx, "Parameter can't be null");
+	MLX_NONNULL(mlx);
 
 	double start, oldstart = 0;
 	while (!glfwWindowShouldClose(mlx->window))

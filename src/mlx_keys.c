@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_keys.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 21:06:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 14:28:01 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2023/02/13 12:24:40 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void mlx_key_callback(GLFWwindow* window, int32_t key, int32_t scancode, 
 
 void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param)
 {
-	MLX_ASSERT(mlx, "Parameter can't be null");
-	MLX_ASSERT(func, "Parameter can't be null");
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(func);
 
 	mlx_ctx_t* mlxctx = mlx->context;
 	mlxctx->key_hook.func = func;
@@ -43,7 +43,7 @@ void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param)
 
 bool mlx_is_key_down(mlx_t* mlx, keys_t key)
 {
-	MLX_ASSERT(mlx, "Parameter can't be null");
+	MLX_NONNULL(mlx);
 
 	return (glfwGetKey(mlx->window, key) == GLFW_PRESS);
 }
