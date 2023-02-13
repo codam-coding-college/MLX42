@@ -123,12 +123,16 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Dependencies
 # -----------------------------------------------------------------------------
 
-find_package(glfw3 REQUIRED)
-if (NOT GLFW3_FOUND AND GLFW_FETCH)
-	message(STATUS "Use 42Homebrew or install GLFW to supress this message")
+find_package(glfw3)
+find_package(OpenGL REQUIRED)
+
+if (NOT glfw3_FOUND AND GLFW_FETCH)
+	message(STATUS "Install GLFW to supress this message")
 	message(STATUS "Please wait, fetching GLFW ...")
 	include(${CMAKE_DIR}/LinkGLFW.cmake)
 	LinkGLFW(mlx42)
+else()
+	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
 
 find_package(OpenGL REQUIRED)
