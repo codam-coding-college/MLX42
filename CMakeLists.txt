@@ -7,6 +7,8 @@
 # -----------------------------------------------------------------------------
 cmake_minimum_required (VERSION 3.18.0)
 project(mlx42 VERSION 2.3.0)
+message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
+
 # Variables
 # -----------------------------------------------------------------------------
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -16,11 +18,12 @@ set(CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(DEBUG	OFF CACHE BOOL "Build MLX42 in debug mode, enabling assertions")
-set(GLFW_FETCH	OFF CACHE BOOL "Clone and install GLFW")
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
-message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
+# Options
+set(DEBUG		OFF CACHE BOOL "Build MLX42 in debug mode, enabling assertions")
+set(GLFW_FETCH	ON CACHE BOOL "Clone and install GLFW")
 
 # Compile Options
 # -----------------------------------------------------------------------------
@@ -119,13 +122,14 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Dependencies
 # -----------------------------------------------------------------------------
-if(NOT (GLFW_FETCH))
-find_package(glfw3)
-endif()
-if((NOT glfw3_FOUND) OR (GLFW_FETCH))
+
+find_package(glfw3 REQUIRED)
+if (NOT GLFW3_FOUND AND GLFW_FETCH)
+	message(STATUS "Use 42Homebrew or install GLFW to supress this message")
 	message(STATUS "Please wait, fetching GLFW ...")
 	include(${CMAKE_DIR}/LinkGLFW.cmake)
 	LinkGLFW(mlx42)
 endif()
+
 find_package(OpenGL REQUIRED)
 target_link_libraries(mlx42 OpenGL::GL glfw)
