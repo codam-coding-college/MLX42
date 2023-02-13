@@ -7,8 +7,7 @@
 # -----------------------------------------------------------------------------
 cmake_minimum_required (VERSION 3.18.0)
 project(mlx42 VERSION 2.3.0)
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 # Variables
 # -----------------------------------------------------------------------------
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -20,7 +19,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(GLFW_FETCH	OFF CACHE BOOL "Clone and install GLFW")
 message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
-
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 # Compile Options
 # -----------------------------------------------------------------------------
 
