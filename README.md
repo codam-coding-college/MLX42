@@ -55,8 +55,6 @@ In case your system doesn't have [glfw](https://github.com/glfw/glfw) installed 
 You can then run `sudo make install` in the `_deps` directory of glfw. If you're using a 42 Computer (MacOS, Linux), ask your favourite sysadmin to install it.
 Same goes for CMake or any other dependencies you might need for your system.
 
-You can force cmake to download glfw when building MLX42 (even when it's already installed) with the `-Dglfw_FOUND=0` option.
-
 > **Note**: For Codam, GLFW is already installed on the IMacs.
 
 2. Compile your program with the library:

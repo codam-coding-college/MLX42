@@ -18,7 +18,7 @@ set(CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set(GLFW_FETCH	OFF CACHE BOOL "Clone and install GLFW")
 message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
 
 # Compile Options
@@ -118,11 +118,11 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Dependencies
 # -----------------------------------------------------------------------------
-
-if(NOT DEFINED glfw_FOUND)
+# if((expression) AND (expression OR (expression)))
+if(NOT (GLFW_FETCH))
 find_package(glfw3)
 endif()
-if(NOT glfw3_FOUND)
+if((NOT glfw3_FOUND) OR (GLFW_FETCH))
 	message("-- Please wait, fetching GLFW ...")
 	include(${CMAKE_DIR}/LinkGLFW.cmake)
 	LinkGLFW(mlx42)
