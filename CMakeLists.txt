@@ -7,7 +7,6 @@
 # -----------------------------------------------------------------------------
 cmake_minimum_required (VERSION 3.18.0)
 project(mlx42 VERSION 2.3.0)
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 # Variables
 # -----------------------------------------------------------------------------
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -117,7 +116,6 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Dependencies
 # -----------------------------------------------------------------------------
-# if((expression) AND (expression OR (expression)))
 if(NOT (GLFW_FETCH))
 find_package(glfw3)
 endif()
