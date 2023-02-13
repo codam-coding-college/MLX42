@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_init.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/08/10 13:00:53 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2023/02/13 11:36:27 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ bool sort_queue = false;
 
 mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
 {
+	MLX_NONNULL(title);
 	MLX_ASSERT(width > 0, "Window width must be positive");
 	MLX_ASSERT(height > 0, "Window height must be positive");
-	MLX_ASSERT(title, "Window title can't be null");
 
 	bool init;
 	mlx_t* mlx;
