@@ -119,7 +119,9 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Dependencies
 # -----------------------------------------------------------------------------
 
+if(NOT DEFINED glfw_FOUND)
 find_package(glfw3)
+endif()
 if(NOT glfw3_FOUND)
 	message("-- Please wait, fetching GLFW ...")
 	include(${CMAKE_DIR}/LinkGLFW.cmake)
