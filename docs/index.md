@@ -29,7 +29,6 @@ displaying images from disk or creating a drawing surface to draw pixels on.
 
 ## Toc
 
-* [Installation](./installation.md)
 * [Basics](./Basics.md)
 * [Colors](./Colors.md)
 * [Functions](./Functions.md)
@@ -86,12 +85,21 @@ To do this, simply add the following arguments at the linking stage:
 
 **NOTE: For some UNIX systems the flag for glfw might be with or without a 3 at the end.**
 
+## Installation
+
+When building MLX42 you can pass CMake build options to customise you're installation.
+
+These options for MLX42 are... `cmake -DDEBUG=1 -DGLFW_FETCH=0` ...
+
+* `Debug`: Enables assertion macros and compiles with -g in order for debugging with lldb.
+* `GLFW_FETCH`: Fetches GLFW if it can't be found on the system at all, allows you to then install it with `sudo make install` under the `build/_deps` folder.
+
 ## Debugging
 
 MLX was designed with ease of debugging in mind, therefore if the project is built with
-**cmake -DDEBUG=1** it will keep in the assertion macros and notify you of any bad input 
+**cmake -DDEBUG=1** it will keep in the assertion macros and notify you of any bad input
 given to functions. Additionally it comes with its own runtime error checking via
-**mlx_errno** and **mlx_strerror** to properly identify what went wrong during the runtime 
+**mlx_errno** and **mlx_strerror** to properly identify what went wrong during the runtime
 of the library.
 
 ## Notes
