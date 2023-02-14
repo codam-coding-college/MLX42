@@ -83,6 +83,17 @@ The output library file is called `libmlx42.a` and is located in the `build` fol
 
 ## For MacOS:
 
+### Installing the dependencies
+
+If your system has neither GLFW nor CMake its highly recommended you use brew to install those missing dependencies.
+
+For 42 Campuses you can use: [42Homebrew](https://github.com/kube/42homebrew)
+```bash
+# This will also install CMake.
+# Be aware that this may take a while so be patient.
+➜  ~ brew install glfw
+```
+
 For MacOS you need to use the following flags to compile your program with the library
 in order to link the program with the correct frameworks:
 ```bash
