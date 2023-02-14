@@ -29,6 +29,7 @@ displaying images from disk or creating a drawing surface to draw pixels on.
 
 ## Toc
 
+* [Installation](./installation.md)
 * [Basics](./Basics.md)
 * [Colors](./Colors.md)
 * [Functions](./Functions.md)
