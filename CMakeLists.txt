@@ -135,5 +135,4 @@ elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
 	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
 
-find_package(OpenGL REQUIRED)
 target_link_libraries(mlx42 OpenGL::GL glfw)
