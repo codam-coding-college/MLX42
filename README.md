@@ -114,11 +114,10 @@ the compilation should be:
 #### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew)
 ```bash
 # Homebrew
-# NOTE: Last `-L` might not be necessary.
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3 -L/opt/homebrew/Cellar/glfw/3.3.8/lib/
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
 
 # 42Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3 -L"/Users/$USER/.brew/opt/glfw/lib/"
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$USER/.brew/opt/glfw/lib/"
 ```
 
 #### MacOS Security:
