@@ -66,6 +66,9 @@ However if you can't do either CMake will still be able to fetch GLFW and build 
 
 3. Profit!
 
+### Available Options
+
+You can pass build options to cmake ... `cmake -DDEBUG=1 -DGLFW_FETCH=0` ... to customise the install, more at [installation](./docs/index#installation).
 > **Note**: You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
 
 ----

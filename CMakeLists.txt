@@ -7,7 +7,7 @@
 # -----------------------------------------------------------------------------
 cmake_minimum_required (VERSION 3.18.0)
 project(mlx42 VERSION 2.3.0)
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
 
 # Variables
 # -----------------------------------------------------------------------------
@@ -18,8 +18,12 @@ set(CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
-message(STATUS "MLX42 @ ${CMAKE_PROJECT_VERSION}")
+# Options
+set(DEBUG		OFF CACHE BOOL "Build MLX42 in debug mode, enabling assertions")
+set(GLFW_FETCH	ON CACHE BOOL "Clone and install GLFW")
 
 # Compile Options
 # -----------------------------------------------------------------------------
@@ -43,10 +47,10 @@ if(UNIX)
 		-Wno-missing-field-initializers
 	)
 	if(DEBUG)
-		message("-- Building in DEBUG mode")
+		message(STATUS "Building in DEBUG mode")
 		add_compile_options(-g)
 	else()
-		message("-- Building in RELEASE mode")
+		message(STATUS "Building in RELEASE mode")
 		add_definitions(-D NDEBUG)
 		add_compile_options(-Ofast)
 	endif(DEBUG)
@@ -120,10 +124,15 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # -----------------------------------------------------------------------------
 
 find_package(glfw3)
-if(NOT glfw3_FOUND)
-	message("-- Please wait, fetching GLFW ...")
+find_package(OpenGL REQUIRED)
+
+if (NOT glfw3_FOUND AND GLFW_FETCH)
+	message(STATUS "Install GLFW to supress this message")
+	message(STATUS "Please wait, fetching GLFW ...")
 	include(${CMAKE_DIR}/LinkGLFW.cmake)
 	LinkGLFW(mlx42)
+elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
+	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
-find_package(OpenGL REQUIRED)
+
 target_link_libraries(mlx42 OpenGL::GL glfw)
