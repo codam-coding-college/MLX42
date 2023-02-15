@@ -85,13 +85,15 @@ To do this, simply add the following arguments at the linking stage:
 
 **NOTE: For some UNIX systems the flag for glfw might be with or without a 3 at the end.**
 
-## Installation
+## Build options
 
-When building MLX42 you can pass CMake build options to customise you're installation.
+When building MLX42 you can pass certain build options to cmake.
 
-These options for MLX42 are... `cmake -DDEBUG=1 -DGLFW_FETCH=0` ...
+The options are passed as follows `cmake -DDEBUG=1 -DGLFW_FETCH=0`.
 
-* `Debug`: Enables assertion macros and compiles with -g in order for debugging with lldb.
+### Available options
+
+* `DEBUG`: Enables assertion macros and compiles with -g in order for debugging with lldb.
 * `GLFW_FETCH`: Fetches GLFW if it can't be found on the system at all, allows you to then install it with `sudo make install` under the `build/_deps` folder.
 
 ## Debugging
