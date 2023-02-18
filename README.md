@@ -59,6 +59,8 @@ However if you can't do either CMake will still be able to fetch GLFW and build 
 
 > **Note**: For Codam, GLFW is already installed on the IMacs.
 
+> **Note**: During the linking stage, the flag to link GLFW can either be: -lglfw3 or -lglfw depending on your system.
+
 2. Compile your program with the library:
 	- For: [MacOS](#for-macos)
 	- For: [Linux](#for-linux)
@@ -69,7 +71,7 @@ However if you can't do either CMake will still be able to fetch GLFW and build 
 ### Available Options
 
 You can pass build options to cmake ... `cmake -DDEBUG=1 -DGLFW_FETCH=0` ... to customise the install, more at [installation](./docs/index.md#available-options).
-> **Note**: You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
+You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
 
 ----
 
@@ -108,7 +110,7 @@ in order to link the program with the correct frameworks:
 Normally if you simply installed / built `glfw` from source or already have it installed
 the compilation should be:
 ```bash
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw3
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw
 ```
 
 #### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew)
@@ -152,7 +154,6 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 2. [Download and build MLX42](#download-and-build---mlx42) 
 
 3. Compile your program with the library:
-> **Note**: For glfw the flag can either be: -lglfw3 or -lglfw
 
 ```bash
 ➜  ~ gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
@@ -192,7 +193,7 @@ and they might not even show up in the list until the first time you start the a
 
 ----
 
-## For Windows:
+## For Windows Native:
 
 > **Warning**: Be aware that Visual Studio (2022) is required for this. Developing on Windows can be somewhat frustrating.
 
