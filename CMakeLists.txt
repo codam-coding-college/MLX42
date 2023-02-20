@@ -135,4 +135,9 @@ elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
 	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
 
+# add correct frameworks for macOS
+if(APPLE)
+target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
+endif()
+
 target_link_libraries(mlx42 OpenGL::GL glfw)
