@@ -33,10 +33,10 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y cmake xorg-dev libx11-dev xvfb
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq xorg-dev xvfb
 
-    - name: Setup x11
+    - name: Setup virtual screen
       run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
     - name: Build MLX42 & tests
@@ -64,7 +64,7 @@ jobs:
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
             sudo apt-get update -qq
-            sudo apt-get install -y -qq gcc make xorg build-essential cmake xorg-dev libx11-dev libglfw3-dev libglfw3
+            sudo apt-get install -y -qq xorg-dev
         elif [ "$RUNNER_OS" == "macOS" ]; then
             brew update
             brew install glfw
