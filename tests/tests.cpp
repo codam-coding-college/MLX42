@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 
-extern "C" {
-	#include <MLX42/MLX42.h>
-}
+#include <MLX42/MLX42.h>
 
 TEST(MLX42, init_basic)
 {
