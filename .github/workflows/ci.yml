@@ -40,7 +40,7 @@ jobs:
       run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
     - name: Build MLX42 & tests
-      run: cmake -DCMAKE_BUILD_TYPE=Test -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build
+      run: cmake -DBUILD_TESTS=YES -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build
 
     - name: Run tests
       run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
