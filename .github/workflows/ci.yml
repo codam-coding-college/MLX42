@@ -34,16 +34,16 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y gcc make libglfw3-dev libglfw3 xorg build-essential cmake xorg-dev libx11-dev xvfb
-    
-    - name: Install GLFW
-      uses: RpxdYTX/install-glfw-deps@v2
+        sudo apt-get install -y cmake xorg-dev libx11-dev xvfb
 
     - name: Setup x11
       run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
+    - name: Build MLX42 & tests
+      run: cmake -DCMAKE_BUILD_TYPE=Test -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build
+
     - name: Run tests
-      run: make -C tests run
+      run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
 
 # Unix
 #=============================================================================#

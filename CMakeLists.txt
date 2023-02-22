@@ -135,9 +135,24 @@ elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
 	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
 
+# only link to glfw if it was found
+if (glfw3_FOUND)
+	target_link_libraries(mlx42 ${GLFW3_LIBRARY})
+endif()
+
+target_link_libraries(mlx42 OpenGL::GL)
+
 # add correct frameworks for macOS
 if(APPLE)
 target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
 endif()
 
-target_link_libraries(mlx42 OpenGL::GL glfw)
+
+# Testing
+# -----------------------------------------------------------------------------
+
+# only build tests if we are the main project and the build type is "Test"
+if (PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME AND CMAKE_BUILD_TYPE STREQUAL "Test")
+	add_subdirectory(tests)
+	enable_testing()
+endif()
