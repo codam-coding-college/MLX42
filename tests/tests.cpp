@@ -97,7 +97,7 @@ static void ft_draw(void* param)
 
 	// Cheap itoa lol
 	memset(buf, '\0', sizeof(buf));
-	sprintf(buf, "%d", count);
+	snprintf(buf, sizeof(buf), "%d", count);
 	
 	img = mlx_put_string(mlx, buf, 0, 0);
 	ASSERT_NE(img, nullptr);
