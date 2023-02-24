@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-
 #include <MLX42/MLX42.h>
 
 TEST(MLX42, init_basic)

@@ -15,15 +15,16 @@ set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(TOOLS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tools)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # Options
 set(DEBUG		OFF CACHE BOOL "Build MLX42 in debug mode, enabling assertions")
 set(GLFW_FETCH	ON CACHE BOOL "Clone and install GLFW")
+set(BUILD_TESTS	OFF CACHE BOOL "Build the tests to verify the integrity of the lib")
 
 # Compile Options
 # -----------------------------------------------------------------------------
@@ -126,6 +127,7 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 find_package(glfw3)
 find_package(OpenGL REQUIRED)
 
+target_link_libraries(mlx42 OpenGL::GL)
 if (NOT glfw3_FOUND AND GLFW_FETCH)
 	message(STATUS "Install GLFW to supress this message")
 	message(STATUS "Please wait, fetching GLFW ...")
@@ -135,24 +137,19 @@ elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
 	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
 
-# only link to glfw if it was found
 if (glfw3_FOUND)
 	target_link_libraries(mlx42 ${GLFW3_LIBRARY})
 endif()
-
-target_link_libraries(mlx42 OpenGL::GL)
-
-# add correct frameworks for macOS
 if(APPLE)
-target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
+	target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
 endif()
-
 
 # Testing
 # -----------------------------------------------------------------------------
-# only build tests if we are the main project or explicitly told to
-# this make sure tests are not built when mlx42 included as a subproject, use MLX42_BUILD_TESTS to overwrite this
-# use cmake -DBUILD_TESTS=YES/-DMLX42_BUILD_TESTS=YES to build tests
+# Only build tests if we are the main project or explicitly told to this make sure 
+# tests are not built when mlx42 included as a subproject, use MLX42_BUILD_TESTS to overwrite this
+# use cmake -DBUILD_TESTS=ON/-DMLX42_BUILD_TESTS=ON to build tests
+
 if ((PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME AND BUILD_TESTS) OR MLX42_BUILD_TESTS)
 	add_subdirectory(tests)
 	enable_testing()
