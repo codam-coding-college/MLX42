@@ -27,7 +27,7 @@ echo "// If you wish to modify this file edit the .vert or .frag file!"
 echo ""
 echo "#include \"MLX42/MLX42_Int.h\""
 echo ""
-echo "const char* ${SHADERTYPE}_shader = \"$(sed -n '1{p;q;}' $1)\\n\""
+echo "const char* ${SHADERTYPE}_shader = \"$(sed -n '1{p;q;}' "$1")\\n\""
 {
 	# Skip over first line
 	read
