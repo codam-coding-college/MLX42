@@ -135,9 +135,25 @@ elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
 	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
 endif()
 
+# only link to glfw if it was found
+if (glfw3_FOUND)
+	target_link_libraries(mlx42 ${GLFW3_LIBRARY})
+endif()
+
+target_link_libraries(mlx42 OpenGL::GL)
+
 # add correct frameworks for macOS
 if(APPLE)
 target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
 endif()
 
-target_link_libraries(mlx42 OpenGL::GL glfw)
+
+# Testing
+# -----------------------------------------------------------------------------
+# only build tests if we are the main project or explicitly told to
+# this make sure tests are not built when mlx42 included as a subproject, use MLX42_BUILD_TESTS to overwrite this
+# use cmake -DBUILD_TESTS=YES/-DMLX42_BUILD_TESTS=YES to build tests
+if ((PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME AND BUILD_TESTS) OR MLX42_BUILD_TESTS)
+	add_subdirectory(tests)
+	enable_testing()
+endif()
