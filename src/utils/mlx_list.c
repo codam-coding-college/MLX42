@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_list.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 01:53:51 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/01/31 17:23:11 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2023/02/27 11:31:01 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@
 
 int32_t mlx_lstsize(mlx_list_t* lst)
 {
-	int32_t	i = 0;
+	int32_t	i;
 
-	while (lst)
-	{
-		i++;
+	for (i = 0; lst != NULL; i++)
 		lst = lst->next;
-	}
 	return (i);
 }
 

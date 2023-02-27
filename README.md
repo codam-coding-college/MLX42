@@ -57,7 +57,7 @@ Same goes for CMake or any other dependencies you might need for your system.
 
 However if you can't do either CMake will still be able to fetch GLFW and build it. You can then statically link it from the `_deps` folder.
 
-> **Note**: For Codam, GLFW is already installed on the IMacs.
+> **Note**: For Codam, GLFW is already installed on the Macs.
 
 > **Note**: During the linking stage, the flag to link GLFW can either be: -lglfw3 or -lglfw depending on your system.
 
@@ -67,6 +67,17 @@ However if you can't do either CMake will still be able to fetch GLFW and build 
 	- For: [Windows](#for-windows)
 
 3. Profit!
+
+### Unit tests
+MLX42 comes with some unit tests to ensure the integrity of the library, to build them run the following command:
+```sh
+cmake -DBUILD_TESTS=YES -B build && cmake --build build --parallel
+```
+
+Then simply run them with:
+```sh
+ctest --output-on-failure --test-dir build
+```
 
 ### Available Options
 
