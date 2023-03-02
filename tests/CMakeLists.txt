@@ -4,7 +4,6 @@
 # -----------------------------------------------------------------------------
 
 set(TEST_EXECUTABLE_NAME unit_tests)
-set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 14)
 
 # Download GoogleTest
 # --------------------------------------------------
@@ -31,6 +30,8 @@ target_link_libraries(
 	GTest::gtest_main
 	mlx42
 )
+
+set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 14)
 
 # Add tests to CTest
 # --------------------------------------------------
