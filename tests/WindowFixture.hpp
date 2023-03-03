@@ -9,7 +9,7 @@ class Window : public ::testing::Test
 protected:
 	mlx_t* mlx = NULL;
 
-	static constexpr const char *name = "MLX42";
+	static constexpr const char* name = "MLX42";
 	static const int32_t height = 400;
 	static const int32_t width = 400;
 
