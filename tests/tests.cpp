@@ -1,75 +1,81 @@
 #include <gtest/gtest.h>
 #include <MLX42/MLX42.h>
 
-TEST(MLX42, init_basic)
-{
-	mlx_set_setting(MLX_HEADLESS, true);
+// --------------------------------------------
+// If your new to gtest follow the following documentation:
+// http://google.github.io/googletest/primer.html
+// --------------------------------------------
 
-	mlx_t* mlx = mlx_init(32, 32, "Trololo", false);
-	ASSERT_NE(mlx, nullptr);
-	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
-	mlx_terminate(mlx);
+#include "WindowFixture.hpp"
+
+// --------------------------------------------
+// Fixture for window tests
+// For every TEST_F(window, ...) the SetUp() and TearDown() functions are called
+// MLX can be accessed via the mlx variable in each test
+// For the implementation of the fixture see tests/windowFixture.hpp
+// --------------------------------------------
+
+TEST_F(Window, Basic)
+{
+	// Basic window is already tested in the fixture
 }
 
-TEST(MLX42, init_allSettings)
+
+// NOTE: This test cannot be runned with a fixture because the settings need to be set before the window is created
+TEST(MWindow, Settings)
 {
-	mlx_set_setting(MLX_HEADLESS, true);
-	mlx_set_setting(MLX_DECORATED, true);
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_errno = MLX_SUCCESS;
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-
-	mlx_t* mlx = mlx_init(32, 32, "Trololo", false);
+	mlx_set_setting(MLX_MAXIMIZED, true);
+	mlx_set_setting(MLX_DECORATED, true);
+	mlx_set_setting(MLX_FULLSCREEN, true);
+	
+	mlx_set_setting(MLX_HEADLESS, true);
+	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
+	mlx_t *mlx = mlx_init(400, 400, "MLX42", false);
 	ASSERT_NE(mlx, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
 	mlx_terminate(mlx);
-}
-
-TEST(MLX42, image_single)
-{
-	mlx_set_setting(MLX_HEADLESS, true);
-
-	mlx_t* mlx = mlx_init(32, 32, "Trololo", false);
-	ASSERT_NE(mlx, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
-	mlx_image_t* img = mlx_new_image(mlx, 32, 32);
+	// Set all settings to default
+	mlx_set_setting(MLX_STRETCH_IMAGE, false);
+	mlx_set_setting(MLX_FULLSCREEN, false);
+	mlx_set_setting(MLX_MAXIMIZED, false);
+	mlx_set_setting(MLX_DECORATED, true);
+}
+
+TEST_F(Window, SingleImage)
+{
+	mlx_image_t* img = mlx_new_image(mlx, Window::width / 2, Window::height / 2);
 	ASSERT_NE(img, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 	
-	int32_t val = mlx_image_to_window(mlx, img, 0, 0);
-	EXPECT_EQ(val, 0);
+	int32_t val = mlx_image_to_window(mlx, img, Window::width / 4 , Window::height / 4);
+	EXPECT_GE(val, 0);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
 	mlx_delete_image(mlx, img);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
-	
-	mlx_terminate(mlx);
 }
 
-TEST(MLX42, image_multiple)
+TEST_F(Window, MultipleImages)
 {
-	mlx_set_setting(MLX_HEADLESS, true);
-
-	mlx_t* mlx = mlx_init(32, 32, "Trololo", false);
-	ASSERT_NE(mlx, nullptr);
-	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
-
-	mlx_image_t* img1 = mlx_new_image(mlx, 32, 32);
+	mlx_image_t* img1 = mlx_new_image(mlx, Window::width / 2, Window::height / 2);
 	ASSERT_NE(img1, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
-	mlx_image_t* img2 = mlx_new_image(mlx, 32, 32);
+	mlx_image_t* img2 = mlx_new_image(mlx, Window::width, Window::height);
 	ASSERT_NE(img2, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 	
-	int32_t val1 = mlx_image_to_window(mlx, img1, 0, 0);
-	EXPECT_EQ(val1, 0);
+	int32_t val1 = mlx_image_to_window(mlx, img1, Window::width / 4 , Window::height / 4);
+	EXPECT_GE(val1, 0);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
 	int32_t val2 = mlx_image_to_window(mlx, img2, 0, 0);
-	EXPECT_EQ(val2, 0);
+	EXPECT_GE(val2, 0);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
 	mlx_delete_image(mlx, img1);
@@ -77,9 +83,8 @@ TEST(MLX42, image_multiple)
 
 	mlx_delete_image(mlx, img2);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
-	
-	mlx_terminate(mlx);
 }
+
 
 static void ft_draw(void* param)
 {
@@ -110,22 +115,16 @@ static void ft_draw(void* param)
 	count++;
 }
 
-TEST(MLX42, string_draw)
+TEST_F(Window, stringTortureTest)
 {
-	mlx_set_setting(MLX_HEADLESS, true);
-
-	mlx_t* mlx = mlx_init(400, 400, "Trololo", false);
-	ASSERT_NE(mlx, nullptr);
-	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
-
-	mlx_image_t *img = mlx_new_image(mlx, 200, 200);
+	mlx_image_t *img = mlx_new_image(mlx,Window::width / 2 , Window::height / 2);
 	ASSERT_NE(img, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
 	memset(img->pixels, 255, sizeof(int32_t) * img->width * img->height);
 
-	int32_t val_window = mlx_image_to_window(mlx, img, 150, 150);
-	EXPECT_EQ(val_window, 0);
+	int32_t val_window = mlx_image_to_window(mlx, img, Window::width / 4 , Window::height / 4);
+	EXPECT_GE(val_window, 0);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
 	bool val_hook = mlx_loop_hook(mlx, ft_draw, mlx);
@@ -137,6 +136,4 @@ TEST(MLX42, string_draw)
 
 	mlx_delete_image(mlx, img);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
-
-	mlx_terminate(mlx);
 }
