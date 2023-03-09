@@ -1,13 +1,17 @@
+// -----------------------------------------------------------------------------
+// Codam Coding College, Amsterdam @ 2022-2023 by Jelle van Kraaij.
+// See README in the root project for more information.
+// -----------------------------------------------------------------------------
+
 # pragma once
 
 # include <gtest/gtest.h>
-
 # include <MLX42/MLX42.h>
 
 class Window : public ::testing::Test
 {
 protected:
-	mlx_t* mlx = NULL;
+	mlx_t* mlx = nullptr;
 
 	static constexpr const char* name = "MLX42";
 	static const int32_t height = 400;

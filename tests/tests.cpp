@@ -1,10 +1,10 @@
-#include <gtest/gtest.h>
-#include <MLX42/MLX42.h>
+// -----------------------------------------------------------------------------
+// Codam Coding College, Amsterdam @ 2022-2023 by Jelle van Kraaij.
+// See README in the root project for more information.
+// -----------------------------------------------------------------------------
 
-// --------------------------------------------
 // If your new to gtest follow the following documentation:
 // http://google.github.io/googletest/primer.html
-// --------------------------------------------
 
 #include "WindowFixture.hpp"
 
@@ -70,7 +70,7 @@ TEST_F(Window, MultipleImages)
 	ASSERT_NE(img2, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 	
-	int32_t val1 = mlx_image_to_window(mlx, img1, Window::width / 4 , Window::height / 4);
+	int32_t val1 = mlx_image_to_window(mlx, img1, Window::width / 4, Window::height / 4);
 	EXPECT_GE(val1, 0);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
@@ -117,7 +117,7 @@ static void ft_draw(void* param)
 
 TEST_F(Window, stringTortureTest)
 {
-	mlx_image_t *img = mlx_new_image(mlx,Window::width / 2 , Window::height / 2);
+	mlx_image_t *img = mlx_new_image(mlx, Window::width / 2, Window::height / 2);
 	ASSERT_NE(img, nullptr);
 	ASSERT_EQ(mlx_errno, MLX_SUCCESS);
 
