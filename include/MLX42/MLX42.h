@@ -6,7 +6,7 @@
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/02/01 11:33:26 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2023/03/09 11:12:25 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -593,31 +593,6 @@ void mlx_delete_xpm42(xpm_t* xpm);
  * @return mlx_image_t* The image created from the texture.
  */
 mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture);
-
-/**
- * Given an X & Y coordinate and a Width and Height from a section of a
- * texture a new image is created, useful for texture atlases.
- * 
- * Basically a cropping tool.
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] texture The texture to use to create the image from.
- * @param[in] xy The X & Y location.
- * @param[in] wh The Width & Height.
- * @return mlx_image_t* The image created from the texture area.
- */
-mlx_image_t* mlx_texture_area_to_image(mlx_t* mlx, mlx_texture_t* texture, uint32_t xy[2], uint32_t wh[2]);
-
-/**
- * Draws the texture on an already existing image.
- * 
- * @param[in] image The image to draw on.
- * @param[in] texture The texture to use to draw on the image.
- * @param[in] x X position relative to the image.
- * @param[in] y Y position relative to the image.
- * @return In case of any issues false, else true.
- */
-bool mlx_draw_texture(mlx_image_t* image, mlx_texture_t* texture, uint32_t x, uint32_t y);
 
 //= Image Functions =//
 

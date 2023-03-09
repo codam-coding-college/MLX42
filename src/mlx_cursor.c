@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx_cursor.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/18 20:10:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 08:58:23 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2023/03/09 11:11:45 by W2Wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //= Public =//
 
-void* mlx_create_std_cursor(cursor_t type)
+mlx_win_cursor_t* mlx_create_std_cursor(cursor_t type)
 {
 	MLX_ASSERT(type >= MLX_CURSOR_ARROW && type < MLX_CURSOR_VRESIZE, "Invalid standard cursor type");
 
@@ -24,7 +24,7 @@ void* mlx_create_std_cursor(cursor_t type)
 	return ((void *)mlx_error(MLX_MEMFAIL));
 }
 
-void* mlx_create_cursor(mlx_texture_t* texture)
+mlx_win_cursor_t* mlx_create_cursor(mlx_texture_t* texture)
 {
 	MLX_NONNULL(texture);
 
@@ -40,7 +40,7 @@ void* mlx_create_cursor(mlx_texture_t* texture)
 	return ((void *)mlx_error(MLX_MEMFAIL));
 }
 
-void mlx_set_cursor(mlx_t* mlx, void* cursor)
+void mlx_set_cursor(mlx_t* mlx, mlx_win_cursor_t* cursor)
 {
 	MLX_NONNULL(mlx);
 	MLX_NONNULL(cursor);
