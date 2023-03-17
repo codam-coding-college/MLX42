@@ -87,7 +87,13 @@ void mlx_set_icon(mlx_t* mlx, mlx_texture_t* image)
 	MLX_NONNULL(mlx);
 	MLX_NONNULL(image);
 
-	glfwSetWindowIcon(mlx->window, 1, (const GLFWimage*)image);
+        const GLFWimage icon = {
+                .width = image->width,
+                .height = image->height,
+                .pixels = image->pixels
+        };
+
+        glfwSetWindowIcon(mlx->window, 1, &icon);
 }
 
 void mlx_set_window_pos(mlx_t* mlx, int32_t xpos, int32_t ypos)
