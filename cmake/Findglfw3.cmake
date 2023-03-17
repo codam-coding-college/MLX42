@@ -23,7 +23,7 @@ set(_glfw3_LIB_SEARCH_DIRS
 "/usr/lib"
 "/usr/local/lib"
 "C:/Program Files/GLFW"
-"C:/Program Files (x86)/GLFW/include"
+"C:/Program Files (x86)/GLFW"
 "$ENV{HOME}/.brew/lib/"
 )
 
