@@ -40,6 +40,13 @@ mlx_win_cursor_t* mlx_create_cursor(mlx_texture_t* texture)
 	return ((void *)mlx_error(MLX_MEMFAIL));
 }
 
+void mlx_destroy_cursor(mlx_win_cursor_t* cursor)
+{
+	MLX_NONNULL(cursor);
+
+	glfwDestroyCursor(cursor);
+}
+
 void mlx_set_cursor(mlx_t* mlx, mlx_win_cursor_t* cursor)
 {
 	MLX_NONNULL(mlx);

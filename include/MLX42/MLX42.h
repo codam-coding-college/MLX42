@@ -470,6 +470,13 @@ mlx_win_cursor_t* mlx_create_std_cursor(cursor_t type);
 mlx_win_cursor_t* mlx_create_cursor(mlx_texture_t* texture);
 
 /**
+ * Destroys the given cursor object.
+ * 
+ * @param[in] cursor The cursor object to destroy.
+ */
+void mlx_destroy_cursor(mlx_win_cursor_t* cursor);
+
+/**
  * Sets the current cursor to the given custom cursor. 
  * 
  * @param[in] mlx The MLX instance handle.
