@@ -19,10 +19,10 @@
 // GIMP RGBA C-Source image dump (font.c)
 static struct s_font
 {
-	uint32_t	width;
-	uint32_t	height;
-	uint32_t	bpp;
-	uint8_t*	pixels;
+	uint32_t		width;
+	uint32_t		height;
+	uint32_t		bpp;
+	char*			pixels;
 }	font_atlas = {
 	1140, 20, 4,
 	"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"

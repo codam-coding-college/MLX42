@@ -31,7 +31,7 @@ static void mlx_draw_char(mlx_image_t* image, int32_t texoffset, int32_t imgoffs
 	if (texoffset < 0)
 		return;
 
-	uint8_t* pixelx;
+	char* pixelx;
 	uint8_t* pixeli;
 	for (uint32_t y = 0; y < FONT_HEIGHT; y++)
 	{
