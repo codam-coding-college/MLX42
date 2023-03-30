@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mlx_images.c                                       :+:    :+:            */
+/*   mlx_images.c                                       :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/28 18:26:59 by sbos          ########   odam.nl         */
+/*   Updated: 2023/03/30 14:22:13 by ntamayo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/MLX42_Int.h"
+/** #include "MLX42/MLX42_Int.h" */
+#include "../include/MLX42/MLX42.h"
+#include "../include/MLX42/MLX42_Int.h"
 
 //= Private =//
 
@@ -238,4 +240,20 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nwidth, nheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img->pixels);
 	}
 	return (true);
+}
+
+mlx_image_t* mlx_scale_image(mlx_t* mlx, mlx_image_t* img,  uint32_t nwidth, uint32_t nheight)
+{
+	mlx_image_t* newimg = mlx_new_image(mlx, nwidth, nheight);
+	if (!newimg)
+		return (newimg);
+
+	float wstep = (float)img->width / nwidth;
+	float hstep = (float)img->height / nheight;
+	uint32_t* origin = (uint32_t*)img->pixels;
+	uint32_t* destin = (uint32_t*)newimg->pixels;
+	for (uint32_t j = 0; j < nheight; j++)
+		for (uint32_t i = 0; i < nwidth; i++)
+			destin[j * nwidth + i] = origin[(uint32_t)(j * hstep) * img->width + (uint32_t)(i * wstep)];
+	return (newimg);
 }

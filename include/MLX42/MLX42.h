@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX42.h                                            :+:    :+:            */
+/*   MLX42.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/09 11:12:25 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2023/03/30 12:33:20 by ntamayo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -668,6 +668,18 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
  * @return True if image was resized or false on error.
  */
 bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
+
+/**
+ * @brief 
+ *
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] img The image to scale.
+ * @param[in] nwidth The new width.
+ * @param[in] nheight The new height.
+ *
+ * @return Pointer to the scaled image on success, NULL on fail.
+ */
+mlx_image_t* mlx_scale_image(mlx_t* mlx, mlx_image_t *img, uint32_t nwidth, uint32_t nheight);
 
 /**
  * Sets the depth / Z axis value of an instance.
