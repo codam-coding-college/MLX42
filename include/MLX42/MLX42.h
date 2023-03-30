@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX42.h                                            :+:    :+:            */
+/*   MLX42_Keys.h                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/09 11:12:25 by W2Wizard      ########   odam.nl         */
+/*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2023/03/30 16:23:19 by ntamayo-      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -659,8 +659,8 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y);
 void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
 
 /**
- * Allows you to resize an image, the pixel buffer is re-allocated
- * to fit & the previous data is copied over. New pixels are zeroed.
+ * Allows you to resize an image, a new pixel buffer is allocated
+ * to fit & the previous data is scaled to fit the new size.
  * 
  * @param[in] img The image to resize.
  * @param[in] nwidth The new width.

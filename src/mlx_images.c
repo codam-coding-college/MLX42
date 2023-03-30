@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mlx_images.c                                       :+:    :+:            */
+/*   MLX42_Keys.h                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/07/28 18:26:59 by sbos          ########   odam.nl         */
+/*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
+/*   Updated: 2023/03/30 16:36:39 by ntamayo-      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,13 +229,23 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 		return (mlx_error(MLX_INVDIM));
 	if (nwidth != img->width || nheight != img->height)
 	{
-		uint8_t* tempbuff = realloc(img->pixels, (nwidth * nheight) * BPP);
+		uint32_t* origin = (uint32_t*)img->pixels;
+		float wstep = (float)img->width / nwidth;
+		float hstep = (float)img->height / nheight;
+
+		uint8_t* tempbuff = calloc(nwidth * nheight, BPP);
 		if (!tempbuff)
 			return (mlx_error(MLX_MEMFAIL));
 		img->pixels = tempbuff;
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nwidth, nheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img->pixels);
+
+		uint32_t* destin = (uint32_t*)img->pixels;
+		for (uint32_t j = 0; j < nheight; j++)
+			for (uint32_t i = 0; i < nwidth; i++)
+				destin[j * nwidth + i] = origin[(uint32_t)(j * hstep) * img->width + (uint32_t)(i * wstep)];
 		(*(uint32_t*)&img->width) = nwidth;
 		(*(uint32_t*)&img->height) = nheight;
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nwidth, nheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img->pixels);
+		free(origin);
 	}
 	return (true);
 }
