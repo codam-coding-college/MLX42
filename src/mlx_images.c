@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 16:21:13 by ntamayo-         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:36:39 by ntamayo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,14 +237,14 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight)
 		if (!tempbuff)
 			return (mlx_error(MLX_MEMFAIL));
 		img->pixels = tempbuff;
-		(*(uint32_t*)&img->width) = nwidth;
-		(*(uint32_t*)&img->height) = nheight;
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, nwidth, nheight, 0, GL_RGBA, GL_UNSIGNED_BYTE, img->pixels);
 
 		uint32_t* destin = (uint32_t*)img->pixels;
 		for (uint32_t j = 0; j < nheight; j++)
 			for (uint32_t i = 0; i < nwidth; i++)
 				destin[j * nwidth + i] = origin[(uint32_t)(j * hstep) * img->width + (uint32_t)(i * wstep)];
+		(*(uint32_t*)&img->width) = nwidth;
+		(*(uint32_t*)&img->height) = nheight;
 		free(origin);
 	}
 	return (true);
