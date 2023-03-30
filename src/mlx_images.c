@@ -6,13 +6,11 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/21 15:34:45 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 14:22:13 by ntamayo-         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:34:43 by ntamayo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/** #include "MLX42/MLX42_Int.h" */
-#include "../include/MLX42/MLX42.h"
-#include "../include/MLX42/MLX42_Int.h"
+#include "MLX42/MLX42_Int.h"
 
 //= Private =//
 
