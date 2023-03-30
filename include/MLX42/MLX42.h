@@ -6,7 +6,7 @@
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 12:33:20 by ntamayo-         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:37:45 by ntamayo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -670,7 +670,7 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
 bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
 
 /**
- * @brief 
+ * Creates a copy of an image scaled to fit the given width and height.
  *
  * @param[in] mlx The MLX instance handle.
  * @param[in] img The image to scale.
