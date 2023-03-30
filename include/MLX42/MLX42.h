@@ -6,7 +6,7 @@
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 14:37:45 by ntamayo-         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:23:19 by ntamayo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -659,8 +659,8 @@ int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y);
 void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
 
 /**
- * Allows you to resize an image, the pixel buffer is re-allocated
- * to fit & the previous data is copied over. New pixels are zeroed.
+ * Allows you to resize an image, a new pixel buffer is allocated
+ * to fit & the previous data is scaled to fit the new size.
  * 
  * @param[in] img The image to resize.
  * @param[in] nwidth The new width.
@@ -668,18 +668,6 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
  * @return True if image was resized or false on error.
  */
 bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
-
-/**
- * Creates a copy of an image scaled to fit the given width and height.
- *
- * @param[in] mlx The MLX instance handle.
- * @param[in] img The image to scale.
- * @param[in] nwidth The new width.
- * @param[in] nheight The new height.
- *
- * @return Pointer to the scaled image on success, NULL on fail.
- */
-mlx_image_t* mlx_scale_image(mlx_t* mlx, mlx_image_t *img, uint32_t nwidth, uint32_t nheight);
 
 /**
  * Sets the depth / Z axis value of an instance.
