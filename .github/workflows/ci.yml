@@ -39,7 +39,7 @@ jobs:
       run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
     - name: Build MLX42 & tests
-      run: cmake -DBUILD_TESTS=YES -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build
+      run: cmake -DBUILD_TESTS=YES -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build --parallel
 
     - name: Run tests
       run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
@@ -47,17 +47,19 @@ jobs:
 # Unix
 #=============================================================================#
 
-  build-unix:
+  build:
     timeout-minutes: 10
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
     - name: Clone repository
       uses: actions/checkout@v2
 
+    # Windows will just fetch glfw with cmake automatically.
+    # This avoids doing extra work like installing a package manager.
     - name: Install Dependencies
       run: |
         set -x
@@ -67,29 +69,9 @@ jobs:
         elif [ "$RUNNER_OS" == "macOS" ]; then
             brew update
             brew install glfw
-        else
-            echo "$RUNNER_OS not supported"
-            exit 1
         fi
 
     - name: Build
-      run: cmake -B build && cmake --build build
-
-# Windows
-#=============================================================================#
-
-  build-win:
-    name: Win32
-    runs-on: windows-latest
-    timeout-minutes: 20
-    # env:
-    #   CFLAGS: /WX
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Build
-        run: cmake -B build && cmake --build build --parallel
+      run: cmake -B build && cmake --build build --parallel
 
 #=============================================================================#
