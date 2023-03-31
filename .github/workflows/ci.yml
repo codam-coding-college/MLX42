@@ -61,6 +61,7 @@ jobs:
     # Windows will just fetch glfw with cmake automatically.
     # This avoids doing extra work like installing a package manager.
     - name: Install Dependencies
+      if: matrix.os != 'windows-latest'
       run: |
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
