@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   mlx_xpm42.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:58:33 by lde-la-h      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   mlx_xpm42.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bylkode <bylkode@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 03:42:29 by W2Wizard          #+#    #+#             */
+/*   Updated: 2023/04/20 22:42:23 by bylkode          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,4 +205,29 @@ void mlx_delete_xpm42(xpm_t* xpm)
 	MLX_NONNULL(xpm);
 	free(xpm->texture.pixels);
 	free(xpm);
+}
+
+char *convert_path(char* path)
+{
+    // Allocate memory for the new string
+    char *new_str = malloc(sizeof(char) * (strlen(path) + 3));
+    if (new_str == NULL) 
+	{
+        printf("Error: malloc failed\n");
+        return NULL;
+    }
+    // Copy the path to the new string and add "42"
+    strcpy(new_str, path);
+    strcat(new_str, "42");
+
+    // Build the command string to run the Python program
+    char command[256];
+    snprintf(command, sizeof(command), "python3 MLX42/tools/xpm3_conv.py \"%s\"", path);
+
+    // Call the Python program using system()
+    int ret = system(command);
+
+    if (ret != 0) 
+        printf("Error: failed to run Python program\n");
+    return new_str;
 }

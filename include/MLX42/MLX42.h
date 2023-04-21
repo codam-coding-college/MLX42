@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   MLX42_Keys.h                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 16:23:19 by ntamayo-      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   MLX42.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bylkode <bylkode@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 02:29:06 by W2Wizard          #+#    #+#             */
+/*   Updated: 2023/04/20 22:45:01 by bylkode          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -558,7 +558,6 @@ void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param);
 bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
 
 //= Texture Functions =//
-
 /**
  * Decode/load a PNG file into a buffer.
  * 
@@ -566,6 +565,13 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
  * @return If successful the texture data is returned, else NULL.
  */
 mlx_texture_t* mlx_load_png(const char* path);
+
+/**
+ * @brief Uses the python script to convert from xpm into xpm42 and returns the new path
+ * 
+ * @param path the path of the file to convert
+ */
+char *convert_path(char* path);
 
 /**
  * Loads an XPM42 texture from the given file path.
