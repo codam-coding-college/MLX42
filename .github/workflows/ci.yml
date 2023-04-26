@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Clone repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install Dependencies
       run: |
@@ -56,7 +56,7 @@ jobs:
 
     steps:
     - name: Clone repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Windows will just fetch glfw with cmake automatically.
     # This avoids doing extra work like installing a package manager.
