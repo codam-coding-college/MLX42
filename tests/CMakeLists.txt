@@ -34,7 +34,7 @@ target_link_libraries(
 set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 14)
 
 # Add tests to CTest
-# Set working directory to the the testing folder so that the test can find their test files
+# Set working directory to the testing folder so that the test can find their test files
 # -----------------------------------------------------------------------------
 gtest_discover_tests(${TEST_EXECUTABLE_NAME} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} TEST_PREFIX "MLX42.")
 enable_testing()

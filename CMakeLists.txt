@@ -147,8 +147,8 @@ endif()
 
 # Testing
 # -----------------------------------------------------------------------------
-# Only build tests if we are the main project or explicitly told to this make sure 
-# tests are not built when mlx42 included as a subproject, use MLX42_BUILD_TESTS to overwrite this
+# Only build tests if we are the main project or explicitly told to, make sure 
+# tests are not built when mlx42 is included as a subproject, use MLX42_BUILD_TESTS to overwrite this
 # use cmake -DBUILD_TESTS=ON/-DMLX42_BUILD_TESTS=ON to build tests
 
 if ((PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME AND BUILD_TESTS) OR MLX42_BUILD_TESTS)
