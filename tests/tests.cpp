@@ -21,7 +21,7 @@ TEST_F(Window, Basic)
 }
 
 
-// NOTE: This test cannot be runned with a fixture because the settings need to be set before the window is created
+// NOTE: This test cannot be run with a fixture because the settings need to be set before the window is created
 TEST(MWindow, Settings)
 {
 	mlx_errno = MLX_SUCCESS;
