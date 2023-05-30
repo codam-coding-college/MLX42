@@ -27,8 +27,8 @@ void mlx_update_matrix(const mlx_t* mlx)
 	 * In case the setting to stretch the image is set, we maintain the width and height but not
 	 * the depth.
 	 */
-	width = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialWidth : mlx->width;
-	height = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialHeight : mlx->height;
+	const float width = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialWidth : mlx->width;
+	const float height = mlx_settings[MLX_STRETCH_IMAGE] ? mlxctx->initialHeight : mlx->height;
 
 	const float matrix[16] = {
 		2.f / width, 0, 0, 0,
