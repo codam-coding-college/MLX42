@@ -18,7 +18,7 @@
  * Recalculate the view projection matrix, used by images for screen pos
  * Reference: https://bit.ly/3KuHOu1 (Matrix View Projection)
  */
-void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height)
+void mlx_update_matrix(const mlx_t* mlx)
 {
 	const mlx_ctx_t* mlxctx = mlx->context;
 	const float depth = mlxctx->zdepth;

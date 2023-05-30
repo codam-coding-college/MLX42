@@ -106,7 +106,7 @@ void mlx_loop(mlx_t* mlx)
 		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
 
 		if ((mlx->width > 1 || mlx->height > 1))
-			mlx_update_matrix(mlx, mlx->width, mlx->height);
+			mlx_update_matrix(mlx);
 
 		mlx_exec_loop_hooks(mlx);
 		mlx_render_images(mlx);

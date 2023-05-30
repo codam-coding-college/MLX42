@@ -239,7 +239,7 @@ bool mlx_freen(int32_t count, ...);
 
 //= OpenGL Functions =//
 
-void mlx_update_matrix(const mlx_t* mlx, int32_t width, int32_t height);
+void mlx_update_matrix(const mlx_t* mlx);
 void mlx_draw_instance(mlx_ctx_t* mlx, mlx_image_t* img, mlx_instance_t* instance);
 void mlx_flush_batch(mlx_ctx_t* mlx);
 
