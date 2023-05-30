@@ -370,7 +370,7 @@ void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos);
 
 /**
  * Changes the window size to the newly specified values.
- * Use this to update the window width and heigth values in the mlx ptr.
+ * Use this to update the window width and heigth values in the mlx handle.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] new_width The new desired width.
@@ -382,6 +382,9 @@ void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height);
  * Sets the size limits of the specified window.
  * Will force the window to not be resizable past or below the given values.
  * 
+ * Pass -1 for no limit to any of the min/max parameters to ignore that boundary.
+ * For instance if you want a min window size but the max window size can be whatever.
+ *
  * @param[in] mlx The MLX instance handle.
  * @param[in] min_w The min width of the window.
  * @param[in] max_w The max width of the window.
