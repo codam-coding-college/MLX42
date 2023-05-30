@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_exit.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/11/26 14:23:55 by jvan-hal      ########   odam.nl         */

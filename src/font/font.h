@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   font.h                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:42:53 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/03/03 13:05:57 by lde-la-h      ########   odam.nl         */

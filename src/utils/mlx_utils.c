@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_utils.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 20:13:17 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/11/22 10:56:09 by jvan-hal      ########   odam.nl         */

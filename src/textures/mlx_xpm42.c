@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_xpm42.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/06/27 19:58:33 by lde-la-h      ########   odam.nl         */

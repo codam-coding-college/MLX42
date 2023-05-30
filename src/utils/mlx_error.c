@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_error.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/11/22 08:50:15 by jvan-hal      ########   odam.nl         */

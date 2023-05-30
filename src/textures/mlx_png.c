@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_png.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/16 23:11:29 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/06/27 19:55:06 by lde-la-h      ########   odam.nl         */

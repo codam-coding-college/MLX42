@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   MLX42_Keys.h                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/03/02 16:48:27 by lde-la-h      ########   odam.nl         */

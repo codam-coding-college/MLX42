@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_font.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/06/27 19:53:36 by lde-la-h      ########   odam.nl         */

@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_monitor.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/19 17:18:59 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/06/27 20:02:38 by lde-la-h      ########   odam.nl         */

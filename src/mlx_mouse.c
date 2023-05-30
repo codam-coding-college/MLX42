@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   mlx_mouse.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */

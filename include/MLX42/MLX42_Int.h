@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   MLX42_Int.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
+/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/27 23:55:34 by W2Wizard      #+#    #+#                 */
 /*   Updated: 2022/07/21 10:46:43 by sbos          ########   odam.nl         */
