@@ -22,6 +22,7 @@
 
 #ifndef MLX42_H
 # define MLX42_H
+# include <stddef.h>
 # include <stdint.h>
 # include <stdbool.h>
 # ifdef __cplusplus
@@ -335,7 +336,7 @@ typedef struct mlx_image
 	const uint32_t	height;
 	uint8_t*		pixels;
 	mlx_instance_t*	instances;
-	int32_t			count;
+	size_t			count;
 	bool			enabled;
 	void*			context;
 }	mlx_image_t;
