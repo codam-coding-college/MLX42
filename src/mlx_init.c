@@ -6,7 +6,7 @@
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:24:30 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/02/13 11:36:27 by W2Wizard      ########   odam.nl         */
+/*   Updated: 2023/06/08 18:16:19 by XEDGit        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static uint32_t mlx_compile_shader(const char* code, int32_t type)
 	{
 		glGetShaderInfoLog(shader, sizeof(infolog), NULL, infolog);
 		fprintf(stderr, "%s", infolog);
+		glDeleteShader(shader);
 		return (0);
 	}
 	return (shader);
@@ -112,16 +113,25 @@ static bool mlx_init_render(mlx_t* mlx)
 	// Load all OpenGL function pointers
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		return (mlx_error(MLX_GLADFAIL));
-	
+
 	if (!(vshader = mlx_compile_shader(vert_shader, GL_VERTEX_SHADER)))
 		return (mlx_error(MLX_VERTFAIL));
 	if (!(fshader = mlx_compile_shader(frag_shader, GL_FRAGMENT_SHADER)))
 		return (mlx_error(MLX_FRAGFAIL));
 	if (!(mlxctx->shaderprogram = glCreateProgram()))
+	{
+		glDeleteShader(fshader);
+		glDeleteShader(vshader);
 		return (mlx_error(MLX_SHDRFAIL));
+	}
 	glAttachShader(mlxctx->shaderprogram, vshader);
 	glAttachShader(mlxctx->shaderprogram, fshader);
 	glLinkProgram(mlxctx->shaderprogram);
+
+	glDeleteShader(vshader);
+	glDeleteShader(fshader);
+	glDetachShader(mlxctx->shaderprogram, vshader);
+	glDetachShader(mlxctx->shaderprogram, fshader);
 
 	int32_t success;
 	glGetProgramiv(mlxctx->shaderprogram, GL_LINK_STATUS, &success);
@@ -131,8 +141,6 @@ static bool mlx_init_render(mlx_t* mlx)
 		fprintf(stderr, "%s", infolog);
 		return (mlx_error(MLX_SHDRFAIL));
 	}
-	glDeleteShader(vshader);
-	glDeleteShader(fshader);
 	glUseProgram(mlxctx->shaderprogram);
 
 	for (size_t i = 0; i < 16; i++)

@@ -6,7 +6,7 @@
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:43:22 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/26 14:23:55 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2023/06/08 18:12:20 by XEDGit        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void mlx_terminate(mlx_t* mlx)
 
 	mlx_ctx_t *const mlxctx = mlx->context;
 
+	glUseProgram(0);
+	glLinkProgram(mlxctx->shaderprogram);
+	glDeleteProgram(mlxctx->shaderprogram);
 	glfwTerminate();
 	mlx_lstclear((mlx_list_t**)(&mlxctx->hooks), &free);
 	mlx_lstclear((mlx_list_t**)(&mlxctx->render_queue), &free);
