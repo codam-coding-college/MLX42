@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX42_Keys.h                                       :+:    :+:            */
+/*   MLX42.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
@@ -11,13 +11,20 @@
 /* ************************************************************************** */
 
 /**
- * A cross-platform OpenGL graphics library based on the idea that MiniLibX
- * provides. Just quite a bit better, in terms of code quality & performance.
+ *
+ * MLX42 is a cross-platform low level and simple cross-platform graphics
+ * library written in C and uses OpenGL and GLFW for it's underlying windowing
+ * and rendering system.
  * 
- * As for the few void* present in some structs and functions and 
- * why MLX is split into two different headers, so to speak, 
- * it's mainly for abstraction. Most users won't have a need for the inner 
- * workings of MLX (shaders, ...) and it also helps keep MLX nice and tidy.
+ * It's a much more up-to-date alternative to the miniLibX which has been
+ * extensively proven to be fragile, unmaintained, deprecated and just
+ * plain painfully bad to work with. Also it's code quality is dubious.
+ * 
+ * Some structs contain potential void* which are to be ignored as they 
+ * simply represent points of abstraction to the hidden internal header.
+ * This abstraction is crucial as the whole point of this lib so to hide
+ * all the bells and whistles in the "engine". Most user's have no need
+ * for the inner workings eitherway (shaders, vertex buffer, ...).  
  */
 
 #ifndef MLX42_H

@@ -175,8 +175,8 @@ typedef struct mlx_ctx
 	GLuint			vbo;
 	GLuint			shaderprogram;
 
-	uint32_t		initialWidth;
-	uint32_t		initialHeight;
+	int32_t			initialWidth;
+	int32_t			initialHeight;
 
 	mlx_list_t*		hooks;
 	mlx_list_t*		images;
