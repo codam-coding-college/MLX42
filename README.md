@@ -131,7 +131,7 @@ the compilation should be:
 ➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
 
 # 42Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$USER/.brew/opt/glfw/lib/"
+➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 ```
 
 #### MacOS Security:
