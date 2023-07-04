@@ -23,27 +23,27 @@ jobs:
   unit-test:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    needs: build
     env:
       DISPLAY: ":99"
 
     steps:
-    - name: Clone repository
-      uses: actions/checkout@v3
+      - name: Clone repository
+        uses: actions/checkout@v3
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update -qq
-        sudo apt-get install -y -qq xorg-dev xvfb
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xorg-dev xvfb
 
-    - name: Setup virtual screen
-      run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
+      - name: Setup virtual screen
+        run: Xvfb $DISPLAY -screen 0 1280x1024x24 &
 
-    - name: Build MLX42 & tests
-      run: cmake -DBUILD_TESTS=YES -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build --parallel
+      - name: Build MLX42 & tests
+        run: cmake -DBUILD_TESTS=YES -B ${{github.workspace}}/build && cmake --build ${{github.workspace}}/build --parallel
 
-    - name: Run tests
-      run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
-
+      - name: Run tests
+        run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
 # Unix
 #=============================================================================#
 
