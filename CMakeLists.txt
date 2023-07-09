@@ -167,19 +167,14 @@ endif()
 # library as a subproject as you probably don't have (nor really should) have any
 # amibitons to use this for anything other than your own school projects.
 
-if(WIN32)
-	# REMINDER(W2): I don't have a windows computer at work :P
-	message(FATAL_ERROR "Windows is not supported yet.")
-else()
-	install(
-		DIRECTORY ./include/MLX42 DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-		FILES_MATCHING PATTERN MLX42.h PATTERN MLX42_Int.h
-	)
+install(
+	DIRECTORY ./include/MLX42 DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+	FILES_MATCHING PATTERN MLX42.h
+)
 
-	install(TARGETS mlx42
-		EXPORT mlx42Targets
-		RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-		ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-		LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-	)
-endif()
+install(TARGETS mlx42
+	EXPORT mlx42Targets
+	RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+	ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+	LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+)
