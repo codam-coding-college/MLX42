@@ -182,6 +182,8 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 
 ## For Windows (with Windows Subsystem for Linux 2 (WSL2))
 
+> **Warning**: Before starting with all these steps, [read this](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps)
+
 1. Set these variables in your `.zshrc` or `.bashrc`:
 ```bash
 export DISPLAY=$(ip route list default | awk '{print $3}'):0
