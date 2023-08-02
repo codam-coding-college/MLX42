@@ -128,7 +128,7 @@ A: From my personal projects there was a considerable peformance gain, especiall
 
 Q: **_"Can I just drag and drop it into my old project and just not do anything?"_**
 
-A: Well, um uh, no ?? That's not how libraries work. Sure they target and do sort of the same thing but the functions each library provides are too different, even a little bit in terms of behavior. And no there is no easy way to convert from the "old" to the "new" it will be somewhat tedious work.
+A: No. That's not how libraries work. Sure they target and do sort of the same thing but the functions each library provides are too different, even a little bit in terms of behavior. And no there is no easy way to convert from the "old" to the "new" it will be somewhat tedious work.
 
 Q: **_"We should be able to deal with the fact that MiniLibX is not perfect, it is by design and makes us better programmers."_**
 
