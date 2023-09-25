@@ -767,7 +767,7 @@ void lodepng_decoder_settings_init(LodePNGDecoderSettings* settings);
 typedef enum LodePNGFilterStrategy {
   /*every filter at zero*/
   LFS_ZERO = 0,
-  /*every filter at 1, 2, 3 or 4 (paeth), unlike LFS_ZERO not a good choice, but for testing*/
+  /*every filter at 1, 2, 3 or 4 (path), unlike LFS_ZERO not a good choice, but for testing*/
   LFS_ONE = 1,
   LFS_TWO = 2,
   LFS_THREE = 3,
@@ -835,7 +835,7 @@ typedef struct LodePNGEncoderSettings {
   const unsigned char* predefined_filters;
 
   /*force creating a PLTE chunk if colortype is 2 or 6 (= a suggested palette).
-  If colortype is 3, PLTE is always created. If color type is explicitely set
+  If colortype is 3, PLTE is always created. If color type is explicitly set
   to a grayscale type (1 or 4), this is not done and is ignored. If enabling this,
   a palette must be present in the info_png.
   NOTE: enabling this may worsen compression if auto_convert is used to choose
@@ -1874,7 +1874,7 @@ state.decoder.remember_unknown_chunks: whether to read in unknown chunks
 state.info_raw.colortype: desired color type for decoded image
 state.info_raw.bitdepth: desired bit depth for decoded image
 state.info_raw....: more color settings, see struct LodePNGColorMode
-state.info_png....: no settings for decoder but ouput, see struct LodePNGInfo
+state.info_png....: no settings for decoder but output, see struct LodePNGInfo
 
 For encoding:
 

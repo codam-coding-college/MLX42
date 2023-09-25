@@ -1367,7 +1367,7 @@ static unsigned inflateNoCompression(ucvector* out, LodePNGBitReader* reader,
   /*read the literal data: LEN bytes are now stored in the out buffer*/
   if(bytepos + LEN > size) return 23; /*error: reading outside of in buffer*/
 
-  /*out->data can be NULL (when LEN is zero), and arithmetics on NULL ptr is undefined*/
+  /*out->data can be NULL (when LEN is zero), and arithmetic on NULL ptr is undefined*/
   if (LEN) {
     lodepng_memcpy(out->data + out->size - LEN, reader->data + bytepos, LEN);
     bytepos += LEN;
@@ -4237,7 +4237,7 @@ static unsigned auto_choose_color(LodePNGColorMode* mode_out,
 
 #endif /* #ifdef LODEPNG_COMPILE_ENCODER */
 
-/*Paeth predictor, used by PNG filter type 4*/
+/*Path predictor, used by PNG filter type 4*/
 static unsigned char paethPredictor(unsigned char a, unsigned char b, unsigned char c) {
   /* the subtractions of unsigned char cast it to a signed type.
   With gcc, short is faster than int, with clang int is as fast (as of april 2023)*/
@@ -5854,7 +5854,7 @@ static void filterScanline(unsigned char* out, const unsigned char* scanline, co
         for(i = bytewidth; i < length; ++i) out[i] = scanline[i] - (scanline[i - bytewidth] >> 1);
       }
       break;
-    case 4: /*Paeth*/
+    case 4: /*Path*/
       if(prevline) {
         /*paethPredictor(0, prevline[i], 0) is always prevline[i]*/
         for(i = 0; i != bytewidth; ++i) out[i] = (scanline[i] - prevline[i]);
@@ -6390,7 +6390,7 @@ unsigned lodepng_encode(unsigned char** out, size_t* outsize,
     if(state->encoder.force_palette) {
       if(info.color.colortype != LCT_GREY && info.color.colortype != LCT_GREY_ALPHA &&
          (auto_color.colortype == LCT_GREY || auto_color.colortype == LCT_GREY_ALPHA)) {
-        /*user speficially forced a PLTE palette, so cannot convert to grayscale types because
+        /*user specifically forced a PLTE palette, so cannot convert to grayscale types because
         the PNG specification only allows writing a suggested palette in PLTE for truecolor types*/
         allow_convert = 0;
       }

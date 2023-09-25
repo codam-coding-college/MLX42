@@ -59,13 +59,13 @@ static uint8_t mlx_parse_hex_channel(char* channel)
  * @param line The line to parse.
  * @param ctable The color hash table.
  * @param s Size of the hash table
- * @return True or false depending on if it sucessfully parsed the line.
+ * @return True or false depending on if it successfully parsed the line.
  */
 static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_t s)
 {
 	// NOTE: uintptr because windows likes to complain...
 	// Verify the length of the Pixel string by checking backwards for the first
-	// occurence of a space and then check the distance by comparing with cpp.
+	// occurrence of a space and then check the distance by comparing with cpp.
 	if (((uintptr_t)strrchr(line, ' ') - (uintptr_t)line) != (uint64_t)xpm->cpp)
 		return (false);
 	if (!isspace(line[xpm->cpp]) || line[xpm->cpp + 1] != '#' || !isalnum(line[xpm->cpp + 2]))
@@ -91,7 +91,7 @@ static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_
  * @param file The filepath to the XPM42 file.
  * @param ctable The color hash table.
  * @param s Size of the hash table.
- * @return True or false depending on if it sucessfully parsed the line.
+ * @return True or false depending on if it successfully parsed the line.
  */
 static bool mlx_read_data(xpm_t* xpm, FILE* file, uint32_t* ctable, size_t s)
 {
