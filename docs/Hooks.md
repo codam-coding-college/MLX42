@@ -140,7 +140,7 @@ Generic hooks execute each frame and are useful for stuff that needs to be updat
  * @param[in] mlx The MLX instance handle.
  * @param[in] f The function.
  * @param[in] param The parameter to pass onto the function.
- * @returns Wether the hook was added successfuly. 
+ * @returns Wether the hook was added successfully. 
  */
 bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param);
 ```

@@ -130,7 +130,7 @@ find_package(OpenGL REQUIRED)
 
 target_link_libraries(mlx42 OpenGL::GL)
 if (NOT glfw3_FOUND AND GLFW_FETCH)
-	message(STATUS "Install GLFW to supress this message")
+	message(STATUS "Install GLFW to suppress this message")
 	message(STATUS "Please wait, fetching GLFW ...")
 	include(${CMAKE_DIR}/LinkGLFW.cmake)
 	LinkGLFW(mlx42)

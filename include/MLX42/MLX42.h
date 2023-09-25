@@ -592,7 +592,7 @@ void mlx_get_window_pos(mlx_t* mlx, int32_t* xpos, int32_t* ypos);
 
 /**
  * Changes the window size to the newly specified values.
- * Use this to update the window width and heigth values in the mlx handle.
+ * Use this to update the window width and height values in the mlx handle.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] new_width The new desired width.
@@ -857,7 +857,7 @@ mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
  * NOT the pointer! It will become invalid!
  * 
  * WARNING: Try to display as few images on the window as possible,
- * drawing too many images will cause a loss in peformance!
+ * drawing too many images will cause a loss in performance!
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] img The image to draw on the screen.
