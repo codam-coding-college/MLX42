@@ -44,7 +44,7 @@ jobs:
 
       - name: Run tests
         run: ctest --output-on-failure --test-dir ${{github.workspace}}/build
-        run: cc tests/list_tests.c src/utils/mlx_utils.c && ./a.out
+             cc tests/list_tests.c src/utils/mlx_utils.c && ./a.out
 # Unix
 #=============================================================================#
 
