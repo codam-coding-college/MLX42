@@ -15,12 +15,6 @@
 // For the implementation of the fixture see tests/windowFixture.hpp
 // --------------------------------------------
 
-TEST_F(Window, Basic)
-{
-	// Basic window is already tested in the fixture
-}
-
-
 // NOTE: This test cannot be run with a fixture because the settings need to be set before the window is created
 TEST(MWindow, Settings)
 {
