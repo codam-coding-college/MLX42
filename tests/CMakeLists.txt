@@ -23,7 +23,6 @@ FetchContent_MakeAvailable(googletest)
 add_executable(
 	${TEST_EXECUTABLE_NAME}
 	tests.cpp
-	list_tests.c
 )
 
 target_link_libraries(
