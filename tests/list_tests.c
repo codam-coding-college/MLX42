@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include "../include/MLX42/MLX42.h"
 #include "../include/MLX42/MLX42_Int.h"
