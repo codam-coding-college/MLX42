@@ -7,6 +7,7 @@
 // http://google.github.io/googletest/primer.html
 
 #include "WindowFixture.hpp"
+#include <MLX42/MLX42_Int.h>
 
 // --------------------------------------------
 // Fixture for window tests
