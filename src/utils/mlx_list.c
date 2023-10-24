@@ -85,7 +85,6 @@ void mlx_lstadd_front(mlx_list_t** lst, mlx_list_t* new)
 	if ((*lst) != NULL)
 		(*lst)->prev = new;
 	new->next = *lst;
-	new->prev = NULL;
 	*lst = new;
 }
 
