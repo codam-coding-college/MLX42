@@ -121,7 +121,7 @@ static int32_t mlx_getzdata(mlx_list_t* entry)
 	return (queue->image->instances[queue->instanceid].z);
 }
 
-// Insert the entry back into head sorted.
+// Insert the entry back into head sorted. This algorithm sorts it in ascending order
 static void mlx_insertsort(mlx_list_t** head, mlx_list_t* new)
 {
 	mlx_list_t* current;
