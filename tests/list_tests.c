@@ -28,7 +28,7 @@ void printlist(int fd, mlx_list_t *lst)
 int test_content(int fd, char *expected, int length)
 {
 	char buf[201];
-	(void)read(fd, buf, length)
+	(void)read(fd, buf, length);
 	buf[length] = '\0';
 	return (strncmp(buf, expected, length));
 }
@@ -36,7 +36,7 @@ int test_content(int fd, char *expected, int length)
 int main()
 {
 	int tube[2];
-	(void)pipe(tube) // 0 read, 1 write
+	(void)pipe(tube); // 0 read, 1 write
 	mlx_list_t *lst = NULL;
 	mlx_lstadd_back(&lst, mlx_lstnew(strdup("Hello")));
 	mlx_lstadd_back(&lst, mlx_lstnew(strdup("again")));
@@ -52,7 +52,7 @@ int main()
 	mlx_lstclear(&lst, &free);
 	if (lst)
 		return 1;
-	(void)pipe(tube)
+	(void)pipe(tube);
 	mlx_lstadd_back(&lst, mlx_lstnew(strdup("Hello")));
 	mlx_lstadd_back(&lst, mlx_lstnew(strdup("again")));
 	mlx_lstadd_back(&lst, mlx_lstnew(strdup("does")));
@@ -65,7 +65,7 @@ int main()
 	if (test_content(tube[0], "Hello\ndoes\n\nthis\nwork\n", 22) != 0)
 		return 1;
 	(void)close(tube[0]);
-	(void)pipe(tube)
+	(void)pipe(tube);
 	printlist(tube[1], mlx_lstlast(lst));
 	if (test_content(tube[0], "work\n", 5) != 0)
 		return 1;
@@ -74,7 +74,7 @@ int main()
 	mlx_lstclear(&lst, &free);
 	if (lst)
 		return 1;
-	(void)pipe(tube)
+	(void)pipe(tube);
 	mlx_lstadd_back(&lst, mlx_lstnew(strdup("Hello")));
 	mlx_lstadd_back(&lst, mlx_lstnew(strdup("again")));
 	mlx_lstadd_front(&lst, mlx_lstnew(strdup("does")));
