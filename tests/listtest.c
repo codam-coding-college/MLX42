@@ -33,13 +33,12 @@ int main() {
 	mlx_lstadd_back(&lst, mlx_lstnew(dqueue + 4));
 	mlx_lstadd_back(&lst, mlx_lstnew(dqueue + 5));
 	mlx_sort_renderqueue(&lst);
-	int res[6];
-	i = 0;
+	int prev = mlx_getzdata(lst);
 	while (lst)
 	{
-		res[i] = mlx_getzdata(lst);
-		printf("%i\n", res[i]);
-		++i;
+		if (mlx_getzdata(lst) < prev)
+			return 1;
+		prev = mlx_getzdata(lst);
 		lst = lst->next;
 	}
 }
