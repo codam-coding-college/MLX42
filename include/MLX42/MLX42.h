@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX42.h                                            :+:    :+:            */
+/*   MLX42.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 16:23:19 by ntamayo-      ########   odam.nl         */
+/*   Updated: 2023/11/04 20:46:37 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
  * for the inner workings eitherway (shaders, vertex buffer, ...).  
  */
 
-#ifndef MLX42_H
-# define MLX42_H
+#ifndef MLX42
+# define MLX42
 # include <stddef.h>
 # include <stdint.h>
 # include <stdbool.h>
