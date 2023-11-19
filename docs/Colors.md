@@ -70,6 +70,8 @@ In this small example we will create a white image:
 
 ```c
 #include "MLX42/MLX42.h"
+#include <stdlib.h>
+#include <string.h>
 
 // Bytes Per Pixel. Since each pixel is represented as an integer, it will be four bytes for four channels.
 #define BPP sizeof(int32_t)
