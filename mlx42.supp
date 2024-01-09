@@ -1,0 +1,34 @@
+{
+	<MLX42>
+	Memcheck:Leak
+	...
+	obj:/usr/lib/x86_64-linux-gnu/libnvidia*
+}
+
+{
+	<MLX42>
+	Memcheck:Leak
+	...
+	obj:/usr/lib/x86_64-linux-gnu/libdbus*
+}
+
+{
+	<MLX42>
+	Memcheck:Leak
+	...
+	obj:/usr/lib/x86_64-linux-gnu/libglfw*
+}
+
+{
+	<MLX42>
+	Memcheck:Leak
+	...
+	obj:/usr/lib/x86_64-linux-gnu/libX11*
+}
+
+{
+	<MLX42>
+	Memcheck:Leak
+	...
+	fun:_dl_open
+}
