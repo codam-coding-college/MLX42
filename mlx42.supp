@@ -30,5 +30,19 @@
 	<MLX42>
 	Memcheck:Leak
 	...
+	obj:/usr/lib/x86_64-linux-gnu/dri*
+}
+
+{
+	<MLX42>
+	Memcheck:Leak
+	...
+	obj:/usr/lib/x86_64-linux-gnu/libLLVM*
+}
+
+{
+	<MLX42>
+	Memcheck:Leak
+	...
 	fun:_dl_open
 }
