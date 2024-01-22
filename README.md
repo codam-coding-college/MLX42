@@ -136,16 +136,16 @@ in order to link the program with the correct frameworks:
 Normally if you simply installed / built `glfw` from source or already have it installed
 the compilation should be:
 ```bash
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw
+gcc main.c ... libmlx42.a -Iinclude -lglfw
 ```
 
 #### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew)
 ```bash
 # Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
+gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
 
 # 42Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 ```
 
 #### MacOS Security:
@@ -163,18 +163,18 @@ There will be a pop-up at the bottom telling you that an application tried to ru
 
 For Debian like (Ubuntu, Mint, Pop OS...):
 ```bash 
-➜  ~ sudo apt update
-➜  ~ sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+sudo apt update
+sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 ```
 
 For Arch-linux (Manjaro, Endeavor, Garuda):
 ```bash
-➜  ~ sudo pacman -S glfw-x11
+sudo pacman -S glfw-x11
 ```
 OR (if you use sway/wlroots compositor or other wayland compositor)
 
 ```bash
-➜  ~ sudo pacman -S glfw-wayland
+sudo pacman -S glfw-wayland
 ```
 
 2. [Download and build MLX42](#download-and-build---mlx42) 
@@ -182,7 +182,7 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 3. Compile your program with the library:
 
 ```bash
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 ```
 4. Profit!
 
