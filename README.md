@@ -90,10 +90,10 @@ ctest --output-on-failure --test-dir build
 ## Download and build - MLX42
 
 ```bash 
-➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
-➜  ~ cd MLX42
-➜  ~ cmake -B build # build here refers to the outputfolder.
-➜  ~ cmake --build build -j4 # or do make -C build -j4
+git clone https://github.com/codam-coding-college/MLX42.git
+cd MLX42
+cmake -B build # build here refers to the outputfolder.
+cmake --build build -j4 # or do make -C build -j4
 ```
 
 The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.
@@ -113,11 +113,19 @@ You can find an example makefile in the documentation [here](https://github.com/
 If your system has neither GLFW nor CMake its highly recommended you use brew to install those missing dependencies.
 
 For 42 Campuses you can use: [42Homebrew](https://github.com/kube/42homebrew)
+
+Otherwise with homebrew:
 ```bash
-# This will also install CMake.
-# Be aware that this may take a while so be patient.
-➜  ~ brew install glfw
+brew install glfw
+brew install cmake
 ```
+If you are using Apple Silicon (M1 chip or later), note that the Homebrew install path is different.
+You may want to update your shell configuration file. For Zsh users (default shell on newer macOS versions):
+```bash
+nano ~/.zshrc
+export LIBRARY_PATH=/opt/homebrew/lib
+```
+Restart your shell session or restart your terminal for the changes to take effect.
 
 For MacOS you need to use the following flags to compile your program with the library
 in order to link the program with the correct frameworks:
