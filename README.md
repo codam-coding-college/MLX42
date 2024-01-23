@@ -90,10 +90,10 @@ ctest --output-on-failure --test-dir build
 ## Download and build - MLX42
 
 ```bash 
-➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
-➜  ~ cd MLX42
-➜  ~ cmake -B build # build here refers to the outputfolder.
-➜  ~ cmake --build build -j4 # or do make -C build -j4
+git clone https://github.com/codam-coding-college/MLX42.git
+cd MLX42
+cmake -B build # build here refers to the outputfolder.
+cmake --build build -j4 # or do make -C build -j4
 ```
 
 The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.
@@ -113,11 +113,19 @@ You can find an example makefile in the documentation [here](https://github.com/
 If your system has neither GLFW nor CMake its highly recommended you use brew to install those missing dependencies.
 
 For 42 Campuses you can use: [42Homebrew](https://github.com/kube/42homebrew)
+
+Otherwise with homebrew:
 ```bash
-# This will also install CMake.
-# Be aware that this may take a while so be patient.
-➜  ~ brew install glfw
+brew install glfw
+brew install cmake
 ```
+If you are using Apple Silicon (M1 chip or later), note that the Homebrew install path is different.
+You may want to update your shell configuration file. For Zsh users (default shell on newer macOS versions):
+```bash
+nano ~/.zshrc
+export LIBRARY_PATH=/opt/homebrew/lib
+```
+Restart your shell session or restart your terminal for the changes to take effect.
 
 For MacOS you need to use the following flags to compile your program with the library
 in order to link the program with the correct frameworks:
@@ -128,16 +136,16 @@ in order to link the program with the correct frameworks:
 Normally if you simply installed / built `glfw` from source or already have it installed
 the compilation should be:
 ```bash
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw
+gcc main.c ... libmlx42.a -Iinclude -lglfw
 ```
 
 #### Via [Homebrew](https://brew.sh/) / [42Homebrew](https://github.com/kube/42homebrew)
 ```bash
 # Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
+gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
 
 # 42Homebrew
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+gcc main.c ... libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 ```
 
 #### MacOS Security:
@@ -155,18 +163,18 @@ There will be a pop-up at the bottom telling you that an application tried to ru
 
 For Debian like (Ubuntu, Mint, Pop OS...):
 ```bash 
-➜  ~ sudo apt update
-➜  ~ sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+sudo apt update
+sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 ```
 
 For Arch-linux (Manjaro, Endeavor, Garuda):
 ```bash
-➜  ~ sudo pacman -S glfw-x11
+sudo pacman -S glfw-x11
 ```
 OR (if you use sway/wlroots compositor or other wayland compositor)
 
 ```bash
-➜  ~ sudo pacman -S glfw-wayland
+sudo pacman -S glfw-wayland
 ```
 
 2. [Download and build MLX42](#download-and-build---mlx42) 
@@ -174,7 +182,7 @@ OR (if you use sway/wlroots compositor or other wayland compositor)
 3. Compile your program with the library:
 
 ```bash
-➜  ~ gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 ```
 4. Profit!
 
