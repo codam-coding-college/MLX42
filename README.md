@@ -268,9 +268,10 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 void ft_randomize(void* param)
 {
-	for (int32_t i = 0; i < image->width; ++i)
+	(void)param;
+	for (uint32_t i = 0; i < image->width; ++i)
 	{
-		for (int32_t y = 0; y < image->height; ++y)
+		for (uint32_t y = 0; y < image->height; ++y)
 		{
 			uint32_t color = ft_pixel(
 				rand() % 0xFF, // R
@@ -301,7 +302,7 @@ void ft_hook(void* param)
 
 // -----------------------------------------------------------------------------
 
-int32_t main(int32_t argc, const char* argv[])
+int32_t main(void)
 {
 	mlx_t* mlx;
 
