@@ -57,7 +57,7 @@ However if you can't do either CMake will still be able to fetch GLFW and build 
 > [!NOTE]
 > For Codam, GLFW is already installed on the Macs.
 
-> [!NOTE
+> [!NOTE]
 > During the linking stage, the flag to link GLFW can either be: -lglfw3 or -lglfw depending on your system.
 
 1. Compile your program with the library:
