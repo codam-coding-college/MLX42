@@ -3,7 +3,7 @@
   <img src="https://user-images.githubusercontent.com/63303990/150698103-7e908ff3-abf8-4b0f-ad54-07a76b6c45e2.png" alt="42MLX_Logo">
 </div>
 <div align="center">
-  <sub>Written by <a href="https://portfolio.w2wizard.dev/">W2.Wizard</a> for the 42 Network</sub>
+  <sub>Written by <a href="https://portfolio.w2wizard.dev/">W2.Wizard for Codam</a></sub>
     <div align="center">
 	</br>
 	<img src="https://img.shields.io/github/license/codam-coding-college/MLX42" alt="License GPL2.0"> 
@@ -54,9 +54,11 @@ Same goes for CMake or any other dependencies you might need for your system.
 
 However if you can't do either CMake will still be able to fetch GLFW and build it. You can then statically link it from the `_deps` folder.
 
-> **Note**: For Codam, GLFW is already installed on the Macs.
+> [!NOTE]
+> For Codam, GLFW is already installed on the Macs.
 
-> **Note**: During the linking stage, the flag to link GLFW can either be: -lglfw3 or -lglfw depending on your system.
+> [!NOTE
+> During the linking stage, the flag to link GLFW can either be: -lglfw3 or -lglfw depending on your system.
 
 1. Compile your program with the library:
 	- For: [MacOS](#for-macos)
@@ -190,7 +192,8 @@ gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
 ## For Windows (with Windows Subsystem for Linux 2 (WSL2))
 
-> **Warning**: Before starting with all these steps, [read this](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps)
+> [!IMPORTANT]
+> Before starting with all these steps, [read this](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps)
 
 1. Set these variables in your `.zshrc` or `.bashrc`:
 ```bash
@@ -223,7 +226,8 @@ and they might not even show up in the list until the first time you start the a
 
 ## For Windows Native:
 
-> **Warning**: Be aware that Visual Studio (2022) is required for this. Developing on Windows can be somewhat frustrating.
+> [!IMPORTANT]
+> Be aware that Visual Studio (2022) is required for this. Developing on Windows can be somewhat frustrating.
 
 We highly recommend you simply use [WSL2](#for-windows-with-windows-subsystem-for-linux-2-wsl2) to make this as painless as possible.
 However if you insist on building for windows natively then all you need in terms of dependencies is:
