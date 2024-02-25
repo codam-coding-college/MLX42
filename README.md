@@ -58,8 +58,8 @@ $(LIBMLX): $(MLX)
 	$(MAKE) -C $(MLX)
 
 $(MLX):
-	cmake $(MLX) -B $(MLX)	
 	$(CLONE) https://github.com/kodokaii/MLX42.git $(MLX)
+	cmake $(MLX) -B $(MLX)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
