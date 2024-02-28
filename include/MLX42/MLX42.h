@@ -12,7 +12,7 @@
 
 /**
  *
- * MLX42 is a cross-platform low level and simple cross-platform graphics
+ * MLX42 is a cross-platform low level and simple graphics
  * library written in C and uses OpenGL and GLFW for it's underlying windowing
  * and rendering system.
  * 
