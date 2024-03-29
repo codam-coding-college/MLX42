@@ -165,7 +165,7 @@ endif()
 # This only really useful if you are a system administrator and want to install
 # the library to the system, if you are a developer you should just use the
 # library as a subproject as you probably don't have (nor really should) have any
-# amibitons to use this for anything other than your own school projects.
+# ambitions to use this for anything other than your own school projects.
 
 install(
 	DIRECTORY ./include/MLX42 DESTINATION ${CMAKE_INSTALL_PREFIX}/include
