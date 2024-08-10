@@ -39,6 +39,9 @@ It is built on OpenGL and uses batched rendering to speed up the rendering proce
 ## Open source && Community driven 🌐
 This project is being actively maintained by Codam as well as students from the 42 Network. This gives students the direct opportunity to learn more about the library itself as well as fix any potential bugs instead of merely accepting them.
 
+> [!IMPORTANT]
+> At times it may seem like no updates have taken place for a long time. This is expected, the project / lib is considered completed and requires minimal updates. Bug fixes are still guaranteed and the project is still being actively maintained.
+
 ---
 
 ## Installation 🏗️
