@@ -33,6 +33,9 @@ set(BUILD_TESTS	OFF CACHE BOOL "Build the tests to verify the integrity of the l
 # Reduce the size of LodePNG, we don't need these things.
 add_definitions(-D LODEPNG_NO_COMPILE_ENCODER)
 add_definitions(-D LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS)
+if(EMSCRIPTEN)
+    add_definitions(-D EMSCRIPTEN)
+endif()
 
 if(UNIX AND NOT EMSCRIPTEN)
 	set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.sh)
@@ -41,7 +44,7 @@ if(UNIX AND NOT EMSCRIPTEN)
 		-Wall
 		-Werror
 		-Wunreachable-code
-		
+
 		# Some low priority warnings that are annoying.
 		-Wno-char-subscripts
 		-Wno-sign-compare
@@ -150,7 +153,7 @@ endif()
 
 # Testing
 # -----------------------------------------------------------------------------
-# Only build tests if we are the main project or explicitly told to, make sure 
+# Only build tests if we are the main project or explicitly told to, make sure
 # tests are not built when mlx42 is included as a subproject, use MLX42_BUILD_TESTS to overwrite this
 # use cmake -DBUILD_TESTS=ON/-DMLX42_BUILD_TESTS=ON to build tests
 

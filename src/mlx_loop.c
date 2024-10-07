@@ -95,12 +95,14 @@ void mlx_loop(mlx_t* mlx)
 	MLX_NONNULL(mlx);
 
 	double start, oldstart = 0;
+#ifndef EMSCRIPTEN
 	while (!glfwWindowShouldClose(mlx->window))
 	{
+#endif
 		start = glfwGetTime();
 		mlx->delta_time = start - oldstart;
 		oldstart = start;
-	
+
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
@@ -114,5 +116,7 @@ void mlx_loop(mlx_t* mlx)
 
 		glfwSwapBuffers(mlx->window);
 		glfwPollEvents();
+#ifndef EMSCRIPTEN
 	}
+#endif
 }
