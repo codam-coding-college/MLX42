@@ -34,7 +34,7 @@ set(BUILD_TESTS	OFF CACHE BOOL "Build the tests to verify the integrity of the l
 add_definitions(-D LODEPNG_NO_COMPILE_ENCODER)
 add_definitions(-D LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS)
 
-if(UNIX)
+if(UNIX AND NOT EMSCRIPTEN)
 	set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.sh)
 	add_compile_options(
 		-Wextra
@@ -125,24 +125,27 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Dependencies
 # -----------------------------------------------------------------------------
 
-find_package(glfw3)
 find_package(OpenGL REQUIRED)
 
-target_link_libraries(mlx42 OpenGL::GL)
-if (NOT glfw3_FOUND AND GLFW_FETCH)
-	message(STATUS "Install GLFW to suppress this message")
-	message(STATUS "Please wait, fetching GLFW ...")
-	include(${CMAKE_DIR}/LinkGLFW.cmake)
-	LinkGLFW(mlx42)
-elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
-	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
-endif()
-
-if (glfw3_FOUND)
-	target_link_libraries(mlx42 ${GLFW3_LIBRARY})
-endif()
-if(APPLE)
-	target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
+if(EMSCRIPTEN)
+    target_link_libraries(mlx42 "-s USE_GLFW=3" "-s FULL_ES3=1")
+else()
+	target_link_libraries(mlx42 OpenGL::GL)
+	find_package(glfw3)
+	if (glfw3_FOUND)
+		target_link_libraries(mlx42 ${GLFW3_LIBRARY})
+	endif()
+	if (NOT glfw3_FOUND AND GLFW_FETCH)
+		message(STATUS "Install GLFW to suppress this message")
+		message(STATUS "Please wait, fetching GLFW ...")
+		include(${CMAKE_DIR}/LinkGLFW.cmake)
+		LinkGLFW(mlx42)
+	elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
+		message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
+	endif()
+	if(APPLE)
+		target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
+	endif()
 endif()
 
 # Testing
