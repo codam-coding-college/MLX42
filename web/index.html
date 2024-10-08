@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAssembly Test</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100%;
+            min-height: 100dvh; /* Fallback for browsers not supporting viewport height */
+            background-color: black; /* Set background color to black */
+        }
+    </style>
+</head>
+<body>
+    <script src="coi-serviceworker.js"></script>
+    <span class="load">Loading...</span>
+    <canvas width="1024" height="1024" id="canvas"></canvas>
+    <script>
+        var Module = {
+            onRuntimeInitialized: function() {
+                // This is called when the Emscripten module is ready
+                console.log("Emscripten module initialized");
+
+                // Hide loading text when canvas is fully loaded
+                var loadingText = document.querySelector('.load');
+                loadingText.style.display = 'none';
+            },
+            canvas: (function() {
+                var canvas = document.getElementById('canvas');
+                canvas.addEventListener("webglcontextlost", function(e) {
+                    alert('WebGL context lost. Reload the page.');
+                    e.preventDefault();
+                }, false);
+                return canvas;
+            })()
+        };
+    </script>
+    <script src="demo.js"></script>
+</body>
+</html>
