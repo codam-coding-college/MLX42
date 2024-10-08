@@ -88,4 +88,64 @@ cd web
 python3 -m http.server 8000
 ```
 
-Once the server is up and running all you need to do now is go to [localhost](http://localhost:8000/index.html)
+Once the server is up and running all you need to do now is go to [localhost](http://localhost:8000/index.html).
+There you can locally develop your application without having to do any git commits or actions shenanigans.
+
+# Deploying to Github Pages
+
+For a free, quick and easy hosting solution you can realistically deploy this anywhere.
+However for now we will only focus on putting this up via github pages.
+
+What you need in your repository is a `.github/workflows/static.yml` file.
+It can be named anything `static`, `ci`, whatever. Later on if you learn more about CI Pipelines you can use this to do a lot of useful things.
+
+## Enabling github pages
+Follow this step: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow
+
+Once selected, you need to commit an actions file.
+For now you can copy paste MLX42's `wasm.yml` file which functionally does the exact same.
+```yml
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["master"] # Change to main or whatever fancy name
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Single deploy job since we're just deploying
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    #TODO: add a build step to get the wasm file instead of commiting it.
+    #Doesn't really matter atm since the git history is polluted anyway
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './web'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+Once you commit this file github will do it's magic and create a deployment.
+You should then get a link to where you can access you program. Now you can access your app anywhere!
