@@ -69,12 +69,18 @@ else()
     set(CCSHADER ${TOOLS_DIR}/compile_shader.bat)
 endif()
 
+if(EMSCRIPTEN)
+    set(EMSCRIPTEN_VALUE 1)
+else()
+    set(EMSCRIPTEN_VALUE 0)
+endif()
+
 # Add custom command for fragment shader
 add_custom_command(
     COMMENT "Building fragment shader"
     DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.frag
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mlx_frag_shader.c
-    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.frag ${EMSCRIPTEN} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_frag_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.frag ${EMSCRIPTEN_VALUE} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_frag_shader.c
     VERBATIM
     PRE_BUILD
     USES_TERMINAL
@@ -85,7 +91,7 @@ add_custom_command(
     COMMENT "Building vertex shader"
     DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.vert
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mlx_vert_shader.c
-    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.vert ${EMSCRIPTEN} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_vert_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.vert ${EMSCRIPTEN_VALUE} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_vert_shader.c
     VERBATIM
     PRE_BUILD
     USES_TERMINAL
