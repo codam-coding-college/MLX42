@@ -2,8 +2,6 @@
 name: Deploy static content to Pages
 
 on:
-  push:
-    branches: ["webasm"]
   workflow_dispatch:
 
 permissions:
