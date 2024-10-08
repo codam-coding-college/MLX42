@@ -34,14 +34,13 @@ set(BUILD_TESTS	OFF CACHE BOOL "Build the tests to verify the integrity of the l
 add_definitions(-D LODEPNG_NO_COMPILE_ENCODER)
 add_definitions(-D LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS)
 
-if(UNIX)
-	set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.sh)
+if(UNIX AND NOT EMSCRIPTEN)
 	add_compile_options(
 		-Wextra
 		-Wall
 		-Werror
 		-Wunreachable-code
-		
+
 		# Some low priority warnings that are annoying.
 		-Wno-char-subscripts
 		-Wno-sign-compare
@@ -58,31 +57,38 @@ if(UNIX)
 	endif(DEBUG)
 else()
 	# TODO: Figure out what we need for windows.
-	set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.bat)
 endif()
 
 # Build specific files
 # @see https://cmake.org/cmake/help/latest/command/add_custom_command.html
 # -----------------------------------------------------------------------------
 
+if (UNIX)
+    set(CCSHADER ${TOOLS_DIR}/compile_shader.sh)
+else()
+    set(CCSHADER ${TOOLS_DIR}/compile_shader.bat)
+endif()
+
+# Add custom command for fragment shader
 add_custom_command(
-	COMMENT "Building fragment shader"
-	DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.frag
-	OUTPUT mlx_frag_shader.c
-	COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.frag > mlx_frag_shader.c
-	VERBATIM
-	PRE_BUILD
-	USES_TERMINAL
+    COMMENT "Building fragment shader"
+    DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.frag
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mlx_frag_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.frag ${EMSCRIPTEN} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_frag_shader.c
+    VERBATIM
+    PRE_BUILD
+    USES_TERMINAL
 )
 
+# Add custom command for vertex shader
 add_custom_command(
-	COMMENT "Building vertex shader"
-	DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.vert
-	OUTPUT mlx_vert_shader.c
-	COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.vert > mlx_vert_shader.c
-	VERBATIM
-	PRE_BUILD
-	USES_TERMINAL
+    COMMENT "Building vertex shader"
+    DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.vert
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mlx_vert_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.vert ${EMSCRIPTEN} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_vert_shader.c
+    VERBATIM
+    PRE_BUILD
+    USES_TERMINAL
 )
 
 # Sources
@@ -125,29 +131,32 @@ target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Dependencies
 # -----------------------------------------------------------------------------
 
-find_package(glfw3)
 find_package(OpenGL REQUIRED)
 
-target_link_libraries(mlx42 OpenGL::GL)
-if (NOT glfw3_FOUND AND GLFW_FETCH)
-	message(STATUS "Install GLFW to suppress this message")
-	message(STATUS "Please wait, fetching GLFW ...")
-	include(${CMAKE_DIR}/LinkGLFW.cmake)
-	LinkGLFW(mlx42)
-elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
-	message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
-endif()
-
-if (glfw3_FOUND)
-	target_link_libraries(mlx42 ${GLFW3_LIBRARY})
-endif()
-if(APPLE)
-	target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
+if(EMSCRIPTEN)
+    target_link_libraries(mlx42 "-s USE_GLFW=3" "-s FULL_ES3=1")
+else()
+	target_link_libraries(mlx42 OpenGL::GL)
+	find_package(glfw3)
+	if (glfw3_FOUND)
+		target_link_libraries(mlx42 ${GLFW3_LIBRARY})
+	endif()
+	if (NOT glfw3_FOUND AND GLFW_FETCH)
+		message(STATUS "Install GLFW to suppress this message")
+		message(STATUS "Please wait, fetching GLFW ...")
+		include(${CMAKE_DIR}/LinkGLFW.cmake)
+		LinkGLFW(mlx42)
+	elseif(NOT glfw3_FOUND AND NOT GLFW_FETCH)
+		message(FATAL_ERROR "Unable to build: GLFW can't be found nor fetched.")
+	endif()
+	if(APPLE)
+		target_link_libraries(mlx42 "-framework Cocoa" "-framework IOKit")
+	endif()
 endif()
 
 # Testing
 # -----------------------------------------------------------------------------
-# Only build tests if we are the main project or explicitly told to, make sure 
+# Only build tests if we are the main project or explicitly told to, make sure
 # tests are not built when mlx42 is included as a subproject, use MLX42_BUILD_TESTS to overwrite this
 # use cmake -DBUILD_TESTS=ON/-DMLX42_BUILD_TESTS=ON to build tests
 

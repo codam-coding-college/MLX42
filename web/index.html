@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAssembly Test</title>
+    <style>
+        body {
+            margin: auto;
+            padding-top: 1rem;
+            width: 100%;
+            min-height: 100dvh;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            max-width: 65rem;
+            overflow: hidden;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #00bfff;
+        }
+
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        canvas {
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            border: 2px solid #1e90ff;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            color: #1e90ff;
+            font-weight: bold;
+            display: none;
+        }
+
+        .description {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-align: justify;
+        }
+
+        .description p {
+            line-height: 1.6;
+            margin: 1em 0;
+        }
+
+        .instructions {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .instructions p {
+            font-size: 1.2em;
+        }
+
+        kbd {
+            background-color: #333;
+            border-radius: 3px;
+            border: 1px solid #666;
+            box-shadow: 0 1px 0 #666, 0 1px 0 1px rgba(255, 255, 255, 0.1);
+            color: #fff;
+            display: inline-block;
+            font-size: 1em;
+            line-height: 1.4;
+            padding: 2px 6px;
+            margin: 0 2px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>WebAssembly Test</h1>
+        <a href="https://github.com/codam-coding-college/MLX42" target="_blank">Visit MLX42 GitHub Repo</a>
+    </header>
+    <section class="description">
+        <p>
+            This little demo demonstrates how you compile MLX42 using emscripten to leverage the power of WebAssembly
+            and run any graphical project directly in the web!
+        </p>
+    </section>
+    <div class="canvas-container">
+        <span class="loading">Loading...</span>
+        <canvas width="1024" height="1024" id="canvas"></canvas>
+    </div>
+    <div class="instructions">
+        <p>Use <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> to move the element in the canvas.</p>
+    </div>
+    <script src="coi-serviceworker.js"></script>
+    <script>
+        var Module = {
+            // This is called when the Emscripten module is ready
+            onRuntimeInitialized: () => {
+                console.log("Emscripten module initialized");
+                var loadingText = document.querySelector('.loading');
+                loadingText.style.display = 'none';
+            },
+            canvas: (() => {
+                var canvas = document.getElementById('canvas');
+                canvas.addEventListener("webglcontextlost", function (e) {
+                    alert('WebGL context lost. Reload the page.');
+                    e.preventDefault();
+                }, false);
+                return canvas;
+            })()
+        };
+    </script>
+    <script src="demo.js"></script>
+</body>
+
+</html>

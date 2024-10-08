@@ -90,17 +90,25 @@ bool mlx_loop_hook(mlx_t* mlx, void (*f)(void*), void* param)
 }
 
 // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+/**
+ * In Emscripten the lood is defined differently, there the this function
+ * is passed to the while loop instead
+ */
 void mlx_loop(mlx_t* mlx)
 {
 	MLX_NONNULL(mlx);
 
+#ifdef EMSCRIPTEN
+	static double start, oldstart = 0;
+#else
 	double start, oldstart = 0;
-	while (!glfwWindowShouldClose(mlx->window))
+    while (!glfwWindowShouldClose(mlx->window))
 	{
+#endif
 		start = glfwGetTime();
 		mlx->delta_time = start - oldstart;
 		oldstart = start;
-	
+
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwGetWindowSize(mlx->window, &(mlx->width), &(mlx->height));
@@ -114,5 +122,7 @@ void mlx_loop(mlx_t* mlx)
 
 		glfwSwapBuffers(mlx->window);
 		glfwPollEvents();
+#ifndef EMSCRIPTEN
 	}
+#endif
 }
