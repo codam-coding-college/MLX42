@@ -141,7 +141,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './web'
+          path: './web' # <= Set this variable to the directory relative to the root of the repo.
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
