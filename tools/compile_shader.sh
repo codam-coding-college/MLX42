@@ -4,39 +4,46 @@
 # See README in the root project for more information.
 # -----------------------------------------------------------------------------
 
-input_file=$1
-output_file=$(basename "$input_file" .frag).c
-echo "// Generated shader source from $input_file" > $output_file
-echo "const char *shader_source = R\"GLSL(" >> $output_file
-cat $input_file >> $output_file
-echo ")GLSL\";" >> $output_file
-
 # If no arguments have been given, exit with error code 1
-if [ "$#" -ne 1 ]; then
-	echo "ERROR: missing arguments, use as follows: $0 <ShaderFile>" 1>&2
-	exit 1
+if [ "$#" -ne 2 ]; then
+    echo "ERROR: missing arguments, use as follows: $0 <ShaderFile> <Mode>" 1>&2
+    exit 1
 fi
 
 # If file cannot be found, exit with error code 2
 if [ ! -f "$1" ]; then
-	echo "ERROR: shader file not found: $1" 1>&2
-	exit 2
+    echo "ERROR: shader file not found: $1" 1>&2
+    exit 2
 fi
 
 SHADERTYPE="${1##*.}"
 
 echo "// -----------------------------------------------------------------------------"
-echo "// Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.						  "
+echo "// Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.					  "
 echo "// See README in the root project for more information.					  	  "
 echo "// -----------------------------------------------------------------------------"
 echo ""
 echo "// If you wish to modify this file edit the .vert or .frag file!"
 echo ""
+
+# Include the MLX42 header
 echo "#include \"MLX42/MLX42_Int.h\""
 echo ""
-echo "const char* ${SHADERTYPE}_shader = \"$(sed -n '1{p;q;}' "$1")\\n\""
+
 {
-	# Skip over first line
+    # Start building the shader string
+    if [ "$2" -eq 1 ]; then
+        # Output WASM specific lines
+        echo "const char* ${SHADERTYPE}_shader = \"#version 300 es\\n\""
+        if [ "$SHADERTYPE" = "frag" ]; then
+            echo "	\"precision mediump float;\""
+        fi
+    else
+        # Non-Wasm, output the original shader version
+        echo "const char* ${SHADERTYPE}_shader = \"$(sed -n '1{p;q;}' "$1")\\n\""
+    fi
+
+    # Read the rest of the shader file
 	read
 	while IFS= read -r LINE; do
 		if [ ! "${LINE}" = "" ]; then
@@ -48,4 +55,5 @@ echo "const char* ${SHADERTYPE}_shader = \"$(sed -n '1{p;q;}' "$1")\\n\""
 		fi
 	done
 } < "$1"
+
 exit 0

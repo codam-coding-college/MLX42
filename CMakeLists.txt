@@ -33,12 +33,8 @@ set(BUILD_TESTS	OFF CACHE BOOL "Build the tests to verify the integrity of the l
 # Reduce the size of LodePNG, we don't need these things.
 add_definitions(-D LODEPNG_NO_COMPILE_ENCODER)
 add_definitions(-D LODEPNG_NO_COMPILE_ANCILLARY_CHUNKS)
-if(EMSCRIPTEN)
-    add_definitions(-D EMSCRIPTEN)
-endif()
 
 if(UNIX AND NOT EMSCRIPTEN)
-	set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.sh)
 	add_compile_options(
 		-Wextra
 		-Wall
@@ -61,31 +57,38 @@ if(UNIX AND NOT EMSCRIPTEN)
 	endif(DEBUG)
 else()
 	# TODO: Figure out what we need for windows.
-	set(CCSHADER ${PROJECT_SOURCE_DIR}/tools/compile_shader.bat)
 endif()
 
 # Build specific files
 # @see https://cmake.org/cmake/help/latest/command/add_custom_command.html
 # -----------------------------------------------------------------------------
 
+if (UNIX)
+    set(CCSHADER ${TOOLS_DIR}/compile_shader.sh)
+else()
+    set(CCSHADER ${TOOLS_DIR}/compile_shader.bat)
+endif()
+
+# Add custom command for fragment shader
 add_custom_command(
-	COMMENT "Building fragment shader"
-	DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.frag
-	OUTPUT mlx_frag_shader.c
-	COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.frag > mlx_frag_shader.c
-	VERBATIM
-	PRE_BUILD
-	USES_TERMINAL
+    COMMENT "Building fragment shader"
+    DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.frag
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mlx_frag_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.frag ${EMSCRIPTEN} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_frag_shader.c
+    VERBATIM
+    PRE_BUILD
+    USES_TERMINAL
 )
 
+# Add custom command for vertex shader
 add_custom_command(
-	COMMENT "Building vertex shader"
-	DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.vert
-	OUTPUT mlx_vert_shader.c
-	COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.vert > mlx_vert_shader.c
-	VERBATIM
-	PRE_BUILD
-	USES_TERMINAL
+    COMMENT "Building vertex shader"
+    DEPENDS ${PROJECT_SOURCE_DIR}/shaders/default.vert
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mlx_vert_shader.c
+    COMMAND ${CCSHADER} ${PROJECT_SOURCE_DIR}/shaders/default.vert ${EMSCRIPTEN} > ${CMAKE_CURRENT_BINARY_DIR}/mlx_vert_shader.c
+    VERBATIM
+    PRE_BUILD
+    USES_TERMINAL
 )
 
 # Sources
