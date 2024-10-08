@@ -2,14 +2,10 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["webasm"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -21,13 +17,15 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Single deploy job since we're just deploying
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    #TODO: add a build step to get the wasm file instead of commiting it.
+    #Doesn't really matter atm since the git history is polluted anyway
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +34,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: './web'
       - name: Deploy to GitHub Pages
         id: deployment
