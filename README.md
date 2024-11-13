@@ -3,7 +3,7 @@
   <img src="https://user-images.githubusercontent.com/63303990/150698103-7e908ff3-abf8-4b0f-ad54-07a76b6c45e2.png" alt="42MLX_Logo">
 </div>
 <div align="center">
-  <sub>Written by <a href="https://portfolio.w2wizard.dev/">W2.Wizard</a> for the 42 Network</sub>
+  <sub>Written by <a href="https://portfolio.w2wizard.dev/">W2.Wizard</a> for Codam</sub>
     <div align="center">
 	</br>
 	<img src="https://img.shields.io/github/license/codam-coding-college/MLX42" alt="License GPL2.0"> 
@@ -15,6 +15,9 @@
 MLX42 is a performant, easy to use, cross-platform, minimal windowing graphics library to create graphical applications without having to work directly with the native windowing framework of the given operating system.
 
 It provides primitive tools to draw textures onto the window as well as modifying them at runtime as they get displayed on the window.
+
+> [!IMPORTANT]
+> At times it may seem like no updates have taken place for a long time. This is expected, the project / lib is considered completed and requires minimal updates. Bug fixes are still guaranteed and the project is still being actively maintained.
 
 # Features ✨
 

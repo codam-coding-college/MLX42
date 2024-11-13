@@ -12,13 +12,13 @@
 
 /**
  *
- * MLX42 is a cross-platform low level and simple cross-platform graphics
+ * MLX42 is a cross-platform low level and simple graphics
  * library written in C and uses OpenGL and GLFW for it's underlying windowing
  * and rendering system.
  * 
  * It's a much more up-to-date alternative to the miniLibX which has been
  * extensively proven to be fragile, unmaintained, deprecated and just
- * plain painfully bad to work with. Also it's code quality is dubious.
+ * plain painfully bad to work with. Also its code quality is dubious.
  * 
  * Some structs contain potential void* which are to be ignored as they 
  * simply represent points of abstraction to the hidden internal header.

@@ -4,19 +4,28 @@
 :: -----------------------------------------------------------------------------
 
 @echo off
-SETLOCAL DisableDelayedExpansion
+SETLOCAL EnableDelayedExpansion
 
-:: go to usage function if no arguments have been given to the script
-IF [%1]==[] GOTO usage
+:: If no arguments have been given to the script
+IF "%~1"=="" (
+    echo ERROR: missing arguments, use as follows: %~nx0 ^<ShaderFile^> ^<Mode^> 1>&2
+    ENDLOCAL
+    EXIT /B 1
+)
 
-:: check if input file exists before continuing
-IF NOT EXIST %1 GOTO fnotfound
+:: Check if file exists
+IF NOT EXIST "%~1" (
+    echo ERROR: shader file not found: %~1 1>&2
+    ENDLOCAL
+    EXIT /B 2
+)
 
-SET SHADERTYPE=%~x1
-SET SHADERTYPE=%SHADERTYPE:~1%
+:: Extract the shader type (file extension without the dot)
+SET "SHADERTYPE=%~x1"
+SET "SHADERTYPE=%SHADERTYPE:~1%"
 
 echo // -----------------------------------------------------------------------------
-echo // Codam Coding College, Amsterdam @ <2022-2023> by W2Wizard.
+echo // Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
 echo // See README in the root project for more information.
 echo // -----------------------------------------------------------------------------
 echo.
@@ -25,23 +34,28 @@ echo.
 echo #include "MLX42/MLX42_Int.h"
 echo.
 
-FOR /F "delims=" %%A IN (%1) DO IF NOT DEFINED VERSIONLINE set "VERSIONLINE=%%A"
-echo const char* %SHADERTYPE%_shader = "%VERSIONLINE%\n"
-FOR /F "skip=1 delims=" %%A IN (%1) DO (
-	IF "%%A" == "}" (echo 	"%%A";) ELSE (echo 	"%%A")
+:: Check the Mode argument (WASM specific output if Mode == 1)
+IF "%~2"=="1" (
+    echo const char* %SHADERTYPE%_shader = "#version 300 es\n"
+    echo     "precision mediump float;\n"
+) ELSE (
+    FOR /F "delims=" %%A IN ('more +0 "%~1"') DO (
+        echo const char* %SHADERTYPE%_shader = "%%A\n"
+        GOTO next
+    )
+)
+
+:next
+:: Read and process the rest of the shader file
+FOR /F "usebackq delims=" %%A IN ("%~1") DO (
+    IF NOT "%%A"=="" (
+        IF "%%A"=="}" (
+            echo     "%%A";
+        ) ELSE (
+            echo     "%%A"
+        )
+    )
 )
 
 ENDLOCAL
 EXIT /B 0
-
-:: usage function exits the script with exit code 3 (path not found)
-:usage
-echo ERROR: missing arguments, use as follows: %0 ^<ShaderFile^> 1>&2
-ENDLOCAL
-EXIT /B 3
-
-:: fnotfound function exits the script with exit code 2 (file not found)
-:fnotfound
-echo ERROR: shader file not found: %1 1>&2
-ENDLOCAL
-EXIT /B 2
