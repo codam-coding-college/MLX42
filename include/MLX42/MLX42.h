@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX42.h                                            :+:    :+:            */
+/*   MLX42.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 16:23:19 by ntamayo-      ########   odam.nl         */
+/*   Updated: 2025/06/06 10:09:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ typedef struct mlx_instance
 
 /**
  * Key function callback data.
- * Data related to the mlx_key_hook function
+ * Data related to the mlx_key_hook function.
  * 
  * @param key The key that was pressed.
  * @param action The action that was done with the key.
@@ -760,7 +760,7 @@ void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param);
 
 /**
  * This function sets the resize callback, which is called when the window is
- * resized
+ * resized.
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] func The resize callback function.
