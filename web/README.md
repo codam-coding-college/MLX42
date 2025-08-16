@@ -11,7 +11,7 @@ In this README you will learn how to compile your project towards Webassembly an
 
 ## Building
 
-Once you made sure you have emscripten installed (check if `emcc` and `emcake` work).
+Once you made sure you have emscripten installed (check if `emcc` and `emcmake` work).
 
 Run:
 ```bash
