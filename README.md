@@ -117,6 +117,14 @@ You can pass build [options](./docs/index.md#available-options) to cmake, e.g: `
 
 You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
 
+#### Bindings (Python, etc)
+MLX42 currently has a [Python FFI binding](./ffi/python/README.md) available.
+In order to get it working you need to build the library first as shown above.
+The only change is that you need to enable the option `BUILD_SHARED_LIBS` when building with cmake:
+```bash
+cmake -B build -DBUILD_SHARED_LIBS=ON && cmake --build build --parallel
+```
+
 ----
 
 ## For MacOS:

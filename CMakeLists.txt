@@ -23,9 +23,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # Options
-set(DEBUG		OFF CACHE BOOL "Build MLX42 in debug mode, enabling assertions")
-set(GLFW_FETCH	ON CACHE BOOL "Clone and install GLFW")
-set(BUILD_TESTS	OFF CACHE BOOL "Build the tests to verify the integrity of the lib")
+# -----------------------------------------------------------------------------
+option(BUILD_SHARED_LIBS "Build mlx42 as a shared library." OFF)
+set(DEBUG OFF CACHE BOOL "Build MLX42 in debug mode, enabling assertions")
+set(GLFW_FETCH ON CACHE BOOL "Clone and install GLFW")
+set(BUILD_TESTS OFF CACHE BOOL "Build the tests to verify the integrity of the lib")
 
 # Compile Options
 # -----------------------------------------------------------------------------
@@ -99,7 +101,9 @@ add_custom_command(
 
 # Sources
 # -----------------------------------------------------------------------------
-add_library(mlx42 STATIC
+# The library type is now determined by the BUILD_SHARED_LIBS option.
+# By default, it builds a STATIC library.
+add_library(mlx42 # Changed from "add_library(mlx42 STATIC"
 
 	# Root
 	${SOURCE_DIR}/mlx_cursor.c
@@ -133,6 +137,16 @@ add_library(mlx42 STATIC
 	mlx_frag_shader.c
 )
 target_include_directories(mlx42 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# Add this block to control symbol visibility for shared library builds
+if(BUILD_SHARED_LIBS)
+    set_target_properties(mlx42 PROPERTIES
+        C_VISIBILITY_PRESET hidden
+        CXX_VISIBILITY_PRESET hidden
+    )
+    target_compile_definitions(mlx42 PRIVATE MLX42_BUILD_SHARED)
+endif()
+
 
 # Dependencies
 # -----------------------------------------------------------------------------
