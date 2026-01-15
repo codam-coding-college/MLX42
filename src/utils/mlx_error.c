@@ -6,7 +6,7 @@
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:51:54 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/22 08:50:15 by jvan-hal      ########   odam.nl         */
+/*   Updated: 2025/11/16 13:00:50 by w2wizard      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static const char* mlx_errors[MLX_ERRMAX] = {
 
 /**
  * Functions to set the error number, simply for convenience.
- * 
+ *
  * @param val The error value.
- * @return Always false 
+ * @return Always false
  */
 bool mlx_error(mlx_errno_t val)
 {
@@ -57,4 +57,9 @@ const char* mlx_strerror(mlx_errno_t val)
 	MLX_ASSERT(val < MLX_ERRMAX, "Index out of bounds");
 
 	return (mlx_errors[val]);
+}
+
+mlx_errno_t mlx_get_errno(void)
+{
+	return (mlx_errno);
 }
